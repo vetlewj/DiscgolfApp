@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Repos/mobilprog/DiscgolfApp/app/src/main/res/drawable/ic_map_black_24dp.xml" value="0.316" />
+        <entry key="..\:/Repos/mobilprog/DiscgolfApp/app/src/main/res/layout/activity_main.xml" value="0.3140625" />
+        <entry key="..\:/Repos/mobilprog/DiscgolfApp/app/src/main/res/layout/fragment_courses_overview_list.xml" value="0.31302083333333336" />
         <entry key="..\:/Repos/mobilprog/DiscgolfApp/app/src/main/res/layout/fragment_create_score_card.xml" value="0.3140625" />
+        <entry key="..\:/Repos/mobilprog/DiscgolfApp/app/src/main/res/layout/fragment_my_discs.xml" value="0.3140625" />
+        <entry key="..\:/Repos/mobilprog/DiscgolfApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3140625" />
       </map>
     </option>
   </component>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/coursesOverviewListFragment"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="@string/title_nav_courses" />
+    <item
+        android:id="@+id/createScoreCardFragment"
+        android:icon="@drawable/ic_baseline_play_circle_filled_24"
+        android:title="@string/title_nav_play" />
+    <item
+        android:id="@+id/myDiscsFragment"
+        android:icon="@drawable/ic_baseline_backpack_24"
+        android:title="@string/title_nav_my_discs" />
+
+</menu>

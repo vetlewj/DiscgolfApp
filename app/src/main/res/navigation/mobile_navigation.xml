@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mobile_navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/coursesOverviewListFragment">
 
+    <fragment
+        android:id="@+id/coursesOverviewListFragment"
+        android:name="no.hiof.discgolfapp.CoursesOverviewListFragment"
+        android:label="fragment_courses_overview_list"
+        tools:layout="@layout/fragment_courses_overview_list" />
+    <fragment
+        android:id="@+id/myDiscsFragment"
+        android:name="no.hiof.discgolfapp.MyDiscsFragment"
+        android:label="fragment_my_discs"
+        tools:layout="@layout/fragment_my_discs" />
+    <fragment
+        android:id="@+id/createScoreCardFragment"
+        android:name="no.hiof.discgolfapp.CreateScoreCardFragment"
+        android:label="fragment_create_score_card"
+        tools:layout="@layout/fragment_create_score_card" />
 </navigation>

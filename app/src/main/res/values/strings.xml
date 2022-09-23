@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">DiscgolfApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Navigation -->
+    <string name="title_nav_my_discs">Mine discer</string>
+    <string name="title_nav_play">Spill</string>
+    <string name="title_nav_courses">Baner</string>
+
+    <string name="courses_overview_list"> Baner fragment</string>
+    <string name="create_score_card">Opprett poengkort fragment</string>
+    <string name="my_discs">Mine Discer fragment</string>
 </resources>
