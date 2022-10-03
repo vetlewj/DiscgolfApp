@@ -16,16 +16,37 @@ data class Throw(
         }
 
         fun getThrows(): List<Throw> {
-            // TODO: Add sample values for throws
             return listOf(
                 Throw(
                     Location("start").apply {
-                        latitude = 59.00001
-                        longitude = 10.00001
+                        latitude = 59.130195
+                        longitude = 11.342336
                     },
                     Location("end").apply {
-                        latitude = 59.100101
-                        longitude = 10.10001
+                        latitude = 59.130635
+                        longitude = 11.342174
+                    },
+                    Date()
+                ),
+                Throw(
+                    Location("start").apply {
+                        latitude = 59.130635
+                        longitude = 11.342174
+                    },
+                    Location("end").apply {
+                        latitude = 59.130531
+                        longitude = 11.341848
+                    },
+                    Date()
+                ),
+                Throw(
+                    Location("start").apply {
+                        latitude = 59.130531
+                        longitude = 11.341848
+                    },
+                    Location("end").apply {
+                        latitude = 59.130416
+                        longitude = 11.341877
                     },
                     Date()
                 )

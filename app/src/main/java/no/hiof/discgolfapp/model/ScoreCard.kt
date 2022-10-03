@@ -8,9 +8,12 @@ data class ScoreCard(
     val par: Int,
     val score: Int,
     val date: Date,
-    val holeScores: ArrayList<HoleScore>
+    val holeScores: List<HoleScore>
 ) {
-    // TODO: Finish class
-    //TODO: Add sample data
+    companion object{
+        fun getScoreCards() : List<ScoreCard> {
+            return listOf(ScoreCard(Course.getCourses().get(0), 54, 54, Date(), HoleScore.getHoleScores()))
+        }
+    }
 }
 

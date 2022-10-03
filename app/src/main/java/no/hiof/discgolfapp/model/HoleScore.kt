@@ -10,7 +10,8 @@ data class HoleScore(
         fun getHoleScores(): List<HoleScore> {
             return listOf(
                 HoleScore(1, Throw.getThrows().size, 3, Throw.getThrows()),
-                // TODO: Add more sample data
+                HoleScore(2, Throw.getThrows().size, 4, Throw.getThrows()),
+                HoleScore(3, Throw.getThrows().size, 3, Throw.getThrows()),
             )
         }
     }
