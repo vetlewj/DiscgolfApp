@@ -10,4 +10,6 @@
     <string name="courses_overview_list"> Baner fragment</string>
     <string name="create_score_card">Opprett poengkort fragment</string>
     <string name="my_discs">Mine Discer fragment</string>
+    <string name="course_poster">course_poster</string>
+    <string name="course_name">course_name</string>
 </resources>
