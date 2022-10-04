@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
+import no.hiof.discgolfapp.model.Course
 
 
 class CoursesOverviewListFragment : Fragment() {
@@ -20,6 +24,13 @@ class CoursesOverviewListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val courseRecyclerView = view.findViewById<RecyclerView>(R.id.courseRecyclerView)
+
+        courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses())
+
+        courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
+
     }
 
 }
