@@ -18,4 +18,8 @@ class CoursesOverviewListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_courses_overview_list, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
 }
