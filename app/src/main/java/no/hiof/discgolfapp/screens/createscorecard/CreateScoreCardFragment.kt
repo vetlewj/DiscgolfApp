@@ -1,10 +1,11 @@
-package no.hiof.discgolfapp
+package no.hiof.discgolfapp.screens.createscorecard
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import no.hiof.discgolfapp.R
 
 class CreateScoreCardFragment : Fragment() {
 

@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_my_discs" />
     <fragment
         android:id="@+id/createScoreCardFragment"
-        android:name="no.hiof.discgolfapp.CreateScoreCardFragment"
+        android:name="no.hiof.discgolfapp.screens.createscorecard.CreateScoreCardFragment"
         android:label="fragment_create_score_card"
         tools:layout="@layout/fragment_create_score_card" />
 </navigation>
