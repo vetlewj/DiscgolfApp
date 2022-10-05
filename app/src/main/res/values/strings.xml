@@ -19,5 +19,6 @@
     <string name="create_scorecard_leaderboard_record_btn">Rekord ledertavle</string>
     <string name="create_scorecard_personal_average_btn">Personlig gjennomsnitt</string>
     <string name="create_scorecard_custom_btn">Egendefinert</string>
+    <string name="choose_course_text">Velg Bane:</string>
 
 </resources>

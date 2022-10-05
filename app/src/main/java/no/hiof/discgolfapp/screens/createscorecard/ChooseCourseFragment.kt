@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
+import no.hiof.discgolfapp.adapter.ChooseCourseRecyclerAdapter
 import no.hiof.discgolfapp.model.Course
 
 class ChooseCourseFragment : Fragment() {
@@ -25,7 +25,7 @@ class ChooseCourseFragment : Fragment() {
 
         val courseRecyclerView = view.findViewById<RecyclerView>(R.id.choose_course_recycler_view)
 
-        courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses())
+        courseRecyclerView.adapter = ChooseCourseRecyclerAdapter(Course.getCourses())
 
         courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
