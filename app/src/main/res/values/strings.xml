@@ -12,4 +12,5 @@
     <string name="my_discs">Mine Discer fragment</string>
     <string name="course_poster">course_poster</string>
     <string name="course_name">course_name</string>
+    <string name="disc_name">disc_name</string>
 </resources>

@@ -23,7 +23,7 @@ class MyDiscsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
-        val discRecyclerView = view.findViewById<RecyclerView>(R.id.discRecyclerView)
+        val discRecyclerView = view.findViewById<RecyclerView>(R.id.discRecycleView)
 
         discRecyclerView.adapter = DiscRecyclerAdapter(Disc.getDiscs())
 

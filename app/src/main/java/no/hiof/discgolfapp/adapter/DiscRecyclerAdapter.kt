@@ -2,21 +2,23 @@ package no.hiof.discgolfapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Disc
 
-class DiscRecyclerAdapter(private val discs:List<Disc>) : RecycleView.Adapter<DiscRecycleAdapter.DiscViewHolder>(){
-
-    override fun onCreateViewHolder(parent: Viewgroup, viewType:Int): DiscViewHolder {
+class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<DiscRecyclerAdapter.DiscViewHolder>(){
+//RecycleView.Adapter<DiscRecycleAdapter.DiscViewHolder>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): DiscViewHolder {
+    //override fun onCreateViewHolder(parent: View)
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.disc_list_item, parent, false)
 
         return DiscViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: DiscViewHolder, position: int){
+    override fun onBindViewHolder(holder: DiscViewHolder, position: Int){
 
         val currentDisc = discs[position]
 
