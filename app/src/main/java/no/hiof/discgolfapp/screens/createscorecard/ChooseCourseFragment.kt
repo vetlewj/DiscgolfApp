@@ -25,6 +25,7 @@ class ChooseCourseFragment : Fragment() {
 
         val courseRecyclerView = view.findViewById<RecyclerView>(R.id.choose_course_recycler_view)
 
+        // TODO: Courses should be sorted by distance from user
         courseRecyclerView.adapter = ChooseCourseRecyclerAdapter(Course.getCourses())
 
         courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
