@@ -20,4 +20,13 @@
         android:name="no.hiof.discgolfapp.screens.createscorecard.CreateScoreCardFragment"
         android:label="fragment_create_score_card"
         tools:layout="@layout/fragment_create_score_card" />
+    <fragment
+        android:id="@+id/chooseCourseFragment"
+        android:name="no.hiof.discgolfapp.screens.createscorecard.ChooseCourseFragment"
+        android:label="fragment_choose_course"
+        tools:layout="@layout/fragment_choose_course" >
+        <action
+            android:id="@+id/action_chooseCourseFragment_to_createScoreCardFragment"
+            app:destination="@id/createScoreCardFragment" />
+    </fragment>
 </navigation>
