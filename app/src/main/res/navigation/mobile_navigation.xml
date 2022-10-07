@@ -19,7 +19,11 @@
         android:id="@+id/createScoreCardFragment"
         android:name="no.hiof.discgolfapp.screens.createscorecard.CreateScoreCardFragment"
         android:label="fragment_create_score_card"
-        tools:layout="@layout/fragment_create_score_card" />
+        tools:layout="@layout/fragment_create_score_card" >
+        <argument
+            android:name="courseNum"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/chooseCourseFragment"
         android:name="no.hiof.discgolfapp.screens.createscorecard.ChooseCourseFragment"
