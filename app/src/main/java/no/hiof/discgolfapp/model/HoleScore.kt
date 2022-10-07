@@ -4,7 +4,7 @@ data class HoleScore(
     val holeNumber: Int,
     val score: Int,
     val par: Int,
-    val discThrows: List<Throw>
+    val discThrows: List<Throw>? = null
 ) {
     companion object {
         fun getHoleScores(): List<HoleScore> {

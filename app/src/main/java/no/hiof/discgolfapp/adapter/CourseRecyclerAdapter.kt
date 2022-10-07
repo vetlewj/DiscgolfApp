@@ -25,6 +25,7 @@ class CourseRecyclerAdapter(private val courses: List<Course>) : RecyclerView.Ad
         return courses.size
     }
 
+    // TODO: Choose the selected course and navigate to CreateScoreCardFragment with the selected course
     class CourseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val courseNameTextView : TextView = view.findViewById(R.id.courseNameTextView)
 

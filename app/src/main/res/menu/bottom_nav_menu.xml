@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_baseline_map_24"
         android:title="@string/title_nav_courses" />
     <item
-        android:id="@+id/createScoreCardFragment"
+        android:id="@+id/chooseCourseFragment"
         android:icon="@drawable/ic_baseline_play_circle_filled_24"
         android:title="@string/title_nav_play" />
     <item

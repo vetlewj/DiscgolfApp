@@ -8,8 +8,18 @@
     <string name="title_nav_courses">Baner</string>
 
     <string name="courses_overview_list"> Baner fragment</string>
-    <string name="create_score_card">Opprett poengkort fragment</string>
     <string name="my_discs">Mine Discer fragment</string>
     <string name="course_poster">course_poster</string>
     <string name="course_name">course_name</string>
+
+    <!-- Scorecard buttons -->
+    <string name="create_scorecard">Opprett poengkort</string>
+    <string name="create_scorecard_course_par_btn">Par</string>
+    <string name="create_scorecard_personal_best_btn">Personlig beste</string>
+    <string name="create_scorecard_leaderboard_record_btn">Rekord ledertavle</string>
+    <string name="create_scorecard_personal_average_btn">Personlig gjennomsnitt</string>
+    <string name="create_scorecard_custom_btn">Egendefinert</string>
+    <string name="choose_course_text">Velg Bane:</string>
+    <string name="no_course_selected">Ingen bane valgt</string>
+
 </resources>
