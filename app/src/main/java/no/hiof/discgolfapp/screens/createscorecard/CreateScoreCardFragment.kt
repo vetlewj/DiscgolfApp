@@ -29,10 +29,10 @@ class CreateScoreCardFragment : Fragment() {
         fragmentBinding = binding
 
         // TODO: Should be replaced by CourseId, but requires change in Model class
-        // val course = Course.getCourses().find { it.name == args.courseId }
-        val course = Course.getCourses()[args.courseNum]
+        val course = Course.getCourses().find { it.name == args.courseName }
+       //  val course = Course.getCourses()[args.courseNum]
 
-        binding.createScoreCardCourseNameTextView.text = course.name
+        binding.createScoreCardCourseNameTextView.text = course?.name ?: resources.getString(R.string.no_course_selected)
 
     }
 

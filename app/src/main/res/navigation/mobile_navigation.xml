@@ -21,8 +21,11 @@
         android:label="fragment_create_score_card"
         tools:layout="@layout/fragment_create_score_card" >
         <argument
-            android:name="courseNum"
-            app:argType="integer" />
+            android:name="courseName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_createScoreCardFragment_to_chooseCourseFragment"
+            app:destination="@id/chooseCourseFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseCourseFragment"

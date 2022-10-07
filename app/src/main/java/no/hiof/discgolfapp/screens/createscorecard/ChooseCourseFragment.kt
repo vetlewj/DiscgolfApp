@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,12 +33,13 @@ class ChooseCourseFragment : Fragment() {
         // TODO: Courses should be sorted by distance from user
         courseRecyclerView.adapter = ChooseCourseRecyclerAdapter(courseList){
             Log.d("ChooseCourseFragment", "Course clicked")
-            // TODO: Get the course clicked and pass it to the next fragment
-            val courseNum = 1
-            val action = ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(courseNum)
-            action.courseNum = courseNum
 
-            Toast.makeText(context, "Course ${courseNum+1} selected", Toast.LENGTH_SHORT).show()
+            val position = it as Button
+            val courseName = position.text.toString()
+
+            val clickedCourse = courseList.find { course -> course.name == courseName }
+
+            val action = ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(clickedCourse!!.name)
 
             findNavController().navigate(action)
         }

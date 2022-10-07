@@ -1,6 +1,7 @@
 package no.hiof.discgolfapp.model
 
 data class Course(
+    val id: Int,
     val name: String,
     val holes: Int?,
     val rating: Double?,
@@ -16,9 +17,9 @@ data class Course(
         fun getCourses(): List<Course> {
             // Hentet data rett fra API
             return listOf(
-                Course("Muselunden", null, null, "Oslo", "Oslo", null, 59.939369, 10.785842),
-                Course("Ekeberg skole", null, null, "Oslo", "Oslo", null, 59.895178, 10.787161),
-                Course("Frogner", null, null, "", null, null, null, null)
+                Course(0, "Muselunden", null, null, "Oslo", "Oslo", null, 59.939369, 10.785842),
+                Course(1, "Ekeberg skole", null, null, "Oslo", "Oslo", null, 59.895178, 10.787161),
+                Course(2, "Frogner", null, null, "", null, null, null, null)
                 // TODO: Add more sample data
             )
         }
