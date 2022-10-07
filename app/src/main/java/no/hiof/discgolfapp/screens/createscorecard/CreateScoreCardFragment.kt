@@ -30,10 +30,15 @@ class CreateScoreCardFragment : Fragment() {
 
         // TODO: Should be replaced by CourseId, but requires change in Model class
         val course = Course.getCourses().find { it.name == args.courseName }
-       //  val course = Course.getCourses()[args.courseNum]
 
-        binding.createScoreCardCourseNameTextView.text = course?.name ?: resources.getString(R.string.no_course_selected)
+        binding.createScoreCardCourseNameTextView.text =
+            course?.name ?: resources.getString(R.string.no_course_selected)
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentBinding = null
     }
 
 }
