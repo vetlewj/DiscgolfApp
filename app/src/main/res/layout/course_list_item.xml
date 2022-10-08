@@ -24,14 +24,14 @@
         <TextView
             android:id="@+id/courseNameTextView"
             android:layout_width="0dp"
-            android:layout_height="17dp"
+            android:layout_height="wrap_content"
             android:text="@string/course_name"
             android:textAlignment="center"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/coursePosterView"
             app:layout_constraintEnd_toEndOf="@+id/coursePosterView"
             app:layout_constraintStart_toStartOf="@+id/coursePosterView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/coursePosterView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
