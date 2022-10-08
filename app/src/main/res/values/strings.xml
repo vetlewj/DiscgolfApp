@@ -24,6 +24,14 @@
 
     <!-- Discs -->
     <string name="disc_name">disc_name</string>
-    <string name="disc_manufacturer">disc_manufacturer</string>
+    <string name="disc_speed">disc_speed</string>
+    <string name="disc_glide">disc_glide</string>
+    <string name="disc_turn">disc_turn</string>
+    <string name="disc_fade">disc_fade</string>
+    <string name="name">Name:</string>
+    <string name="speed">Speed:</string>
+    <string name="glide">Glide:</string>
+    <string name="turn">Turn:</string>
+    <string name="fade">Fade:</string>
 
 </resources>
