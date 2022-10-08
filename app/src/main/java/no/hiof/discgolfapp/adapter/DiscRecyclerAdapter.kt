@@ -31,9 +31,12 @@ class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<D
 
     class DiscViewHolder (view: View) : RecyclerView.ViewHolder(view){
         private val discNameTextView : TextView = view.findViewById(R.id.discNameTextView)
+        private val discManufacturerTextView : TextView = view.findViewById(R.id.discManufacturerTextView)
+        //private val discManufacturerTextView : TextView = view.findViewById(R.id.textView3)
 
         fun bind(disc: Disc){
             discNameTextView.text = disc.name
+            discManufacturerTextView.text = disc.manufacturer
         }
     }
 

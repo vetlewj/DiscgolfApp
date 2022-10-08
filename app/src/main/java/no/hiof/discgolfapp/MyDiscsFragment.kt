@@ -27,6 +27,7 @@ class MyDiscsFragment : Fragment() {
 
         discRecyclerView.adapter = DiscRecyclerAdapter(Disc.getDiscs())
 
+
         discRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
     }

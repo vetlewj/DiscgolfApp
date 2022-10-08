@@ -5,23 +5,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <view
-        android:id="@+id/discImageView"
-        class="androidx.cardview.widget.CardView"
-        android:layout_width="408dp"
-        android:layout_height="731dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="472dp"
+        android:layout_height="87dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06">
 
-    <TextView
-        android:id="@+id/discNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/disc_name"
-        app:layout_constraintBottom_toBottomOf="@+id/discImageView"
-        app:layout_constraintEnd_toEndOf="@+id/discImageView"
-        app:layout_constraintStart_toStartOf="@+id/discImageView"
-        app:layout_constraintTop_toTopOf="@+id/discImageView" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name:" />
+
+                <TextView
+                    android:id="@+id/discNameTextView"
+                    android:layout_width="81dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/disc_name"
+                    android:textAlignment="center" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Speed:" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Glide:" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manufacture:" />
+
+                <TextView
+                    android:id="@+id/discManufacturerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/disc_manufacturer" />
+
+            </TableRow>
+        </TableLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
