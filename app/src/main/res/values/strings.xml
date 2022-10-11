@@ -34,5 +34,7 @@
     <string name="turn">Turn:</string>
     <string name="fade">Fade:</string>
     <string name="settings_title">Innstillinger</string>
+    <string name="nav_drawer_header_title">Discgolf</string>
+    <string name="nav_drawer_header_text">Frisbeegolf applikasjon</string>
 
 </resources>
