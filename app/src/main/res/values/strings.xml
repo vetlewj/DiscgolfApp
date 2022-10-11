@@ -33,5 +33,6 @@
     <string name="glide">Glide:</string>
     <string name="turn">Turn:</string>
     <string name="fade">Fade:</string>
+    <string name="settings_title">Innstillinger</string>
 
 </resources>
