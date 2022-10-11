@@ -36,4 +36,9 @@
             android:id="@+id/action_chooseCourseFragment_to_createScoreCardFragment"
             app:destination="@id/createScoreCardFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="no.hiof.discgolfapp.screens.settingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
