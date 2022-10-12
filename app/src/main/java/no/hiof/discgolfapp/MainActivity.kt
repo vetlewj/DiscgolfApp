@@ -2,6 +2,7 @@ package no.hiof.discgolfapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -23,6 +24,15 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
+        val topAppBar = binding.topAppBar
+        topAppBar.setNavigationOnClickListener {
+            Log.d("MainActivity", "Navigation icon clicked")
+            drawerLayout.open()
+
+        }
+
         binding.bottomNavView.setupWithNavController(navController)
     }
+
+
 }
