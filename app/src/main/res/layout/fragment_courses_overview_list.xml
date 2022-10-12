@@ -21,9 +21,5 @@ tools:context=".CoursesOverviewListFragment">
     app:layout_constraintTop_toTopOf="parent" />
 
 <!-- TODO: Update blank fragment layout -->
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="@string/courses_overview_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
