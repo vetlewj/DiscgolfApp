@@ -5,7 +5,7 @@
         android:title="@string/app_name">
         <menu>
             <item
-                android:id="@+id/settings_fragment"
+                android:id="@+id/settingsFragment"
                 android:icon="@drawable/ic_baseline_settings_24"
                 android:title="@string/settings_title"
                 android:checkable="true"/>
