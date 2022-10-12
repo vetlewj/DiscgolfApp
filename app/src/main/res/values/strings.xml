@@ -6,9 +6,10 @@
     <string name="title_nav_my_discs">Mine discer</string>
     <string name="title_nav_play">Spill</string>
     <string name="title_nav_courses">Baner</string>
+    <string name="nav_drawer_header_title">Discgolf</string>
+    <string name="nav_drawer_header_text">Frisbeegolf applikasjon</string>
 
     <string name="courses_overview_list"> Baner fragment</string>
-    <string name="my_discs">Mine Discer</string>
     <string name="course_poster">course_poster</string>
     <string name="course_name">course_name</string>
 
@@ -22,21 +23,22 @@
     <string name="choose_course_text">Velg Bane:</string>
     <string name="no_course_selected">Ingen bane valgt</string>
 
-    <!-- Discs -->
-    <string name="disc_name">disc_name</string>
-    <string name="disc_speed">disc_speed</string>
-    <string name="disc_glide">disc_glide</string>
-    <string name="disc_turn">disc_turn</string>
-    <string name="disc_fade">disc_fade</string>
-    <string name="name">Name</string>
+    <!-- Discs strings -->
+    <string name="my_discs">Mine Discer</string>
+    <string name="disc_name">disc navn</string>
+    <string name="disc_speed">disc speed</string>
+    <string name="disc_glide">disc glide</string>
+    <string name="disc_turn">disc turn</string>
+    <string name="disc_fade">disc fade</string>
+    <string name="name">Navn</string>
     <string name="speed">Speed</string>
     <string name="glide">Glide</string>
     <string name="turn">Turn</string>
     <string name="fade">Fade</string>
-    <string name="settings_title">Innstillinger</string>
-    <string name="nav_drawer_header_title">Discgolf</string>
-    <string name="nav_drawer_header_text">Frisbeegolf applikasjon</string>
+    <string name="disc_type">disc type</string>
     <string name="edit_button">Edit</string>
-    <string name="disc_type">disc_type</string>
+    
+    <string name="settings_title">Innstillinger</string>
+
 
 </resources>
