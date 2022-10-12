@@ -28,13 +28,14 @@
     <string name="disc_glide">disc_glide</string>
     <string name="disc_turn">disc_turn</string>
     <string name="disc_fade">disc_fade</string>
-    <string name="name">Name:</string>
-    <string name="speed">Speed:</string>
-    <string name="glide">Glide:</string>
-    <string name="turn">Turn:</string>
-    <string name="fade">Fade:</string>
+    <string name="name">Name</string>
+    <string name="speed">Speed</string>
+    <string name="glide">Glide</string>
+    <string name="turn">Turn</string>
+    <string name="fade">Fade</string>
     <string name="settings_title">Innstillinger</string>
     <string name="nav_drawer_header_title">Discgolf</string>
     <string name="nav_drawer_header_text">Frisbeegolf applikasjon</string>
+    <string name="edit_button">Edit</string>
 
 </resources>

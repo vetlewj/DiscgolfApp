@@ -4,112 +4,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="0dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="15dp"
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="407dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
 
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="157dp"
-            android:layout_height="106dp"
-            android:layout_margin="5dp"
-            android:textAlignment="center"
+        <TextView
+            android:id="@+id/discNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_name"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.037" />
+
+        <TextView
+            android:id="@+id/discSpeedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@string/disc_speed"
+            app:layout_constraintEnd_toStartOf="@+id/discGlideTextView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/discNameTextView" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/discGlideTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_glide"
+            app:layout_constraintEnd_toStartOf="@+id/discTurnTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/discSpeedTextView"
+            app:layout_constraintTop_toTopOf="@+id/discSpeedTextView" />
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/name" />
+        <TextView
+            android:id="@+id/discTurnTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_turn"
+            app:layout_constraintEnd_toStartOf="@+id/discFadeTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/discGlideTextView"
+            app:layout_constraintTop_toTopOf="@+id/discGlideTextView" />
 
-                <TextView
-                    android:id="@+id/discNameTextView"
-                    android:layout_width="81dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/disc_name" />
+        <TextView
+            android:id="@+id/discFadeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_fade"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/discTurnTextView"
+            app:layout_constraintTop_toTopOf="@+id/discTurnTextView" />
 
-            </TableRow>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speed"
+            app:layout_constraintEnd_toEndOf="@+id/discSpeedTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/discSpeedTextView"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
 
-            <TableRow
-                android:layout_width="197dp"
-                android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/turn"
+            app:layout_constraintEnd_toEndOf="@+id/discTurnTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/discTurnTextView"
+            app:layout_constraintTop_toTopOf="@+id/textView10" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="65dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/speed" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/fade"
+            app:layout_constraintEnd_toEndOf="@+id/discFadeTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/discFadeTextView"
+            app:layout_constraintTop_toBottomOf="@+id/discFadeTextView" />
 
-                <TextView
-                    android:id="@+id/discSpeedTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/disc_speed" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/glide"
+            app:layout_constraintEnd_toEndOf="@+id/discGlideTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/discGlideTextView"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
 
-            </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <!--<Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />-->
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/glide" />
 
-                <TextView
-                    android:id="@+id/discGlideTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/disc_glide" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/turn" />
-
-                <TextView
-                    android:id="@+id/discTurnTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/disc_turn" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fade" />
-
-                <TextView
-                    android:id="@+id/discFadeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/disc_fade" />
-            </TableRow>
-
-        </TableLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
