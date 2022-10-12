@@ -7,27 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MyDiscsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <!-- TODO: Er det riktig å kopiere inn nav_view fra activiti_main, for å unngå at
-                teksten til den siste discen havner under nav baren?
-                Nav baren var dær fra før, så det blir liksom dobbelt opp.-->
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        tools:layout_editor_absoluteX="16dp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/discRecyclerView"
         android:layout_width="413dp"
         android:layout_height="541dp"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
