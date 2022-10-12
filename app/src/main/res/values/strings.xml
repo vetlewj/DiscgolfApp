@@ -37,6 +37,6 @@
     <string name="nav_drawer_header_title">Discgolf</string>
     <string name="nav_drawer_header_text">Frisbeegolf applikasjon</string>
     <string name="edit_button">Edit</string>
-
+    <string name="disc_type">disc_type</string>
 
 </resources>

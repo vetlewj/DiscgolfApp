@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp">
+        android:layout_height="134dp">
 
         <TextView
             android:id="@+id/discNameTextView"
@@ -28,10 +28,22 @@
             app:layout_constraintVertical_bias="0.037" />
 
         <TextView
+            android:id="@+id/discTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_type"
+            app:layout_constraintBottom_toTopOf="@+id/discSpeedTextView"
+            app:layout_constraintEnd_toEndOf="@+id/discNameTextView"
+            app:layout_constraintHorizontal_bias="0.475"
+            app:layout_constraintStart_toStartOf="@+id/discNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/discNameTextView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
             android:id="@+id/discSpeedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="32dp"
             android:text="@string/disc_speed"
             app:layout_constraintEnd_toStartOf="@+id/discGlideTextView"
             app:layout_constraintHorizontal_bias="0.5"

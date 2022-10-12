@@ -36,6 +36,7 @@ class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<D
         private val discGlideTextView : TextView = view.findViewById(R.id.discGlideTextView)
         private val discTurnTextView : TextView = view.findViewById(R.id.discTurnTextView)
         private val discFadeTextView : TextView = view.findViewById(R.id.discFadeTextView)
+        private val discTypeTextView : TextView = view.findViewById(R.id.discTypeTextView)
 
 
         fun bind(disc: Disc){
@@ -44,6 +45,7 @@ class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<D
             discGlideTextView.text = disc.glide.toString()
             discTurnTextView.text = disc.turn.toString()
             discFadeTextView.text = disc.fade.toString()
+            discTypeTextView.text = disc.type.type
         }
     }
 
