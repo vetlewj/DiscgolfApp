@@ -12,6 +12,7 @@
     <string name="courses_overview_list"> Baner fragment</string>
     <string name="course_poster">course_poster</string>
     <string name="course_name">course_name</string>
+    <string name="course_area">course_area</string>
 
     <!-- Scorecard buttons -->
     <string name="create_scorecard">Opprett poengkort</string>
