@@ -41,4 +41,9 @@
         android:name="no.hiof.discgolfapp.screens.settingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/courseInfoFragment"
+        android:name="no.hiof.discgolfapp.courseInfoFragment"
+        android:label="fragment_course_info"
+        tools:layout="@layout/fragment_course_info" />
 </navigation>
