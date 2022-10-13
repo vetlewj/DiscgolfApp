@@ -39,8 +39,6 @@ class CoursesOverviewListFragment : Fragment() {
             Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
         })
 
-
-
         binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
     }
