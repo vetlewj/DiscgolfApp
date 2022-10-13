@@ -54,5 +54,12 @@
             android:name="uid"
             app:argType="integer"
             android:defaultValue="1" />
+        <action
+            android:id="@+id/action_courseInfoFragment_to_createScoreCardFragment"
+            app:destination="@id/createScoreCardFragment" />
+        <argument
+            android:name="courseName"
+            app:argType="string"
+            android:defaultValue="course name" />
     </fragment>
 </navigation>
