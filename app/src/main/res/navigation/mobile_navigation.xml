@@ -43,7 +43,7 @@
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/courseInfoFragment"
-        android:name="no.hiof.discgolfapp.courseInfoFragment"
+        android:name="no.hiof.discgolfapp.CourseInfoFragment"
         android:label="fragment_course_info"
         tools:layout="@layout/fragment_course_info" />
 </navigation>

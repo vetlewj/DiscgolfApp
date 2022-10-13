@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
 
 
-class courseInfoFragment : Fragment() {
+class CourseInfoFragment : Fragment() {
+
+    private var fragmentBinding: FragmentCourseInfoBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,5 +22,9 @@ class courseInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentCourseInfoBinding.bind(view)
+        fragmentBinding = binding
+
+
     }
 }
