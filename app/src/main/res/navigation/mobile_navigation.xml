@@ -9,7 +9,11 @@
         android:id="@+id/coursesOverviewListFragment"
         android:name="no.hiof.discgolfapp.CoursesOverviewListFragment"
         android:label="fragment_courses_overview_list"
-        tools:layout="@layout/fragment_courses_overview_list" />
+        tools:layout="@layout/fragment_courses_overview_list" >
+        <action
+            android:id="@+id/action_coursesOverviewListFragment_to_courseInfoFragment"
+            app:destination="@id/courseInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myDiscsFragment"
         android:name="no.hiof.discgolfapp.MyDiscsFragment"
@@ -41,4 +45,14 @@
         android:name="no.hiof.discgolfapp.screens.settingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/courseInfoFragment"
+        android:name="no.hiof.discgolfapp.CourseInfoFragment"
+        android:label="fragment_course_info"
+        tools:layout="@layout/fragment_course_info" >
+        <argument
+            android:name="uid"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
 </navigation>

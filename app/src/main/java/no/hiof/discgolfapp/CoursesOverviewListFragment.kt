@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
+import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
+import no.hiof.discgolfapp.databinding.FragmentCoursesOverviewListBinding
 import no.hiof.discgolfapp.model.Course
 
 
 class CoursesOverviewListFragment : Fragment() {
 
+    private var fragmentBinding: FragmentCoursesOverviewListBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,18 +29,24 @@ class CoursesOverviewListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentCoursesOverviewListBinding.bind(view)
+        fragmentBinding = binding
 
-        val courseRecyclerView = view.findViewById<RecyclerView>(R.id.courseRecyclerView)
-
-        courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses(), View.OnClickListener {
-            val position = courseRecyclerView.getChildAdapterPosition(it)
+        binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses(), View.OnClickListener {
+            val position = binding.courseRecyclerView.getChildAdapterPosition(it)
 
             val selectedCourse = Course.getCourses()[position]
+
+            val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
+            action.uid = selectedCourse.uid
+
+
+            findNavController().navigate(action)
 
             Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
         })
 
-        courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
+        binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
     }
 
