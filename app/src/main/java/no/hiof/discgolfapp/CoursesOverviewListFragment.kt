@@ -40,6 +40,7 @@ class CoursesOverviewListFragment : Fragment() {
             val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
             action.uid = selectedCourse.uid
 
+
             findNavController().navigate(action)
 
             Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
