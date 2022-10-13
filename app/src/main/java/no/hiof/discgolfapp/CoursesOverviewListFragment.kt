@@ -39,6 +39,7 @@ class CoursesOverviewListFragment : Fragment() {
 
             val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
             action.uid = selectedCourse.uid
+            action.courseName = selectedCourse.name
 
             findNavController().navigate(action)
 
