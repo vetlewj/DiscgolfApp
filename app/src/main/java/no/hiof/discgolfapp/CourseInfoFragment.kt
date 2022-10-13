@@ -27,14 +27,14 @@ class CourseInfoFragment : Fragment() {
         val binding = FragmentCourseInfoBinding.bind(view)
         fragmentBinding = binding
 
+        binding.courseNameInfoTextView.text = args.courseName
+
         binding.createScoreCardInfobutton.setOnClickListener() {
             val navController = this.findNavController()
 
             val action = CourseInfoFragmentDirections.actionCourseInfoFragmentToCreateScoreCardFragment(args.courseName)
 
             navController.navigate(action)
-
-
         }
 
 

@@ -20,10 +20,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/uidTextView"
+        android:id="@+id/courseNameInfoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name"
+        android:text="@string/course_name"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/createScoreCardInfobutton"
@@ -39,6 +39,6 @@
         app:layout_constraintBottom_toTopOf="@+id/createScoreCardInfobutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uidTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/courseNameInfoTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
