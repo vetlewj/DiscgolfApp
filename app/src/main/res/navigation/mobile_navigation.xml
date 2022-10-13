@@ -9,7 +9,11 @@
         android:id="@+id/coursesOverviewListFragment"
         android:name="no.hiof.discgolfapp.CoursesOverviewListFragment"
         android:label="fragment_courses_overview_list"
-        tools:layout="@layout/fragment_courses_overview_list" />
+        tools:layout="@layout/fragment_courses_overview_list" >
+        <action
+            android:id="@+id/action_coursesOverviewListFragment_to_courseInfoFragment"
+            app:destination="@id/courseInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myDiscsFragment"
         android:name="no.hiof.discgolfapp.MyDiscsFragment"
