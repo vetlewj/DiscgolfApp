@@ -22,19 +22,29 @@ class ScoreCard(
                 )
             )
         }
-        fun createScoreCard(course: Course, scoreCardCreationType: ScoreCardCreationType): ScoreCard {
+        fun createEmptyScoreCard(course: Course, scoreCardCreationType: ScoreCardCreationType): ScoreCard {
             val holeScores = emptyList<HoleScore>()
-            for (i in 1..9) {
-                holeScores.plus(HoleScore(i, 0, 3, null))
-            }
 
-            var par = 0
-            var score = 0
-            for (holeScore in holeScores) {
-                par += holeScore.par
-                score += holeScore.score
+            if (scoreCardCreationType == ScoreCardCreationType.PAR){
+                val holeNum = 0
+                for (hole in course.holes){
+                    if (hole != null) {
+                        holeScores.plus(HoleScore(holeNum, 0, hole.par, null))
+                    }
+                    holeNum.plus(1)
+                }
             }
-            return ScoreCard(course, par, score, Date(), holeScores)
+            // TODO: Add rest of scorecard creation types
+            else{
+                for (hole in course.holes){
+                    if (hole != null) {
+                        holeScores.plus(HoleScore(1, 0, 0, null))
+                    }
+                }
+            }
+            val par = holeScores.sumOf { it.par }
+
+            return ScoreCard(course, par, 0, Date(), holeScores)
         }
     }
 
