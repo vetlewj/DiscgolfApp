@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
@@ -35,6 +36,11 @@ class CoursesOverviewListFragment : Fragment() {
             val position = binding.courseRecyclerView.getChildAdapterPosition(it)
 
             val selectedCourse = Course.getCourses()[position]
+
+            val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
+            action.uid = selectedCourse.uid
+
+            findNavController().navigate(action)
 
             Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
         })
