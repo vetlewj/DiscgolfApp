@@ -31,15 +31,6 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
-        //val courseRecyclerView = view.findViewById<RecyclerView>(R.id.courseRecyclerView)
-
-//        courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses(), View.OnClickListener {
-//            val position = courseRecyclerView.getChildAdapterPosition(it)
-//
-//            val selectedCourse = Course.getCourses()[position]
-//
-//            Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
-//        })
         binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses(), View.OnClickListener {
             val position = binding.courseRecyclerView.getChildAdapterPosition(it)
 
