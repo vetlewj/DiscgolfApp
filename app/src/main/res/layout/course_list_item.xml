@@ -32,17 +32,17 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView6"
+            app:layout_constraintBottom_toTopOf="@+id/courseAreaTextView"
             app:layout_constraintEnd_toEndOf="@+id/coursePosterView"
             app:layout_constraintStart_toStartOf="@+id/coursePosterView"
             app:layout_constraintTop_toTopOf="@+id/coursePosterView" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/courseAreaTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:text="TextView"
+            android:text="@string/course_area"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

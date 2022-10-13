@@ -28,9 +28,11 @@ class CourseRecyclerAdapter(private val courses: List<Course>, private val click
     // TODO: Choose the selected course and navigate to CreateScoreCardFragment with the selected course
     class CourseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val courseNameTextView : TextView = view.findViewById(R.id.courseNameTextView)
+        private val courseAreaTextView : TextView = view.findViewById(R.id.courseAreaTextView)
 
         fun bind(course: Course, clickListener: View.OnClickListener) {
             courseNameTextView.text = course.name
+            courseAreaTextView.text = course.area
 
             itemView.setOnClickListener(clickListener)
 
