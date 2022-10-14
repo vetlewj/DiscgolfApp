@@ -40,6 +40,14 @@
     <string name="edit_button">Edit</string>
 
     <string name="settings_title">Innstillinger</string>
+    <string name="addToScoreBtnText">+</string>
+    <string name="subtractFromScoreBtnText">-</string>
+    <string name="parForHoleText">Par</string>
+    <string name="currentScoreForHoleText">Score</string>
+    <string name="currentHoleNumberText">Hull X</string>
+    <string name="current_distance_for_hole_text">Distance</string>
+    <string name="toggleMapButtonText">Kart</string>
+    <string name="next_hole">Neste hull</string>
 
 
 </resources>

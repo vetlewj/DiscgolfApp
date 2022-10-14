@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCreateScoreCardBinding
@@ -33,6 +34,17 @@ class CreateScoreCardFragment : Fragment() {
 
         binding.createScoreCardCourseNameTextView.text =
             course?.name ?: resources.getString(R.string.no_course_selected)
+
+        val action = CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
+            course?.name ?: resources.getString(R.string.no_course_selected)
+        )
+        binding.createScorecardBtn.setOnClickListener() {
+            Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
+            action.scoreCardType = "PAR"
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+        // TODO: Add other scorecard types for other buttons
+
 
     }
 

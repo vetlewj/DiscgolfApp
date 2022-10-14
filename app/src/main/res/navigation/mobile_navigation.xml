@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_createScoreCardFragment_to_chooseCourseFragment"
             app:destination="@id/chooseCourseFragment" />
+        <action
+            android:id="@+id/action_createScoreCardFragment_to_takeScoreFragment"
+            app:destination="@id/takeScoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseCourseFragment"
@@ -61,5 +64,22 @@
             android:name="courseName"
             app:argType="string"
             android:defaultValue="course name" />
+    </fragment>
+    <fragment
+        android:id="@+id/takeScoreFragment"
+        android:name="no.hiof.discgolfapp.screens.takescore.TakeScoreFragment"
+        android:label="fragment_take_score"
+        tools:layout="@layout/fragment_take_score" >
+        <argument
+            android:name="courseName"
+            app:argType="string" />
+        <argument
+            android:name="ScoreCardType"
+            app:argType="string"
+            android:defaultValue="par" />
+        <argument
+            android:name="holeNumber"
+            app:argType="integer"
+            android:defaultValue="1" />
     </fragment>
 </navigation>
