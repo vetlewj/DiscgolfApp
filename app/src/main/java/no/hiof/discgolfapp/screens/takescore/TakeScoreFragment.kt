@@ -37,10 +37,12 @@ class TakeScoreFragment : Fragment() {
         viewModel.par = course?.holes?.get(args.holeNumber - 1)?.par ?: 0
         viewModel.holeNumber = args.holeNumber
         viewModel.score = viewModel.scoreCard?.score ?: 0
+        viewModel.distance = course?.holes?.get(args.holeNumber - 1)?.distance ?: 100
 
         binding.parForHoleTextView.text = viewModel.par.toString()
         binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
         binding.currentScoreForHole.text = viewModel.score.toString()
+        binding.distanceForCurrentHoleTextView.text = viewModel.distance.toString()
 
         binding.incrementScorebutton.setOnClickListener {
             viewModel.score++
@@ -51,10 +53,18 @@ class TakeScoreFragment : Fragment() {
             binding.currentScoreForHole.text = viewModel.score.toString()
         }
         binding.nextHoleBtn.setOnClickListener {
-            viewModel.holeNumber++
-            viewModel.score = 0
-            binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
-            binding.currentScoreForHole.text = viewModel.score.toString()
+            if (viewModel.holeNumber < (course?.holes?.size ?: 0)) {
+                viewModel.holeNumber++
+                viewModel.score = 0
+                binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
+                binding.currentScoreForHole.text = viewModel.score.toString()
+                binding.parForHoleTextView.text = course?.holes?.get(viewModel.holeNumber - 1)?.par.toString()
+                binding.distanceForCurrentHoleTextView.text = course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
+            }
+            else{
+                //TODO: Navigate to overview of round score
+                binding.currentHoleNumberTextView.text = "Round over"
+            }
         }
 
         return binding.root
