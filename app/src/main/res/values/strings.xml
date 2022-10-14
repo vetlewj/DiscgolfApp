@@ -48,6 +48,14 @@
     <string name="current_distance_for_hole_text">Distance</string>
     <string name="toggleMapButtonText">Kart</string>
     <string name="next_hole">Neste hull</string>
+    <string name="weather_temperature_value">11ºC</string>
+    <string name="weather_wind_speed">10 m/s</string>
+    <string name="course_info_best_round">Beste runde:</string>
+    <string name="course_info_best_round_value">74 (+13)</string>
+    <string name="course_info_last_round_title">Forrige runde:</string>
+    <string name="course_info_last_round_value">81 (+21)</string>
+    <string name="course_info_average_title">Gjennomsnitt:</string>
+    <string name="course_info_average_value">80.2 (+20.2)</string>
 
 
 </resources>
