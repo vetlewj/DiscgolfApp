@@ -72,5 +72,8 @@
         <argument
             android:name="holeNumber"
             app:argType="integer" />
+        <argument
+            android:name="courseName"
+            app:argType="string" />
     </fragment>
 </navigation>

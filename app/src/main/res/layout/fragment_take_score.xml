@@ -8,7 +8,7 @@
     tools:context=".screens.takescore.TakeScoreFragment">
 
     <Button
-        android:id="@+id/addToScorebutton"
+        android:id="@+id/increment_scorebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addToScoreBtnText"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <Button
-        android:id="@+id/subtractFromScoreButton"
+        android:id="@+id/decrement_score_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/subtractFromScoreBtnText"
@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addToScorebutton" />
+        app:layout_constraintTop_toBottomOf="@+id/increment_scorebutton" />
 
     <TextView
         android:id="@+id/parForHoleTextView"
@@ -94,5 +94,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="554dp" />
+
+    <Button
+        android:id="@+id/nextHoleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/md_theme_dark_surfaceTint"
+        android:text="@string/next_hole"
+        android:textColor="@color/md_theme_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

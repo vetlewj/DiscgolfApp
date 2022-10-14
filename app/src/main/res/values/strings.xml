@@ -46,6 +46,7 @@
     <string name="currentHoleNumberText">Hull X</string>
     <string name="current_distance_for_hole_text">Distance</string>
     <string name="toggleMapButtonText">Kart / Knapper</string>
+    <string name="next_hole">Neste hull</string>
 
 
 </resources>
