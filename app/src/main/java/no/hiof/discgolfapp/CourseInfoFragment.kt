@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
+import no.hiof.discgolfapp.model.Weather
 
 
 class CourseInfoFragment : Fragment() {
@@ -27,7 +28,15 @@ class CourseInfoFragment : Fragment() {
         val binding = FragmentCourseInfoBinding.bind(view)
         fragmentBinding = binding
 
+         val weather = Weather.getWeatherFromCoordinate(args.latitude, args.longitude)
+
         binding.courseNameInfoTextView.text = args.courseName
+        // Weather binding
+        // TODO find out how to bind drawable dynamically and change m/s and C to string values in xml
+        binding.weatherSymbolInfoImageView.setImageResource(weather.getWeatherSymbol())
+        //binding.windDirectionInfoImageView = weather.getWindDirectionSymbol()
+        binding.temperatureTextView.text = "${weather.temperature.toString()} ºC"
+        binding.windSpeedTextView.text = "${weather.windspeed.toString()} m/s"
 
         binding.createScoreCardInfobutton.setOnClickListener() {
             val navController = this.findNavController()

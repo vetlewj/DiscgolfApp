@@ -8,8 +8,8 @@ data class Course(
     val area: String?,
     val city: String?,
     val location: String?,
-    val latitude: Double?,
-    val longitude: Double?
+    val latitude: Float?,
+    val longitude: Float?
 ) {
     //TODO: Finish class
 
@@ -17,10 +17,10 @@ data class Course(
         fun getCourses(): List<Course> {
             // Hentet data rett fra API
             return listOf(
-                Course(0, "Muselunden", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.939369, 10.785842),
-                Course(1, "Ekeberg skole", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.895178, 10.787161),
+                Course(0, "Muselunden", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.939369F, 10.785842F),
+                Course(1, "Ekeberg skole", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.895178F, 10.787161F),
                 Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null)
-                // TODO: Add more sample data
+
             )
         }
     }

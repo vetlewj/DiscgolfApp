@@ -40,6 +40,12 @@ class CoursesOverviewListFragment : Fragment() {
             val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
             action.uid = selectedCourse.uid
             action.courseName = selectedCourse.name
+            // TODO: Temporary solution, adjust for a better one
+//            action.latitude = if (selectedCourse.latitude == null) 1000F else selectedCourse.latitude.toFloat()
+//            action.longitude = if (selectedCourse.longitude == null) 10000F else selectedCourse.longitude.toFloat()
+            action.latitude = try {selectedCourse.latitude!!} catch (e: NullPointerException) {1000F}
+            action.longitude = try {selectedCourse.longitude!!} catch (e: NullPointerException) {1000F}
+
 
             findNavController().navigate(action)
 
