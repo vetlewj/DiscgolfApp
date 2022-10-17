@@ -34,7 +34,7 @@ class CourseInfoFragment : Fragment() {
         // Weather binding
         //TODO find out how to bind drawable dynamically and change m/s and C to string values in xml
         binding.weatherSymbolInfoImageView.setImageResource(weather.getWeatherSymbol())
-        //binding.windDirectionInfoImageView = weather.getWindDirectionSymbol()
+        binding.windDirectionInfoImageView.setImageResource(weather.getWindDirectionSymbol())
         binding.temperatureTextView.text = "${weather.temperature.toString()} ºC"
         binding.windSpeedTextView.text = "${weather.windspeed.toString()} m/s"
 
