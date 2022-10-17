@@ -43,7 +43,7 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
         } else {
             val windDirection = this.windFromDirection!!
             val windDirectionFavIcon = when {
-                // TODO something with north direction that is wrong
+                // TODO something with north direction is wrong
                 ((windDirection >= WindDirection.N.direction1 && windDirection <= 0F) || (windDirection >= 0F && windDirection <= WindDirection.N.direction2)) -> R.drawable.ic_baseline_north_24
                 windDirection >= WindDirection.NE.direction1 && windDirection <= WindDirection.NE.direction2 -> R.drawable.ic_baseline_north_east_24
                 windDirection >= WindDirection.E.direction1 && windDirection <= WindDirection.E.direction2 -> R.drawable.ic_baseline_east_24
