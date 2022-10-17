@@ -38,6 +38,37 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
 
     }
 
+    fun getWindDirectionSymbol(): Int {
+
+        val windDirectionFavIcon = when (this.windFromDirection) {
+
+
+            else -> 0
+
+        }
+
+        return windDirectionFavIcon
+    }
+
+    enum class WindDirection(val direction1: Int, val direction2: Int ) {
+        N(345, 15),
+        NNE(15, 35),
+        NE(35, 55),
+        ENE(55, 75),
+        E(75, 105),
+        ESE(105, 125),
+        SE(125, 145),
+        SSE(145, 165),
+        S(165, 195),
+        SSW(195, 215),
+        SW(215, 235),
+        WSW(235, 255),
+        W(255, 285),
+        WNW(285, 305),
+        NW(305, 225),
+        NNW(325, 345)
+    }
+
     // TODO: Find all symbols.
     enum class WeatherSymbol {
         SUNNY, CLOUDY, LIGHTRAIN, RAIN, HEAVYRAIN
