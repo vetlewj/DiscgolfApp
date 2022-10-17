@@ -28,12 +28,13 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
     }
 
 
-    fun getWeatherSymbol() {
+    fun getWeatherSymbol(): Int{
         val weatherFavIcon = when (this.symbolCode) {
             WeatherSymbol.SUNNY -> R.drawable.ic_baseline_wb_sunny_24
             WeatherSymbol.CLOUDY -> R.drawable.ic_baseline_wb_cloudy_24
             else -> R.drawable.ic_baseline_question_mark_24
         }
+        return weatherFavIcon
 
     }
 
