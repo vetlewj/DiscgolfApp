@@ -7,73 +7,177 @@
     android:layout_height="match_parent"
     tools:context=".screens.takescore.TakeScoreFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="273dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="539dp" />
+
     <Button
         android:id="@+id/increment_scorebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addToScoreBtnText"
-        app:layout_constraintBottom_toTopOf="@+id/decrement_score_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+        app:layout_constraintStart_toEndOf="@+id/decrement_score_button"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <Button
         android:id="@+id/decrement_score_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/subtractFromScoreBtnText"
-        app:layout_constraintBottom_toTopOf="@+id/nextHoleBtn"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/increment_scorebutton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/increment_scorebutton" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <TextView
-        android:id="@+id/parForHoleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/parForHoleText"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/distanceForCurrentHoleTextView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/distanceForCurrentHoleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/current_distance_for_hole_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/parForHoleTextView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/currentScoreForHole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/currentScoreForHoleText"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentHoleNumberTextView" />
-
-    <TextView
-        android:id="@+id/currentHoleNumberTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/currentHoleNumberText"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/parForHoleTextView"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchMaterial" />
+        app:layout_constraintTop_toBottomOf="@id/switchMaterial">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/distanceForCurrentHoleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current_distance_for_hole_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/currentScoreForHole"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/distanceForCurrentHoleDescriptionTextView" />
+
+            <TextView
+                android:id="@+id/distanceForCurrentHoleDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distanse"
+                app:layout_constraintBottom_toTopOf="@+id/distanceForCurrentHoleTextView"
+                app:layout_constraintEnd_toEndOf="@+id/distanceForCurrentHoleTextView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/distanceForCurrentHoleTextView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/currentParForHoleDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Par"
+                app:layout_constraintBottom_toTopOf="@+id/parForHoleTextView"
+                app:layout_constraintEnd_toEndOf="@+id/parForHoleTextView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/parForHoleTextView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/parForHoleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parForHoleText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/currentScoreForHole"
+                app:layout_constraintTop_toBottomOf="@+id/currentParForHoleDescriptionTextView" />
+
+            <TextView
+                android:id="@+id/currentScoreForHoleDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score"
+                app:layout_constraintBottom_toTopOf="@+id/currentScoreForHole"
+                app:layout_constraintEnd_toEndOf="@+id/currentScoreForHole"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/currentScoreForHole"
+                app:layout_constraintTop_toBottomOf="@+id/currentHoleNumberTextView"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/currentScoreForHole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/currentScoreForHoleText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/parForHoleTextView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/distanceForCurrentHoleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/currentScoreForHoleDescriptionTextView" />
+
+            <TextView
+                android:id="@+id/currentHoleNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:text="@string/currentHoleNumberText"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/currentScoreForHoleDescriptionTextView"
+                app:layout_constraintEnd_toStartOf="@+id/currentParForHoleDescriptionTextView"
+                app:layout_constraintStart_toEndOf="@+id/distanceForCurrentHoleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/currentHoleNumberTextView2" />
+
+            <TextView
+                android:id="@+id/currentHoleNumberTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hull"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toTopOf="@+id/currentHoleNumberTextView"
+                app:layout_constraintEnd_toEndOf="@+id/currentHoleNumberTextView"
+                app:layout_constraintStart_toStartOf="@+id/currentHoleNumberTextView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/scoreGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="currentScoreForHole,currentScoreForHoleDescriptionTextView" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/distanceGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="distanceForCurrentHoleDescriptionTextView,distanceForCurrentHoleTextView" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/parGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="currentParForHoleDescriptionTextView,parForHoleTextView" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/holeNumberGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="currentHoleNumberTextView,currentHoleNumberTextView2" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switchMaterial"
         android:layout_width="wrap_content"
@@ -82,19 +186,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="255dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="582dp" />
 
     <Button
         android:id="@+id/nextHoleBtn"
