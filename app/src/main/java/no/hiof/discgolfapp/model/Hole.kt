@@ -12,9 +12,9 @@ class Hole(
     companion object {
         fun getHoles(): ArrayList<Hole> {
             val holes = ArrayList<Hole>()
-            holes.add(Hole(1, 3, 100, 59.0, 10.0, 59.0, 10.0))
-            holes.add(Hole(2, 3, 100, 59.0, 10.0, 59.0, 10.0))
-            holes.add(Hole(3, 3, 100, 59.0, 10.0, 59.0, 10.0))
+            holes.add(Hole(1, 3, 100, 59.130288, 11.342264, 59.130450, 11.341638))
+            holes.add(Hole(2, 3, 100, 59.130420, 11.341160, 59.131252, 11.341034))
+            holes.add(Hole(3, 3, 100, 59.131711, 11.341542, 59.132493, 11.341895))
             return holes
         }
     }
