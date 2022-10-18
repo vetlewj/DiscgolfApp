@@ -10,7 +10,7 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
         fun getWeather(): List<Weather> {
             return listOf(
                 Weather(WeatherSymbol.SUNNY, 14.6, 3.3, 215.6F, 59.939369F, 10.785842F, "2022-10-14T13:00:00Z"),
-                Weather(WeatherSymbol.CLOUDY, 10.2, 4.2, 306.1F, 59.895178F, 10.787161F, "2022-10-14T12:00:00Z")
+                Weather(WeatherSymbol.CLOUDY, 10.2, 4.2, 350.1F, 59.895178F, 10.787161F, "2022-10-14T12:00:00Z")
             )
         }
 
@@ -43,8 +43,7 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
         } else {
             val windDirection = this.windFromDirection!!
             val windDirectionFavIcon = when {
-                // TODO something with north direction is wrong
-                ((windDirection >= WindDirection.N.direction1 && windDirection <= 0F) || (windDirection >= 0F && windDirection <= WindDirection.N.direction2)) -> R.drawable.ic_baseline_north_24
+                (windDirection >= WindDirection.N.direction1 && windDirection <= 360) || (windDirection >= 0F && windDirection <= WindDirection.N.direction2) -> R.drawable.ic_baseline_north_24
                 windDirection >= WindDirection.NE.direction1 && windDirection <= WindDirection.NE.direction2 -> R.drawable.ic_baseline_north_east_24
                 windDirection >= WindDirection.E.direction1 && windDirection <= WindDirection.E.direction2 -> R.drawable.ic_baseline_east_24
                 windDirection >= WindDirection.SE.direction1 && windDirection <= WindDirection.SE.direction2 -> R.drawable.ic_baseline_south_east_24
