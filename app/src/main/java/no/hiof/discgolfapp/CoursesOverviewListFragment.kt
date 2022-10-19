@@ -32,8 +32,12 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
-        binding.coursesOverviewListMapSwitch.setOnCheckedChangeListener {
-                compoundButton, b -> Toast.makeText(view.context, " clicked", Toast.LENGTH_SHORT).show()   }
+        binding.coursesOverviewListToMapSwitch.setOnCheckedChangeListener {
+                compoundButton, b ->
+            Toast.makeText(view.context, " clicked", Toast.LENGTH_SHORT).show()
+
+            findNavController().navigate(R.id.action_coursesOverviewListFragment_to_coursesMapFragment)
+        }
 
         binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses(), View.OnClickListener {
             val position = binding.courseRecyclerView.getChildAdapterPosition(it)
