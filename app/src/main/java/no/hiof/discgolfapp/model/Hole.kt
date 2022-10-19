@@ -6,10 +6,10 @@ class Hole(
     val holeNumber: Int,
     val par: Int,
     var distance: Int?,
-    val startLatitute: Double?,
-    val startLongitude: Double?,
-    val endLatitude: Double?,
-    val endLongitude: Double?
+    val startLat: Double?,
+    val startLon: Double?,
+    val endLat: Double?,
+    val endLon: Double?
 ) {
     companion object {
         fun getHoles(): ArrayList<Hole> {
@@ -19,8 +19,8 @@ class Hole(
             holes.add(Hole(3, 3, 100, 59.131711, 11.341542, 59.132493, null))
 
             for (hole in holes) {
-                if (hole.startLatitute != null && hole.startLongitude != null && hole.endLatitude != null && hole.endLongitude != null) {
-                    hole.distance = DistanceMeasure.getDistanceToPositionInMeters(hole.startLatitute, hole.startLongitude, hole.endLatitude, hole.endLongitude)
+                if (hole.startLat != null && hole.startLon != null && hole.endLat != null && hole.endLon != null) {
+                    hole.distance = DistanceMeasure.getDistanceToPositionInMeters(hole.startLat, hole.startLon, hole.endLat, hole.endLon)
                 }
             }
             return holes
