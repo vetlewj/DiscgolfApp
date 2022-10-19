@@ -60,6 +60,7 @@
     <string name="par_description">Par</string>
     <string name="score_description">Score</string>
     <string name="hole_number_description">Hull</string>
+    <string name="map_switch">map</string>
 
 
 </resources>
