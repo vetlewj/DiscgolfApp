@@ -32,6 +32,9 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
+        binding.coursesOverviewListMapSwitch.setOnCheckedChangeListener {
+                compoundButton, b -> Toast.makeText(view.context, " clicked", Toast.LENGTH_SHORT).show()   }
+
         binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses(), View.OnClickListener {
             val position = binding.courseRecyclerView.getChildAdapterPosition(it)
 

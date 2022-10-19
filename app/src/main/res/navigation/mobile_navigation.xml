@@ -90,4 +90,9 @@
             app:argType="integer"
             android:defaultValue="1" />
     </fragment>
+    <fragment
+        android:id="@+id/coursesMapFragment"
+        android:name="no.hiof.discgolfapp.CoursesMapFragment"
+        android:label="fragment_courses_map"
+        tools:layout="@layout/fragment_courses_map" />
 </navigation>
