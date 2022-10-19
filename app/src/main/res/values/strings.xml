@@ -56,6 +56,11 @@
     <string name="course_info_last_round_value">81 (+21)</string>
     <string name="course_info_average_title">Gjennomsnitt:</string>
     <string name="course_info_average_value">80.2 (+20.2)</string>
+    <string name="distance_description">Distanse</string>
+    <string name="par_description">Par</string>
+    <string name="score_description">Score</string>
+    <string name="hole_number_description">Hull</string>
+    <string name="map_switch">map</string>
 
 
 </resources>
