@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         topAppBar.setNavigationOnClickListener {
             Log.d("MainActivity", "Navigation icon clicked")
             drawerLayout.open()
-
         }
 
         binding.bottomNavView.setupWithNavController(navController)
