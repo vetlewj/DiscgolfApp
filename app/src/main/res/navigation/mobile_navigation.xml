@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_coursesOverviewListFragment_to_coursesMapFragment"
             app:destination="@id/coursesMapFragment" />
+        <action
+            android:id="@+id/action_coursesOverviewListFragment_to_courseMapsFragment"
+            app:destination="@id/courseMapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/myDiscsFragment"
@@ -100,6 +103,15 @@
         tools:layout="@layout/fragment_courses_map" >
         <action
             android:id="@+id/action_coursesMapFragment_to_coursesOverviewListFragment"
+            app:destination="@id/coursesOverviewListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseMapsFragment"
+        android:name="no.hiof.discgolfapp.screens.maps.CourseMapsFragment"
+        android:label="fragment_course_maps"
+        tools:layout="@layout/fragment_course_maps" >
+        <action
+            android:id="@+id/action_courseMapsFragment_to_coursesOverviewListFragment"
             app:destination="@id/coursesOverviewListFragment" />
     </fragment>
 </navigation>

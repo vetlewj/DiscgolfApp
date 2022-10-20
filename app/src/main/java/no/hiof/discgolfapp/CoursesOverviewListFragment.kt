@@ -36,7 +36,7 @@ class CoursesOverviewListFragment : Fragment() {
                 compoundButton, b ->
             Toast.makeText(view.context, " clicked", Toast.LENGTH_SHORT).show()
 
-            findNavController().navigate(R.id.action_coursesOverviewListFragment_to_coursesMapFragment)
+            findNavController().navigate(R.id.action_coursesOverviewListFragment_to_courseMapsFragment)
         }
 
         binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses(), View.OnClickListener {
