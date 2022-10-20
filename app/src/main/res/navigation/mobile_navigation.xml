@@ -14,9 +14,6 @@
             android:id="@+id/action_coursesOverviewListFragment_to_courseInfoFragment"
             app:destination="@id/courseInfoFragment" />
         <action
-            android:id="@+id/action_coursesOverviewListFragment_to_coursesMapFragment"
-            app:destination="@id/coursesMapFragment" />
-        <action
             android:id="@+id/action_coursesOverviewListFragment_to_courseMapsFragment"
             app:destination="@id/courseMapsFragment" />
     </fragment>
@@ -95,15 +92,6 @@
             android:name="holeNumber"
             app:argType="integer"
             android:defaultValue="1" />
-    </fragment>
-    <fragment
-        android:id="@+id/coursesMapFragment"
-        android:name="no.hiof.discgolfapp.CoursesMapFragment"
-        android:label="fragment_courses_map"
-        tools:layout="@layout/fragment_courses_map" >
-        <action
-            android:id="@+id/action_coursesMapFragment_to_coursesOverviewListFragment"
-            app:destination="@id/coursesOverviewListFragment" />
     </fragment>
     <fragment
         android:id="@+id/courseMapsFragment"
