@@ -32,8 +32,11 @@ class CourseMapsFragment : Fragment() {
         // TODO: Fix start location
         // TODO: Add markers for each course
         val sydney = LatLng(-34.0, 151.0)
+        googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+        googleMap.uiSettings.isZoomControlsEnabled = true
         googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(10F))
     }
 
     override fun onCreateView(
