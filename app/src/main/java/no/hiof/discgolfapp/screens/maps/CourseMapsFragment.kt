@@ -17,6 +17,8 @@ import no.hiof.discgolfapp.R
 
 class CourseMapsFragment : Fragment() {
 
+    // TODO: Add navigation back to overview when clicking on switch
+
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -27,6 +29,8 @@ class CourseMapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
+        // TODO: Fix start location
+        // TODO: Add markers for each course
         val sydney = LatLng(-34.0, 151.0)
         googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
