@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -24,11 +26,12 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
+        val db = Firebase.firestore
+
         val topAppBar = binding.topAppBar
         topAppBar.setNavigationOnClickListener {
             Log.d("MainActivity", "Navigation icon clicked")
             drawerLayout.open()
-
         }
 
         binding.bottomNavView.setupWithNavController(navController)
