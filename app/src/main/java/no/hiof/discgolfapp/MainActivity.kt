@@ -12,6 +12,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.databinding.ActivityMainBinding
@@ -24,19 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //auth = Firebase.auth
-        //firebaseAuth = Firebase.auth
 
-        authStateListener = AuthStateListener {
-            val firebaseUser = auth.currentUser
-            if (firebaseUser == null){
-                createSignInIntent()
-
-            }
-            else{
-                Log.d("Authenticate", "User: " +auth.currentUser?.email)
-            }
-        }
+        auth = Firebase.auth
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -57,7 +47,24 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavView.setupWithNavController(navController)
         binding.navView.setupWithNavController(navController)
+
+        createAuthenticationListener()
+
     }
+    private fun createAuthenticationListener() {
+        authStateListener = FirebaseAuth.AuthStateListener {
+            val firebaseUser = auth.currentUser
+            if (firebaseUser == null) {
+                createSignInIntent()
+
+            } else {
+                Log.d("Authenticate", "User: " + auth.currentUser?.email)
+            }
+        }
+    }
+
+
+
 
     override fun onResume(){
         super.onResume()
@@ -78,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     private fun createSignInIntent(){
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build()
+            AuthUI.IdpConfig.GoogleBuilder().build()
         )
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
