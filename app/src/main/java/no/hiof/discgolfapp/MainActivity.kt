@@ -64,8 +64,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
     override fun onResume(){
         super.onResume()
         auth.addAuthStateListener(authStateListener)
@@ -97,12 +95,12 @@ class MainActivity : AppCompatActivity() {
     private fun onSignInResult (result: FirebaseAuthUIAuthenticationResult){
         val response = result.idpResponse
         if (result.resultCode == RESULT_OK){
+            //Login successfull
             val user = FirebaseAuth.getInstance().currentUser
-            //Toast.makeText(this.getString(R.string.Loged_in) + user?.displayName, Toast.LENGTH_SHORT).show()
-            Toast.makeText(this, this.getString(R.string.Loged_in) + user?.displayName, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, this.getString(R.string.sign_in) + user?.displayName, Toast.LENGTH_SHORT).show()
         }
         else {
-            //Sign in failed.
+            //Login failed.
             Log.d("Autenticate User", "Sign in failed")
         }
     }
