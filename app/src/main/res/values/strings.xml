@@ -62,5 +62,6 @@
     <string name="hole_number_description">Hull</string>
     <string name="map_switch">map</string>
 
-
+    <!-- Log in -->
+    <string name="Loged_in">Du er nå logget inn</string>
 </resources>
