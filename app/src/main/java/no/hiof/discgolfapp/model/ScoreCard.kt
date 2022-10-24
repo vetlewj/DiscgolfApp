@@ -27,7 +27,7 @@ class ScoreCard(
 
             if (scoreCardCreationType == ScoreCardCreationType.PAR){
                 val holeNum = 0
-                for (hole in course.holes){
+                for (hole in course.holes!!){
                     if (hole != null) {
                         holeScores.plus(HoleScore(holeNum, 0, hole.par, null))
                     }
@@ -36,7 +36,7 @@ class ScoreCard(
             }
             // TODO: Add rest of scorecard creation types
             else{
-                for (hole in course.holes){
+                for (hole in course.holes!!){
                     if (hole != null) {
                         holeScores.plus(HoleScore(1, 0, 0, null))
                     }

@@ -32,7 +32,18 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
+        val courseDataService = CourseDataService(view.context)
 
+        courseDataService.getListOfCourses("NO", object: CourseDataService.ListOfCoursesByCountryCodeResponse {
+            override fun onError(message: String?) {
+                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(courseModel: Course?) {
+                Toast.makeText(view.context, courseModel.toString(), Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
 
         binding.coursesOverviewListToMapSwitch.setOnCheckedChangeListener {
