@@ -42,10 +42,10 @@ class CoursesOverviewListFragment : Fragment() {
                 binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getAllCourses(), View.OnClickListener {
                     val position = binding.courseRecyclerView.getChildAdapterPosition(it)
 
-                    val selectedCourse = Course.getCourses()[position]
+                    val selectedCourse = Course.getAllCourses()[position]
 
                     val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
-                    action.uid = selectedCourse.uid
+                    action.uid = selectedCourse!!.uid
                     action.courseName = selectedCourse.name
                     // TODO: Temporary solution, adjust for a better one
                     action.latitude = try {selectedCourse.latitude!!} catch (e: NullPointerException) {1000F}
@@ -61,33 +61,12 @@ class CoursesOverviewListFragment : Fragment() {
 
         })
 
-
         binding.coursesOverviewListToMapSwitch.setOnCheckedChangeListener {
                 compoundButton, b ->
             Toast.makeText(view.context, " clicked", Toast.LENGTH_SHORT).show()
 
             findNavController().navigate(R.id.action_coursesOverviewListFragment_to_coursesMapFragment)
         }
-
-//        binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getAllCourses(), View.OnClickListener {
-//            val position = binding.courseRecyclerView.getChildAdapterPosition(it)
-//
-//            val selectedCourse = Course.getCourses()[position]
-//
-//            val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
-//            action.uid = selectedCourse.uid
-//            action.courseName = selectedCourse.name
-//            // TODO: Temporary solution, adjust for a better one
-//            action.latitude = try {selectedCourse.latitude!!} catch (e: NullPointerException) {1000F}
-//            action.longitude = try {selectedCourse.longitude!!} catch (e: NullPointerException) {1000F}
-//
-//
-//            findNavController().navigate(action)
-//
-//            Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
-//        })
-
-        //binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
     }
 
