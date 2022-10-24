@@ -16,31 +16,37 @@ class CourseDataService(var context: Context) {
 
     interface ListOfCoursesByCountryCodeResponse {
         fun onError(message: String?)
-        fun onResponse(courseModel: Course?)
+        fun onResponse(courseModels: ArrayList<Course?>)
     }
 
     fun getListOfCourses(countryCode: String, coursesByCountryCodeResponse: ListOfCoursesByCountryCodeResponse) {
         val url = QUERY_FOR_COURSES + countryCode
-        val courses: ArrayList<Course> = ArrayList()
+        val courses: ArrayList<Course?> = ArrayList()
 
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
 
             val coursesList: JSONArray = response.getJSONArray("courses")
-            val courseObject = coursesList.getJSONObject(0)
+            //val courseObject = coursesList.getJSONObject(0)
 
-            val course = Course(
-                courseObject.getString("ID").toInt(),
-                courseObject.getString("Name"),
-                null,
-                null,
-                courseObject.getString("Area"),
-                courseObject.getString("City"),
-                courseObject.getString("Location"),
-                courseObject.getString("X").toFloat(),
-                courseObject.getString("Y").toFloat()
-            )
+            for (i in 1..coursesList.length()) {
+                val courseObject = coursesList.getJSONObject(i -1)
+                val course = Course(
+                    courseObject.getString("ID").toInt(),
+                    courseObject.getString("Name"),
+                    null,
+                    null,
+                    courseObject.getString("Area"),
+                    courseObject.getString("City"),
+                    courseObject.getString("Location"),
+                    if (courseObject.getString("X").equals("")) null else courseObject.getString("X").toFloat(),
+                    if (courseObject.getString("Y").equals("")) null else courseObject.getString("Y").toFloat()
+                )
+                Course.addCourseToAllCourses(course)
+                //courses.add(course)
+            }
 
-            coursesByCountryCodeResponse.onResponse(course)
+
+            coursesByCountryCodeResponse.onResponse(Course.getAllCourses())
 
         }, { error ->
                 coursesByCountryCodeResponse.onError(message = "Something went wrong")

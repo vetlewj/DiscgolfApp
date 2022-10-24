@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
-import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
 import no.hiof.discgolfapp.databinding.FragmentCoursesOverviewListBinding
 import no.hiof.discgolfapp.model.Course
 
@@ -39,8 +37,26 @@ class CoursesOverviewListFragment : Fragment() {
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(courseModel: Course?) {
-                Toast.makeText(view.context, courseModel.toString(), Toast.LENGTH_SHORT).show()
+            override fun onResponse(courseModels: ArrayList<Course?>) {
+                Toast.makeText(view.context, courseModels.toString(), Toast.LENGTH_SHORT).show()
+                binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getAllCourses(), View.OnClickListener {
+                    val position = binding.courseRecyclerView.getChildAdapterPosition(it)
+
+                    val selectedCourse = Course.getCourses()[position]
+
+                    val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
+                    action.uid = selectedCourse.uid
+                    action.courseName = selectedCourse.name
+                    // TODO: Temporary solution, adjust for a better one
+                    action.latitude = try {selectedCourse.latitude!!} catch (e: NullPointerException) {1000F}
+                    action.longitude = try {selectedCourse.longitude!!} catch (e: NullPointerException) {1000F}
+
+
+                    findNavController().navigate(action)
+
+                    Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
+                })
+                binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
             }
 
         })
@@ -53,25 +69,25 @@ class CoursesOverviewListFragment : Fragment() {
             findNavController().navigate(R.id.action_coursesOverviewListFragment_to_coursesMapFragment)
         }
 
-        binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getCourses(), View.OnClickListener {
-            val position = binding.courseRecyclerView.getChildAdapterPosition(it)
+//        binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getAllCourses(), View.OnClickListener {
+//            val position = binding.courseRecyclerView.getChildAdapterPosition(it)
+//
+//            val selectedCourse = Course.getCourses()[position]
+//
+//            val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
+//            action.uid = selectedCourse.uid
+//            action.courseName = selectedCourse.name
+//            // TODO: Temporary solution, adjust for a better one
+//            action.latitude = try {selectedCourse.latitude!!} catch (e: NullPointerException) {1000F}
+//            action.longitude = try {selectedCourse.longitude!!} catch (e: NullPointerException) {1000F}
+//
+//
+//            findNavController().navigate(action)
+//
+//            Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
+//        })
 
-            val selectedCourse = Course.getCourses()[position]
-
-            val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
-            action.uid = selectedCourse.uid
-            action.courseName = selectedCourse.name
-            // TODO: Temporary solution, adjust for a better one
-            action.latitude = try {selectedCourse.latitude!!} catch (e: NullPointerException) {1000F}
-            action.longitude = try {selectedCourse.longitude!!} catch (e: NullPointerException) {1000F}
-
-
-            findNavController().navigate(action)
-
-            Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
-        })
-
-        binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
+        //binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
     }
 

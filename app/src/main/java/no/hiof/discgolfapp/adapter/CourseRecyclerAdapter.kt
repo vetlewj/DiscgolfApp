@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Course
 
-class CourseRecyclerAdapter(private val courses: List<Course>, private val clickListener: View.OnClickListener) : RecyclerView.Adapter<CourseRecyclerAdapter.CourseViewHolder>() {
+class CourseRecyclerAdapter(private val courses: ArrayList<Course?>, private val clickListener: View.OnClickListener) : RecyclerView.Adapter<CourseRecyclerAdapter.CourseViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.course_list_item, parent, false)
@@ -18,7 +18,9 @@ class CourseRecyclerAdapter(private val courses: List<Course>, private val click
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
         val currentCourse = courses[position]
 
-        holder.bind(currentCourse, clickListener)
+        if (currentCourse != null) {
+            holder.bind(currentCourse, clickListener)
+        }
     }
 
     override fun getItemCount(): Int {
