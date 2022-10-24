@@ -13,6 +13,7 @@
     <string name="course_poster">course_poster</string>
     <string name="course_name">course_name</string>
     <string name="course_area">course_area</string>
+    <string name="user_profile">Profil</string>
 
     <!-- Scorecard buttons -->
     <string name="create_scorecard">Opprett poengkort</string>
@@ -62,5 +63,9 @@
     <string name="hole_number_description">Hull</string>
     <string name="map_switch">map</string>
 
+    <!-- Autentication -->
+    <string name="sign_in">Du er nå logget inn som </string>
+    <string name="sign_out_button">Logg ut</string>
+    <string name="user_first_name">Fornavn</string>
 
 </resources>
