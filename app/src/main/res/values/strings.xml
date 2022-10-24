@@ -66,4 +66,6 @@
     <!-- Autentication -->
     <string name="sign_in">Du er nå logget inn som </string>
     <string name="sign_out_button">Logg ut</string>
+    <string name="user_first_name">Fornavn</string>
+
 </resources>
