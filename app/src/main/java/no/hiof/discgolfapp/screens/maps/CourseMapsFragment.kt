@@ -80,8 +80,12 @@ class CourseMapsFragment : Fragment() {
                 )
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f))
             }
+            else{
+                Log.d(TAG, "Location is null, setting location to Hiof")
+                val hiofLocation = LatLng(59.1293493239327, 11.353216358758816)
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(hiofLocation, 15f))
+            }
         }
-        // TODO: Get Current location and set as start location
 
         // TODO: Add markers for each course
 
