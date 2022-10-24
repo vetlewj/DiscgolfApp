@@ -2,17 +2,19 @@ package no.hiof.discgolfapp.screens.maps
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.gms.location.*
@@ -20,10 +22,12 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.switchmaterial.SwitchMaterial
 import no.hiof.discgolfapp.R
+import no.hiof.discgolfapp.model.Course
 
 class CourseMapsFragment : Fragment() {
     private val TAG = "CourseMapsFragment"
@@ -71,6 +75,8 @@ class CourseMapsFragment : Fragment() {
             )
         )
 
+        addCourseMarkers()
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         locationRequest =
             LocationRequest.Builder(600).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
@@ -98,6 +104,30 @@ class CourseMapsFragment : Fragment() {
 
         // TODO: Add markers for each course
 
+    }
+
+    private fun addCourseMarkers() {
+        val courses = Course.getCourses();
+
+        // TODO: Change drawable resource to discgolf
+        // get ic_golf_course drawable
+        val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_golf_course, null)
+        // convert drawable to bitmap
+        val bitmap = drawable?.toBitmap().let {
+            Bitmap.createScaledBitmap(it!!, 150, 150, false)
+        }
+        Log.d(TAG, "Bitmap: $bitmap")
+
+        for (course in courses) {
+            val courseLatLng =
+                LatLng(course.latitude?.toDouble() ?: 0.0, course.longitude?.toDouble() ?: 0.0)
+            map.addMarker(
+                MarkerOptions()
+                    .position(courseLatLng)
+                    .title(course.name)
+                    .icon(bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
+            )
+        }
     }
 
     override fun onCreateView(
