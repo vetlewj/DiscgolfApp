@@ -3,7 +3,7 @@ package no.hiof.discgolfapp.model
 data class Course(
     val uid: Int,
     val name: String,
-    val holes: List<Hole?>,
+    val holes: List<Hole?>?,
     val rating: Double?,
     val area: String?,
     val city: String?,
