@@ -48,10 +48,6 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setupWithNavController(navController)
         binding.navView.setupWithNavController(navController)
 
-        createAuthenticationListener()
-
-    }
-    private fun createAuthenticationListener() {
         authStateListener = FirebaseAuth.AuthStateListener {
             val firebaseUser = auth.currentUser
             if (firebaseUser == null) {
@@ -61,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Authenticate", "User: " + auth.currentUser?.email)
             }
         }
+
     }
 
 
