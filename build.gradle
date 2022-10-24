@@ -3,6 +3,7 @@ buildscript {
     dependencies {
         def nav_version = "2.3.5"
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+        classpath 'com.google.gms:google-services:4.3.13'
     }
 }
 
@@ -16,3 +17,9 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//allprojects {
+//    repositories {
+//        google()
+//    }
+//}
