@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -30,6 +30,9 @@ class CourseMapsFragment : Fragment() {
     private lateinit var map: GoogleMap
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
+    private var currentLocation: Location? = null
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -69,23 +72,29 @@ class CourseMapsFragment : Fragment() {
         )
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            Log.d(TAG, "Location: $location")
-            // TODO: Fix location is null here
-            if (location != null) {
-                val currentLocation = LatLng(location.latitude, location.longitude)
-                map.addMarker(
-                    MarkerOptions().position(currentLocation).title("Marker in current location")
-                )
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f))
-            }
-            else{
-                Log.d(TAG, "Location is null, setting location to Hiof")
-                val hiofLocation = LatLng(59.1293493239327, 11.353216358758816)
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(hiofLocation, 15f))
+        locationRequest =
+            LocationRequest.Builder(600).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                super.onLocationResult(locationResult)
+                currentLocation = locationResult.lastLocation
             }
         }
+
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                currentLocation = location
+                Log.d(
+                    TAG,
+                    "Current Location: ${currentLocation?.latitude}, ${currentLocation?.longitude}"
+                )
+                val currentLatLng = LatLng(currentLocation!!.latitude, currentLocation!!.longitude)
+                map.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+            }
+        }
+
 
         // TODO: Add markers for each course
 
