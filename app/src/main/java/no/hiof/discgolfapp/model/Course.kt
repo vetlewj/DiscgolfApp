@@ -3,7 +3,7 @@ package no.hiof.discgolfapp.model
 data class Course(
     val uid: Int,
     val name: String,
-    val holes: List<Hole?>,
+    val holes: List<Hole?>?,
     val rating: Double?,
     val area: String?,
     val city: String?,
@@ -14,6 +14,8 @@ data class Course(
     //TODO: Finish class
 
     companion object {
+        private val courses: ArrayList<Course?> = ArrayList()
+
         fun getCourses(): List<Course> {
             // Hentet data rett fra API
             return listOf(
@@ -23,5 +25,15 @@ data class Course(
 
             )
         }
+
+        fun addCourseToAllCourses(course: Course) {
+            courses.add(course)
+        }
+
+        fun getAllCourses(): ArrayList<Course?> {
+            return courses
+        }
+
+
     }
 }
