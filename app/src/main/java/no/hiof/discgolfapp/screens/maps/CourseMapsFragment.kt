@@ -2,6 +2,7 @@ package no.hiof.discgolfapp.screens.maps
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -20,10 +21,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.switchmaterial.SwitchMaterial
 import no.hiof.discgolfapp.R
+import no.hiof.discgolfapp.model.Course
 
 class CourseMapsFragment : Fragment() {
     private val TAG = "CourseMapsFragment"
@@ -71,6 +75,8 @@ class CourseMapsFragment : Fragment() {
             )
         )
 
+        addCourseMarkers()
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         locationRequest =
             LocationRequest.Builder(600).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
@@ -98,6 +104,20 @@ class CourseMapsFragment : Fragment() {
 
         // TODO: Add markers for each course
 
+    }
+
+    private fun addCourseMarkers() {
+        val courses = Course.getCourses();
+
+        for (course in courses) {
+            val courseLatLng =
+                LatLng(course.latitude?.toDouble() ?: 0.0, course.longitude?.toDouble() ?: 0.0)
+            map.addMarker(
+                MarkerOptions()
+                    .position(courseLatLng)
+                    .title(course.name)
+            )
+        }
     }
 
     override fun onCreateView(
