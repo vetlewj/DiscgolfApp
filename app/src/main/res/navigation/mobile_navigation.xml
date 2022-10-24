@@ -102,4 +102,9 @@
             android:id="@+id/action_coursesMapFragment_to_coursesOverviewListFragment"
             app:destination="@id/coursesOverviewListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="no.hiof.discgolfapp.screens.userFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
 </navigation>

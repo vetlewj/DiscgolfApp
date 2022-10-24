@@ -10,7 +10,8 @@
                 android:title="@string/settings_title"
                 android:checkable="true"/>
             <item
-                android:id="@+id/profil"
+                android:id="@+id/userFragment"
+                android:checkable="true"
                 android:icon="@drawable/fui_ic_anonymous_white_24dp"
                 android:title="@string/user_profile" />
 
