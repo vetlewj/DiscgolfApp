@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         auth = Firebase.auth
 
         binding = ActivityMainBinding.inflate(layoutInflater)

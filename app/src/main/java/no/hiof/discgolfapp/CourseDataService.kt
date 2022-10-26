@@ -12,6 +12,8 @@ class CourseDataService(var context: Context) {
     companion object {
         const val QUERY_FOR_COURSES = "https://discgolfmetrix.com/api.php?content=courses_list&country_code="
         const val COUNTRY_CODE = "NO"
+        const val QUERY_FOR_COURSE_BY_ID = "https://discgolfmetrix.com/api.php?content=course&id="
+        const val API_CODE = "&code=XXX"
     }
 
     interface ListOfCoursesByCountryCodeResponse {
@@ -26,7 +28,6 @@ class CourseDataService(var context: Context) {
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
 
             val coursesList: JSONArray = response.getJSONArray("courses")
-            //val courseObject = coursesList.getJSONObject(0)
 
             for (i in 1..coursesList.length()) {
                 val courseObject = coursesList.getJSONObject(i -1)
@@ -53,6 +54,36 @@ class CourseDataService(var context: Context) {
         })
 
         RequestQueueSingleton.getInstance(context).addToRequestQueue(request)
+    }
+
+    interface VolleyResponseListener {
+        fun onError(message: String?)
+        fun onResponse(courseIDResponseFromReq: String?)
+    }
+
+    fun getCourseByID(courseID: String, volleyResponseListener: VolleyResponseListener) {
+        val url = QUERY_FOR_COURSE_BY_ID + courseID + API_CODE
+        var courseIDFromReq: String = ""
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                var courseName = ""
+                try {
+                    val course = response.getJSONObject("course")
+                    courseIDFromReq = course.getString("ID")
+                    courseName = course.getString("Name")
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+                volleyResponseListener.onResponse(courseIDFromReq)
+            }) {
+
+            volleyResponseListener.onError("something went wrong")
+        }
+        RequestQueueSingleton.getInstance(context).addToRequestQueue(request)
+
+
     }
 
 }
