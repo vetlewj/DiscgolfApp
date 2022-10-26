@@ -97,7 +97,7 @@ class CourseMapsFragment : Fragment() {
                 )
                 val currentLatLng = LatLng(currentLocation!!.latitude, currentLocation!!.longitude)
                 map.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f))
             }
         }
 
@@ -116,17 +116,20 @@ class CourseMapsFragment : Fragment() {
         val bitmap = drawable?.toBitmap().let {
             Bitmap.createScaledBitmap(it!!, 150, 150, false)
         }
-        Log.d(TAG, "Bitmap: $bitmap")
 
         for (course in courses) {
-            val courseLatLng =
-                LatLng(course.latitude?.toDouble() ?: 0.0, course.longitude?.toDouble() ?: 0.0)
-            map.addMarker(
-                MarkerOptions()
-                    .position(courseLatLng)
-                    .title(course.name)
-                    .icon(bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
-            )
+            val lat = course.latitude?.toDouble() ?: 0.0
+            val lon = course.latitude?.toDouble() ?: 0.0
+            if (lat != 0.0 && lon != 0.0){
+                val courseLatLng =
+                    LatLng(course.latitude?.toDouble() ?: 0.0, course.longitude?.toDouble() ?: 0.0)
+                map.addMarker(
+                    MarkerOptions()
+                        .position(courseLatLng)
+                        .title(course.name)
+                        .icon(bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
+                )
+            }
         }
     }
 
