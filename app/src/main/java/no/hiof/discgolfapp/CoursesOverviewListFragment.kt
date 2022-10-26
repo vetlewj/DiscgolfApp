@@ -38,7 +38,6 @@ class CoursesOverviewListFragment : Fragment() {
             }
 
             override fun onResponse(courseModels: ArrayList<Course?>) {
-                Toast.makeText(view.context, courseModels.toString(), Toast.LENGTH_SHORT).show()
                 binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getAllCourses(), View.OnClickListener {
                     val position = binding.courseRecyclerView.getChildAdapterPosition(it)
 
@@ -53,8 +52,6 @@ class CoursesOverviewListFragment : Fragment() {
 
 
                     findNavController().navigate(action)
-
-                    Toast.makeText(view.context, selectedCourse.name + " clicked", Toast.LENGTH_SHORT).show()
                 })
                 binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
             }
@@ -63,7 +60,6 @@ class CoursesOverviewListFragment : Fragment() {
 
         binding.coursesOverviewListToMapSwitch.setOnCheckedChangeListener {
                 compoundButton, b ->
-            Toast.makeText(view.context, " clicked", Toast.LENGTH_SHORT).show()
 
             findNavController().navigate(R.id.action_coursesOverviewListFragment_to_courseMapsFragment)
         }

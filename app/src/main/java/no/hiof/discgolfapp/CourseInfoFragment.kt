@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
 import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
+import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Weather
 
 
@@ -27,6 +31,23 @@ class CourseInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentCourseInfoBinding.bind(view)
         fragmentBinding = binding
+
+        val courseDataService = CourseDataService(view.context)
+
+        courseDataService.getCourseByID(args.uid.toString(), object: CourseDataService.VolleyResponseListener {
+            override fun onError(message: String?) {
+                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(courseIDResponseFromReq: String?) {
+                Toast.makeText(
+                    view.context,
+                    "Returned an ID of $courseIDResponseFromReq", Toast.LENGTH_LONG
+                ).show()
+            }
+
+
+        })
 
          val weather = Weather.getWeatherFromCoordinate(args.latitude, args.longitude)
 
