@@ -1,5 +1,8 @@
 package no.hiof.discgolfapp.model
 
+import java.util.*
+import kotlin.collections.ArrayList
+
 data class Course(
     val uid: Int,
     val name: String,
@@ -9,7 +12,10 @@ data class Course(
     val city: String?,
     val location: String?,
     val latitude: Float?,
-    val longitude: Float?
+    val longitude: Float?,
+    val endDate: Date?,
+    val type: Int?,
+
 ) {
     //TODO: Finish class
 
@@ -17,11 +23,10 @@ data class Course(
         private val courses: ArrayList<Course?> = ArrayList()
 
         fun getCourses(): List<Course> {
-            // Hentet data rett fra API
             return listOf(
-                Course(0, "Muselunden", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.939369F, 10.785842F),
-                Course(1, "Ekeberg skole", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.895178F, 10.787161F),
-                Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null)
+                Course(0, "Muselunden", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.939369F, 10.785842F, null, null),
+                Course(1, "Ekeberg skole", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.895178F, 10.787161F, null, null),
+                Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null, null, null)
 
             )
         }
