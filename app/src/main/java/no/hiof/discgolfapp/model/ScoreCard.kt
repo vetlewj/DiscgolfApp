@@ -4,16 +4,19 @@ import java.util.*
 
 
 class ScoreCard(
+    val playerId: String? = null,
     val course: Course,
     val par: Int?,
     val score: Int,
     val date: Date,
-    val holeScores: List<HoleScore>
+    val holeScores: List<HoleScore>,
+    val id: String? = UUID.randomUUID().toString(),
 ) {
     companion object {
         fun getScoreCards(): List<ScoreCard> {
             return listOf(
                 ScoreCard(
+                    null,
                     Course.getCourses().get(0),
                     54,
                     54,
@@ -22,12 +25,17 @@ class ScoreCard(
                 )
             )
         }
-        fun createEmptyScoreCard(course: Course, scoreCardCreationType: ScoreCardCreationType): ScoreCard {
+
+        fun createEmptyScoreCard(
+            playerId: String?,
+            course: Course,
+            scoreCardCreationType: ScoreCardCreationType
+        ): ScoreCard {
             val holeScores = emptyList<HoleScore>()
 
-            if (scoreCardCreationType == ScoreCardCreationType.PAR){
+            if (scoreCardCreationType == ScoreCardCreationType.PAR) {
                 val holeNum = 0
-                for (hole in course.holes!!){
+                for (hole in course.holes!!) {
                     if (hole != null) {
                         holeScores.plus(HoleScore(holeNum, 0, hole.par, null))
                     }
@@ -35,8 +43,8 @@ class ScoreCard(
                 }
             }
             // TODO: Add rest of scorecard creation types
-            else{
-                for (hole in course.holes!!){
+            else {
+                for (hole in course.holes!!) {
                     if (hole != null) {
                         holeScores.plus(HoleScore(1, 0, 0, null))
                     }
@@ -44,7 +52,11 @@ class ScoreCard(
             }
             val par = holeScores.sumOf { it.par }
 
-            return ScoreCard(course, par, 0, Date(), holeScores)
+            if (playerId != null) {
+                return ScoreCard(playerId, course, par, 0, Date(), holeScores)
+            }
+
+            return ScoreCard(null, course, par, 0, Date(), holeScores)
         }
     }
 

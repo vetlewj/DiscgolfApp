@@ -1,16 +1,22 @@
 package no.hiof.discgolfapp.screens.takescore
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.databinding.FragmentTakeScoreBinding
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.ScoreCard
 
 class TakeScoreFragment : Fragment() {
+
+    private var firebaseAuth = FirebaseAuth.getInstance()
+    private var firestore = FirebaseFirestore.getInstance()
 
     private var _binding: FragmentTakeScoreBinding? = null
     private val binding get() = _binding!!
@@ -30,8 +36,10 @@ class TakeScoreFragment : Fragment() {
         val scoreCardType = ScoreCard.ScoreCardCreationType.valueOf(args.scoreCardType.uppercase())
 
         if (viewModel.scoreCard == null) {
-            // TODO: Change to use ScoreCardType
-            viewModel.scoreCard = course?.let { ScoreCard.createEmptyScoreCard(it, scoreCardType) }
+            val playerId = firebaseAuth.currentUser?.uid;
+            viewModel.scoreCard = course?.let { ScoreCard.createEmptyScoreCard(playerId, it, scoreCardType) }
+            viewModel.scoreCard!!.id?.let { firestore.collection("scorecards").document(it).set(viewModel.scoreCard!!) }
+            Log.d("TakeScoreFragment", "Scorecard created in firestore")
         }
 
         viewModel.par = course?.holes?.get(args.holeNumber - 1)?.par ?: 0
@@ -60,6 +68,7 @@ class TakeScoreFragment : Fragment() {
                 binding.currentScoreForHole.text = viewModel.score.toString()
                 binding.parForHoleTextView.text = course?.holes?.get(viewModel.holeNumber - 1)?.par.toString()
                 binding.distanceForCurrentHoleTextView.text = course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
+                firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString()).set(viewModel.scoreCard!!)
             }
             else{
                 //TODO: Navigate to overview of round score
