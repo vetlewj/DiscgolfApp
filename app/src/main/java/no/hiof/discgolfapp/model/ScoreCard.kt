@@ -10,6 +10,7 @@ class ScoreCard(
     val score: Int,
     val date: Date,
     val holeScores: List<HoleScore>,
+    val scoreCardType: ScoreCardCreationType = ScoreCardCreationType.PAR,
     val id: String? = UUID.randomUUID().toString(),
 ) {
     companion object {

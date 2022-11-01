@@ -37,8 +37,21 @@ class TakeScoreFragment : Fragment() {
 
         if (viewModel.scoreCard == null) {
             val playerId = firebaseAuth.currentUser?.uid;
-            viewModel.scoreCard = course?.let { ScoreCard.createEmptyScoreCard(playerId, it, scoreCardType) }
-            viewModel.scoreCard!!.id?.let { firestore.collection("scorecards").document(it).set(viewModel.scoreCard!!) }
+            viewModel.scoreCard =
+                course?.let { ScoreCard.createEmptyScoreCard(playerId, it, scoreCardType) }
+            // create an empty hashmap
+            val docData = HashMap<String, Any>()
+            val scoreCard = viewModel.scoreCard
+            scoreCard?.course?.uid?.let { docData.put("course", it) }
+            scoreCard?.playerId?.let { docData.put("playerId", it) }
+            scoreCard?.scoreCardType?.let { docData.put("scoreCardType", it) }
+            scoreCard?.id?.let { docData.put("scoreCardId", it) }
+            scoreCard?.holeScores?.let { docData.put("holeScores", it) }
+            scoreCard?.score?.let { docData.put("score", it) }
+            scoreCard?.par?.let { docData.put("par", it) }
+            scoreCard?.date?.let { docData.put("date", it) }
+
+            viewModel.scoreCard!!.id?.let { firestore.collection("scorecards").document(it).set(docData) }
             Log.d("TakeScoreFragment", "Scorecard created in firestore")
         }
 
@@ -66,11 +79,13 @@ class TakeScoreFragment : Fragment() {
                 viewModel.score = 0
                 binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
                 binding.currentScoreForHole.text = viewModel.score.toString()
-                binding.parForHoleTextView.text = course?.holes?.get(viewModel.holeNumber - 1)?.par.toString()
-                binding.distanceForCurrentHoleTextView.text = course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
-                firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString()).set(viewModel.scoreCard!!)
-            }
-            else{
+                binding.parForHoleTextView.text =
+                    course?.holes?.get(viewModel.holeNumber - 1)?.par.toString()
+                binding.distanceForCurrentHoleTextView.text =
+                    course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
+                firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
+                    .set(viewModel.scoreCard!!)
+            } else {
                 //TODO: Navigate to overview of round score
                 binding.currentHoleNumberTextView.text = "Round over"
             }
