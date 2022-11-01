@@ -9,7 +9,7 @@ class ScoreCard(
     val par: Int?,
     val score: Int,
     val date: Date,
-    val holeScores: List<HoleScore>,
+    val holeScores: MutableList<HoleScore>,
     val scoreCardType: ScoreCardCreationType = ScoreCardCreationType.PAR,
     val id: String? = UUID.randomUUID().toString(),
 ) {
@@ -22,7 +22,7 @@ class ScoreCard(
                     54,
                     54,
                     Date(),
-                    HoleScore.getHoleScores()
+                    HoleScore.getHoleScores().toMutableList()
                 )
             )
         }
@@ -32,7 +32,7 @@ class ScoreCard(
             course: Course,
             scoreCardCreationType: ScoreCardCreationType
         ): ScoreCard {
-            val holeScores = emptyList<HoleScore>()
+            val holeScores = mutableListOf<HoleScore>()
 
             if (scoreCardCreationType == ScoreCardCreationType.PAR) {
                 val holeNum = 0
