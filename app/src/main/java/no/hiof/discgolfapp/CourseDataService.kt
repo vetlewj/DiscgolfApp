@@ -33,14 +33,16 @@ class CourseDataService(var context: Context) {
                 val courseObject = coursesList.getJSONObject(i -1)
                 val course = Course(
                     courseObject.getString("ID").toInt(),
-                    courseObject.getString("Name"),
+                    courseObject.getString("Fullname"),
                     null,
                     null,
                     courseObject.getString("Area"),
                     courseObject.getString("City"),
                     courseObject.getString("Location"),
                     if (courseObject.getString("X").equals("")) null else courseObject.getString("X").toFloat(),
-                    if (courseObject.getString("Y").equals("")) null else courseObject.getString("Y").toFloat()
+                    if (courseObject.getString("Y").equals("")) null else courseObject.getString("Y").toFloat(),
+                    null,
+                    null
                 )
                 Course.addCourseToAllCourses(course)
                 //courses.add(course)
