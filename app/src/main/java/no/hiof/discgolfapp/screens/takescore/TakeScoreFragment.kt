@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.databinding.FragmentTakeScoreBinding
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.model.HoleScore
 import no.hiof.discgolfapp.model.ScoreCard
 
 class TakeScoreFragment : Fragment() {
@@ -42,7 +43,7 @@ class TakeScoreFragment : Fragment() {
             // create an empty hashmap
             val docData = HashMap<String, Any>()
             val scoreCard = viewModel.scoreCard
-            scoreCard?.course?.uid?.let { docData.put("course", it) }
+            scoreCard?.course?.uid?.let { docData.put("courseId", it) }
             scoreCard?.playerId?.let { docData.put("playerId", it) }
             scoreCard?.scoreCardType?.let { docData.put("scoreCardType", it) }
             scoreCard?.id?.let { docData.put("scoreCardId", it) }
@@ -74,6 +75,11 @@ class TakeScoreFragment : Fragment() {
             binding.currentScoreForHole.text = viewModel.score.toString()
         }
         binding.nextHoleBtn.setOnClickListener {
+            viewModel.score = binding.currentScoreForHole.text.toString().toInt()
+            viewModel.scoreCard?.holeScores?.add(HoleScore(viewModel.holeNumber, viewModel.score, viewModel.par))
+            firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
+                .update("holeScores", viewModel.scoreCard?.holeScores)
+
             if (viewModel.holeNumber < (course?.holes?.size ?: 0)) {
                 viewModel.holeNumber++
                 viewModel.score = 0
@@ -83,8 +89,7 @@ class TakeScoreFragment : Fragment() {
                     course?.holes?.get(viewModel.holeNumber - 1)?.par.toString()
                 binding.distanceForCurrentHoleTextView.text =
                     course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
-                firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
-                    .set(viewModel.scoreCard!!)
+
             } else {
                 //TODO: Navigate to overview of round score
                 binding.currentHoleNumberTextView.text = "Round over"
