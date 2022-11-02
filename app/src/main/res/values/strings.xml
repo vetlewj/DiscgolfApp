@@ -68,5 +68,6 @@
     <string name="sign_out_button">Logg ut</string>
     <string name="user_first_name">Fornavn</string>
     <string name="finish_scoreboard">Gå videre</string>
+    <string name="scoreboard_ll_content_desc">Poeng for runden</string>
 
 </resources>
