@@ -92,6 +92,9 @@
             android:name="holeNumber"
             app:argType="integer"
             android:defaultValue="1" />
+        <action
+            android:id="@+id/action_takeScoreFragment_to_scoreBoardFragment"
+            app:destination="@id/scoreBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/courseMapsFragment"
@@ -107,4 +110,13 @@
         android:name="no.hiof.discgolfapp.screens.userFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/scoreBoardFragment"
+        android:name="no.hiof.discgolfapp.screens.scoreboard.ScoreBoardFragment"
+        android:label="fragment_score_board"
+        tools:layout="@layout/fragment_score_board" >
+        <argument
+            android:name="ScoreCardId"
+            app:argType="string" />
+    </fragment>
 </navigation>
