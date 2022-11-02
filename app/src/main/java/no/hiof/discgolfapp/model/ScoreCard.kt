@@ -5,15 +5,15 @@ import java.util.*
 
 class ScoreCard(
     val playerId: String? = null,
-    val course: Course,
-    val par: Int?,
-    val score: Int,
-    val date: Date,
-    val holeScores: MutableList<HoleScore>,
+    val course: Course? = null,
+    val par: Int? = null,
+    val score: Int = 0,
+    val date: Date = Date(),
+    val holeScores: MutableList<HoleScore> = mutableListOf(),
     val scoreCardType: ScoreCardCreationType = ScoreCardCreationType.PAR,
     val id: String? = UUID.randomUUID().toString(),
 ) {
-    companion object {
+        companion object {
         fun getScoreCards(): List<ScoreCard> {
             return listOf(
                 ScoreCard(

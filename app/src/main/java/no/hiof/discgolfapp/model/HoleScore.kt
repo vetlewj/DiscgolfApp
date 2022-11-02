@@ -1,10 +1,10 @@
 package no.hiof.discgolfapp.model
 
 data class HoleScore(
-    val holeNumber: Int,
-    var score: Int,
-    val par: Int,
-    var discThrows: MutableList<Throw>? = null
+    val holeNumber: Int = 0,
+    var score: Int = 0,
+    val par: Int = 0,
+    var discThrows: MutableList<Throw>? = mutableListOf()
 ) {
     companion object {
         fun getHoleScores(): List<HoleScore> {
