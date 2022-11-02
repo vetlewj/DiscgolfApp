@@ -38,7 +38,7 @@ class CreateScoreCardFragment : Fragment() {
         val action = CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
             course?.name ?: resources.getString(R.string.no_course_selected)
         )
-        binding.createScorecardBtn.setOnClickListener() {
+        binding.createScorecardBtn.setOnClickListener {
             Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
             action.scoreCardType = "PAR"
             NavHostFragment.findNavController(this).navigate(action)

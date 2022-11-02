@@ -38,7 +38,7 @@ class TakeScoreFragment : Fragment() {
         val scoreCardType = ScoreCard.ScoreCardCreationType.valueOf(args.scoreCardType.uppercase())
 
         if (viewModel.scoreCard == null) {
-            val playerId = firebaseAuth.currentUser?.uid;
+            val playerId = firebaseAuth.currentUser?.uid
             viewModel.scoreCard =
                 course?.let { ScoreCard.createEmptyScoreCard(playerId, it, scoreCardType) }
             val docData = HashMap<String, Any>()

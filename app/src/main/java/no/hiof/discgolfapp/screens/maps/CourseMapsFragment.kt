@@ -106,7 +106,7 @@ class CourseMapsFragment : Fragment() {
     }
 
     private fun addCourseMarkers() {
-        val courses = Course.getCourses();
+        val courses = Course.getCourses()
 
         // TODO: Change drawable resource to discgolf
         // get ic_golf_course drawable
