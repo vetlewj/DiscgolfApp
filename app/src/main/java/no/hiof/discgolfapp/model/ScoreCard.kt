@@ -18,7 +18,7 @@ class ScoreCard(
             return listOf(
                 ScoreCard(
                     null,
-                    Course.getCourses().get(0),
+                    Course.getCourses()[0],
                     54,
                     54,
                     Date(),

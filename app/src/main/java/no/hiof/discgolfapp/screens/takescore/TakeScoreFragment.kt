@@ -2,10 +2,10 @@ package no.hiof.discgolfapp.screens.takescore
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -38,7 +38,7 @@ class TakeScoreFragment : Fragment() {
         val scoreCardType = ScoreCard.ScoreCardCreationType.valueOf(args.scoreCardType.uppercase())
 
         if (viewModel.scoreCard == null) {
-            val playerId = firebaseAuth.currentUser?.uid;
+            val playerId = firebaseAuth.currentUser?.uid
             viewModel.scoreCard =
                 course?.let { ScoreCard.createEmptyScoreCard(playerId, it, scoreCardType) }
             val docData = HashMap<String, Any>()

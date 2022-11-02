@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".CourseInfoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <Button
         android:id="@+id/createScoreCardInfobutton"

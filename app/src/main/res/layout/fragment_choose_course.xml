@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".screens.createscorecard.ChooseCourseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/choose_course_recycler_view"
