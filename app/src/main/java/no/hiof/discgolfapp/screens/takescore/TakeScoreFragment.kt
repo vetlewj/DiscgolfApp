@@ -46,7 +46,7 @@ class TakeScoreFragment : Fragment() {
             scoreCard?.course?.uid?.let { docData.put("courseId", it) }
             scoreCard?.playerId?.let { docData.put("playerId", it) }
             scoreCard?.scoreCardType?.let { docData.put("scoreCardType", it) }
-            scoreCard?.id?.let { docData.put("scoreCardId", it) }
+            scoreCard?.id?.let { docData.put("id", it) }
             scoreCard?.holeScores?.let { docData.put("holeScores", it) }
             scoreCard?.score?.let { docData.put("score", it) }
             scoreCard?.par?.let { docData.put("par", it) }
