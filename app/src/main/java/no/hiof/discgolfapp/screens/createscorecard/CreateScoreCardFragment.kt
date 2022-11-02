@@ -29,7 +29,7 @@ class CreateScoreCardFragment : Fragment() {
         val binding = FragmentCreateScoreCardBinding.bind(view)
         fragmentBinding = binding
 
-        // TODO: Should be replaced by CourseId, but requires change in Model class
+        // TODO: Should be replaced by CourseId
         val course = Course.getCourses().find { it.name == args.courseName }
 
         binding.createScoreCardCourseNameTextView.text =

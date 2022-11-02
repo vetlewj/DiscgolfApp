@@ -37,6 +37,7 @@ class ChooseCourseFragment : Fragment() {
             val position = it as Button
             val courseName = position.text.toString()
 
+            // TODO: Use ID instead of name when navigating to CreateScoreCardFragment
             val clickedCourse = courseList.find { course -> course.name == courseName }
 
             val action = ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(clickedCourse!!.name)
