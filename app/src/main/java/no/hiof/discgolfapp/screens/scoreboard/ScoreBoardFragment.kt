@@ -5,15 +5,53 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.viewModels
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import no.hiof.discgolfapp.R
+import no.hiof.discgolfapp.databinding.FragmentScoreBoardBinding
+import no.hiof.discgolfapp.model.ScoreCard
 
 
 class ScoreBoardFragment : Fragment() {
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
+    private var _binding: FragmentScoreBoardBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: ScoreBoardViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_score_board, container, false)
+    ): View {
+        _binding = FragmentScoreBoardBinding.inflate(inflater, container, false)
+
+        firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+        val args = ScoreBoardFragmentArgs.fromBundle(requireArguments())
+
+        val scoreCardId = args.scoreCardId
+        val storedCard =
+            firestore.collection("scorecards").document(scoreCardId).get()
+        val layout = binding.scoreBoardLayout
+        storedCard.addOnSuccessListener { document ->
+            if (document != null) {
+                val scoreCard = document.toObject<ScoreCard>()
+                viewModel.scoreCard = scoreCard
+                for (holeScore in viewModel.scoreCard?.holeScores!!) {
+                    val textView = TextView(context)
+                    textView.text = "Hole ${holeScore.holeNumber}: ${holeScore.score}"
+                    layout.addView(textView)
+                }
+            } else {
+                println("No such document")
+            }
+        }
+        return binding.root
     }
 }
