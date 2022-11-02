@@ -118,5 +118,8 @@
         <argument
             android:name="ScoreCardId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_scoreBoardFragment_to_coursesOverviewListFragment"
+            app:destination="@id/coursesOverviewListFragment" />
     </fragment>
 </navigation>
