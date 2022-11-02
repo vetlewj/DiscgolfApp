@@ -3,7 +3,6 @@ package no.hiof.discgolfapp.screens.maps
 import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Build
 import android.os.Bundle

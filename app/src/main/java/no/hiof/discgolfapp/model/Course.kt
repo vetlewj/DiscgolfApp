@@ -1,7 +1,6 @@
 package no.hiof.discgolfapp.model
 
 import java.util.*
-import kotlin.collections.ArrayList
 
 data class Course(
     val uid: Int,

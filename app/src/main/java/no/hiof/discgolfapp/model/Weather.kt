@@ -1,6 +1,5 @@
 package no.hiof.discgolfapp.model
 
-import android.graphics.drawable.Drawable
 import no.hiof.discgolfapp.R
 
 class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, var windspeed: Double?, private var windFromDirection: Float?, private var lat: Float?, private var lon: Float?, private var time: String?) {

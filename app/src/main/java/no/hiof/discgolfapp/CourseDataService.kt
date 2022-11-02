@@ -1,7 +1,6 @@
 package no.hiof.discgolfapp
 
 import android.content.Context
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import no.hiof.discgolfapp.model.Course
