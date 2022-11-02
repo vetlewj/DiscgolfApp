@@ -99,19 +99,13 @@ class CourseMapsFragment : Fragment() {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f))
             }
         }
-
-
-        // TODO: Add markers for each course
-
     }
 
     private fun addCourseMarkers() {
         val courses = Course.getCourses()
 
         // TODO: Change drawable resource to discgolf
-        // get ic_golf_course drawable
         val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_golf_course, null)
-        // convert drawable to bitmap
         val bitmap = drawable?.toBitmap().let {
             Bitmap.createScaledBitmap(it!!, 150, 150, false)
         }
@@ -119,7 +113,7 @@ class CourseMapsFragment : Fragment() {
         for (course in courses) {
             val lat = course.latitude?.toDouble() ?: 0.0
             val lon = course.latitude?.toDouble() ?: 0.0
-            if (lat != 0.0 && lon != 0.0){
+            if (lat != 0.0 && lon != 0.0) {
                 val courseLatLng =
                     LatLng(course.latitude?.toDouble() ?: 0.0, course.longitude?.toDouble() ?: 0.0)
                 map.addMarker(
