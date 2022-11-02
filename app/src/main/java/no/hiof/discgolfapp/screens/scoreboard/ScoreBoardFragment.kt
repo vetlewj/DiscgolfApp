@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
@@ -38,18 +39,18 @@ class ScoreBoardFragment : Fragment() {
         val scoreCardId = args.scoreCardId
         val storedCard =
             firestore.collection("scorecards").document(scoreCardId).get()
-        val layout = binding.scoreBoardLayout
+        val layout = binding.scoreBoardLinearLayout
         storedCard.addOnSuccessListener { document ->
             if (document != null) {
                 val scoreCard = document.toObject<ScoreCard>()
                 viewModel.scoreCard = scoreCard
                 for (holeScore in viewModel.scoreCard?.holeScores!!) {
                     val textView = TextView(context)
-                    textView.text = "Hole ${holeScore.holeNumber}: ${holeScore.score}"
+                    textView.text = "Hole ${holeScore.holeNumber}: par: ${holeScore.par}, score: ${holeScore.score}"
                     layout.addView(textView)
                 }
             } else {
-                println("No such document")
+                println("Could not find scorecard")
             }
         }
         return binding.root
