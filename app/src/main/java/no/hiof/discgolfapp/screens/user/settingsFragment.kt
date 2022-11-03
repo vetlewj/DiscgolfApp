@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.screens
+package no.hiof.discgolfapp.screens.user
 
 import android.os.Bundle
 import android.view.LayoutInflater

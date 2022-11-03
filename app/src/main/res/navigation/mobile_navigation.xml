@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/coursesOverviewListFragment"
-        android:name="no.hiof.discgolfapp.CoursesOverviewListFragment"
+        android:name="no.hiof.discgolfapp.screens.courses.CoursesOverviewListFragment"
         android:label="fragment_courses_overview_list"
         tools:layout="@layout/fragment_courses_overview_list" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/myDiscsFragment"
-        android:name="no.hiof.discgolfapp.MyDiscsFragment"
+        android:name="no.hiof.discgolfapp.screens.discs.MyDiscsFragment"
         android:label="fragment_my_discs"
         tools:layout="@layout/fragment_my_discs" />
     <fragment
         android:id="@+id/createScoreCardFragment"
-        android:name="no.hiof.discgolfapp.screens.createscorecard.CreateScoreCardFragment"
+        android:name="no.hiof.discgolfapp.screens.play.createscorecard.CreateScoreCardFragment"
         android:label="fragment_create_score_card"
         tools:layout="@layout/fragment_create_score_card" >
         <argument
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/chooseCourseFragment"
-        android:name="no.hiof.discgolfapp.screens.createscorecard.ChooseCourseFragment"
+        android:name="no.hiof.discgolfapp.screens.play.createscorecard.ChooseCourseFragment"
         android:label="fragment_choose_course"
         tools:layout="@layout/fragment_choose_course" >
         <action
@@ -48,12 +48,12 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="no.hiof.discgolfapp.screens.settingsFragment"
+        android:name="no.hiof.discgolfapp.screens.user.settingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/courseInfoFragment"
-        android:name="no.hiof.discgolfapp.CourseInfoFragment"
+        android:name="no.hiof.discgolfapp.screens.courses.CourseInfoFragment"
         android:label="fragment_course_info"
         tools:layout="@layout/fragment_course_info" >
         <argument
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/takeScoreFragment"
-        android:name="no.hiof.discgolfapp.screens.takescore.TakeScoreFragment"
+        android:name="no.hiof.discgolfapp.screens.play.takescore.TakeScoreFragment"
         android:label="fragment_take_score"
         tools:layout="@layout/fragment_take_score" >
         <argument
@@ -107,12 +107,12 @@
     </fragment>
     <fragment
         android:id="@+id/userFragment"
-        android:name="no.hiof.discgolfapp.screens.userFragment"
+        android:name="no.hiof.discgolfapp.screens.user.userFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
     <fragment
         android:id="@+id/scoreBoardFragment"
-        android:name="no.hiof.discgolfapp.screens.scoreboard.ScoreBoardFragment"
+        android:name="no.hiof.discgolfapp.screens.play.scoreboard.ScoreBoardFragment"
         android:label="fragment_score_board"
         tools:layout="@layout/fragment_score_board" >
         <argument

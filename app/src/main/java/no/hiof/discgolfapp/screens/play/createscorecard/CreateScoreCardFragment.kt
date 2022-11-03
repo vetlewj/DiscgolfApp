@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.screens.createscorecard
+package no.hiof.discgolfapp.screens.play.createscorecard
 
 import android.os.Bundle
 import android.util.Log
@@ -35,9 +35,10 @@ class CreateScoreCardFragment : Fragment() {
         binding.createScoreCardCourseNameTextView.text =
             course?.name ?: resources.getString(R.string.no_course_selected)
 
-        val action = CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
-            course?.name ?: resources.getString(R.string.no_course_selected)
-        )
+        val action =
+            CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
+                course?.name ?: resources.getString(R.string.no_course_selected)
+            )
         binding.createScorecardBtn.setOnClickListener {
             Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
             action.scoreCardType = "PAR"

@@ -5,7 +5,7 @@
     android:id="@+id/courses_overview_list_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CoursesOverviewListFragment">
+    tools:context=".screens.courses.CoursesOverviewListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/courseRecyclerView"

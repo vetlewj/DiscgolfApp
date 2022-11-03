@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp
+package no.hiof.discgolfapp.screens.courses
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
 import no.hiof.discgolfapp.databinding.FragmentCoursesOverviewListBinding
+import no.hiof.discgolfapp.helper.data.CourseDataService
 import no.hiof.discgolfapp.model.Course
 
 
@@ -43,7 +45,8 @@ class CoursesOverviewListFragment : Fragment() {
 
                     val selectedCourse = Course.getAllCourses()[position]
 
-                    val action = CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
+                    val action =
+                        CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
                     action.uid = selectedCourse!!.uid
                     action.courseName = selectedCourse.name
                     // TODO: Temporary solution, adjust for a better one

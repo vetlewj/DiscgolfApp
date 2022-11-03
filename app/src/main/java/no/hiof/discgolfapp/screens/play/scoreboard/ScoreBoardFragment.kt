@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.screens.scoreboard
+package no.hiof.discgolfapp.screens.play.scoreboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,7 +33,9 @@ class ScoreBoardFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
-        val args = ScoreBoardFragmentArgs.fromBundle(requireArguments())
+        val args = ScoreBoardFragmentArgs.fromBundle(
+            requireArguments()
+        )
 
         val scoreCardId = args.scoreCardId
         val storedCard =
@@ -55,7 +57,8 @@ class ScoreBoardFragment : Fragment() {
 
         val continueButton = binding.finishScoreBoardButton
         continueButton.setOnClickListener {
-            val action = ScoreBoardFragmentDirections.actionScoreBoardFragmentToCoursesOverviewListFragment()
+            val action =
+                ScoreBoardFragmentDirections.actionScoreBoardFragmentToCoursesOverviewListFragment()
             it.findNavController().navigate(action)
         }
         return binding.root

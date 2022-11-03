@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp
+package no.hiof.discgolfapp.helper.data
 
 import android.content.Context
 import com.android.volley.Request

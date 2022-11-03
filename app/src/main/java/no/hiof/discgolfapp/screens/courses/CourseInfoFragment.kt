@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp
+package no.hiof.discgolfapp.screens.courses
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
+import no.hiof.discgolfapp.helper.data.CourseDataService
 import no.hiof.discgolfapp.model.Weather
 
 
 class CourseInfoFragment : Fragment() {
-    private val args: CourseInfoFragmentArgs by navArgs()
+    private val args: no.hiof.discgolfapp.screens.courses.CourseInfoFragmentArgs by navArgs()
     private var fragmentBinding: FragmentCourseInfoBinding? = null
 
     override fun onCreateView(
@@ -59,7 +61,10 @@ class CourseInfoFragment : Fragment() {
         binding.createScoreCardInfobutton.setOnClickListener() {
             val navController = this.findNavController()
 
-            val action = CourseInfoFragmentDirections.actionCourseInfoFragmentToCreateScoreCardFragment(args.courseName)
+            val action =
+                CourseInfoFragmentDirections.actionCourseInfoFragmentToCreateScoreCardFragment(
+                    args.courseName
+                )
 
             navController.navigate(action)
         }
