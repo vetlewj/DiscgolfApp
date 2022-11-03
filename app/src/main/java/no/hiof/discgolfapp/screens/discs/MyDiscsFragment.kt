@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp
+package no.hiof.discgolfapp.screens.discs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.DiscRecyclerAdapter
 import no.hiof.discgolfapp.model.Disc
 

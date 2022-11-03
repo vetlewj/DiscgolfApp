@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp
+package no.hiof.discgolfapp.helper.data
 
 import android.content.Context
 import com.android.volley.Request
@@ -29,7 +29,7 @@ class CourseDataService(var context: Context) {
             val coursesList: JSONArray = response.getJSONArray("courses")
 
             for (i in 1..coursesList.length()) {
-                val courseObject = coursesList.getJSONObject(i -1)
+                val courseObject = coursesList.getJSONObject(i - 1)
                 val course = Course(
                     courseObject.getString("ID").toInt(),
                     courseObject.getString("Fullname"),
@@ -38,8 +38,12 @@ class CourseDataService(var context: Context) {
                     courseObject.getString("Area"),
                     courseObject.getString("City"),
                     courseObject.getString("Location"),
-                    if (courseObject.getString("X").equals("")) null else courseObject.getString("X").toFloat(),
-                    if (courseObject.getString("Y").equals("")) null else courseObject.getString("Y").toFloat(),
+                    if (courseObject.getString("X")
+                            .equals("")
+                    ) null else courseObject.getString("X").toFloat(),
+                    if (courseObject.getString("Y")
+                            .equals("")
+                    ) null else courseObject.getString("Y").toFloat(),
                     null,
                     null
                 )
@@ -51,7 +55,7 @@ class CourseDataService(var context: Context) {
             coursesByCountryCodeResponse.onResponse(Course.getAllCourses())
 
         }, { error ->
-                coursesByCountryCodeResponse.onError(message = "Something went wrong")
+            coursesByCountryCodeResponse.onError(message = "Something went wrong")
         })
 
         RequestQueueSingleton.getInstance(context).addToRequestQueue(request)

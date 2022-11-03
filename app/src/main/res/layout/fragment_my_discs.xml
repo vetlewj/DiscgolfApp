@@ -5,7 +5,7 @@
     android:id="@+id/my_discs_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyDiscsFragment">
+    tools:context=".screens.discs.MyDiscsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/discRecyclerView"

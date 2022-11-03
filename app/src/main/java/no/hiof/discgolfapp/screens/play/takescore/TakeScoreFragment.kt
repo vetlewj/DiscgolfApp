@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.screens.takescore
+package no.hiof.discgolfapp.screens.play.takescore
 
 import android.os.Bundle
 import android.util.Log
@@ -31,7 +31,8 @@ class TakeScoreFragment : Fragment() {
     ): View {
         _binding = FragmentTakeScoreBinding.inflate(inflater, container, false)
 
-        val args = TakeScoreFragmentArgs.fromBundle(requireArguments())
+        val args =
+            TakeScoreFragmentArgs.fromBundle(requireArguments())
 
         val course = Course.getCourses().find { it.name == args.courseName }
 
@@ -52,7 +53,9 @@ class TakeScoreFragment : Fragment() {
             scoreCard?.par?.let { docData.put("par", it) }
             scoreCard?.date?.let { docData.put("date", it) }
 
-            viewModel.scoreCard!!.id?.let { firestore.collection("scorecards").document(it).set(docData) }
+            viewModel.scoreCard!!.id?.let {
+                firestore.collection("scorecards").document(it).set(docData)
+            }
             Log.d("TakeScoreFragment", "Scorecard created in firestore")
         }
 
@@ -77,7 +80,13 @@ class TakeScoreFragment : Fragment() {
         binding.nextHoleBtn.setOnClickListener {
             viewModel.score = binding.currentScoreForHole.text.toString().toInt()
             // TODO: Create method for adding holeScore to scoreCard where it checks if holeNumber is already in holeScores
-            viewModel.scoreCard?.holeScores?.add(HoleScore(viewModel.holeNumber, viewModel.score, viewModel.par))
+            viewModel.scoreCard?.holeScores?.add(
+                HoleScore(
+                    viewModel.holeNumber,
+                    viewModel.score,
+                    viewModel.par
+                )
+            )
             // TODO: update par and score in firestore
             firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
                 .update("holeScores", viewModel.scoreCard?.holeScores)
@@ -93,7 +102,10 @@ class TakeScoreFragment : Fragment() {
                     course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
 
             } else {
-                val action = TakeScoreFragmentDirections.actionTakeScoreFragmentToScoreBoardFragment(viewModel.scoreCard?.id.toString())
+                val action =
+                    TakeScoreFragmentDirections.actionTakeScoreFragmentToScoreBoardFragment(
+                        viewModel.scoreCard?.id.toString()
+                    )
                 binding.root.findNavController().navigate(action)
             }
         }

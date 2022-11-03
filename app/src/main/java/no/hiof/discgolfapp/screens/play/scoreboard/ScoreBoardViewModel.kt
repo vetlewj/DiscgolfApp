@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.screens.scoreboard
+package no.hiof.discgolfapp.screens.play.scoreboard
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

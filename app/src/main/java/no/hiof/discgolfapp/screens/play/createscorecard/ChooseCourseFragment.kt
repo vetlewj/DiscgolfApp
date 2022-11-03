@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.screens.createscorecard
+package no.hiof.discgolfapp.screens.play.createscorecard
 
 import android.os.Bundle
 import android.util.Log
@@ -40,7 +40,10 @@ class ChooseCourseFragment : Fragment() {
             // TODO: Use ID instead of name when navigating to CreateScoreCardFragment
             val clickedCourse = courseList.find { course -> course.name == courseName }
 
-            val action = ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(clickedCourse!!.name)
+            val action =
+                ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(
+                    clickedCourse!!.name
+                )
 
             findNavController().navigate(action)
         }
