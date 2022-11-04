@@ -53,7 +53,13 @@
     <string name="currentHoleNumberText">Hull X</string>
     <string name="current_distance_for_hole_text">Distance</string>
     <string name="score_description">Score</string>
+
+    <!-- Scoreboard -->
     <string name="scoreboard_text">Hull %d: par: %d, score: %d</string>
+    <string name="scoreboard_text_total">Total score: %d (%s%d)</string>
+    <string name="scoreboard_text_total_par">Total par: %d</string>
+    <string name="scoreboard_text_best_score">Best score: %d (%s%d)</string>
+    <string name="scoreboard_text_average_score">Average score: %d (%s%d)</string>
 
     <!-- Autentication -->
     <string name="sign_in">Du er nå logget inn som </string>
