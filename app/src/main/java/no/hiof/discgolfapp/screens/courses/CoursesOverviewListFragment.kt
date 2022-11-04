@@ -15,6 +15,7 @@ import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
 import no.hiof.discgolfapp.databinding.FragmentCoursesOverviewListBinding
 import no.hiof.discgolfapp.helper.data.CourseDataService
+import no.hiof.discgolfapp.helper.data.GetListOfCoursesByCountryCodeResponse
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.services.CourseService
 import retrofit2.Call
@@ -51,12 +52,22 @@ class CoursesOverviewListFragment : Fragment() {
 
         val courseService: CourseService = retrofit.create(CourseService::class.java)
 
-        courseService.getCoursesByCountryCode().enqueue(object : Callback<Any> {
-            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+        courseService.getCoursesByCountryCode("NO").enqueue(object : Callback<GetListOfCoursesByCountryCodeResponse> {
+            override fun onResponse(call: Call<GetListOfCoursesByCountryCodeResponse>, response: Response<GetListOfCoursesByCountryCodeResponse>) {
                 Log.i("CourseOverviewListFrag", response.toString())
+
+                if (!response.isSuccessful) {
+                    Toast.makeText(view.context, "nettwork call was unnsuccessful", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                val body = response.body()!!
+                val name = body.courses[1].Fullname
+
+                Toast.makeText(view.context, name, Toast.LENGTH_LONG).show()
+                Log.i("CourseOverviewListFrag", name.toString())
             }
 
-            override fun onFailure(call: Call<Any>, t: Throwable) {
+            override fun onFailure(call: Call<GetListOfCoursesByCountryCodeResponse>, t: Throwable) {
                 Log.i("CourseOverviewListFrag", t.message ?: "Null message")
             }
         })
