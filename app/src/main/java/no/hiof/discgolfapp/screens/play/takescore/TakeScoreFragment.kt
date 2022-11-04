@@ -79,17 +79,16 @@ class TakeScoreFragment : Fragment() {
         }
         binding.nextHoleBtn.setOnClickListener {
             viewModel.score = binding.currentScoreForHole.text.toString().toInt()
-            // TODO: Create method for adding holeScore to scoreCard where it checks if holeNumber is already in holeScores
-            viewModel.scoreCard?.holeScores?.add(
-                HoleScore(
-                    viewModel.holeNumber,
-                    viewModel.score,
-                    viewModel.par
-                )
-            )
-            // TODO: update par and score in firestore
+            viewModel.scoreCard?.addHoleScore(viewModel.holeNumber, viewModel.score, viewModel.par)
+            viewModel.totalScore += viewModel.score
+            viewModel.totalPar += viewModel.par
+
             firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
-                .update("holeScores", viewModel.scoreCard?.holeScores)
+                .update(
+                    "holeScores", viewModel.scoreCard?.holeScores,
+                    "par", viewModel.totalScore,
+                    "score", viewModel.totalPar
+                )
 
             if (viewModel.holeNumber < (course?.holes?.size ?: 0)) {
                 viewModel.holeNumber++

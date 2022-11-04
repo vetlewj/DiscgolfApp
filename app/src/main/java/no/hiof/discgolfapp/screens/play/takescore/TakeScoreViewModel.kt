@@ -10,6 +10,8 @@ class TakeScoreViewModel : ViewModel() {
     var par = 0
     var holeNumber = 0
     var distance = 0
+    var totalScore = 0
+    var totalPar = 0
 
     init {
         Log.i("TakeScoreViewModel", "TakeScoreViewModel created")
