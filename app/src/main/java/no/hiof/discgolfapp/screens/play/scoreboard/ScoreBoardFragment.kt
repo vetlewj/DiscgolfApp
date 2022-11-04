@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentScoreBoardBinding
 import no.hiof.discgolfapp.model.ScoreCard
@@ -39,8 +40,9 @@ class ScoreBoardFragment : Fragment() {
         )
 
         val scoreCardId = args.scoreCardId
+        // TODO: Replace collection scorecardsv1 with scorecards when ready
         val storedCard =
-            firestore.collection("scorecards").document(scoreCardId).get()
+            firestore.collection("scorecardsv1").document(scoreCardId).get()
         val layout = binding.scoreBoardLinearLayout
         storedCard.addOnSuccessListener { document ->
             if (document != null) {
@@ -48,11 +50,53 @@ class ScoreBoardFragment : Fragment() {
                 viewModel.scoreCard = scoreCard
                 for (holeScore in viewModel.scoreCard?.holeScores!!) {
                     val textView = TextView(context)
-                    textView.text = resources.getString(R.string.scoreboard_text, holeScore.holeNumber, holeScore.par, holeScore.score)
+                    textView.text = resources.getString(
+                        R.string.scoreboard_text,
+                        holeScore.holeNumber,
+                        holeScore.par,
+                        holeScore.score
+                    )
                     layout.addView(textView)
                 }
+                val totalPar = viewModel.scoreCard?.totalPar?: 0
+                val totalScore = viewModel.scoreCard?.totalScore?: 0
+
+                binding.totalScoreTextView.text = resources.getString(
+                    R.string.scoreboard_text_total,
+                    totalScore,
+                    (totalScore.minus(totalPar))
+                )
+                binding.totalParTextView.text = resources.getString(
+                    R.string.scoreboard_text_total_par,
+                    totalPar
+                )
             } else {
                 println("Could not find scorecard")
+            }
+        }
+        val storedScores = firestore.collection("scorecardsv1")
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .whereEqualTo("finished", true)
+            .whereEqualTo("courseId", args.courseId)
+            .get()
+        storedScores.addOnSuccessListener { documents ->
+            if (documents != null) {
+                val scoreCards = documents.toObjects<ScoreCard>()
+                val bestScore = scoreCards.minBy {
+                    it.totalScore
+                }
+
+                binding.bestScoreTextView.text = resources.getString(
+                    R.string.scoreboard_text_best_score,
+                    bestScore.totalScore, (bestScore.totalScore.minus(bestScore.totalPar))
+                )
+                val averageScore = scoreCards.sumOf {
+                    it.totalScore
+                } / scoreCards.size
+                binding.avgScoreTextView.text = resources.getString(
+                    R.string.scoreboard_text_average_score,
+                    averageScore, (averageScore.minus(bestScore.totalPar))
+                )
             }
         }
 

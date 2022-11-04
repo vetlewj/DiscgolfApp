@@ -12,6 +12,10 @@ class ScoreCard(
     val holeScores: MutableList<HoleScore> = mutableListOf(),
     val scoreCardType: ScoreCardCreationType = ScoreCardCreationType.PAR,
     val id: String? = UUID.randomUUID().toString(),
+    var totalScore: Int = 0,
+    var totalPar: Int = 0,
+    var finished: Boolean = false
+
 ) {
     companion object {
         fun getScoreCards(): List<ScoreCard> {
