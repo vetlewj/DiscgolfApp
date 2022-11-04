@@ -68,12 +68,21 @@ class ScoreBoardFragment : Fragment() {
             .get()
         storedScores.addOnSuccessListener { documents ->
             if (documents != null) {
-                val bestScore = documents.toObjects<ScoreCard>().minBy {
-                    it.totalScore }
+                val scoreCards = documents.toObjects<ScoreCard>()
+                val bestScore = scoreCards.minBy {
+                    it.totalScore
+                }
 
                 binding.bestScoreTextView.text = resources.getString(
                     R.string.scoreboard_text_best_score,
                     bestScore.totalScore, (bestScore.totalScore.minus(bestScore.totalPar))
+                )
+                val averageScore = scoreCards.sumOf {
+                    it.totalScore
+                } / scoreCards.size
+                binding.avgScoreTextView.text = resources.getString(
+                    R.string.scoreboard_text_average_score,
+                    averageScore, (averageScore.minus(bestScore.totalPar))
                 )
             }
         }
