@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentScoreBoardBinding
 import no.hiof.discgolfapp.model.ScoreCard
 
@@ -47,7 +48,7 @@ class ScoreBoardFragment : Fragment() {
                 viewModel.scoreCard = scoreCard
                 for (holeScore in viewModel.scoreCard?.holeScores!!) {
                     val textView = TextView(context)
-                    textView.text = "Hole ${holeScore.holeNumber}: par: ${holeScore.par}, score: ${holeScore.score}"
+                    textView.text = resources.getString(R.string.scoreboard_text, holeScore.holeNumber, holeScore.par, holeScore.score)
                     layout.addView(textView)
                 }
             } else {
