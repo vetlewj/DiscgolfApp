@@ -8,7 +8,7 @@ data class Course(
     val Fullname: String?,
     val ID: String?,
     val Location: Any?,
-    val Name: String?,
+    val Name: String,
     val ParentID: Any?,
     val Type: String?,
     val X: String?,

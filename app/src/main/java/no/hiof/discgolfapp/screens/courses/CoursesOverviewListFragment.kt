@@ -42,8 +42,6 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
-        val courseDataService = CourseDataService(view.context)
-
         val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://discgolfmetrix.com/")
@@ -57,46 +55,34 @@ class CoursesOverviewListFragment : Fragment() {
                 Log.i("CourseOverviewListFrag", response.toString())
 
                 if (!response.isSuccessful) {
-                    Toast.makeText(view.context, "nettwork call was unnsuccessful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view.context, "network call was unnsuccessful", Toast.LENGTH_SHORT).show()
                     return
                 }
                 val body = response.body()!!
-                val name = body.courses[1].Fullname
+                val courses = body.courses
 
-                Toast.makeText(view.context, name, Toast.LENGTH_LONG).show()
-                Log.i("CourseOverviewListFrag", name.toString())
+                binding.courseRecyclerView.adapter = CourseRecyclerAdapter(courses.toList(), View.OnClickListener {
+                    val position = binding.courseRecyclerView.getChildAdapterPosition(it)
+
+                    val selectedCourse = courses[position]
+
+                    val action =
+                        CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
+                    action.let {
+                        it.uid = selectedCourse.ID!!.toInt()
+                        it.courseName = selectedCourse.Name
+                        it.latitude = if (selectedCourse.Y.equals("")) {1000F} else {selectedCourse.Y!!.toFloat()}
+                        it.longitude = if (selectedCourse.X.equals("")) {1000F} else {selectedCourse.X!!.toFloat()}
+                    }
+                    findNavController().navigate(action)
+                })
+                binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
+
             }
 
             override fun onFailure(call: Call<GetListOfCoursesByCountryCodeResponse>, t: Throwable) {
                 Log.i("CourseOverviewListFrag", t.message ?: "Null message")
             }
-        })
-
-        courseDataService.getListOfCourses("NO", object: CourseDataService.ListOfCoursesByCountryCodeResponse {
-            override fun onError(message: String?) {
-                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(courseModels: ArrayList<Course?>) {
-                binding.courseRecyclerView.adapter = CourseRecyclerAdapter(Course.getAllCourses(), View.OnClickListener {
-                    val position = binding.courseRecyclerView.getChildAdapterPosition(it)
-
-                    val selectedCourse = Course.getAllCourses()[position]
-
-                    val action =
-                        CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
-                    action.uid = selectedCourse!!.uid
-                    action.courseName = selectedCourse.name
-                    // TODO: Temporary solution, adjust for a better one
-                    action.latitude = try {selectedCourse.latitude!!} catch (e: NullPointerException) {1000F}
-                    action.longitude = try {selectedCourse.longitude!!} catch (e: NullPointerException) {1000F}
-
-
-                    findNavController().navigate(action)
-                })
-                binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
-            }
-
         })
 
         binding.coursesOverviewListToMapSwitch.setOnCheckedChangeListener {
