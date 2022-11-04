@@ -56,10 +56,10 @@
 
     <!-- Scoreboard -->
     <string name="scoreboard_text">Hull %d: par: %d, score: %d</string>
-    <string name="scoreboard_text_total">Total score: %d (%d)</string>
+    <string name="scoreboard_text_total">Total score: %d (%+d)</string>
     <string name="scoreboard_text_total_par">Total par: %d</string>
     <string name="scoreboard_text_best_score">Best score: %d (%+d)</string>
-    <string name="scoreboard_text_average_score">Gj.snitt score: %d (%d)</string>
+    <string name="scoreboard_text_average_score">Gj.snitt score: %d (%+d)</string>
 
     <!-- Autentication -->
     <string name="sign_in">Du er nå logget inn som </string>

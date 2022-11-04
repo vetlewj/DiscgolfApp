@@ -57,6 +57,18 @@ class ScoreBoardFragment : Fragment() {
                     )
                     layout.addView(textView)
                 }
+                val totalPar = viewModel.scoreCard?.totalPar?: 0
+                val totalScore = viewModel.scoreCard?.totalScore?: 0
+
+                binding.totalScoreTextView.text = resources.getString(
+                    R.string.scoreboard_text_total,
+                    totalScore,
+                    (totalScore.minus(totalPar))
+                )
+                binding.totalParTextView.text = resources.getString(
+                    R.string.scoreboard_text_total_par,
+                    totalPar
+                )
             } else {
                 println("Could not find scorecard")
             }
