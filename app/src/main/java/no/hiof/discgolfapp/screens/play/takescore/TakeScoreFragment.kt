@@ -114,7 +114,8 @@ class TakeScoreFragment : Fragment() {
                     )
                 val action =
                     TakeScoreFragmentDirections.actionTakeScoreFragmentToScoreBoardFragment(
-                        viewModel.scoreCard?.id.toString()
+                        viewModel.scoreCard?.id.toString(),
+                        viewModel.scoreCard?.course?.uid!!
                     )
                 binding.root.findNavController().navigate(action)
             }

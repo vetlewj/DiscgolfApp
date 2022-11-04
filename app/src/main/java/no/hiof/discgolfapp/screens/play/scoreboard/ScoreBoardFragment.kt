@@ -62,15 +62,20 @@ class ScoreBoardFragment : Fragment() {
             }
         }
         val storedScores = firestore.collection("scorecardsv1")
-            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid).whereEqualTo("finished", true)
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .whereEqualTo("finished", true)
+            .whereEqualTo("courseId", args.courseId)
             .get()
         storedScores.addOnSuccessListener { documents ->
-            val bestScore = documents.toObjects<ScoreCard>().minByOrNull { it.totalScore }
+            if (documents != null) {
+                val bestScore = documents.toObjects<ScoreCard>().minBy {
+                    it.totalScore }
 
-            binding.bestScoreTextView.text = resources.getString(
-                R.string.scoreboard_text_best_score,
-                bestScore?.totalScore, (bestScore?.totalScore?.minus(bestScore.totalPar))
-            )
+                binding.bestScoreTextView.text = resources.getString(
+                    R.string.scoreboard_text_best_score,
+                    bestScore.totalScore, (bestScore.totalScore.minus(bestScore.totalPar))
+                )
+            }
         }
 
         val continueButton = binding.finishScoreBoardButton
