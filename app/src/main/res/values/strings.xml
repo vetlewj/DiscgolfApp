@@ -60,7 +60,8 @@
     <string name="sign_out_button">Logg ut</string>
     <string name="user_name">navn</string>
     <string name="user_email">epost</string>
-    <string name="user_first_name">Fornavn</string>
+    <string name="email">E-post</string>
+
     <string name="finish_scoreboard">Gå videre</string>
     <string name="scoreboard_ll_content_desc">Poeng for runden</string>
     <string name="prev_hole">Forrige hull</string>

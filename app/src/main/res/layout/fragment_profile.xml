@@ -4,21 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/userFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".screens.user.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="690dp"
+        android:layout_margin="20dp"
+        android:layout_marginEnd="20dp">
 
         <TextView
             android:id="@+id/userFirstName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_first_name"
+            android:text="@string/user_name"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.354"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.217" />
@@ -28,12 +32,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_email"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/userFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/userFirstName"
+            app:layout_constraintVertical_bias="0.027" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textAlignment="textStart"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/userFirstName"
+            app:layout_constraintHorizontal_bias="0.329"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.217" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textAlignment="textStart"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.027" />
+
+        <Button
+            android:id="@+id/signOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_out_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.941"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userFirstName"
-            app:layout_constraintVertical_bias="0.085" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.024" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
