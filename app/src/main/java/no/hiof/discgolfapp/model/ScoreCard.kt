@@ -70,6 +70,10 @@ class ScoreCard(
         }
     }
 
+    fun getHoleScore(holeNumber: Int): HoleScore? {
+        return holeScores.find { it.holeNumber == holeNumber }
+    }
+
     enum class ScoreCardCreationType {
         PAR, PERSONAL_BEST, PERSONAL_AVERAGE, PERSONAL_WORST, PERSONAL_LAST, LEADERBOARD_RECORD, CUSTOM
     }
