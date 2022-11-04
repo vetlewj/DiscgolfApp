@@ -107,9 +107,9 @@
     </fragment>
     <fragment
         android:id="@+id/userFragment"
-        android:name="no.hiof.discgolfapp.screens.user.UserFragment"
+        android:name="no.hiof.discgolfapp.screens.user.ProfileFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/scoreBoardFragment"
         android:name="no.hiof.discgolfapp.screens.play.scoreboard.ScoreBoardFragment"

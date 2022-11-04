@@ -5,7 +5,7 @@
     android:id="@+id/userFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.user.UserFragment">
+    tools:context=".screens.user.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,6 +22,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.217" />
+
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_email"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userFirstName"
+            app:layout_constraintVertical_bias="0.085" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
