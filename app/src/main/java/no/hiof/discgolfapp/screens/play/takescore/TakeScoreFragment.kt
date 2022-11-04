@@ -88,13 +88,18 @@ class TakeScoreFragment : Fragment() {
             firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
                 .update(
                     "holeScores", viewModel.scoreCard?.holeScores,
-                    "par", viewModel.totalScore,
-                    "score", viewModel.totalPar
+                    "par", viewModel.totalPar,
+                    "score", viewModel.totalScore
                 )
 
             if (viewModel.holeNumber < (course?.holes?.size ?: 0)) {
                 viewModel.holeNumber++
-                viewModel.score = 0
+                val holeScore = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)
+                if (holeScore != null) {
+                    viewModel.score = holeScore.score
+                } else {
+                    viewModel.score = 0
+                }
                 binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
                 binding.currentScoreForHole.text = viewModel.score.toString()
                 binding.parForHoleTextView.text =
@@ -111,6 +116,39 @@ class TakeScoreFragment : Fragment() {
             }
         }
         binding.prevHoleBtn.setOnClickListener {
+            if (viewModel.holeNumber > 1) {
+                viewModel.score = binding.currentScoreForHole.text.toString().toInt()
+                viewModel.scoreCard?.addHoleScore(
+                    viewModel.holeNumber,
+                    viewModel.score,
+                    viewModel.par
+                )
+                viewModel.totalScore -= viewModel.scoreCard?.getHoleScore(viewModel.holeNumber - 1)?.score
+                    ?: 0
+                viewModel.totalPar -= viewModel.scoreCard?.getHoleScore(viewModel.holeNumber - 1)?.par
+                    ?: 0
+
+                firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
+                    .update(
+                        "holeScores", viewModel.scoreCard?.holeScores,
+                        "par", viewModel.totalScore,
+                        "score", viewModel.totalPar
+                    )
+
+                viewModel.holeNumber--
+                val holeScore = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)
+                if (holeScore != null) {
+                    viewModel.score = holeScore.score
+                } else {
+                    viewModel.score = 0
+                }
+                binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
+                binding.currentScoreForHole.text = viewModel.score.toString()
+                binding.parForHoleTextView.text =
+                    course?.holes?.get(viewModel.holeNumber - 1)?.par.toString()
+                binding.distanceForCurrentHoleTextView.text =
+                    course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
+            }
 
         }
 
