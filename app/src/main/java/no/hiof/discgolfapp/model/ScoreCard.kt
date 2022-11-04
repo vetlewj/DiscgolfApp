@@ -13,7 +13,7 @@ class ScoreCard(
     val scoreCardType: ScoreCardCreationType = ScoreCardCreationType.PAR,
     val id: String? = UUID.randomUUID().toString(),
 ) {
-        companion object {
+    companion object {
         fun getScoreCards(): List<ScoreCard> {
             return listOf(
                 ScoreCard(
@@ -59,6 +59,19 @@ class ScoreCard(
 
             return ScoreCard(null, course, par, 0, Date(), holeScores)
         }
+    }
+
+    fun addHoleScore(holeNumber: Int, score: Int, par: Int) {
+        val holeScore = holeScores.find { it.holeNumber == holeNumber }
+        if (holeScore != null) {
+            holeScore.score = score
+        } else {
+            holeScores.add(HoleScore(holeNumber, score, par))
+        }
+    }
+
+    fun getHoleScore(holeNumber: Int): HoleScore? {
+        return holeScores.find { it.holeNumber == holeNumber }
     }
 
     enum class ScoreCardCreationType {

@@ -74,26 +74,32 @@ class TakeScoreFragment : Fragment() {
             binding.currentScoreForHole.text = viewModel.score.toString()
         }
         binding.decrementScoreButton.setOnClickListener {
-            viewModel.score--
-            binding.currentScoreForHole.text = viewModel.score.toString()
+            if (viewModel.score > 0) {
+                viewModel.score--
+                binding.currentScoreForHole.text = viewModel.score.toString()
+            }
         }
         binding.nextHoleBtn.setOnClickListener {
             viewModel.score = binding.currentScoreForHole.text.toString().toInt()
-            // TODO: Create method for adding holeScore to scoreCard where it checks if holeNumber is already in holeScores
-            viewModel.scoreCard?.holeScores?.add(
-                HoleScore(
-                    viewModel.holeNumber,
-                    viewModel.score,
-                    viewModel.par
-                )
-            )
-            // TODO: update par and score in firestore
+            viewModel.scoreCard?.addHoleScore(viewModel.holeNumber, viewModel.score, viewModel.par)
+            viewModel.totalScore += viewModel.score
+            viewModel.totalPar += viewModel.par
+
             firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
-                .update("holeScores", viewModel.scoreCard?.holeScores)
+                .update(
+                    "holeScores", viewModel.scoreCard?.holeScores,
+                    "par", viewModel.totalPar,
+                    "score", viewModel.totalScore
+                )
 
             if (viewModel.holeNumber < (course?.holes?.size ?: 0)) {
                 viewModel.holeNumber++
-                viewModel.score = 0
+                val holeScore = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)
+                if (holeScore != null) {
+                    viewModel.score = holeScore.score
+                } else {
+                    viewModel.score = 0
+                }
                 binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
                 binding.currentScoreForHole.text = viewModel.score.toString()
                 binding.parForHoleTextView.text =
@@ -108,6 +114,42 @@ class TakeScoreFragment : Fragment() {
                     )
                 binding.root.findNavController().navigate(action)
             }
+        }
+        binding.prevHoleBtn.setOnClickListener {
+            if (viewModel.holeNumber > 1) {
+                viewModel.score = binding.currentScoreForHole.text.toString().toInt()
+                viewModel.scoreCard?.addHoleScore(
+                    viewModel.holeNumber,
+                    viewModel.score,
+                    viewModel.par
+                )
+                viewModel.totalScore -= viewModel.scoreCard?.getHoleScore(viewModel.holeNumber - 1)?.score
+                    ?: 0
+                viewModel.totalPar -= viewModel.scoreCard?.getHoleScore(viewModel.holeNumber - 1)?.par
+                    ?: 0
+
+                firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
+                    .update(
+                        "holeScores", viewModel.scoreCard?.holeScores,
+                        "par", viewModel.totalScore,
+                        "score", viewModel.totalPar
+                    )
+
+                viewModel.holeNumber--
+                val holeScore = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)
+                if (holeScore != null) {
+                    viewModel.score = holeScore.score
+                } else {
+                    viewModel.score = 0
+                }
+                binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
+                binding.currentScoreForHole.text = viewModel.score.toString()
+                binding.parForHoleTextView.text =
+                    course?.holes?.get(viewModel.holeNumber - 1)?.par.toString()
+                binding.distanceForCurrentHoleTextView.text =
+                    course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
+            }
+
         }
 
         return binding.root

@@ -178,6 +178,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switchMaterial"
         android:layout_width="wrap_content"
@@ -187,6 +188,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <Button
+        android:id="@+id/prevHoleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/md_theme_dark_surfaceTint"
+        android:text="@string/prev_hole"
+        android:textColor="@color/md_theme_dark_background"
+        app:layout_constraintBottom_toBottomOf="@id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/nextHoleBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/decrement_score_button" />
 
     <Button
         android:id="@+id/nextHoleBtn"
@@ -197,7 +210,8 @@
         android:textColor="@color/md_theme_dark_background"
         app:layout_constraintBottom_toBottomOf="@id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/prevHoleBtn"
         app:layout_constraintTop_toBottomOf="@+id/decrement_score_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
