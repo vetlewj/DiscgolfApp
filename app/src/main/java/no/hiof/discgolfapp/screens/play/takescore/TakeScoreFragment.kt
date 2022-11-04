@@ -49,12 +49,12 @@ class TakeScoreFragment : Fragment() {
             scoreCard?.scoreCardType?.let { docData.put("scoreCardType", it) }
             scoreCard?.id?.let { docData.put("id", it) }
             scoreCard?.holeScores?.let { docData.put("holeScores", it) }
-            scoreCard?.score?.let { docData.put("score", it) }
-            scoreCard?.par?.let { docData.put("par", it) }
+            scoreCard?.score?.let { docData.put("totalScore", it) }
+            scoreCard?.par?.let { docData.put("totalPar", it) }
             scoreCard?.date?.let { docData.put("date", it) }
 
             viewModel.scoreCard!!.id?.let {
-                firestore.collection("scorecards").document(it).set(docData)
+                firestore.collection("scorecardsv1").document(it).set(docData)
             }
             Log.d("TakeScoreFragment", "Scorecard created in firestore")
         }
@@ -85,11 +85,11 @@ class TakeScoreFragment : Fragment() {
             viewModel.totalScore += viewModel.score
             viewModel.totalPar += viewModel.par
 
-            firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
+            firestore.collection("scorecardsv1").document(viewModel.scoreCard?.id.toString())
                 .update(
                     "holeScores", viewModel.scoreCard?.holeScores,
-                    "par", viewModel.totalPar,
-                    "score", viewModel.totalScore
+                    "totalPar", viewModel.totalPar,
+                    "totalScore", viewModel.totalScore
                 )
 
             if (viewModel.holeNumber < (course?.holes?.size ?: 0)) {
@@ -108,6 +108,10 @@ class TakeScoreFragment : Fragment() {
                     course?.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
 
             } else {
+                firestore.collection("scorecardsv1").document(viewModel.scoreCard?.id.toString())
+                    .update(
+                        "finished", true
+                    )
                 val action =
                     TakeScoreFragmentDirections.actionTakeScoreFragmentToScoreBoardFragment(
                         viewModel.scoreCard?.id.toString()
@@ -128,7 +132,7 @@ class TakeScoreFragment : Fragment() {
                 viewModel.totalPar -= viewModel.scoreCard?.getHoleScore(viewModel.holeNumber - 1)?.par
                     ?: 0
 
-                firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
+                firestore.collection("scorecardsv1").document(viewModel.scoreCard?.id.toString())
                     .update(
                         "holeScores", viewModel.scoreCard?.holeScores,
                         "par", viewModel.totalScore,
