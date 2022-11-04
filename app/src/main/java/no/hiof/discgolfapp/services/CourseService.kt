@@ -1,0 +1,10 @@
+package no.hiof.discgolfapp.services
+
+import retrofit2.Call
+import retrofit2.http.GET
+
+interface CourseService {
+
+    @GET("api.php?content=courses_list&country_code=NO")
+    fun getCoursesByCountryCode(): Call<Any>
+}
