@@ -98,11 +98,11 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/scoreDataTextView"
+                android:id="@+id/bestScoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/scoreDataTextViewValue"
+                app:layout_constraintEnd_toStartOf="@+id/avgScoreTextView"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,13 +110,13 @@
                 android:text="@string/scoreboard_text_best_score"/>
 
             <TextView
-                android:id="@+id/scoreDataTextViewValue"
+                android:id="@+id/avgScoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/scoreDataTextView"
+                app:layout_constraintStart_toEndOf="@+id/bestScoreTextView"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/scoreboard_text_average_score"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
