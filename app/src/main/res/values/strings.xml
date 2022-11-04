@@ -8,12 +8,13 @@
     <string name="title_nav_courses">Baner</string>
     <string name="nav_drawer_header_title">Discgolf</string>
     <string name="nav_drawer_header_text">Frisbeegolf applikasjon</string>
-
+    <string name="settings_title">Innstillinger</string>
     <string name="courses_overview_list"> Baner fragment</string>
     <string name="course_poster">course_poster</string>
     <string name="course_name">course_name</string>
     <string name="course_area">course_area</string>
     <string name="user_profile">Profil</string>
+    <string name="map_switch">map</string>
 
     <!-- Scorecard buttons -->
     <string name="create_scorecard">Opprett poengkort</string>
@@ -40,28 +41,19 @@
     <string name="disc_type">disc type</string>
     <string name="edit_button">Edit</string>
 
-    <string name="settings_title">Innstillinger</string>
+    <!-- Take Score -->
+    <string name="hole_number_description">Hull</string>
+    <string name="distance_description">Distanse</string>
+    <string name="par_description">Par</string>
+    <string name="next_hole">Neste hull</string>
     <string name="addToScoreBtnText">+</string>
     <string name="subtractFromScoreBtnText">-</string>
     <string name="parForHoleText">Par</string>
     <string name="currentScoreForHoleText">Score</string>
     <string name="currentHoleNumberText">Hull X</string>
     <string name="current_distance_for_hole_text">Distance</string>
-    <string name="toggleMapButtonText">Kart</string>
-    <string name="next_hole">Neste hull</string>
-    <string name="weather_temperature_value">11ºC</string>
-    <string name="weather_wind_speed">10 m/s</string>
-    <string name="course_info_best_round">Beste runde:</string>
-    <string name="course_info_best_round_value">74 (+13)</string>
-    <string name="course_info_last_round_title">Forrige runde:</string>
-    <string name="course_info_last_round_value">81 (+21)</string>
-    <string name="course_info_average_title">Gjennomsnitt:</string>
-    <string name="course_info_average_value">80.2 (+20.2)</string>
-    <string name="distance_description">Distanse</string>
-    <string name="par_description">Par</string>
     <string name="score_description">Score</string>
-    <string name="hole_number_description">Hull</string>
-    <string name="map_switch">map</string>
+    <string name="scoreboard_text">Hull %d: par: %d, score: %d</string>
 
     <!-- Autentication -->
     <string name="sign_in">Du er nå logget inn som </string>
@@ -72,5 +64,17 @@
     <string name="finish_scoreboard">Gå videre</string>
     <string name="scoreboard_ll_content_desc">Poeng for runden</string>
     <string name="prev_hole">Forrige hull</string>
+
+    <!-- Course info -->
+    <string name="toggleMapButtonText">Kart</string>
+    <string name="weather_temperature_value">11ºC</string>
+    <string name="weather_wind_speed">10 m/s</string>
+    <string name="course_info_best_round">Beste runde:</string>
+    <string name="course_info_best_round_value">74 (+13)</string>
+    <string name="course_info_last_round_title">Forrige runde:</string>
+    <string name="course_info_last_round_value">81 (+21)</string>
+    <string name="course_info_average_title">Gjennomsnitt:</string>
+    <string name="course_info_average_value">80.2 (+20.2)</string>
+
 
 </resources>
