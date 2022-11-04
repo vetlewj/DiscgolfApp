@@ -51,10 +51,32 @@
         android:layout_marginEnd="8dp"
         app:cardCornerRadius="4dp">
 
-        <TextView
-            android:id="@+id/totalScoreTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/totalScoreTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/totalScoreTextViewValue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/scoreboard_text_total_par"/>
+
+            <TextView
+                android:id="@+id/totalScoreTextViewValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/totalScoreTextView"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/scoreboard_text_total"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -71,10 +93,35 @@
         android:layout_marginEnd="8dp"
         app:cardCornerRadius="4dp">
 
-        <TextView
-            android:id="@+id/scoreDataTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/scoreDataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/scoreDataTextViewValue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/scoreboard_text_best_score"/>
+
+            <TextView
+                android:id="@+id/scoreDataTextViewValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/scoreDataTextView"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/scoreboard_text_average_score"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </com.google.android.material.card.MaterialCardView>
 

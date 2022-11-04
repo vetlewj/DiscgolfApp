@@ -59,7 +59,7 @@
     <string name="scoreboard_text_total">Total score: %d (%s%d)</string>
     <string name="scoreboard_text_total_par">Total par: %d</string>
     <string name="scoreboard_text_best_score">Best score: %d (%s%d)</string>
-    <string name="scoreboard_text_average_score">Average score: %d (%s%d)</string>
+    <string name="scoreboard_text_average_score">Gj.snitt score: %d (%s%d)</string>
 
     <!-- Autentication -->
     <string name="sign_in">Du er nå logget inn som </string>
