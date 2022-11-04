@@ -74,8 +74,10 @@ class TakeScoreFragment : Fragment() {
             binding.currentScoreForHole.text = viewModel.score.toString()
         }
         binding.decrementScoreButton.setOnClickListener {
-            viewModel.score--
-            binding.currentScoreForHole.text = viewModel.score.toString()
+            if (viewModel.score > 0) {
+                viewModel.score--
+                binding.currentScoreForHole.text = viewModel.score.toString()
+            }
         }
         binding.nextHoleBtn.setOnClickListener {
             viewModel.score = binding.currentScoreForHole.text.toString().toInt()
@@ -107,6 +109,9 @@ class TakeScoreFragment : Fragment() {
                     )
                 binding.root.findNavController().navigate(action)
             }
+        }
+        binding.prevHoleBtn.setOnClickListener {
+
         }
 
         return binding.root
