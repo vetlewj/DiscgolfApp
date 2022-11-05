@@ -1,6 +1,6 @@
 package no.hiof.discgolfapp.services
 
-import no.hiof.discgolfapp.helper.data.GetListOfCoursesByCountryCodeResponse
+import no.hiof.discgolfapp.helper.response.GetListOfCoursesByCountryCodeResponse
 import retrofit2.Response
 
 class ApiClient(

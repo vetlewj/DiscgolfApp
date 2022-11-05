@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.helper.data.Course
+import no.hiof.discgolfapp.helper.response.Course
 
 class CourseRecyclerAdapter(private val courses: List<Course>, private val clickListener: View.OnClickListener) : RecyclerView.Adapter<CourseRecyclerAdapter.CourseViewHolder>() {
 

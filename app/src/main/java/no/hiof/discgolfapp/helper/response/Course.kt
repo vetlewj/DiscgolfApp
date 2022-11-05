@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.helper.data
+package no.hiof.discgolfapp.helper.response
 
 data class Course(
     val Area: String?,
