@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK){
             //Login successfull
             val user = FirebaseAuth.getInstance().currentUser
-            Toast.makeText(this, this.getString(R.string.sign_in) + user?.displayName, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, this.getString(R.string.sign_in) + " " + user?.displayName, Toast.LENGTH_SHORT).show()
         }
         else {
             //Login failed.

@@ -1,16 +1,22 @@
 package no.hiof.discgolfapp.screens.user
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import no.hiof.discgolfapp.MainActivity
 import no.hiof.discgolfapp.R
+import no.hiof.discgolfapp.screens.courses.CourseInfoFragmentDirections
 
 class ProfileFragment : Fragment() {
 
@@ -34,6 +40,26 @@ class ProfileFragment : Fragment() {
 
             emailTextView.text = email
             userNameTextView.text = userFirstName
+
+            val signOutBtn: Button = view.findViewById(R.id.signOutButton)
+
+            signOutBtn.setOnClickListener {
+                signOut()
+                val navController = this.findNavController()
+                val action =
+                    ProfileFragmentDirections.actionUserFragmentToCoursesOverviewListFragment2()
+                navController.navigate(action)
+            }
+
         }
     }
+
+    private fun signOut(){
+        Firebase.auth.signOut()
+        Log.d("User signed out", "User: " + Firebase.auth.currentUser)
+        Toast.makeText( activity, "Du er nå logget ut", Toast.LENGTH_SHORT).show()
+
+    }
+
+
 }
