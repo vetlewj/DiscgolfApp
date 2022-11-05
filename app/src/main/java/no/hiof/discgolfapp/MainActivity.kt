@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause(){
         super.onPause()
-        auth.addAuthStateListener(authStateListener)
+        auth.removeAuthStateListener(authStateListener)
     }
 
     private val signInLauncher = registerForActivityResult(
@@ -86,9 +86,6 @@ class MainActivity : AppCompatActivity() {
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            //TODO!! Fjern .setIsSmartLockEnabled(false), da smart lock er anbefalt.
-            //TODO!! Får ikke logget inn på google uten den atm.
-            .setIsSmartLockEnabled(false)
             .build()
         signInLauncher.launch(signInIntent)
     }

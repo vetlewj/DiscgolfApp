@@ -46,11 +46,11 @@ class ProfileFragment : Fragment() {
 
             signOutBtn.setOnClickListener {
                 signOut()
-//                val navController = this.findNavController()
-//                val action =
-//                    ProfileFragmentDirections.actionUserFragmentToCoursesOverviewListFragment2()
-//                navController.navigate(action)
-                activity?.finish()
+                val navController = this.findNavController()
+                val action =
+                    ProfileFragmentDirections.actionUserFragmentToCoursesOverviewListFragment2()
+                navController.navigate(action)
+//                activity?.finish()
             }
 
         }
