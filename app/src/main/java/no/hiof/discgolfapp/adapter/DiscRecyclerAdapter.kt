@@ -26,7 +26,7 @@ class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<D
 
     override fun getItemCount(): Int{
         Log.d("getItemCount" , discs.size.toString())
-        Log.d("List", "sdsfd $discs")
+        Log.d("List", "disc: $discs")
         return discs.size
     }
 
