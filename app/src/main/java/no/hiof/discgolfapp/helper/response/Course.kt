@@ -7,7 +7,7 @@ data class Course(
     val Enddate: Any?,
     val Fullname: String?,
     val ID: String?,
-    val Location: Any?,
+    val Location: String?,
     val Name: String,
     val ParentID: Any?,
     val Type: String?,
