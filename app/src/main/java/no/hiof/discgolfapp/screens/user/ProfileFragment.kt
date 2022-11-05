@@ -11,12 +11,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import no.hiof.discgolfapp.MainActivity
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.screens.courses.CourseInfoFragmentDirections
+import org.checkerframework.checker.units.qual.A
+
+
+
 
 class ProfileFragment : Fragment() {
 
@@ -45,10 +46,11 @@ class ProfileFragment : Fragment() {
 
             signOutBtn.setOnClickListener {
                 signOut()
-                val navController = this.findNavController()
-                val action =
-                    ProfileFragmentDirections.actionUserFragmentToCoursesOverviewListFragment2()
-                navController.navigate(action)
+//                val navController = this.findNavController()
+//                val action =
+//                    ProfileFragmentDirections.actionUserFragmentToCoursesOverviewListFragment2()
+//                navController.navigate(action)
+                activity?.finish()
             }
 
         }

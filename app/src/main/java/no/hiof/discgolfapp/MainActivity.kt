@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         auth = Firebase.auth
+        createAuthListener()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
-        val db = Firebase.firestore
 
         val topAppBar = binding.topAppBar
         topAppBar.setNavigationOnClickListener {
@@ -49,16 +48,17 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setupWithNavController(navController)
         binding.navView.setupWithNavController(navController)
 
-        authStateListener = FirebaseAuth.AuthStateListener {
+    }
+
+    private fun createAuthListener(){
+        authStateListener = AuthStateListener {
             val firebaseUser = auth.currentUser
             if (firebaseUser == null) {
                 createSignInIntent()
-
             } else {
                 Log.d("Authenticate", "User: " + auth.currentUser?.email)
             }
         }
-
     }
 
 
@@ -94,7 +94,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSignInResult (result: FirebaseAuthUIAuthenticationResult){
-        val response = result.idpResponse
         if (result.resultCode == RESULT_OK){
             //Login successfull
             val user = FirebaseAuth.getInstance().currentUser
