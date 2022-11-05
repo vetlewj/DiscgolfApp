@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/current_distance_for_hole_text"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/currentScoreForHole"
+                app:layout_constraintEnd_toStartOf="@+id/currentHoleNumberTextView"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/distanceForCurrentHoleDescriptionTextView" />
@@ -101,7 +101,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/currentScoreForHole"
+                app:layout_constraintStart_toEndOf="@+id/currentHoleNumberTextView"
                 app:layout_constraintTop_toBottomOf="@+id/currentParForHoleDescriptionTextView" />
 
             <TextView
@@ -122,9 +122,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/currentScoreForHoleText"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/parForHoleTextView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/distanceForCurrentHoleTextView"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/currentScoreForHoleDescriptionTextView" />
 
             <TextView
@@ -135,8 +135,8 @@
                 android:text="@string/currentHoleNumberText"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/currentScoreForHoleDescriptionTextView"
-                app:layout_constraintEnd_toStartOf="@+id/currentParForHoleDescriptionTextView"
-                app:layout_constraintStart_toEndOf="@+id/distanceForCurrentHoleTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/currentHoleNumberTextView2" />
 
             <TextView
