@@ -15,10 +15,25 @@ class SharedViewModel: ViewModel() {
     val coursesByCountryCodeLiveData: LiveData<ArrayList<Course>?> = _coursesByCountryCodeLiveData
 
     fun refreshCourses(coursesCode: String) {
+
+        // Checking courses exists in cache
+        val cachedCourses = CoursesCache.courseMap[coursesCode]
+        if(cachedCourses != null) {
+            _coursesByCountryCodeLiveData.postValue(cachedCourses)
+            return
+        }
+
+        // if not in cache, request character form API
         viewModelScope.launch {
             val response = repository.getCoursesByCountryCode(coursesCode)
 
             _coursesByCountryCodeLiveData.postValue(response)
+
+            // Updating the cache
+            response?.let {
+                CoursesCache.courseMap[coursesCode] = response
+            }
+
         }
 
     }
