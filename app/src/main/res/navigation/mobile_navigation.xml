@@ -140,5 +140,8 @@
         <argument
             android:name="courseId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_courseResultsFragment_to_coursesOverviewListFragment"
+            app:destination="@id/coursesOverviewListFragment" />
     </fragment>
 </navigation>
