@@ -17,6 +17,8 @@ class ScoreCard(
     var finished: Boolean = false
 
 ) {
+    //TODO: Implement custom class mapper to get course based on courseId from firestore
+    // [CustomClassMapper]: No setter/field for courseId found on class no.hiof.discgolfapp.model.ScoreCard
     companion object {
         fun getScoreCards(): List<ScoreCard> {
             return listOf(

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.play.scoreboard.ScoreBoardFragment">
+    tools:context=".screens.courses.CourseResultsFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
@@ -15,18 +15,18 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/finishScoreBoardCardView"
+        app:layout_constraintBottom_toTopOf="@+id/bestAndAvgScoresCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
-            android:id="@+id/scoreBoardLayout"
+            android:id="@+id/scoresScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/scoreBoardLinearLayout"
+                android:id="@+id/scoresLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -38,49 +38,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/finishScoreBoardCardView"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/finishScoreBoardDataCardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/totalScoreTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/scoreboard_text_total_par"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/total_par_text_view"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/total_par_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/scoreboard_text_total"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/totalScoreTextView"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/finishScoreBoardDataCardView"
+        android:id="@+id/bestAndAvgScoresCardView"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -88,7 +46,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
         app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/finishScoreBoardButton"
+        app:layout_constraintBottom_toTopOf="@+id/proceedBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -124,7 +82,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <Button
-        android:id="@+id/finishScoreBoardButton"
+        android:id="@+id/proceedBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -132,18 +90,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/showPrevResultsScoreBoardButton" />
-
-    <Button
-        android:id="@+id/showPrevResultsScoreBoardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/md_theme_dark_surfaceTint"
-        android:text="@string/show_prev_results"
-        android:textColor="@color/md_theme_dark_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/finishScoreBoardButton"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
