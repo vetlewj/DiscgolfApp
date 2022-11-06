@@ -12,20 +12,23 @@ object CourseMapper {
     fun buildFromListOFCoursesResponse(response: GetListOfCoursesByCountryCodeResponse): ArrayList<Course> {
         val listOfCourses = ArrayList<Course>()
         response.courses.forEach { course ->
-            val courseObj = Course(
-                uid = course.ID!!.toInt(),
-                name = course.Fullname.toString(),
-                holes = null,
-                rating = null,
-                area = course.Area,
-                city = course.City,
-                location = course.Location,
-                latitude = if(course.Y.equals(EMPTY_STRING)) null else course.Y!!.toFloat(),
-                longitude = if(course.X.equals(EMPTY_STRING)) null else course.X!!.toFloat(),
-                endDate = null,
-                type = null
-            )
-            listOfCourses.add(courseObj)
+
+            if(course.Enddate == null) {
+                val courseObj = Course(
+                    uid = course.ID!!.toInt(),
+                    name = course.Fullname.toString(),
+                    holes = null,
+                    rating = null,
+                    area = course.Area,
+                    city = course.City,
+                    location = course.Location,
+                    latitude = if(course.Y.equals(EMPTY_STRING)) null else course.Y!!.toFloat(),
+                    longitude = if(course.X.equals(EMPTY_STRING)) null else course.X!!.toFloat(),
+                    type = null
+                )
+                listOfCourses.add(courseObj)
+            }
+
         }
         return listOfCourses
     }
@@ -57,7 +60,6 @@ object CourseMapper {
             location = response.course.Location,
             latitude = if(response.course.Lat.equals(EMPTY_STRING)) null else response.course.Lat!!.toFloat(),
             longitude = if(response.course.Lng.equals(EMPTY_STRING)) null else response.course.Lng!!.toFloat(),
-            endDate = null,
             type = null
         )
     }
