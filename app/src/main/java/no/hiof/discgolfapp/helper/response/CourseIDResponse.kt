@@ -9,7 +9,7 @@ data class CourseIDResponse(
     val ID: String?,
     val Lat: String?,
     val Lng: String?,
-    val Location: Any?,
+    val Location: String?,
     val Name: String?,
     val ParentID: String?,
     val RatingResult1: String?,

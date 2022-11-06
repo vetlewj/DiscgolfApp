@@ -18,11 +18,11 @@ class SharedRepository {
         return null
     }
 
-    suspend fun getCourseByID(courseID: String): GetCourseByIDResponse? {
+    suspend fun getCourseByID(courseID: String): Course? {
         val request = NetworkLayer.apiClient.getCourseByID(courseID)
 
         if(request.isSuccessful) {
-            return  request.body()!!
+            return  CourseMapper.buildFromCourseResponse(request.body()!!)
         }
 
         return null

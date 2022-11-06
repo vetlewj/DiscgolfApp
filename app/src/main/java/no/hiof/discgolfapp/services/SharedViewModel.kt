@@ -15,8 +15,8 @@ class SharedViewModel: ViewModel() {
     private val _coursesByCountryCodeLiveData = MutableLiveData<ArrayList<Course>?>()
     val coursesByCountryCodeLiveData: LiveData<ArrayList<Course>?> = _coursesByCountryCodeLiveData
 
-    private val _courseByIDLiveData = MutableLiveData<GetCourseByIDResponse?>()
-    val courseByIDLiveData: LiveData<GetCourseByIDResponse?> = _courseByIDLiveData
+    private val _courseByIDLiveData = MutableLiveData<Course?>()
+    val courseByIDLiveData: LiveData<Course?> = _courseByIDLiveData
 
     fun refreshCourses(coursesCode: String) {
 
