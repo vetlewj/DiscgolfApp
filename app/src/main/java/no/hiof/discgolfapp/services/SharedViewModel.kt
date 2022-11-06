@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import no.hiof.discgolfapp.helper.response.GetCourseByIDResponse
 import no.hiof.discgolfapp.helper.response.GetListOfCoursesByCountryCodeResponse
 import no.hiof.discgolfapp.model.Course
 
@@ -13,6 +14,9 @@ class SharedViewModel: ViewModel() {
 
     private val _coursesByCountryCodeLiveData = MutableLiveData<ArrayList<Course>?>()
     val coursesByCountryCodeLiveData: LiveData<ArrayList<Course>?> = _coursesByCountryCodeLiveData
+
+    private val _courseByIDLiveData = MutableLiveData<GetCourseByIDResponse?>()
+    val courseByIDLiveData: LiveData<GetCourseByIDResponse?> = _courseByIDLiveData
 
     fun refreshCourses(coursesCode: String) {
 
@@ -34,6 +38,15 @@ class SharedViewModel: ViewModel() {
                 CoursesCache.courseMap[coursesCode] = response
             }
 
+        }
+
+    }
+
+    fun fetchCourse(CourseID: String) {
+        viewModelScope.launch {
+            val response = repository.getCourseByID(CourseID)
+
+            _courseByIDLiveData.postValue(response)
         }
 
     }

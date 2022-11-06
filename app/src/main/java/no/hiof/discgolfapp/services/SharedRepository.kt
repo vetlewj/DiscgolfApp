@@ -1,6 +1,8 @@
 package no.hiof.discgolfapp.services
 
 import no.hiof.discgolfapp.helper.mappers.CourseMapper
+import no.hiof.discgolfapp.helper.response.CourseIDResponse
+import no.hiof.discgolfapp.helper.response.GetCourseByIDResponse
 import no.hiof.discgolfapp.helper.response.GetListOfCoursesByCountryCodeResponse
 import no.hiof.discgolfapp.model.Course
 
@@ -15,4 +17,16 @@ class SharedRepository {
 
         return null
     }
+
+    suspend fun getCourseByID(courseID: String): GetCourseByIDResponse? {
+        val request = NetworkLayer.apiClient.getCourseByID(courseID)
+
+        if(request.isSuccessful) {
+            return  request.body()!!
+        }
+
+        return null
+    }
+
+
 }

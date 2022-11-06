@@ -1,6 +1,6 @@
 package no.hiof.discgolfapp.helper.response
 
-data class Course(
+data class CourseCountryCodeResponse(
     val Area: String?,
     val City: String?,
     val CountryCode: String?,
