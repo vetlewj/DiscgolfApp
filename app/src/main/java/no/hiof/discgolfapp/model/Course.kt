@@ -14,7 +14,7 @@ data class Course(
     val longitude: Float?,
     val endDate: Date?,
     val type: Int?,
-
+    val par: Int? = 0,
 ) {
     //TODO: Finish class
 
@@ -36,6 +36,10 @@ data class Course(
 
         fun getAllCourses(): ArrayList<Course?> {
             return courses
+        }
+
+        fun getCourseById(id: Int): Course? {
+            return getCourses()[id]
         }
 
 
