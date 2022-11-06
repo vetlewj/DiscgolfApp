@@ -37,13 +37,11 @@ class CourseResultsFragment : Fragment() {
 
         val args = CourseResultsFragmentArgs.fromBundle(requireArguments())
 
-        // TODO: Navigate to courses when clicking on proceed button
         binding.proceedBtn.setOnClickListener {
-            it.findNavController().navigate(R.id.action_courseResultsFragment_to_coursesOverviewListFragment)
+            it.findNavController()
+                .navigate(R.id.action_courseResultsFragment_to_coursesOverviewListFragment)
         }
-        // TODO: Get course with id from args
         course = Course.getCourseById(args.courseId)!!
-        // TODO: Get scorecards with course id from args and playerId from firebase auth
         val storedScoreCards = firestore.collection("scorecardsv1")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -54,7 +52,6 @@ class CourseResultsFragment : Fragment() {
 
             val scoreCards = documents.toObjects<ScoreCard>()
 
-            // TODO: Get best score from scorecards
             val bestScore = scoreCards.minBy {
                 it.totalScore
             }
@@ -64,7 +61,6 @@ class CourseResultsFragment : Fragment() {
                 (bestScore.totalScore.minus(course.par ?: 0))
             )
 
-            // TODO: Get average score from scorecards
             val avgScore = scoreCards.sumOf {
                 it.totalScore
             } / scoreCards.size
@@ -74,7 +70,6 @@ class CourseResultsFragment : Fragment() {
                 (avgScore.minus(course.par ?: 0))
             )
 
-            // TODO: List scores from scorecards in layout sorted by date (latest first)
             for (scoreCard in scoreCards) {
                 // TODO: Navigate to ScoreCard Details when clicking on a scorecard
                 val textView = TextView(context)
