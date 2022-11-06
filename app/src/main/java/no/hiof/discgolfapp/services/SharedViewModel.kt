@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import no.hiof.discgolfapp.helper.response.GetCourseByIDResponse
-import no.hiof.discgolfapp.helper.response.GetListOfCoursesByCountryCodeResponse
 import no.hiof.discgolfapp.model.Course
 
 class SharedViewModel: ViewModel() {
@@ -21,7 +19,7 @@ class SharedViewModel: ViewModel() {
     fun refreshCourses(coursesCode: String) {
 
         // Checking courses exists in cache
-        val cachedCourses = CoursesCache.courseMap[coursesCode]
+        val cachedCourses = CoursesCache.listOfCourseMap[coursesCode]
         if(cachedCourses != null) {
             _coursesByCountryCodeLiveData.postValue(cachedCourses)
             return
@@ -35,7 +33,7 @@ class SharedViewModel: ViewModel() {
 
             // Updating the cache
             response?.let {
-                CoursesCache.courseMap[coursesCode] = response
+                CoursesCache.listOfCourseMap[coursesCode] = response
             }
 
         }
@@ -43,10 +41,23 @@ class SharedViewModel: ViewModel() {
     }
 
     fun fetchCourse(CourseID: String) {
+
+        // Checking courses exists in cache
+        val cachedCourse = CoursesCache.courseMap[CourseID]
+        if(cachedCourse != null) {
+            _courseByIDLiveData.postValue(cachedCourse)
+            return
+        }
+
         viewModelScope.launch {
             val response = repository.getCourseByID(CourseID)
 
             _courseByIDLiveData.postValue(response)
+
+            // Updating the cache
+            response?.let {
+                CoursesCache.courseMap[CourseID] = response
+            }
         }
 
     }

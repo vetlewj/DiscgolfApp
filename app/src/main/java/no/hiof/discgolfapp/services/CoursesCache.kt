@@ -4,5 +4,7 @@ import no.hiof.discgolfapp.model.Course
 
 object CoursesCache {
 
-    public val courseMap = mutableMapOf<String, ArrayList<Course>>()
+    val listOfCourseMap = mutableMapOf<String, ArrayList<Course>>()
+    val courseMap = mutableMapOf<String, Course>()
+
 }
