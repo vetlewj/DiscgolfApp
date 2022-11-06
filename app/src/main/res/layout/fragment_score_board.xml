@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screens.play.scoreboard.ScoreBoardFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".screens.play.scoreboard.ScoreBoardFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
@@ -30,9 +29,9 @@
                 android:id="@+id/scoreBoardLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:contentDescription="@string/scoreboard_ll_content_desc"
-                android:orientation="vertical"
-                android:layout_margin="8dp"/>
+                android:orientation="vertical" />
 
         </ScrollView>
 
@@ -42,14 +41,14 @@
         android:id="@+id/finishScoreBoardCardView"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/finishScoreBoardDataCardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="4dp">
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/finishScoreBoardDataCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -59,23 +58,23 @@
                 android:id="@+id/totalScoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/scoreboard_text_total_par"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/total_par_text_view"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/scoreboard_text_total_par"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/total_par_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/scoreboard_text_total"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/totalScoreTextView"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/scoreboard_text_total"/>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -84,14 +83,14 @@
         android:id="@+id/finishScoreBoardDataCardView"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/finishScoreBoardButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="4dp">
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/finishScoreBoardButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -101,26 +100,25 @@
                 android:id="@+id/bestScoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/scoreboard_text_best_score"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/avgScoreTextView"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/scoreboard_text_best_score"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/avgScoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/scoreboard_text_average_score"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/bestScoreTextView"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/scoreboard_text_average_score"/>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </com.google.android.material.card.MaterialCardView>
@@ -130,8 +128,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:text="@string/finish_scoreboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/finish_scoreboard" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/showPrevResultsScoreBoardButton" />
+
+    <Button
+        android:id="@+id/showPrevResultsScoreBoardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/md_theme_dark_surfaceTint"
+        android:text="@string/show_prev_results"
+        android:textColor="@color/md_theme_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/finishScoreBoardButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
