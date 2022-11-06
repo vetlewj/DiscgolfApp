@@ -1,22 +1,80 @@
 package no.hiof.discgolfapp.screens.courses
 
 import android.os.Bundle
+import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCourseResultsBinding
+import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.model.ScoreCard
 
 class CourseResultsFragment : Fragment() {
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
     private var _binding: FragmentCourseResultsBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var course: Course
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCourseResultsBinding.inflate(inflater, container, false)
+
+        firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        // TODO: Get course with id from args
+        val args = CourseResultsFragmentArgs.fromBundle(requireArguments())
+        course = Course.getCourseById(args.courseId)!!
+        // TODO: Get scorecards with course id from args and playerId from firebase auth
+        val storedScoreCards = firestore.collection("scorecardsv1")
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .whereEqualTo("finished", true)
+            .whereEqualTo("courseId", args.courseId)
+            .get()
+        storedScoreCards.addOnSuccessListener { documents ->
+
+            val scoreCards = documents.toObjects<ScoreCard>()
+            val bestScore = scoreCards.minBy {
+                it.totalScore
+            }
+            binding.bestScoreTextView.text = resources.getString(
+                R.string.scoreboard_text_best_score,
+                bestScore.totalScore,
+                (bestScore.totalScore.minus(course.par ?: 0))
+            )
+            val avgScore = scoreCards.sumOf {
+                it.totalScore
+            } / scoreCards.size
+            binding.avgScoreTextView.text = resources.getString(
+                R.string.scoreboard_text_average_score,
+                avgScore,
+                (avgScore.minus(course.par ?: 0))
+            )
+
+
+            for (scoreCard in scoreCards) {
+                val textView = TextView(context)
+                val formattedDate = DateFormat.format("dd.MM.yy", scoreCard.date)
+                textView.text = "Dato: ${formattedDate} Score: ${scoreCard.totalScore}"
+                binding.scoresLinearLayout.addView(textView)
+            }
+        }
+
+        // TODO: List scores from scorecards in layout sorted by date (latest first)
+        // TODO: Get average score from scorecards
+        // TODO: Get best score from scorecards
 
         return binding.root
     }
