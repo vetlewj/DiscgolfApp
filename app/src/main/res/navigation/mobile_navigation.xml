@@ -128,5 +128,17 @@
         <argument
             android:name="courseId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_scoreBoardFragment_to_courseResultsFragment"
+            app:destination="@id/courseResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseResultsFragment"
+        android:name="no.hiof.discgolfapp.screens.courses.CourseResultsFragment"
+        android:label="fragment_course_results"
+        tools:layout="@layout/fragment_course_results" >
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
     </fragment>
 </navigation>

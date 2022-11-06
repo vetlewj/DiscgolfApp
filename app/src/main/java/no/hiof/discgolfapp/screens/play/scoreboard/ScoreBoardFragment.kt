@@ -106,6 +106,15 @@ class ScoreBoardFragment : Fragment() {
                 ScoreBoardFragmentDirections.actionScoreBoardFragmentToCoursesOverviewListFragment()
             it.findNavController().navigate(action)
         }
+
+        val seePrevResultsButton = binding.showPrevResultsScoreBoardButton
+        seePrevResultsButton.setOnClickListener {
+            val action =
+                ScoreBoardFragmentDirections.actionScoreBoardFragmentToCourseResultsFragment(
+                    args.courseId
+                )
+            it.findNavController().navigate(action)
+        }
         return binding.root
     }
 }
