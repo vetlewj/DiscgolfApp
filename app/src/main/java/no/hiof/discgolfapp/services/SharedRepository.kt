@@ -1,8 +1,10 @@
 package no.hiof.discgolfapp.services
 
 import no.hiof.discgolfapp.helper.mappers.CourseMapper
+import no.hiof.discgolfapp.helper.mappers.WeatherMapper
 import no.hiof.discgolfapp.helper.response.yr.GetWeatherReportFromCoordinatesResponse
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.model.Weather
 
 class SharedRepository {
 
@@ -26,11 +28,11 @@ class SharedRepository {
         return null
     }
 
-    suspend fun getWeatherByCoordinates(lat: String, lon: String): GetWeatherReportFromCoordinatesResponse? {
+    suspend fun getWeatherByCoordinates(lat: String, lon: String): Weather? {
         val request = NetworkLayer.apiClient.getWeatherByCoordinates(lat, lon)
 
         if(request.isSuccessful) {
-            return request.body()!!
+            return WeatherMapper.buildFromWeatherResponse(request.body()!!)
         }
 
         return null

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import no.hiof.discgolfapp.helper.response.yr.GetWeatherReportFromCoordinatesResponse
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.model.Weather
 
 class SharedViewModel: ViewModel() {
     private val repository = SharedRepository();
@@ -17,8 +18,8 @@ class SharedViewModel: ViewModel() {
     private val _courseByIDLiveData = MutableLiveData<Course?>()
     val courseByIDLiveData: LiveData<Course?> = _courseByIDLiveData
 
-    private val _weatherByCoordinatesLiveData = MutableLiveData<GetWeatherReportFromCoordinatesResponse?>()
-    val weatherByCoordinatesLiveData: LiveData<GetWeatherReportFromCoordinatesResponse?> = _weatherByCoordinatesLiveData
+    private val _weatherByCoordinatesLiveData = MutableLiveData<Weather?>()
+    val weatherByCoordinatesLiveData: LiveData<Weather?> = _weatherByCoordinatesLiveData
 
     fun fetchCourses(coursesCode: String) {
 

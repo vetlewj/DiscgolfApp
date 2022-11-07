@@ -9,7 +9,7 @@ object WeatherMapper {
 
     fun buildFromWeatherResponse(response: GetWeatherReportFromCoordinatesResponse): Weather {
 
-        // Todo: må på et vis få systemtid slik at jeg kan finne ut hva slags verdi jeg skal hente i timeseries
+        // Todo: må på et vis få systemtid slik at jeg kan finne ut hva slags verdi jeg skal hente i timeseries array i API
         // - må også konvertere tiden til zulu tid.
         // - Sammenligne systemtiden, med riktig tid for riktig værmelding i timeserien i en løkke.
 

@@ -9,8 +9,8 @@ class Weather(
     private var lat: Float?,
     private var lon: Float?,
     private var time: String?,
-    val weatherDrawable: Int?,
-    val windDrawable: Int?
+    val weatherDrawable: Int,
+    val windDrawable: Int
 ) {
 
     companion object {
