@@ -9,8 +9,8 @@ import retrofit2.http.Headers
 interface WeatherService {
     @GET("compact?")
     suspend fun getCoursesByCountryCode(
-        @Query("lon") longitude: String,
-        @Query("lat") latitude: String
+        @Query("lat") latitude: String,
+        @Query("lon") longitude: String
     ): Response<GetWeatherReportFromCoordinatesResponse>
 
 }

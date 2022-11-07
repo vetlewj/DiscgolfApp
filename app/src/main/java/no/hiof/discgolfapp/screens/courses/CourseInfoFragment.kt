@@ -45,7 +45,7 @@ class CourseInfoFragment : Fragment() {
             Toast.makeText(view.context, course.toString(), Toast.LENGTH_SHORT ).show()
 
         }
-        // TODO: nor rart med funksjonen her, snudde på argumentene og da gikk det.
+
         viewModel.fetchWeather(String.format("%.4f",args.latitude), String.format("%.4f",args.longitude))
         viewModel.weatherByCoordinatesLiveData.observe(viewLifecycleOwner) { weatherReport ->
             if(weatherReport == null) {
