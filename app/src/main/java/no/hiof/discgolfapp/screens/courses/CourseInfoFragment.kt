@@ -36,24 +36,22 @@ class CourseInfoFragment : Fragment() {
         val binding = FragmentCourseInfoBinding.bind(view)
         fragmentBinding = binding
 
-//        viewModel.fetchCourse(args.uid.toString())
-//        viewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { course ->
-//            if(course == null) {
-//                Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
-//                return@observe
-//            }
-//            Toast.makeText(view.context, course.toString(), Toast.LENGTH_SHORT ).show()
-//
-//        }
-        val formattedLat = String.format("%.4f",args.latitude).toFloat()
-        val formattedLon = String.format("%.4f",args.longitude).toFloat()
-        viewModel.fetchWeather("59.9393", "10.7858")
+        viewModel.fetchCourse(args.uid.toString())
+        viewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { course ->
+            if(course == null) {
+                Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
+                return@observe
+            }
+            Toast.makeText(view.context, course.toString(), Toast.LENGTH_SHORT ).show()
+
+        }
+        viewModel.fetchWeather(String.format("%.4f",args.latitude), String.format("%.4f",args.longitude))
         viewModel.weatherByCoordinatesLiveData.observe(viewLifecycleOwner) { weatherReport ->
             if(weatherReport == null) {
                 Toast.makeText(view.context, "weather network call was unsuccessful", Toast.LENGTH_SHORT).show()
                 return@observe
             }
-            Toast.makeText(view.context, weatherReport.properties.timeseries[0].data.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, weatherReport.properties.timeseries[0].data.next_1_hours!!.summary.toString(), Toast.LENGTH_SHORT).show()
 
         }
 
