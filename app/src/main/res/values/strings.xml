@@ -14,7 +14,7 @@
     <string name="course_name">course_name</string>
     <string name="course_area">course_area</string>
     <string name="user_profile">Profil</string>
-    <string name="map_switch">map</string>
+    <string name="map_switch">List</string>
 
     <!-- Scorecard buttons -->
     <string name="create_scorecard">Opprett poengkort</string>

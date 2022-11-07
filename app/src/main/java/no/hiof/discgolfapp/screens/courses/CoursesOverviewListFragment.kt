@@ -36,7 +36,7 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
-        viewModel.refreshCourses("NO")
+        viewModel.fetchCourses("NO")
         viewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { listOfCourses ->
             if(listOfCourses == null) {
                 Toast.makeText(view.context, "network call was unsuccessful", Toast.LENGTH_SHORT).show()
