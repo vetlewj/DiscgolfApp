@@ -20,18 +20,6 @@ class ScoreCard(
     //TODO: Implement custom class mapper to get course based on courseId from firestore
     // [CustomClassMapper]: No setter/field for courseId found on class no.hiof.discgolfapp.model.ScoreCard
     companion object {
-        fun getScoreCards(): List<ScoreCard> {
-            return listOf(
-                ScoreCard(
-                    null,
-                    Course.getCourses()[0],
-                    54,
-                    54,
-                    Date(),
-                    HoleScore.getHoleScores().toMutableList()
-                )
-            )
-        }
 
         fun createEmptyScoreCard(
             playerId: String?,
@@ -39,21 +27,24 @@ class ScoreCard(
             scoreCardCreationType: ScoreCardCreationType
         ): ScoreCard {
             val holeScores = mutableListOf<HoleScore>()
+            if (course.holes != null) {
+                if (scoreCardCreationType == ScoreCardCreationType.PAR) {
+                    val holeNum = 0
 
-            if (scoreCardCreationType == ScoreCardCreationType.PAR) {
-                val holeNum = 0
-                for (hole in course.holes!!) {
-                    if (hole != null) {
-                        holeScores.plus(HoleScore(holeNum, 0, hole.par, null))
+                    for (hole in course.holes) {
+                        if (hole != null) {
+                            holeScores.plus(HoleScore(holeNum, 0, hole.par, null))
+                        }
+                        holeNum.plus(1)
                     }
-                    holeNum.plus(1)
+
                 }
-            }
-            // TODO: Add rest of scorecard creation types
-            else {
-                for (hole in course.holes!!) {
-                    if (hole != null) {
-                        holeScores.plus(HoleScore(1, 0, 0, null))
+                // TODO: Add rest of scorecard creation types
+                else {
+                    for (hole in course.holes) {
+                        if (hole != null) {
+                            holeScores.plus(HoleScore(1, 0, 0, null))
+                        }
                     }
                 }
             }

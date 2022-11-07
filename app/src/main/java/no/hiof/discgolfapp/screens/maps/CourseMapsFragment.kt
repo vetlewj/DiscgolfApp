@@ -27,6 +27,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.switchmaterial.SwitchMaterial
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.services.SharedRepository
+import no.hiof.discgolfapp.services.SharedViewModel
 
 class CourseMapsFragment : Fragment() {
     private val TAG = "CourseMapsFragment"
@@ -36,6 +38,8 @@ class CourseMapsFragment : Fragment() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private var currentLocation: Location? = null
+
+    private var sharedViewModel: SharedViewModel = SharedViewModel()
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -102,26 +106,35 @@ class CourseMapsFragment : Fragment() {
     }
 
     private fun addCourseMarkers() {
-        val courses = Course.getCourses()
+        sharedViewModel.fetchCourses("NO")
+        sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courses ->
+            if (courses == null) {
+                Log.w("ChooseCourseFragment", "courses is null")
+                return@observe
+            }
 
-        // TODO: Change drawable resource to discgolf
-        val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_golf_course, null)
-        val bitmap = drawable?.toBitmap().let {
-            Bitmap.createScaledBitmap(it!!, 150, 150, false)
-        }
+            // TODO: Change drawable resource to discgolf
+            val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_golf_course, null)
+            val bitmap = drawable?.toBitmap().let {
+                Bitmap.createScaledBitmap(it!!, 150, 150, false)
+            }
 
-        for (course in courses) {
-            val lat = course.latitude?.toDouble() ?: 0.0
-            val lon = course.latitude?.toDouble() ?: 0.0
-            if (lat != 0.0 && lon != 0.0) {
-                val courseLatLng =
-                    LatLng(course.latitude?.toDouble() ?: 0.0, course.longitude?.toDouble() ?: 0.0)
-                map.addMarker(
-                    MarkerOptions()
-                        .position(courseLatLng)
-                        .title(course.name)
-                        .icon(bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
-                )
+            for (course in courses) {
+                val lat = course.latitude?.toDouble() ?: 0.0
+                val lon = course.longitude?.toDouble() ?: 0.0
+                if (lat != 0.0 && lon != 0.0) {
+                    val courseLatLng =
+                        LatLng(
+                            lat,
+                            lon
+                        )
+                    map.addMarker(
+                        MarkerOptions()
+                            .position(courseLatLng)
+                            .title(course.name)
+                            .icon(bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
+                    )
+                }
             }
         }
     }
