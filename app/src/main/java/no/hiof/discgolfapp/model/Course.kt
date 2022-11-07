@@ -22,8 +22,30 @@ data class Course(
 
         fun getCourses(): List<Course> {
             return listOf(
-                Course(0, "Muselunden", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.939369F, 10.785842F, null),
-                Course(1, "Ekeberg skole", Hole.getHoles(), null, "Oslo", "Oslo", null, 59.895178F, 10.787161F, null),
+                Course(
+                    0,
+                    "Muselunden",
+                    Hole.getHoles(),
+                    null,
+                    "Oslo",
+                    "Oslo",
+                    null,
+                    59.939369F,
+                    10.785842F,
+                    null
+                ),
+                Course(
+                    1,
+                    "Ekeberg skole",
+                    Hole.getHoles(),
+                    null,
+                    "Oslo",
+                    "Oslo",
+                    null,
+                    59.895178F,
+                    10.787161F,
+                    null
+                ),
                 Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null, null)
 
             )
@@ -36,11 +58,5 @@ data class Course(
         fun getAllCourses(): ArrayList<Course?> {
             return courses
         }
-
-        fun getCourseById(id: Int): Course? {
-            return getCourses()[id]
-        }
-
-
     }
 }

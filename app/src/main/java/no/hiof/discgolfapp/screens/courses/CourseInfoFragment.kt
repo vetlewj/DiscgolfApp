@@ -70,7 +70,7 @@ class CourseInfoFragment : Fragment() {
 
             val action =
                 CourseInfoFragmentDirections.actionCourseInfoFragmentToCreateScoreCardFragment(
-                    args.courseName
+                    args.uid,
                 )
 
             navController.navigate(action)

@@ -13,7 +13,7 @@ object CourseMapper {
         val listOfCourses = ArrayList<Course>()
         response.courses.forEach { course ->
 
-            if(course.Enddate == null) {
+            if (course.Enddate == null) {
                 val courseObj = Course(
                     uid = course.ID!!.toInt(),
                     name = course.Fullname.toString(),
@@ -22,8 +22,8 @@ object CourseMapper {
                     area = course.Area,
                     city = course.City,
                     location = course.Location,
-                    latitude = if(course.Y.equals(EMPTY_STRING)) null else course.Y!!.toFloat(),
-                    longitude = if(course.X.equals(EMPTY_STRING)) null else course.X!!.toFloat(),
+                    latitude = if (course.X.equals(EMPTY_STRING)) null else course.X!!.toFloat(),
+                    longitude = if (course.Y.equals(EMPTY_STRING)) null else course.Y!!.toFloat(),
                     type = null
                 )
                 listOfCourses.add(courseObj)
@@ -32,6 +32,7 @@ object CourseMapper {
         }
         return listOfCourses
     }
+
     fun buildFromCourseResponse(response: GetCourseByIDResponse): Course? {
 
         val holes: ArrayList<Hole> = ArrayList()
@@ -40,26 +41,26 @@ object CourseMapper {
             val hole = Hole(
                 holeNumber = basket.Number!!.toInt(),
                 par = basket.Par!!.toInt(),
-                distance = if(basket.Length != null) basket.Length.toInt() else null,
-                startLat = if(!basket.TeeLat.equals(EMPTY_STRING)) basket.TeeLat!!.toDouble() else null,
-                startLon = if(!basket.TeeLng.equals(EMPTY_STRING)) basket.TeeLng!!.toDouble() else null,
-                endLat = if(!basket.BasketLat.equals(EMPTY_STRING)) basket.BasketLat!!.toDouble() else null,
+                distance = if (basket.Length != null) basket.Length.toInt() else null,
+                startLat = if (!basket.TeeLat.equals(EMPTY_STRING)) basket.TeeLat!!.toDouble() else null,
+                startLon = if (!basket.TeeLng.equals(EMPTY_STRING)) basket.TeeLng!!.toDouble() else null,
+                endLat = if (!basket.BasketLat.equals(EMPTY_STRING)) basket.BasketLat!!.toDouble() else null,
                 endLon = if (!basket.BasketLng.equals(EMPTY_STRING)) basket.BasketLng!!.toDouble() else null,
                 unit = basket.Unit
             )
-                holes.add(hole)
+            holes.add(hole)
         }
 
         return Course(
             uid = response.course.ID!!.toInt(),
             name = response.course.Fullname.toString(),
-            holes = if(holes.size == 0) null else holes,
+            holes = if (holes.size == 0) null else holes,
             rating = null,
             area = response.course.Area,
             city = response.course.City,
             location = response.course.Location,
-            latitude = if(response.course.Lat.equals(EMPTY_STRING)) null else response.course.Lat!!.toFloat(),
-            longitude = if(response.course.Lng.equals(EMPTY_STRING)) null else response.course.Lng!!.toFloat(),
+            latitude = if (response.course.Lat.equals(EMPTY_STRING)) null else response.course.Lat!!.toFloat(),
+            longitude = if (response.course.Lng.equals(EMPTY_STRING)) null else response.course.Lng!!.toFloat(),
             type = null
         )
     }

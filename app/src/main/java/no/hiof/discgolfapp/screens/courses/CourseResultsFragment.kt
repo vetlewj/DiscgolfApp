@@ -2,6 +2,7 @@ package no.hiof.discgolfapp.screens.courses
 
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCourseResultsBinding
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.ScoreCard
+import no.hiof.discgolfapp.services.SharedViewModel
 
 class CourseResultsFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -23,7 +25,7 @@ class CourseResultsFragment : Fragment() {
     private var _binding: FragmentCourseResultsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var course: Course
+    private val sharedViewModel: SharedViewModel = SharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,42 +43,53 @@ class CourseResultsFragment : Fragment() {
             it.findNavController()
                 .navigate(R.id.action_courseResultsFragment_to_coursesOverviewListFragment)
         }
-        course = Course.getCourseById(args.courseId)!!
-        val storedScoreCards = firestore.collection("scorecardsv1")
-            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
-            .whereEqualTo("finished", true)
-            .whereEqualTo("courseId", args.courseId)
-            .orderBy("date", com.google.firebase.firestore.Query.Direction.DESCENDING)
-            .get()
-        storedScoreCards.addOnSuccessListener { documents ->
 
-            val scoreCards = documents.toObjects<ScoreCard>()
-
-            val bestScore = scoreCards.minBy {
-                it.totalScore
+        sharedViewModel.fetchCourse(args.courseId.toString())
+        sharedViewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
+            if (course == null) {
+                Log.w("ChooseCourseFragment", "courses is null")
+                return@observe
             }
-            binding.bestScoreTextView.text = resources.getString(
-                R.string.scoreboard_text_best_score,
-                bestScore.totalScore,
-                (bestScore.totalScore.minus(course.par ?: 0))
-            )
+            val storedScoreCards = firestore.collection("scorecardsv1")
+                .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+                .whereEqualTo("finished", true)
+                .whereEqualTo("courseId", args.courseId)
+                .orderBy("date", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                .get()
+            storedScoreCards.addOnSuccessListener { documents ->
 
-            val avgScore = scoreCards.sumOf {
-                it.totalScore
-            } / scoreCards.size
-            binding.avgScoreTextView.text = resources.getString(
-                R.string.scoreboard_text_average_score,
-                avgScore,
-                (avgScore.minus(course.par ?: 0))
-            )
+                val scoreCards = documents.toObjects<ScoreCard>()
 
-            for (scoreCard in scoreCards) {
-                // TODO: Navigate to ScoreCard Details when clicking on a scorecard
-                val textView = TextView(context)
-                val formattedDate = DateFormat.format("dd.MM.yy", scoreCard.date)
-                textView.text =
-                    resources.getString(R.string.score_date, scoreCard.totalScore, formattedDate)
-                binding.scoresLinearLayout.addView(textView)
+                val bestScore = scoreCards.minBy {
+                    it.totalScore
+                }
+                binding.bestScoreTextView.text = resources.getString(
+                    R.string.scoreboard_text_best_score,
+                    bestScore.totalScore,
+                    (bestScore.totalScore.minus(course.par ?: 0))
+                )
+
+                val avgScore = scoreCards.sumOf {
+                    it.totalScore
+                } / scoreCards.size
+                binding.avgScoreTextView.text = resources.getString(
+                    R.string.scoreboard_text_average_score,
+                    avgScore,
+                    (avgScore.minus(course.par ?: 0))
+                )
+
+                for (scoreCard in scoreCards) {
+                    // TODO: Navigate to ScoreCard Details when clicking on a scorecard
+                    val textView = TextView(context)
+                    val formattedDate = DateFormat.format("dd.MM.yy", scoreCard.date)
+                    textView.text =
+                        resources.getString(
+                            R.string.score_date,
+                            scoreCard.totalScore,
+                            formattedDate
+                        )
+                    binding.scoresLinearLayout.addView(textView)
+                }
             }
         }
 

@@ -11,10 +11,12 @@ import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCreateScoreCardBinding
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.services.SharedViewModel
 
 class CreateScoreCardFragment : Fragment() {
     private val args: CreateScoreCardFragmentArgs by navArgs()
     private var fragmentBinding: FragmentCreateScoreCardBinding? = null
+    private var sharedViewModel = SharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,22 +32,24 @@ class CreateScoreCardFragment : Fragment() {
         fragmentBinding = binding
 
         // TODO: Should be replaced by CourseId
-        val course = Course.getCourses().find { it.name == args.courseName }
+        sharedViewModel.fetchCourses("NO")
+        sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courseList ->
+            val course = courseList?.find { it.uid == args.courseId }
 
-        binding.createScoreCardCourseNameTextView.text =
-            course?.name ?: resources.getString(R.string.no_course_selected)
-
-        val action =
-            CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
+            binding.createScoreCardCourseNameTextView.text =
                 course?.name ?: resources.getString(R.string.no_course_selected)
-            )
-        binding.createScorecardBtn.setOnClickListener {
-            Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
-            action.scoreCardType = "PAR"
-            NavHostFragment.findNavController(this).navigate(action)
-        }
-        // TODO: Add other scorecard types for other buttons
 
+            val action =
+                CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
+                    course?.uid ?: 0
+                )
+            binding.createScorecardBtn.setOnClickListener {
+                Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
+                action.scoreCardType = "PAR"
+                NavHostFragment.findNavController(this).navigate(action)
+            }
+            // TODO: Add other scorecard types for other buttons
+        }
 
     }
 
