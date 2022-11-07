@@ -2,14 +2,37 @@ package no.hiof.discgolfapp.model
 
 import no.hiof.discgolfapp.R
 
-class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, var windspeed: Double?, private var windFromDirection: Float?, private var lat: Float?, private var lon: Float?, private var time: String?) {
+class Weather(
+    private val symbolCode: WeatherSymbol?,
+    var temperature: Double?, var windspeed: Double?,
+    private var windFromDirection: Float?,
+    private var lat: Float?,
+    private var lon: Float?,
+    private var time: String?
+) {
 
     companion object {
 
         fun getWeather(): List<Weather> {
             return listOf(
-                Weather(WeatherSymbol.SUNNY, 14.6, 3.3, 215.6F, 59.939369F, 10.785842F, "2022-10-14T13:00:00Z"),
-                Weather(WeatherSymbol.CLOUDY, 10.2, 4.2, 350.1F, 59.895178F, 10.787161F, "2022-10-14T12:00:00Z")
+                Weather(
+                    WeatherSymbol.SUNNY,
+                    14.6,
+                    3.3,
+                    215.6F,
+                    59.939369F,
+                    10.785842F,
+                    "2022-10-14T13:00:00Z"
+                ),
+                Weather(
+                    WeatherSymbol.CLOUDY,
+                    10.2,
+                    4.2,
+                    350.1F,
+                    59.895178F,
+                    10.787161F,
+                    "2022-10-14T12:00:00Z"
+                )
             )
         }
 
@@ -26,7 +49,7 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
 
     }
 
-    fun getWeatherSymbol(): Int{
+    fun getWeatherSymbol(): Int {
         val weatherFavIcon = when (this.symbolCode) {
             WeatherSymbol.SUNNY -> R.drawable.ic_baseline_wb_sunny_24
             WeatherSymbol.CLOUDY -> R.drawable.ic_baseline_wb_cloudy_24
@@ -37,7 +60,7 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
     }
 
     fun getWindDirectionSymbol(): Int {
-        if(this.windFromDirection == null) {
+        if (this.windFromDirection == null) {
             return 0
         } else {
             val windDirection = this.windFromDirection!!
@@ -47,7 +70,7 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
                 windDirection >= WindDirection.E.direction1 && windDirection <= WindDirection.E.direction2 -> R.drawable.ic_baseline_east_24
                 windDirection >= WindDirection.SE.direction1 && windDirection <= WindDirection.SE.direction2 -> R.drawable.ic_baseline_south_east_24
                 windDirection >= WindDirection.S.direction1 && windDirection <= WindDirection.S.direction2 -> R.drawable.ic_baseline_south_24
-                windDirection >= WindDirection.SW.direction1 &&windDirection <= WindDirection.SW.direction2 -> R.drawable.ic_baseline_south_west_24
+                windDirection >= WindDirection.SW.direction1 && windDirection <= WindDirection.SW.direction2 -> R.drawable.ic_baseline_south_west_24
                 windDirection >= WindDirection.W.direction1 && windDirection <= WindDirection.W.direction2 -> R.drawable.ic_baseline_west_24
                 windDirection >= WindDirection.NW.direction1 && windDirection <= WindDirection.NW.direction2 -> R.drawable.ic_baseline_north_west_24
                 else -> 0
@@ -56,7 +79,7 @@ class Weather(private val symbolCode: WeatherSymbol?, var temperature: Double?, 
         }
     }
 
-    enum class WindDirection(val direction1: Float, val direction2: Float ) {
+    enum class WindDirection(val direction1: Float, val direction2: Float) {
         // TODO fjern nne, ene osv, om vi ikke skal legge til flere piler
         N(345.5F, 15.5F),
         NNE(15.5F, 35.5F),
