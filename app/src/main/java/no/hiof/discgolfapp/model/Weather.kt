@@ -44,16 +44,16 @@ class Weather(
             )
         }
 
-        fun getWeatherFromCoordinate(latitude: Float, longitude: Float): Weather {
-            // TODO: find a better way of doing this
-            for (weather in getWeather()) {
-                if (weather.lat == latitude && weather.lon == longitude) {
-                    return weather
-                }
-
-            }
-            return Weather(null, null, null, null, null, null, null)
-        }
+//        fun getWeatherFromCoordinate(latitude: Float, longitude: Float): Weather {
+//            // TODO: find a better way of doing this
+//            for (weather in getWeather()) {
+//                if (weather.lat == latitude && weather.lon == longitude) {
+//                    return weather
+//                }
+//
+//            }
+//            return Weather(null, null, null, null, null, null, null)
+//        }
 
     fun getWindDirectionDrawableFromWindDirection(windFromDirection: Float?): Int {
         if (windFromDirection == null) {
