@@ -32,29 +32,24 @@ class CreateScoreCardFragment : Fragment() {
         fragmentBinding = binding
 
         // TODO: Should be replaced by CourseId
-        var courseList: List<Course> = listOf()
         sharedViewModel.fetchCourses("NO")
-        sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                courseList = it
-            }
-        }
-        val course = courseList.find { it.name == args.courseName }
+        sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courseList ->
+            val course = courseList?.find { it.uid == args.courseId }
 
-        binding.createScoreCardCourseNameTextView.text =
-            course?.name ?: resources.getString(R.string.no_course_selected)
-
-        val action =
-            CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
+            binding.createScoreCardCourseNameTextView.text =
                 course?.name ?: resources.getString(R.string.no_course_selected)
-            )
-        binding.createScorecardBtn.setOnClickListener {
-            Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
-            action.scoreCardType = "PAR"
-            NavHostFragment.findNavController(this).navigate(action)
-        }
-        // TODO: Add other scorecard types for other buttons
 
+            val action =
+                CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
+                    course?.uid ?: 0
+                )
+            binding.createScorecardBtn.setOnClickListener {
+                Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
+                action.scoreCardType = "PAR"
+                NavHostFragment.findNavController(this).navigate(action)
+            }
+            // TODO: Add other scorecard types for other buttons
+        }
 
     }
 

@@ -57,7 +57,7 @@ class ChooseCourseFragment : Fragment() {
                     // TODO: Use ID instead of name when navigating to CreateScoreCardFragment
                     val action =
                         ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(
-                            course.name
+                            course.uid
                         )
 
                     findNavController().navigate(action)
