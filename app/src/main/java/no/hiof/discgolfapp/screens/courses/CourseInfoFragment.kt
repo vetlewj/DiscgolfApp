@@ -45,25 +45,24 @@ class CourseInfoFragment : Fragment() {
             Toast.makeText(view.context, course.toString(), Toast.LENGTH_SHORT ).show()
 
         }
+        // TODO: nor rart med funksjonen her, snudde på argumentene og da gikk det.
         viewModel.fetchWeather(String.format("%.4f",args.latitude), String.format("%.4f",args.longitude))
         viewModel.weatherByCoordinatesLiveData.observe(viewLifecycleOwner) { weatherReport ->
             if(weatherReport == null) {
                 Toast.makeText(view.context, "weather network call was unsuccessful", Toast.LENGTH_SHORT).show()
                 return@observe
             }
-            Toast.makeText(view.context, weatherReport.properties.timeseries[0].data.next_1_hours!!.summary.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, weatherReport.temperature.toString(), Toast.LENGTH_SHORT).show()
+
+            //TODO find out how to bind drawable dynamically and change m/s and C to string values in xml
+            binding.weatherSymbolInfoImageView.setImageResource(weatherReport.weatherDrawable)
+            binding.windDirectionInfoImageView.setImageResource(weatherReport.windDrawable)
+            binding.temperatureTextView.text = "${weatherReport.temperature.toString()} ºC"
+            binding.windSpeedTextView.text = "${weatherReport.windspeed.toString()} m/s"
 
         }
 
-         val weather = Weather.getWeatherFromCoordinate(args.latitude, args.longitude)
-
         binding.courseNameInfoTextView.text = args.courseName
-        // Weather binding
-        //TODO find out how to bind drawable dynamically and change m/s and C to string values in xml
-        binding.weatherSymbolInfoImageView.setImageResource(weather.getWeatherSymbol())
-        binding.windDirectionInfoImageView.setImageResource(weather.getWindDirectionSymbol())
-        binding.temperatureTextView.text = "${weather.temperature.toString()} ºC"
-        binding.windSpeedTextView.text = "${weather.windspeed.toString()} m/s"
 
         binding.createScoreCardInfobutton.setOnClickListener() {
             val navController = this.findNavController()
