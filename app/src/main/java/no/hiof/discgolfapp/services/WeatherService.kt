@@ -1,17 +1,16 @@
 package no.hiof.discgolfapp.services
 
-import no.hiof.discgolfapp.helper.response.discgolfmetrix.GetListOfCoursesByCountryCodeResponse
+import no.hiof.discgolfapp.helper.response.yr.GetWeatherReportFromCoordinatesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.Headers
 
 interface WeatherService {
     @GET("compact?")
     suspend fun getCoursesByCountryCode(
-        @Query("lat") latitude: Float,
-        @Query("lon") longitude: Float
-    ): Response<GetListOfCoursesByCountryCodeResponse>
-
-
+        @Query("lat") latitude: String,
+        @Query("lon") longitude: String,
+    ): Response<GetWeatherReportFromCoordinatesResponse>
 
 }

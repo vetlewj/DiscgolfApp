@@ -1,6 +1,7 @@
 package no.hiof.discgolfapp.services
 
 import no.hiof.discgolfapp.helper.mappers.CourseMapper
+import no.hiof.discgolfapp.helper.response.yr.GetWeatherReportFromCoordinatesResponse
 import no.hiof.discgolfapp.model.Course
 
 class SharedRepository {
@@ -20,6 +21,16 @@ class SharedRepository {
 
         if(request.isSuccessful) {
             return  CourseMapper.buildFromCourseResponse(request.body()!!)
+        }
+
+        return null
+    }
+
+    suspend fun getWeatherByCoordinates(lat: String, lon: String): GetWeatherReportFromCoordinatesResponse? {
+        val request = NetworkLayer.apiClient.getWeatherByCoordinates(lat, lon)
+
+        if(request.isSuccessful) {
+            return request.body()!!
         }
 
         return null
