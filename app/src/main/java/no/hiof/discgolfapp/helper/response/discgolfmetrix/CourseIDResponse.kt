@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.helper.response
+package no.hiof.discgolfapp.helper.response.discgolfmetrix
 
 data class CourseIDResponse(
     val Area: String?,

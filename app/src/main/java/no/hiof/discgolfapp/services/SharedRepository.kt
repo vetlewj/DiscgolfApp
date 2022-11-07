@@ -1,9 +1,6 @@
 package no.hiof.discgolfapp.services
 
 import no.hiof.discgolfapp.helper.mappers.CourseMapper
-import no.hiof.discgolfapp.helper.response.CourseIDResponse
-import no.hiof.discgolfapp.helper.response.GetCourseByIDResponse
-import no.hiof.discgolfapp.helper.response.GetListOfCoursesByCountryCodeResponse
 import no.hiof.discgolfapp.model.Course
 
 class SharedRepository {

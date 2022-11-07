@@ -1,7 +1,7 @@
 package no.hiof.discgolfapp.services
 
-import no.hiof.discgolfapp.helper.response.GetCourseByIDResponse
-import no.hiof.discgolfapp.helper.response.GetListOfCoursesByCountryCodeResponse
+import no.hiof.discgolfapp.helper.response.discgolfmetrix.GetCourseByIDResponse
+import no.hiof.discgolfapp.helper.response.discgolfmetrix.GetListOfCoursesByCountryCodeResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -8,15 +8,29 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object NetworkLayer {
 
     val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-    val retrofit: Retrofit = Retrofit.Builder()
+    val retrofitCourses: Retrofit = Retrofit.Builder()
         .baseUrl("https://discgolfmetrix.com/")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
 
     val coursesService: CoursesService by lazy {
-        retrofit.create(CoursesService::class.java)
+        retrofitCourses.create(CoursesService::class.java)
     }
     val apiClient = ApiClient(coursesService)
+
+
+    val retrofitWeather: Retrofit = Retrofit.Builder()
+        .baseUrl("https://api.met.no/weatherapi/locationforecast/2.0/").
+        addConverterFactory(MoshiConverterFactory.create(moshi)).
+        build()
+
+//    val coursesService: CoursesService by lazy {
+//        retrofitCourses.create(CoursesService::class.java)
+//    }
+//    val apiClient = ApiClient(coursesService)
+
+
+
 
 
 }

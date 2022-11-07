@@ -1,7 +1,7 @@
 package no.hiof.discgolfapp.helper.mappers
 
-import no.hiof.discgolfapp.helper.response.GetCourseByIDResponse
-import no.hiof.discgolfapp.helper.response.GetListOfCoursesByCountryCodeResponse
+import no.hiof.discgolfapp.helper.response.discgolfmetrix.GetCourseByIDResponse
+import no.hiof.discgolfapp.helper.response.discgolfmetrix.GetListOfCoursesByCountryCodeResponse
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Hole
 
