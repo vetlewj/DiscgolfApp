@@ -53,17 +53,15 @@ class CourseInfoFragment : Fragment() {
             }
             Toast.makeText(view.context, weatherReport.properties.timeseries[0].data.next_1_hours!!.summary.toString(), Toast.LENGTH_SHORT).show()
 
+//            //TODO find out how to bind drawable dynamically and change m/s and C to string values in xml
+//            binding.weatherSymbolInfoImageView.setImageResource()
+//            binding.windDirectionInfoImageView.setImageResource(weather.getWindDirectionDrawableFromWindDirection())
+//            binding.temperatureTextView.text = "${weather.temperature.toString()} ºC"
+//            binding.windSpeedTextView.text = "${weather.windspeed.toString()} m/s"
+
         }
 
-         val weather = Weather.getWeatherFromCoordinate(args.latitude, args.longitude)
-
         binding.courseNameInfoTextView.text = args.courseName
-        // Weather binding
-        //TODO find out how to bind drawable dynamically and change m/s and C to string values in xml
-        binding.weatherSymbolInfoImageView.setImageResource(weather.getWeatherSymbol())
-        binding.windDirectionInfoImageView.setImageResource(weather.getWindDirectionSymbol())
-        binding.temperatureTextView.text = "${weather.temperature.toString()} ºC"
-        binding.windSpeedTextView.text = "${weather.windspeed.toString()} m/s"
 
         binding.createScoreCardInfobutton.setOnClickListener() {
             val navController = this.findNavController()
