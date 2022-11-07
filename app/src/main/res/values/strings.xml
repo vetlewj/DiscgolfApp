@@ -84,6 +84,7 @@
     <string name="course_info_average_value">80.2 (+20.2)</string>
     <string name="show_prev_results">Se tidligere resultater</string>
     <string name="score_date">Score: %d, %s</string>
+    <string name="choose_course">Velg bane</string>
 
 
 </resources>

@@ -6,17 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.ChooseCourseRecyclerAdapter
+import no.hiof.discgolfapp.databinding.FragmentChooseCourseBinding
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.services.SharedRepository
+import no.hiof.discgolfapp.services.SharedViewModel
 
 class ChooseCourseFragment : Fragment() {
 
-    private val courseList : List<Course> = Course.getCourses()
+    private var sharedViewModel = SharedViewModel()
+
+    private var _binding: FragmentChooseCourseBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,28 +35,34 @@ class ChooseCourseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentChooseCourseBinding.bind(view)
 
-        val courseRecyclerView = view.findViewById<RecyclerView>(R.id.choose_course_recycler_view)
+        sharedViewModel.fetchCourses("NO")
+        sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courses ->
+            if (courses == null) {
+                Log.w("ChooseCourseFragment", "courses is null")
+                return@observe
+            }
+            // TODO: Courses should be sorted by distance from user
+            // TODO: update recycler adapter implementation
+            binding.chooseCourseRecyclerView.adapter =
+                ChooseCourseRecyclerAdapter(courses) { clickedItem ->
 
-        // TODO: Courses should be sorted by distance from user
-        courseRecyclerView.adapter = ChooseCourseRecyclerAdapter(courseList){
-            Log.d("ChooseCourseFragment", "Course clicked")
+                    val position =
+                        binding.chooseCourseRecyclerView.getChildAdapterPosition(clickedItem)
+                    val course = courses[position]
 
-            val position = it as Button
-            val courseName = position.text.toString()
+                    Log.d("ChooseCourseFragment", "Course clicked: ${course.name}")
 
-            // TODO: Use ID instead of name when navigating to CreateScoreCardFragment
-            val clickedCourse = courseList.find { course -> course.name == courseName }
+                    // TODO: Use ID instead of name when navigating to CreateScoreCardFragment
+                    val action =
+                        ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(
+                            course.name
+                        )
 
-            val action =
-                ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(
-                    clickedCourse!!.name
-                )
-
-            findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
+            binding.chooseCourseRecyclerView.layoutManager = GridLayoutManager(context, 1)
         }
-
-        courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
-
     }
 }

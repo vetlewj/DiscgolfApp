@@ -11,10 +11,12 @@ import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCreateScoreCardBinding
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.services.SharedViewModel
 
 class CreateScoreCardFragment : Fragment() {
     private val args: CreateScoreCardFragmentArgs by navArgs()
     private var fragmentBinding: FragmentCreateScoreCardBinding? = null
+    private var sharedViewModel = SharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +32,14 @@ class CreateScoreCardFragment : Fragment() {
         fragmentBinding = binding
 
         // TODO: Should be replaced by CourseId
-        val course = Course.getCourses().find { it.name == args.courseName }
+        var courseList: List<Course> = listOf()
+        sharedViewModel.fetchCourses("NO")
+        sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                courseList = it
+            }
+        }
+        val course = courseList.find { it.name == args.courseName }
 
         binding.createScoreCardCourseNameTextView.text =
             course?.name ?: resources.getString(R.string.no_course_selected)
