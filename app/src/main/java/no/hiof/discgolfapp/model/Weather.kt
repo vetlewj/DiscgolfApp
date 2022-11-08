@@ -93,7 +93,7 @@ class Weather(
         NW(305.5F, 325.5F),
         NNW(325.5F, 345.5F)
     }
-
+        
     fun getWeatherDrawableFromSymbolCode(symbolCode: String): Int {
         val weatherFavIcon = when (symbolCode) {
             WeatherSymbol.clearsky_day.symbolCode -> R.drawable._clearsky_day
@@ -188,7 +188,7 @@ class Weather(
     enum class WeatherSymbol(val symbolCode: String) {
         clearsky_day("clearsky_day"),
         clearsky_polartwilight("clearsky_polartwilight"),
-        clearsky_night("clearsky_polartwilight"),
+        clearsky_night("clearsky_night"),
         fair_day("fair_day"),
         fair_polartwilight("fair_polartwilight"),
         fair_night("fair_night"),
