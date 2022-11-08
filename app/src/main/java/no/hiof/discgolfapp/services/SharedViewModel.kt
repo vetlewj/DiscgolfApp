@@ -1,15 +1,17 @@
 package no.hiof.discgolfapp.services
 
+import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import no.hiof.discgolfapp.helper.response.yr.GetWeatherReportFromCoordinatesResponse
+import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Weather
 
-class SharedViewModel: ViewModel() {
+class SharedViewModel : ViewModel() {
     private val repository = SharedRepository();
 
     private val _coursesByCountryCodeLiveData = MutableLiveData<ArrayList<Course>?>()
@@ -21,11 +23,15 @@ class SharedViewModel: ViewModel() {
     private val _weatherByCoordinatesLiveData = MutableLiveData<Weather?>()
     val weatherByCoordinatesLiveData: LiveData<Weather?> = _weatherByCoordinatesLiveData
 
+    private val _sortedCourseList: MutableLiveData<ArrayList<Course>> = MutableLiveData()
+    val sortedCourseList: LiveData<ArrayList<Course>> = _sortedCourseList
+
+
     fun fetchCourses(coursesCode: String) {
 
         // Checking courses exists in cache
         val cachedCourses = CoursesCache.listOfCourseMap[coursesCode]
-        if(cachedCourses != null) {
+        if (cachedCourses != null) {
             _coursesByCountryCodeLiveData.postValue(cachedCourses)
             return
         }
@@ -40,16 +46,14 @@ class SharedViewModel: ViewModel() {
             response?.let {
                 CoursesCache.listOfCourseMap[coursesCode] = response
             }
-
         }
-
     }
 
     fun fetchCourse(CourseID: String) {
 
         // Checking courses exists in cache
         val cachedCourse = CoursesCache.courseMap[CourseID]
-        if(cachedCourse != null) {
+        if (cachedCourse != null) {
             _courseByIDLiveData.postValue(cachedCourse)
             return
         }
@@ -64,7 +68,6 @@ class SharedViewModel: ViewModel() {
                 CoursesCache.courseMap[CourseID] = response
             }
         }
-
     }
 
     fun fetchWeather(lat: String, lon: String) {
@@ -74,10 +77,38 @@ class SharedViewModel: ViewModel() {
             _weatherByCoordinatesLiveData.postValue(response)
 
         }
-
-
-
     }
 
+    fun getSortedCoursesByDistance(lat: Double, lon: Double, lifecycleOwner: LifecycleOwner) {
+        if (_sortedCourseList.value?.isNotEmpty() == true) {
+            return
+        } else {
+            fetchCourses("NO")
 
+        }
+        coursesByCountryCodeLiveData.observe(lifecycleOwner) { it ->
+            if (it != null) {
+                _sortedCourseList.value =
+                    getSortedCoursesByDistance(it, lat, lon)
+            }
+        }
+    }
+
+    private fun getSortedCoursesByDistance(
+        courses: ArrayList<Course>,
+        lat: Double,
+        lon: Double
+    ): ArrayList<Course> {
+        Log.d(
+            "SharedViewModel",
+            "Sorting courses by distance from $lat, $lon, ${_sortedCourseList.value?.size}"
+        )
+        courses.sortBy {
+            DistanceMeasure.getDistanceToPositionInMeters(
+                lat, lon,
+                it.latitude?.toDouble() ?: 0.0, it.longitude?.toDouble() ?: 0.0
+            )
+        }
+        return courses
+    }
 }

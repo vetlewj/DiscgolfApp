@@ -1,5 +1,7 @@
 package no.hiof.discgolfapp.screens.play.createscorecard
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -37,8 +41,9 @@ class ChooseCourseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentChooseCourseBinding.bind(view)
 
-        sharedViewModel.fetchCourses("NO")
-        sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courses ->
+        // TODO: get current location from user
+        sharedViewModel.getSortedCoursesByDistance(59.12810601681866, 11.345939254875788, viewLifecycleOwner)
+        sharedViewModel.sortedCourseList.observe(viewLifecycleOwner) { courses ->
             if (courses == null) {
                 Log.w("ChooseCourseFragment", "courses is null")
                 return@observe
