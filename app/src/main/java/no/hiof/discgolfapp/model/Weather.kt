@@ -104,6 +104,7 @@ class Weather(
             WeatherSymbol.fair_night.symbolCode -> R.drawable._fair_night
             WeatherSymbol.partlycloudy_day.symbolCode -> R.drawable._partlycloudy_day
             WeatherSymbol.partlycloudy_polartwilight.symbolCode -> R.drawable._partlycloudy_polartwilight
+            WeatherSymbol.partlycloudy_night.symbolCode -> R.drawable._partlycloudy_night
             WeatherSymbol.CLOUDY.symbolCode -> R.drawable._cloudy
             WeatherSymbol.rainshowers_day.symbolCode -> R.drawable._rainshowers_day
             WeatherSymbol.rainshowers_polartwilight.symbolCode -> R.drawable._rainshowers_polartwilight
@@ -172,6 +173,7 @@ class Weather(
             WeatherSymbol.lightsnowshowers_night.symbolCode -> R.drawable._lightsnowshowers_night
             WeatherSymbol.heavysnowshowers_day.symbolCode -> R.drawable._heavysnowshowers_day
             WeatherSymbol.heavysnowshowers_polartwilight.symbolCode -> R.drawable._heavysnowshowers_polartwilight
+            WeatherSymbol.heavysnowshowers_night.symbolCode -> R.drawable._heavysnowshowers_night
             WeatherSymbol.lightrain.symbolCode -> R.drawable._lightrain
             WeatherSymbol.lightsleet.symbolCode -> R.drawable._lightsleet
             WeatherSymbol.heavysleet.symbolCode -> R.drawable._heavysleet
@@ -194,6 +196,7 @@ class Weather(
         fair_night("fair_night"),
         partlycloudy_day("partlycloudy_day"),
         partlycloudy_polartwilight("partlycloudy_polartwilight"),
+        partlycloudy_night("partlycloudy_night"),
         CLOUDY("cloudy"),
         rainshowers_day("rainshowers_day"),
         rainshowers_polartwilight("rainshowers_polartwilight"),
@@ -262,6 +265,7 @@ class Weather(
         lightsnowshowers_night("lightsnowshowers_night"),
         heavysnowshowers_day("heavysnowshowers_day"),
         heavysnowshowers_polartwilight("heavysnowshowers_polartwilight"),
+        heavysnowshowers_night("heavysnowshowers_night"),
         lightrain("lightrain"),
         lightsleet("lightsleet"),
         heavysleet("heavysleet"),
