@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/temperatureTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/weather_temperature_value"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/weatherSymbolInfoImageView"
+        app:layout_constraintEnd_toStartOf="@+id/windSpeedTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/weatherSymbolInfoImageView"
+        app:layout_constraintTop_toTopOf="@+id/weatherSymbolInfoImageView" />
+
+    <ImageView
+        android:id="@+id/weatherSymbolInfoImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_wb_sunny_24"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/temperatureTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/windSpeedTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/weather_wind_speed"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/temperatureTextView"
+        app:layout_constraintEnd_toStartOf="@+id/windDirectionInfoImageView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/temperatureTextView"
+        app:layout_constraintTop_toTopOf="@+id/temperatureTextView" />
+
+    <ImageView
+        android:id="@+id/windDirectionInfoImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_south_24"
+        app:layout_constraintBottom_toBottomOf="@+id/windSpeedTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/windSpeedTextView"
+        app:layout_constraintTop_toTopOf="@+id/windSpeedTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
