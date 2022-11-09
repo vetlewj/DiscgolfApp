@@ -27,23 +27,15 @@ import no.hiof.discgolfapp.databinding.FragmentChooseCourseBinding
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.services.SharedRepository
 import no.hiof.discgolfapp.services.SharedViewModel
+import no.hiof.discgolfapp.services.location.SharedLocationViewModel
 
 class ChooseCourseFragment : Fragment() {
 
     private var sharedViewModel = SharedViewModel()
+    private var locationViewModel = SharedLocationViewModel()
 
     private var _binding: FragmentChooseCourseBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
-    private val defaultLocation = Location("").apply {
-        latitude = 59.12810601681866
-        longitude = 11.402435302734375
-    }
-    private var currentLocation: Location? = defaultLocation
-
 
     @RequiresApi(Build.VERSION_CODES.N)
     private val locationPermissionRequest = registerForActivityResult(
@@ -85,58 +77,36 @@ class ChooseCourseFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
         )
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        locationRequest =
-            LocationRequest.Builder(600).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                super.onLocationResult(locationResult)
-                currentLocation = locationResult.lastLocation
-            }
-        }
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        locationViewModel.setCurrentLocation(fusedLocationClient)
 
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                currentLocation = location
-                // TODO: get current location from user from a single source, not copy from maps fragment
+        locationViewModel.currentLocation.observe(viewLifecycleOwner) { currentLocation ->
+            sharedViewModel.getSortedCoursesByDistance(
+                currentLocation.latitude,
+                currentLocation.longitude,
+                viewLifecycleOwner
+            )
 
-                sharedViewModel.getSortedCoursesByDistance(
-                    currentLocation?.latitude ?: defaultLocation.latitude,
-                    currentLocation?.longitude ?: defaultLocation.longitude,
-                    viewLifecycleOwner
-                )
+            sharedViewModel.sortedCourseList.observe(viewLifecycleOwner) { courses ->
+                binding.chooseCourseRecyclerView.adapter =
+                    ChooseCourseRecyclerAdapter(courses) { clickedItem ->
 
-                sharedViewModel.sortedCourseList.observe(viewLifecycleOwner) { courses ->
-                    if (courses == null) {
-                        Log.w("ChooseCourseFragment", "courses is null")
-                        return@observe
+                        val position =
+                            binding.chooseCourseRecyclerView.getChildAdapterPosition(clickedItem)
+                        val course = courses[position]
+
+                        Log.d("ChooseCourseFragment", "Course clicked: ${course.name}")
+
+                        // TODO: Use ID instead of name when navigating to CreateScoreCardFragment
+                        val action =
+                            ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(
+                                course.uid
+                            )
+
+                        findNavController().navigate(action)
                     }
-                    // TODO: Courses should be sorted by distance from user
-                    // TODO: update recycler adapter implementation
-                    binding.chooseCourseRecyclerView.adapter =
-                        ChooseCourseRecyclerAdapter(courses) { clickedItem ->
-
-                            val position =
-                                binding.chooseCourseRecyclerView.getChildAdapterPosition(clickedItem)
-                            val course = courses[position]
-
-                            Log.d("ChooseCourseFragment", "Course clicked: ${course.name}")
-
-                            // TODO: Use ID instead of name when navigating to CreateScoreCardFragment
-                            val action =
-                                ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(
-                                    course.uid
-                                )
-
-                            findNavController().navigate(action)
-                        }
-                    binding.chooseCourseRecyclerView.layoutManager = GridLayoutManager(context, 1)
-                }
+                binding.chooseCourseRecyclerView.layoutManager = GridLayoutManager(context, 1)
             }
         }
-
-
     }
-
 }
