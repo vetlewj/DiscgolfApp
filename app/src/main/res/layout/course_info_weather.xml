@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:padding="50dp"
+    android:paddingStart="50dp"
+    app:cardCornerRadius="40dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/temperatureTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_temperature_value"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/weatherSymbolInfoImageView"
+            app:layout_constraintEnd_toStartOf="@+id/windSpeedTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/weatherSymbolInfoImageView"
+            app:layout_constraintTop_toTopOf="@+id/weatherSymbolInfoImageView"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:id="@+id/weatherSymbolInfoImageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_wb_sunny_24"
+            app:layout_constraintBottom_toBottomOf="@id/weatherView"
+            app:layout_constraintEnd_toStartOf="@+id/temperatureTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@id/weatherView"
+            app:layout_constraintTop_toTopOf="@id/weatherView" />
+
+        <TextView
+            android:id="@+id/windSpeedTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_wind_speed"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/temperatureTextView"
+            app:layout_constraintEnd_toStartOf="@+id/windDirectionInfoImageView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/temperatureTextView"
+            app:layout_constraintTop_toTopOf="@+id/temperatureTextView"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/windDirectionInfoImageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_south_24"
+            app:layout_constraintBottom_toBottomOf="@+id/windSpeedTextView"
+            app:layout_constraintEnd_toEndOf="@id/weatherView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/windSpeedTextView"
+            app:layout_constraintTop_toTopOf="@+id/windSpeedTextView" />
+
+        <View
+            android:id="@+id/weatherView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

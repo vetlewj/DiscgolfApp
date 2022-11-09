@@ -7,152 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".screens.courses.CourseInfoFragment">
 
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/epoxyCourseInfoRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    <Button
-        android:id="@+id/createScoreCardInfobutton"
-        android:layout_width="249dp"
-        android:layout_height="75dp"
-        android:text="@string/create_scorecard"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/windSpeedTextView" />
 
-    <TextView
-        android:id="@+id/courseNameInfoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/course_name"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/createScoreCardInfobutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/temperatureTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/weather_temperature_value"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/weatherSymbolInfoImageView"
-        app:layout_constraintEnd_toStartOf="@+id/windSpeedTextView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/weatherSymbolInfoImageView"
-        app:layout_constraintTop_toTopOf="@+id/weatherSymbolInfoImageView" />
-
-    <ImageView
-        android:id="@+id/weatherSymbolInfoImageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_wb_sunny_24"
-        app:layout_constraintBottom_toTopOf="@+id/createScoreCardInfobutton"
-        app:layout_constraintEnd_toStartOf="@+id/temperatureTextView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameInfoTextView" />
-
-    <TextView
-        android:id="@+id/windSpeedTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/weather_wind_speed"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/temperatureTextView"
-        app:layout_constraintEnd_toStartOf="@+id/windDirectionInfoImageView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/temperatureTextView"
-        app:layout_constraintTop_toTopOf="@+id/temperatureTextView" />
-
-    <ImageView
-        android:id="@+id/windDirectionInfoImageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_south_24"
-        app:layout_constraintBottom_toBottomOf="@+id/windSpeedTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/windSpeedTextView"
-        app:layout_constraintTop_toTopOf="@+id/windSpeedTextView" />
-
-    <View
-        android:id="@+id/courseInfoOwnStatsView"
-        android:layout_width="362dp"
-        android:layout_height="153dp"
-        android:layout_marginBottom="88dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/bestRoundTitleInfotextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/course_info_best_round"
-        app:layout_constraintBottom_toTopOf="@+id/BestRoundStatValueInfoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toTopOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/BestRoundStatValueInfoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:text="@string/course_info_best_round_value"
-        app:layout_constraintBottom_toTopOf="@+id/lastRoundTitleTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/bestRoundTitleInfotextView" />
-
-    <TextView
-        android:id="@+id/lastRoundTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/course_info_last_round_title"
-        app:layout_constraintBottom_toTopOf="@+id/lastRoundValueInfoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/BestRoundStatValueInfoTextView" />
-
-    <TextView
-        android:id="@+id/lastRoundValueInfoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:text="@string/course_info_last_round_value"
-        app:layout_constraintBottom_toTopOf="@+id/averageTitleInfoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/lastRoundTitleTextView" />
-
-    <TextView
-        android:id="@+id/averageTitleInfoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/course_info_average_title"
-        app:layout_constraintBottom_toTopOf="@+id/averageValueInfoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/lastRoundValueInfoTextView" />
-
-    <TextView
-        android:id="@+id/averageValueInfoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/course_info_average_value"
-        app:layout_constraintBottom_toBottomOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/averageTitleInfoTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

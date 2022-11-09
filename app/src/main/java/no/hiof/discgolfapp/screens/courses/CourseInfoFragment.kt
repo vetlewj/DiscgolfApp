@@ -7,21 +7,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.R
+import no.hiof.discgolfapp.controller.CourseInfoEpoxyController
 import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
-import no.hiof.discgolfapp.model.Weather
 import no.hiof.discgolfapp.services.SharedViewModel
 
 
 class CourseInfoFragment : Fragment() {
-    private val args: no.hiof.discgolfapp.screens.courses.CourseInfoFragmentArgs by navArgs()
+    private val args: CourseInfoFragmentArgs by navArgs()
     private var fragmentBinding: FragmentCourseInfoBinding? = null
 
     val viewModel: SharedViewModel by lazy {
         ViewModelProvider(this).get(SharedViewModel::class.java)
     }
+
+    private val epoxyController = CourseInfoEpoxyController()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,47 +37,27 @@ class CourseInfoFragment : Fragment() {
         val binding = FragmentCourseInfoBinding.bind(view)
         fragmentBinding = binding
 
+        epoxyController.fragment = this
+
         viewModel.fetchCourse(args.uid.toString())
-        viewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { course ->
+        viewModel.fetchWeather(String.format("%.4f",args.latitude), String.format("%.4f",args.longitude))
+        viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
+            epoxyController.courseResponse = course
             if(course == null) {
                 Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
                 return@observe
             }
-            Toast.makeText(view.context, course.toString(), Toast.LENGTH_SHORT ).show()
-
         }
-
-        viewModel.fetchWeather(String.format("%.4f",args.latitude), String.format("%.4f",args.longitude))
         viewModel.weatherByCoordinatesLiveData.observe(viewLifecycleOwner) { weatherReport ->
+            epoxyController.weatherResponse = weatherReport
             if(weatherReport == null) {
                 Toast.makeText(view.context, "weather network call was unsuccessful", Toast.LENGTH_SHORT).show()
                 return@observe
             }
-            Toast.makeText(view.context, weatherReport.temperature.toString(), Toast.LENGTH_SHORT).show()
-
-            //TODO find out how to bind drawable dynamically and change m/s and C to string values in xml
-            binding.weatherSymbolInfoImageView.setImageResource(weatherReport.weatherDrawable)
-            binding.windDirectionInfoImageView.setImageResource(weatherReport.windDrawable)
-            binding.temperatureTextView.text = "${weatherReport.temperature.toString()} ºC"
-            binding.windSpeedTextView.text = "${weatherReport.windspeed.toString()} m/s"
-
         }
 
-        binding.courseNameInfoTextView.text = args.courseName
-
-        binding.createScoreCardInfobutton.setOnClickListener() {
-            val navController = this.findNavController()
-
-            val action =
-                CourseInfoFragmentDirections.actionCourseInfoFragmentToCreateScoreCardFragment(
-                    args.uid,
-                )
-
-            navController.navigate(action)
-        }
-
-
-
+        val epoxyRecyclerView = binding.epoxyCourseInfoRecyclerView
+        epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
 
     }
 }
