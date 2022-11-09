@@ -2,30 +2,21 @@ package no.hiof.discgolfapp.screens.play.createscorecard
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.ChooseCourseRecyclerAdapter
 import no.hiof.discgolfapp.databinding.FragmentChooseCourseBinding
-import no.hiof.discgolfapp.model.Course
-import no.hiof.discgolfapp.services.SharedRepository
 import no.hiof.discgolfapp.services.SharedViewModel
 import no.hiof.discgolfapp.services.location.SharedLocationViewModel
 
@@ -43,15 +34,12 @@ class ChooseCourseFragment : Fragment() {
     ) { permissions ->
         when {
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                // Precise location access granted.
                 Log.d("ChooseCourseFragment", "Precise location access granted")
             }
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                // Only approximate location access granted.
                 Log.d("ChooseCourseFragment", "Only approximate location access granted")
             }
             else -> {
-                // No location access granted.
                 Log.d("ChooseCourseFragment", "No location access granted")
             }
         }
@@ -90,19 +78,14 @@ class ChooseCourseFragment : Fragment() {
             sharedViewModel.sortedCourseList.observe(viewLifecycleOwner) { courses ->
                 binding.chooseCourseRecyclerView.adapter =
                     ChooseCourseRecyclerAdapter(courses) { clickedItem ->
-
                         val position =
                             binding.chooseCourseRecyclerView.getChildAdapterPosition(clickedItem)
                         val course = courses[position]
-
                         Log.d("ChooseCourseFragment", "Course clicked: ${course.name}")
-
-                        // TODO: Use ID instead of name when navigating to CreateScoreCardFragment
                         val action =
                             ChooseCourseFragmentDirections.actionChooseCourseFragmentToCreateScoreCardFragment(
                                 course.uid
                             )
-
                         findNavController().navigate(action)
                     }
                 binding.chooseCourseRecyclerView.layoutManager = GridLayoutManager(context, 1)

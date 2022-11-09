@@ -3,7 +3,6 @@ package no.hiof.discgolfapp.screens.maps
 import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -26,19 +25,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.switchmaterial.SwitchMaterial
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.model.Course
-import no.hiof.discgolfapp.services.SharedRepository
 import no.hiof.discgolfapp.services.SharedViewModel
+import no.hiof.discgolfapp.services.location.SharedLocationViewModel
 
 class CourseMapsFragment : Fragment() {
     private val TAG = "CourseMapsFragment"
     private lateinit var map: GoogleMap
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
-    private var currentLocation: Location? = null
-
+    private var locationViewModel = SharedLocationViewModel()
     private var sharedViewModel: SharedViewModel = SharedViewModel()
 
 
@@ -48,20 +42,16 @@ class CourseMapsFragment : Fragment() {
     ) { permissions ->
         when {
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                // Precise location access granted.
                 Log.d(TAG, "Precise location access granted")
             }
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                // Only approximate location access granted.
                 Log.d(TAG, "Only approximate location access granted")
             }
             else -> {
-                // No location access granted.
                 Log.d(TAG, "No location access granted")
             }
         }
     }
-
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("MissingPermission")
@@ -80,28 +70,17 @@ class CourseMapsFragment : Fragment() {
 
         addCourseMarkers()
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        locationRequest =
-            LocationRequest.Builder(600).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                super.onLocationResult(locationResult)
-                currentLocation = locationResult.lastLocation
-            }
-        }
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        locationViewModel.setCurrentLocation(fusedLocationClient)
+        locationViewModel.currentLocation.observe(viewLifecycleOwner) { currentLocation ->
+            Log.d(
+                TAG,
+                "Current Location: ${currentLocation?.latitude}, ${currentLocation?.longitude}"
+            )
+            val currentLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
+            map.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f))
 
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                currentLocation = location
-                Log.d(
-                    TAG,
-                    "Current Location: ${currentLocation?.latitude}, ${currentLocation?.longitude}"
-                )
-                val currentLatLng = LatLng(currentLocation!!.latitude, currentLocation!!.longitude)
-                map.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f))
-            }
         }
     }
 
