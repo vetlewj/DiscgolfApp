@@ -3,14 +3,15 @@ package no.hiof.discgolfapp.controller
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.airbnb.epoxy.Carousel
+import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.EpoxyController
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.databinding.CourseInfoCreateScorecardButtonBinding
-import no.hiof.discgolfapp.databinding.CourseInfoHeaderBinding
-import no.hiof.discgolfapp.databinding.CourseInfoLoadingBinding
-import no.hiof.discgolfapp.databinding.CourseInfoWeatherBinding
+import no.hiof.discgolfapp.databinding.*
+import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.helper.epoxy.ViewBindingKotlinModel
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.model.Hole
 import no.hiof.discgolfapp.model.Weather
 import no.hiof.discgolfapp.screens.courses.CourseInfoFragmentDirections
 
@@ -75,7 +76,21 @@ class CourseInfoEpoxyController : EpoxyController() {
 
         ).id("CreateScoreCardButton").addTo(this)
 
-        // add holes
+        // Holes carousel
+        try {
+            if(courseResponse!!.holes!!.isNotEmpty()) {
+                val hole = courseResponse!!.holes!!.map {
+                    HoleCarouselItemEpoxyModel(it).id(it!!.holeNumber)
+                }
+                CarouselModel_()
+                    .id("HoleCarousel")
+                    .models(hole)
+                    .numViewsToShowOnScreen(3.5F)
+                    .addTo(this)
+            }
+
+        } catch (e: NullPointerException) {}
+
         // add stats
         // add more we want in the info frag
 
@@ -127,6 +142,37 @@ class CourseInfoEpoxyController : EpoxyController() {
    class LoadingEpoxyModel: ViewBindingKotlinModel<CourseInfoLoadingBinding>(R.layout.course_info_loading) {
         override fun CourseInfoLoadingBinding.bind() {
             // Have nothing to do here, just load
+        }
+    }
+
+    data class HoleCarouselItemEpoxyModel(
+        val hole: Hole?,
+    ): ViewBindingKotlinModel<CourseInfoHolesBinding>(R.layout.course_info_holes)  {
+
+        override fun CourseInfoHolesBinding.bind() {
+
+            val distance = if(hole!!.startLat != null && hole.startLon != null && hole.endLat != null && hole.endLon != null) {
+                 DistanceMeasure.getDistanceToPositionInMeters(
+                    hole.startLat!!.toDouble(),
+                    hole.startLon.toDouble(),
+                    hole.endLat.toDouble(),
+                    hole.endLon.toDouble()
+                )
+            } else {
+                0
+            }
+
+            val holesDetailsSentence = if(hole.distance != null) {
+                "Par ${hole.par} \n ${hole.distance} m"
+            } else if (distance > 0) {
+                "Par ${hole.par} \n ${distance} m"
+            } else {
+                "Par ${hole.par}"
+            }
+
+            holeNumberTextView.text = "Hull \n  ${hole.holeNumber.toString()}"
+            holeDetailsTextView.text = holesDetailsSentence
+
         }
     }
 
