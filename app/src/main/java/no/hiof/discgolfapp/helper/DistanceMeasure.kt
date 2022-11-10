@@ -5,11 +5,14 @@ import kotlin.math.*
 class DistanceMeasure {
     companion object {
         fun getDistanceToPositionInMeters(
-            lat1: Double,
-            lon1: Double,
-            lat2: Double,
-            lon2: Double
+            lat1: Double?,
+            lon1: Double?,
+            lat2: Double?,
+            lon2: Double?
         ): Int {
+            if (lat1 == null || lon1 == null || lat2 == null || lon2 == null) {
+                return 0
+            }
             // Based on Haversine formula and JS example: http://www.movable-type.co.uk/scripts/latlong.html
             val earthRadius = 6371000.0
             val deltaLat = Math.toRadians(lat2 - lat1)
