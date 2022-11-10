@@ -11,10 +11,10 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.ktx.toObjects
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentScoreBoardBinding
 import no.hiof.discgolfapp.model.ScoreCard
+import no.hiof.discgolfapp.services.StoredStatisticsViewModel
 
 
 class ScoreBoardFragment : Fragment() {
@@ -26,6 +26,9 @@ class ScoreBoardFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ScoreBoardViewModel by viewModels()
+    private val storedStatisticsViewModel: StoredStatisticsViewModel = StoredStatisticsViewModel()
+
+    private var totalPar = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,8 +61,8 @@ class ScoreBoardFragment : Fragment() {
                     )
                     layout.addView(textView)
                 }
-                val totalPar = viewModel.scoreCard?.totalPar?: 0
-                val totalScore = viewModel.scoreCard?.totalScore?: 0
+                totalPar = viewModel.scoreCard?.totalPar ?: 0
+                val totalScore = viewModel.scoreCard?.totalScore ?: 0
 
                 binding.totalScoreTextView.text = resources.getString(
                     R.string.scoreboard_text_total,
@@ -74,31 +77,23 @@ class ScoreBoardFragment : Fragment() {
                 println("Could not find scorecard")
             }
         }
-        val storedScores = firestore.collection("scorecardsv1")
-            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
-            .whereEqualTo("finished", true)
-            .whereEqualTo("courseId", args.courseId)
-            .get()
-        storedScores.addOnSuccessListener { documents ->
-            if (documents != null) {
-                val scoreCards = documents.toObjects<ScoreCard>()
-                val bestScore = scoreCards.minBy {
-                    it.totalScore
-                }
+        storedStatisticsViewModel.fetchCourseScoreCardsFromFireStore(args.courseId)
+        storedStatisticsViewModel.scoreCards.observe(viewLifecycleOwner) {
+            val bestScore =
+                storedStatisticsViewModel.getBestScoreForCourse(args.courseId)
 
-                binding.bestScoreTextView.text = resources.getString(
-                    R.string.scoreboard_text_best_score,
-                    bestScore.totalScore, (bestScore.totalScore.minus(bestScore.totalPar))
-                )
-                val averageScore = scoreCards.sumOf {
-                    it.totalScore
-                } / scoreCards.size
-                binding.avgScoreTextView.text = resources.getString(
-                    R.string.scoreboard_text_average_score,
-                    averageScore, (averageScore.minus(bestScore.totalPar))
-                )
-            }
+            binding.bestScoreTextView.text = resources.getString(
+                R.string.scoreboard_text_best_score,
+                bestScore, (bestScore.minus(totalPar))
+            )
+            val avgScore =
+                storedStatisticsViewModel.getAvgScoreForCourse(args.courseId)
+            binding.avgScoreTextView.text = resources.getString(
+                R.string.scoreboard_text_average_score,
+                avgScore, (avgScore.minus(totalPar))
+            )
         }
+
 
         val continueButton = binding.finishScoreBoardButton
         continueButton.setOnClickListener {
