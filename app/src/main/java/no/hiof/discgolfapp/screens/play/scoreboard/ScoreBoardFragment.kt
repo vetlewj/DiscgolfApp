@@ -11,7 +11,6 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.ktx.toObjects
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentScoreBoardBinding
 import no.hiof.discgolfapp.model.ScoreCard
@@ -76,7 +75,7 @@ class ScoreBoardFragment : Fragment() {
                 println("Could not find scorecard")
             }
         }
-        storedStatisticsViewModel.getScoreCards(args.courseId)
+        storedStatisticsViewModel.getCourseScoreCardsFromFireStore(args.courseId)
         storedStatisticsViewModel.scoreCards.observe(viewLifecycleOwner) {
             val bestScore =
                 storedStatisticsViewModel.getBestScoreForCourse(args.courseId)
