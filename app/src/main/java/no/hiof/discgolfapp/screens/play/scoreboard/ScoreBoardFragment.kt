@@ -75,7 +75,7 @@ class ScoreBoardFragment : Fragment() {
                 println("Could not find scorecard")
             }
         }
-        storedStatisticsViewModel.getCourseScoreCardsFromFireStore(args.courseId)
+        storedStatisticsViewModel.fetchCourseScoreCardsFromFireStore(args.courseId)
         storedStatisticsViewModel.scoreCards.observe(viewLifecycleOwner) {
             val bestScore =
                 storedStatisticsViewModel.getBestScoreForCourse(args.courseId)

@@ -20,7 +20,7 @@ class StoredStatisticsViewModel : ViewModel() {
     private var retryCount = 0
     private var maxRetries = 5
 
-    fun getCourseScoreCardsFromFireStore(courseId: Int) {
+    fun fetchCourseScoreCardsFromFireStore(courseId: Int) {
         Log.d("StoredStatistics", "getScoreCards: $courseId")
         val storedCards = firestore.collection("scorecardsv1")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
@@ -38,7 +38,7 @@ class StoredStatisticsViewModel : ViewModel() {
         }
         if (retryCount < maxRetries) {
             retryCount++
-            getCourseScoreCardsFromFireStore(courseId)
+            fetchCourseScoreCardsFromFireStore(courseId)
             return getBestScoreForCourse(courseId)
         }
         Log.d("StoredStatistics", "getBestScoreForCourse: No scorecards for course $courseId were found")
@@ -51,7 +51,7 @@ class StoredStatisticsViewModel : ViewModel() {
         }
         if (retryCount < maxRetries) {
             retryCount++
-            getCourseScoreCardsFromFireStore(courseId)
+            fetchCourseScoreCardsFromFireStore(courseId)
             return getAvgScoreForCourse(courseId)
         }
         Log.d("StoredStatistics", "getAvgScoreForCourse: No scorecards for course $courseId were found")
