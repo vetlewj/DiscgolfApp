@@ -24,7 +24,12 @@ object CourseMapper {
                     location = course.Location,
                     latitude = if (course.X.equals(EMPTY_STRING)) null else course.X!!.toFloat(),
                     longitude = if (course.Y.equals(EMPTY_STRING)) null else course.Y!!.toFloat(),
-                    type = null
+                    type = null,
+                    par = null,
+                    ratingValue1 = null,
+                    ratingResult1 = null,
+                    ratingValue2 = null,
+                    ratingResult2 = null
                 )
                 listOfCourses.add(courseObj)
             }
@@ -35,12 +40,18 @@ object CourseMapper {
 
     fun buildFromCourseResponse(response: GetCourseByIDResponse): Course? {
 
+        val course = response.course
+
+        var sumPar = 0
+
         val holes: ArrayList<Hole> = ArrayList()
         response.baskets?.forEach { basket ->
 
+            sumPar += basket.Par!!.toInt()
+
             val hole = Hole(
                 holeNumber = basket.Number!!.toInt(),
-                par = basket.Par!!.toInt(),
+                par = basket.Par.toInt(),
                 distance = if (basket.Length != null) basket.Length.toInt() else null,
                 startLat = if (!basket.TeeLat.equals(EMPTY_STRING)) basket.TeeLat!!.toDouble() else null,
                 startLon = if (!basket.TeeLng.equals(EMPTY_STRING)) basket.TeeLng!!.toDouble() else null,
@@ -51,17 +62,28 @@ object CourseMapper {
             holes.add(hole)
         }
 
+        var parRating: Double? = null
+
+        try {
+            parRating = ((course.RatingValue2!!.toDouble() - course.RatingValue1!!.toDouble())*((sumPar - course.RatingResult1!!.toDouble())/(course.RatingResult2!!.toDouble() - course.RatingResult1.toDouble()))) + course.RatingValue1.toDouble()
+        } catch (e: NullPointerException) { }
+
         return Course(
-            uid = response.course.ID!!.toInt(),
-            name = response.course.Fullname.toString(),
+            uid = course.ID!!.toInt(),
+            name = course.Fullname.toString(),
             holes = if (holes.size == 0) null else holes,
-            rating = null,
-            area = response.course.Area,
-            city = response.course.City,
-            location = response.course.Location,
-            latitude = if (response.course.Lat.equals(EMPTY_STRING)) null else response.course.Lat!!.toFloat(),
-            longitude = if (response.course.Lng.equals(EMPTY_STRING)) null else response.course.Lng!!.toFloat(),
-            type = null
+            rating = parRating,
+            area = course.Area,
+            city = course.City,
+            location = course.Location,
+            latitude = if (course.Lat.equals(EMPTY_STRING)) null else course.Lat!!.toFloat(),
+            longitude = if (course.Lng.equals(EMPTY_STRING)) null else course.Lng!!.toFloat(),
+            type = null,
+            par = sumPar,
+            ratingValue1 =  try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException){ null},
+            ratingResult1 = try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException)  {null},
+            ratingValue2 = try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException) { null},
+            ratingResult2 = try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException) { null}
         )
     }
 

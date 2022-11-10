@@ -45,6 +45,11 @@ class CourseDataService(var context: Context) {
                             .equals("")
                     ) null else courseObject.getString("Y").toFloat(),
                     null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
                 )
                 Course.addCourseToAllCourses(course)
                 //courses.add(course)

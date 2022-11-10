@@ -60,7 +60,8 @@ class CourseInfoEpoxyController : EpoxyController() {
         }
 
         HeaderEpoxyModel(
-            courseName = courseResponse!!.name
+            courseName = courseResponse!!.name,
+            rating = courseResponse!!.rating
         ).id("header").addTo(this)
 
         WeatherEpoxyModel(
@@ -97,11 +98,13 @@ class CourseInfoEpoxyController : EpoxyController() {
     }
 
     data class HeaderEpoxyModel(
-        val courseName: String
+        val courseName: String,
+        val rating: Double?
     ): ViewBindingKotlinModel<CourseInfoHeaderBinding>(R.layout.course_info_header) {
 
         override fun CourseInfoHeaderBinding.bind() {
             courseNameInfoTextView.text = courseName
+            parRating.text = if (rating != null) "Rating \n ${String.format("%.1f",rating)}" else null
         }
     }
 
