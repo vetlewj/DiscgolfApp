@@ -103,12 +103,13 @@ class SharedViewModel : ViewModel() {
             "SharedViewModel",
             "Sorting courses by distance from $lat, $lon, ${_sortedCourseList.value?.size}"
         )
-        courses.sortBy {
+        val sortedCourses = ArrayList<Course>(courses)
+        sortedCourses.sortBy {
             DistanceMeasure.getDistanceToPositionInMeters(
                 lat, lon,
                 it.latitude?.toDouble() ?: 0.0, it.longitude?.toDouble() ?: 0.0
             )
         }
-        return courses
+        return sortedCourses
     }
 }
