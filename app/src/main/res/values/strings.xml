@@ -85,6 +85,8 @@
     <string name="show_prev_results">Se tidligere resultater</string>
     <string name="score_date">Score: %d, %s</string>
     <string name="choose_course">Velg bane</string>
+    <string name="par_rating">Rating \n 1002</string>
+    <string name="hole_details">Par 3  100 m</string>
 
 
 </resources>

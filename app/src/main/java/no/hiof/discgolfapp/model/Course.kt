@@ -14,6 +14,10 @@ data class Course(
     val longitude: Float?,
     val type: Int?,
     val par: Int? = 0,
+    val ratingValue1: Double?,
+    val ratingResult1: Double?,
+    val ratingValue2: Double?,
+    val ratingResult2: Double?
 ) {
     //TODO: Finish class
 
@@ -32,6 +36,11 @@ data class Course(
                     null,
                     59.939369F,
                     10.785842F,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
                     null
                 ),
                 Course(
@@ -44,9 +53,15 @@ data class Course(
                     null,
                     59.895178F,
                     10.787161F,
+                    null,
+                    null,
+
+                    null,
+                null,
+                    null,
                     null
                 ),
-                Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null, null)
+                Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null, null, null, null, null, null, null)
 
             )
         }

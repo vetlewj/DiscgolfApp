@@ -32,13 +32,13 @@
             android:id="@+id/holeNumberTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Hole1"
-            app:layout_constraintEnd_toStartOf="@id/view"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:textSize="14sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/currentHoleNumberText"
 
             />
 
@@ -46,14 +46,14 @@
             android:id="@+id/holeDetailsTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="Par 3 \n 100 m "
-            app:lineHeight="20dp"
             android:layout_marginHorizontal="9dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/view"
             app:layout_constraintTop_toTopOf="parent"
-            android:textSize="13sp"
+            app:lineHeight="20dp"
+            tools:text="@string/hole_details"
 
             />
 
