@@ -28,6 +28,8 @@ class ScoreBoardFragment : Fragment() {
     private val viewModel: ScoreBoardViewModel by viewModels()
     private val storedStatisticsViewModel: StoredStatisticsViewModel = StoredStatisticsViewModel()
 
+    private var totalPar = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,7 +61,7 @@ class ScoreBoardFragment : Fragment() {
                     )
                     layout.addView(textView)
                 }
-                val totalPar = viewModel.scoreCard?.totalPar ?: 0
+                totalPar = viewModel.scoreCard?.totalPar ?: 0
                 val totalScore = viewModel.scoreCard?.totalScore ?: 0
 
                 binding.totalScoreTextView.text = resources.getString(
@@ -82,13 +84,13 @@ class ScoreBoardFragment : Fragment() {
 
             binding.bestScoreTextView.text = resources.getString(
                 R.string.scoreboard_text_best_score,
-                bestScore, (bestScore.minus(viewModel.scoreCard?.course?.par ?: 0))
+                bestScore, (bestScore.minus(totalPar))
             )
             val avgScore =
                 storedStatisticsViewModel.getAvgScoreForCourse(args.courseId)
             binding.avgScoreTextView.text = resources.getString(
                 R.string.scoreboard_text_average_score,
-                avgScore, (avgScore.minus(viewModel.scoreCard?.course?.par ?: 0))
+                avgScore, (avgScore.minus(totalPar))
             )
         }
 
