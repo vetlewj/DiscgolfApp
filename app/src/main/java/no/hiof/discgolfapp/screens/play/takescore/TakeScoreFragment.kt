@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.databinding.FragmentTakeScoreBinding
+import no.hiof.discgolfapp.helper.DistanceMeasure
+import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.ScoreCard
 import no.hiof.discgolfapp.services.SharedViewModel
 
@@ -68,7 +70,7 @@ class TakeScoreFragment : Fragment() {
             viewModel.par = course.holes?.get(args.holeNumber - 1)?.par ?: 0
             viewModel.holeNumber = args.holeNumber
             viewModel.score = viewModel.scoreCard?.score ?: 0
-            viewModel.distance = course.holes?.get(args.holeNumber - 1)?.distance ?: 100
+            viewModel.distance = getDistance(course, args.holeNumber)
 
             binding.parForHoleTextView.text = viewModel.par.toString()
             binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
@@ -110,12 +112,15 @@ class TakeScoreFragment : Fragment() {
                     } else {
                         viewModel.score = 0
                     }
+
+                    viewModel.distance = getDistance(course, args.holeNumber)
+
                     binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
                     binding.currentScoreForHole.text = viewModel.score.toString()
                     binding.parForHoleTextView.text =
                         course.holes?.get(viewModel.holeNumber - 1)?.par.toString()
                     binding.distanceForCurrentHoleTextView.text =
-                        course.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
+                        viewModel.distance.toString()
 
                 } else {
                     firestore.collection("scorecardsv1")
@@ -160,12 +165,15 @@ class TakeScoreFragment : Fragment() {
                     } else {
                         viewModel.score = 0
                     }
+
+                    viewModel.distance = getDistance(course, args.holeNumber)
+
                     binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
                     binding.currentScoreForHole.text = viewModel.score.toString()
                     binding.parForHoleTextView.text =
                         course.holes?.get(viewModel.holeNumber - 1)?.par.toString()
                     binding.distanceForCurrentHoleTextView.text =
-                        course.holes?.get(viewModel.holeNumber - 1)?.distance.toString()
+                        viewModel.distance.toString()
                 }
 
             }
@@ -177,6 +185,16 @@ class TakeScoreFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getDistance(course: Course, holeNumber: Int): Int{
+        return course.holes?.get(holeNumber - 1)?.distance
+            ?: DistanceMeasure.getDistanceToPositionInMeters(
+                course.holes?.get(holeNumber - 1)?.startLat,
+                course.holes?.get(holeNumber - 1)?.startLon,
+                course.holes?.get(holeNumber - 1)?.endLat,
+                course.holes?.get(holeNumber - 1)?.endLon
+            )
     }
 
 }
