@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObjects
+import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.ScoreCard
+import kotlin.math.roundToInt
 
 class StoredStatisticsViewModel : ViewModel() {
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -41,7 +43,10 @@ class StoredStatisticsViewModel : ViewModel() {
             fetchCourseScoreCardsFromFireStore(courseId)
             return getBestScoreForCourse(courseId)
         }
-        Log.d("StoredStatistics", "getBestScoreForCourse: No scorecards for course $courseId were found")
+        Log.d(
+            "StoredStatistics",
+            "getBestScoreForCourse: No scorecards for course $courseId were found"
+        )
         return 0
     }
 
@@ -54,7 +59,31 @@ class StoredStatisticsViewModel : ViewModel() {
             fetchCourseScoreCardsFromFireStore(courseId)
             return getAvgScoreForCourse(courseId)
         }
-        Log.d("StoredStatistics", "getAvgScoreForCourse: No scorecards for course $courseId were found")
+        Log.d(
+            "StoredStatistics",
+            "getAvgScoreForCourse: No scorecards for course $courseId were found"
+        )
         return 0
+    }
+
+    fun getRatingForRound(result: Int, course: Course): Int {
+        if (course.ratingValue1 != null && course.ratingValue2 != null && course.ratingResult1 != null && course.ratingResult2 != null) {
+            val rating =
+                (course.ratingValue2 - course.ratingValue1) * (result - course.ratingResult1) / (course.ratingResult2 - course.ratingResult1) + course.ratingValue1
+            return rating.roundToInt()
+        }
+        return 0
+    }
+
+    fun getRatingForRound(
+        result: Int,
+        ratingValue1: Double,
+        ratingValue2: Double,
+        ratingResult1: Int,
+        ratingResult2: Int
+    ): Int {
+        return ((ratingValue2.minus(ratingValue1)) * (result.minus(ratingResult1)) / (ratingResult2.minus(
+            ratingResult1
+        )) + ratingValue1).roundToInt()
     }
 }
