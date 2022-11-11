@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.DiscRecyclerAdapter
 import no.hiof.discgolfapp.model.Disc
+import no.hiof.discgolfapp.screens.play.createscorecard.ChooseCourseFragment
+import no.hiof.discgolfapp.screens.play.createscorecard.ChooseCourseFragmentDirections
 
 class MyDiscsFragment : Fragment() {
 
@@ -34,8 +38,10 @@ class MyDiscsFragment : Fragment() {
         val addBtn: Button = view.findViewById(R.id.addButton)
 
         addBtn.setOnClickListener {
+        val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToCreateDiscsFragment()
 
-            
+            findNavController().navigate(action)
+
         }
 
 
