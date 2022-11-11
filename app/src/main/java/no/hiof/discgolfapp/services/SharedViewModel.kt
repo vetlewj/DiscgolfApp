@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Weather
+import no.hiof.discgolfapp.services.api.CoursesCache
 
 class SharedViewModel : ViewModel() {
     private val repository = SharedRepository();

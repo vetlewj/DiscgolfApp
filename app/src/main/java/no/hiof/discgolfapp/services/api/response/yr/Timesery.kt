@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.helper.response.yr
+package no.hiof.discgolfapp.services.api.response.yr
 
 data class Timesery(
     val `data`: Data,

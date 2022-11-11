@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.helper.response.yr
+package no.hiof.discgolfapp.services.api.response.yr
 
 data class Next6Hours(
     val details: DetailsNext6Hours,

@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.helper.response.yr
+package no.hiof.discgolfapp.services.api.response.yr
 
 data class Units(
     val air_pressure_at_sea_level: String,

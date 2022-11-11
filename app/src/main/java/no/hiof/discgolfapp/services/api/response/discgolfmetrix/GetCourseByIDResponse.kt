@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.helper.response.discgolfmetrix
+package no.hiof.discgolfapp.services.api.response.discgolfmetrix
 
 data class GetCourseByIDResponse(
     val baskets: List<Basket>?,

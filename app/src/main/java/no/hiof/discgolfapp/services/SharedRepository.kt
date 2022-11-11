@@ -1,10 +1,10 @@
 package no.hiof.discgolfapp.services
 
-import no.hiof.discgolfapp.helper.mappers.CourseMapper
-import no.hiof.discgolfapp.helper.mappers.WeatherMapper
-import no.hiof.discgolfapp.helper.response.yr.GetWeatherReportFromCoordinatesResponse
+import no.hiof.discgolfapp.services.api.mappers.CourseMapper
+import no.hiof.discgolfapp.services.api.mappers.WeatherMapper
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Weather
+import no.hiof.discgolfapp.services.api.NetworkLayer
 
 class SharedRepository {
 

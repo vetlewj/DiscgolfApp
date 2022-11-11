@@ -1,7 +1,7 @@
-package no.hiof.discgolfapp.helper.mappers
+package no.hiof.discgolfapp.services.api.mappers
 
-import no.hiof.discgolfapp.helper.response.discgolfmetrix.GetCourseByIDResponse
-import no.hiof.discgolfapp.helper.response.discgolfmetrix.GetListOfCoursesByCountryCodeResponse
+import no.hiof.discgolfapp.services.api.response.discgolfmetrix.GetCourseByIDResponse
+import no.hiof.discgolfapp.services.api.response.discgolfmetrix.GetListOfCoursesByCountryCodeResponse
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Hole
 
@@ -10,32 +10,13 @@ object CourseMapper {
     const val EMPTY_STRING = ""
 
     fun buildFromListOFCoursesResponse(response: GetListOfCoursesByCountryCodeResponse): ArrayList<Course> {
-        val listOfCourses = ArrayList<Course>()
-        response.courses.forEach { course ->
 
-            if (course.Enddate == null) {
-                val courseObj = Course(
-                    uid = course.ID!!.toInt(),
-                    name = course.Fullname.toString(),
-                    holes = null,
-                    rating = null,
-                    area = course.Area,
-                    city = course.City,
-                    location = course.Location,
-                    latitude = if (course.X.equals(EMPTY_STRING)) null else course.X!!.toFloat(),
-                    longitude = if (course.Y.equals(EMPTY_STRING)) null else course.Y!!.toFloat(),
-                    type = null,
-                    par = null,
-                    ratingValue1 = null,
-                    ratingResult1 = null,
-                    ratingValue2 = null,
-                    ratingResult2 = null
-                )
-                listOfCourses.add(courseObj)
-            }
+        return fetchListOfCoursesBasedOnType(response, "1")
+    }
 
-        }
-        return listOfCourses
+    fun buildFromListOFCoursesResponseByType(response: GetListOfCoursesByCountryCodeResponse, type: String): ArrayList<Course> {
+
+        return fetchListOfCoursesBasedOnType(response, "1")
     }
 
     fun buildFromCourseResponse(response: GetCourseByIDResponse): Course? {
@@ -85,6 +66,42 @@ object CourseMapper {
             ratingValue2 = try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException) { null},
             ratingResult2 = try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException) { null}
         )
+    }
+
+    private fun fetchListOfCoursesBasedOnType(response: GetListOfCoursesByCountryCodeResponse, type: String): ArrayList<Course>
+    {
+        val listOfCourses = ArrayList<Course>()
+
+        response.courses.forEach { course ->
+
+            if (course.Enddate == null )
+            {
+                if (!(course.X.isNullOrBlank() || course.Y.isNullOrBlank())) {
+                    if (course.Type.equals(type) || course.ParentID == null)
+                    {
+                        val courseObj = Course(
+                            uid = course.ID!!.toInt(),
+                            name = course.Fullname.toString(),
+                            holes = null,
+                            rating = null,
+                            area = course.Area,
+                            city = course.City,
+                            location = course.Location,
+                            latitude = course.X.toFloat(),
+                            longitude = course.Y.toFloat(),
+                            type = null,
+                            par = null,
+                            ratingValue1 = null,
+                            ratingResult1 = null,
+                            ratingValue2 = null,
+                            ratingResult2 = null
+                        )
+                        listOfCourses.add(courseObj)
+                    }
+                }
+            }
+        }
+        return listOfCourses
     }
 
 }
