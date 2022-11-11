@@ -71,10 +71,7 @@ class TakeScoreFragment : Fragment() {
             if (viewModel.holeNumber == 0) {
                 viewModel.holeNumber = 1
             }
-            else{
-                viewModel.holeNumber++
-            }
-            viewModel.par = course.holes?.get(viewModel.holeNumber)?.par ?: 0
+            viewModel.par = course.holes?.get(viewModel.holeNumber-1)?.par ?: 0
             viewModel.score = viewModel.scoreCard?.score ?: 0
             viewModel.distance = getDistance(course, viewModel.holeNumber)
 
@@ -120,11 +117,11 @@ class TakeScoreFragment : Fragment() {
                     }
 
                     viewModel.distance = getDistance(course, viewModel.holeNumber)
+                    viewModel.par = course.holes?.get(viewModel.holeNumber - 1)?.par ?: 0
 
                     binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
                     binding.currentScoreForHole.text = viewModel.score.toString()
-                    binding.parForHoleTextView.text =
-                        course.holes?.get(viewModel.holeNumber - 1)?.par.toString()
+                    binding.parForHoleTextView.text = viewModel.par.toString()
                     binding.distanceForCurrentHoleTextView.text =
                         viewModel.distance.toString()
 
@@ -173,11 +170,11 @@ class TakeScoreFragment : Fragment() {
                     }
 
                     viewModel.distance = getDistance(course, viewModel.holeNumber)
+                    viewModel.par = course.holes?.get(viewModel.holeNumber - 1)?.par ?: 0
 
                     binding.currentHoleNumberTextView.text = viewModel.holeNumber.toString()
                     binding.currentScoreForHole.text = viewModel.score.toString()
-                    binding.parForHoleTextView.text =
-                        course.holes?.get(viewModel.holeNumber - 1)?.par.toString()
+                    binding.parForHoleTextView.text = viewModel.par.toString()
                     binding.distanceForCurrentHoleTextView.text =
                         viewModel.distance.toString()
                 }
