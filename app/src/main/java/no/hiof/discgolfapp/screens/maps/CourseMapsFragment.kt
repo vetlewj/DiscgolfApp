@@ -80,7 +80,7 @@ class CourseMapsFragment : Fragment() {
             val currentLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
             map.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f))
-
+            locationViewModel.currentLocation.removeObservers(viewLifecycleOwner)
         }
     }
 
