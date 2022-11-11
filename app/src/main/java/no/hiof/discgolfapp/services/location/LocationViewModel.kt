@@ -7,6 +7,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.ExperimentalTime
 
 class SharedLocationViewModel : ViewModel() {
 
@@ -29,7 +32,8 @@ class SharedLocationViewModel : ViewModel() {
 
         }
         locationRequest =
-            LocationRequest.Builder(600).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
+            LocationRequest.Builder(10.minutes.inWholeMilliseconds)
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
             .addOnSuccessListener { location: Location? ->
