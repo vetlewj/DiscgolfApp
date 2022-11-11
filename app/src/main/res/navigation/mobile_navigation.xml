@@ -21,7 +21,11 @@
         android:id="@+id/myDiscsFragment"
         android:name="no.hiof.discgolfapp.screens.discs.MyDiscsFragment"
         android:label="fragment_my_discs"
-        tools:layout="@layout/fragment_my_discs" />
+        tools:layout="@layout/fragment_my_discs" >
+        <action
+            android:id="@+id/action_myDiscsFragment_to_createDiscsFragment"
+            app:destination="@id/createDiscsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createScoreCardFragment"
         android:name="no.hiof.discgolfapp.screens.play.createscorecard.CreateScoreCardFragment"
@@ -144,4 +148,8 @@
             android:id="@+id/action_courseResultsFragment_to_coursesOverviewListFragment"
             app:destination="@id/coursesOverviewListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/createDiscsFragment"
+        android:name="no.hiof.discgolfapp.screens.maps.CreateDiscsFragment"
+        android:label="CreateDiscsFragment" />
 </navigation>

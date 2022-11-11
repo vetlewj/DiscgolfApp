@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,12 @@ class MyDiscsFragment : Fragment() {
         discRecyclerView.adapter = DiscRecyclerAdapter(Disc.getDiscs())
         discRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
+        val addBtn: Button = view.findViewById(R.id.addButton)
+
+        addBtn.setOnClickListener {
+
+            
+        }
 
 
     }

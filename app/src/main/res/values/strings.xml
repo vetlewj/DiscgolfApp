@@ -40,6 +40,7 @@
     <string name="fade">Fade</string>
     <string name="disc_type">disc type</string>
     <string name="edit_button">Edit</string>
+    <string name="add_button">+</string>
 
     <!-- Take Score -->
     <string name="hole_number_description">Hull</string>
