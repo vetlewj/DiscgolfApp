@@ -14,6 +14,7 @@ import com.google.firebase.firestore.ktx.toObject
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentScoreBoardBinding
 import no.hiof.discgolfapp.model.ScoreCard
+import no.hiof.discgolfapp.services.SharedViewModel
 import no.hiof.discgolfapp.services.StoredStatisticsViewModel
 
 
@@ -27,8 +28,10 @@ class ScoreBoardFragment : Fragment() {
 
     private val viewModel: ScoreBoardViewModel by viewModels()
     private val storedStatisticsViewModel: StoredStatisticsViewModel = StoredStatisticsViewModel()
+    private val sharedViewModel = SharedViewModel()
 
     private var totalPar = 0
+    private var totalScore = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,21 +65,34 @@ class ScoreBoardFragment : Fragment() {
                     layout.addView(textView)
                 }
                 totalPar = viewModel.scoreCard?.totalPar ?: 0
-                val totalScore = viewModel.scoreCard?.totalScore ?: 0
+                totalScore = viewModel.scoreCard?.totalScore ?: 0
 
                 binding.totalScoreTextView.text = resources.getString(
                     R.string.scoreboard_text_total,
                     totalScore,
                     (totalScore.minus(totalPar))
                 )
-                binding.totalParTextView.text = resources.getString(
-                    R.string.scoreboard_text_total_par,
-                    totalPar
-                )
+
+                sharedViewModel.fetchCourse(args.courseId.toString())
+                val courseFromApi = sharedViewModel.courseByIDLiveData
+                courseFromApi.observe(viewLifecycleOwner) { course ->
+                    if (course != null) {
+                        val roundRating = storedStatisticsViewModel.getRatingForRound(
+                            totalScore,
+                            course
+                        )
+                        binding.roundRating.text = resources.getString(
+                            R.string.rating_d,
+                            roundRating
+                        )
+                    }
+                }
             } else {
                 println("Could not find scorecard")
             }
         }
+
+
         storedStatisticsViewModel.fetchCourseScoreCardsFromFireStore(args.courseId)
         storedStatisticsViewModel.scoreCards.observe(viewLifecycleOwner) {
             val bestScore =

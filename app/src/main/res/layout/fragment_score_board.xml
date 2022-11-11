@@ -58,23 +58,24 @@
                 android:id="@+id/totalScoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/scoreboard_text_total_par"
+                android:text="@string/scoreboard_text_total"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/total_par_text_view"
+                app:layout_constraintEnd_toStartOf="@+id/round_rating"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/total_par_text_view"
+                android:id="@+id/round_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/scoreboard_text_total"
+                android:text="@string/rating_d"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/totalScoreTextView"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
