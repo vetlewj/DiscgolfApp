@@ -143,5 +143,8 @@
         <action
             android:id="@+id/action_courseResultsFragment_to_coursesOverviewListFragment"
             app:destination="@id/coursesOverviewListFragment" />
+        <action
+            android:id="@+id/action_courseResultsFragment_to_scoreBoardFragment"
+            app:destination="@id/scoreBoardFragment" />
     </fragment>
 </navigation>
