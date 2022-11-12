@@ -41,9 +41,10 @@ class CourseInfoFragment : Fragment() {
 
         if(args.type == 1) {
             // må også skaffe parentID fra args
-            // fetchAllType2ConnectedToType1Course(args.parentID) : returnerer en liste med alle baner med ekstra info
+            // fetchAllType2ConnectedToType1Courses(args.parentID) : returnerer en liste med alle baner med ekstra info
             //  deretter må jeg gjøre en del requests for å hente ut nødvendig informasjon basert på
             //fetch list of all
+            // foreach i listen, gjør en viewModelFetchCourse
 
         } else {
             viewModel.fetchCourse(args.uid.toString())

@@ -47,7 +47,7 @@ object CourseMapper {
 
         return Course(
             uid = course.ID!!.toInt(),
-            name = try {course.Fullname!!} catch (e:NullPointerException) {course.Name!!},
+            name = cleanCourseName(course.Fullname!!),
             holes = if (holes.size == 0) null else holes,
             rating = parRating,
             area = course.Area,
@@ -55,7 +55,7 @@ object CourseMapper {
             location = course.Location,
             latitude = if (course.Lat.equals(EMPTY_STRING)) null else course.Lat!!.toFloat(),
             longitude = if (course.Lng.equals(EMPTY_STRING)) null else course.Lng!!.toFloat(),
-            type = null,
+            type = course.Type!!.toInt(),
             par = sumPar,
             ratingValue1 =  try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException){ null},
             ratingResult1 = try {course.RatingResult1!!.toDouble()} catch (e:NullPointerException)  {null},
@@ -78,7 +78,7 @@ object CourseMapper {
                         if (course.Type.equals(courseType.type) || course.ParentID == null) {
                             val courseObj = Course(
                                 uid = course.ID!!.toInt(),
-                                name = course.Fullname!!,
+                                name = cleanCourseName(course.Fullname!!),
                                 holes = null,
                                 rating = null,
                                 area = course.Area,
@@ -86,7 +86,7 @@ object CourseMapper {
                                 location = course.Location,
                                 latitude = course.X.toFloat(),
                                 longitude = course.Y.toFloat(),
-                                type = null,
+                                type = course.Type!!.toInt(),
                                 par = null,
                                 ratingValue1 = null,
                                 ratingResult1 = null,
@@ -100,7 +100,7 @@ object CourseMapper {
                         if(course.Type.equals(courseType.type)) {
                             val courseObj = Course(
                                 uid = course.ID!!.toInt(),
-                                name = course.Fullname!!,
+                                name = cleanCourseName(course.Fullname!!),
                                 holes = null,
                                 rating = null,
                                 area = course.Area,
@@ -108,7 +108,7 @@ object CourseMapper {
                                 location = course.Location,
                                 latitude = course.X.toFloat(),
                                 longitude = course.Y.toFloat(),
-                                type = null,
+                                type = course.Type!!.toInt(),
                                 par = null,
                                 ratingValue1 = null,
                                 ratingResult1 = null,
@@ -124,6 +124,13 @@ object CourseMapper {
             }
         }
         return listOfCourses
+    }
+
+    private fun cleanCourseName(courseName: String): String {
+
+        val regex = """(&rarr;)""".toRegex()
+
+        return regex.replace(courseName, "-")
     }
 
 }

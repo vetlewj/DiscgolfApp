@@ -75,10 +75,6 @@
             android:name="type"
             app:argType="integer"
             android:defaultValue="0" />
-        <argument
-            android:name="parentID"
-            app:argType="integer"
-            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/takeScoreFragment"
