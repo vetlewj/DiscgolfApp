@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Weather
@@ -28,12 +29,11 @@ class SharedViewModel : ViewModel() {
     val sortedCourseList: LiveData<ArrayList<Course>> = _sortedCourseList
 
 
-    fun fetchCourses(coursesCode: String) {
+    fun fetchCourses(coursesCode: String, courseType: CourseType) {
         viewModelScope.launch {
-            val response = repository.getCoursesByCountryCode(coursesCode)
+            val response = repository.getCoursesByCountryCode(coursesCode, courseType)
 
             _coursesByCountryCodeLiveData.postValue(response)
-
         }
     }
 
@@ -71,7 +71,7 @@ class SharedViewModel : ViewModel() {
         if (_sortedCourseList.value?.isNotEmpty() == true) {
             return
         } else {
-            fetchCourses("NO")
+            fetchCourses("NO", CourseType.TYPE2)
 
         }
         coursesByCountryCodeLiveData.observe(lifecycleOwner) { it ->

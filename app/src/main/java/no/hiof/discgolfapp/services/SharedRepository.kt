@@ -1,5 +1,6 @@
 package no.hiof.discgolfapp.services
 
+import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.services.api.mappers.CourseMapper
 import no.hiof.discgolfapp.services.api.mappers.WeatherMapper
 import no.hiof.discgolfapp.model.Course
@@ -9,11 +10,11 @@ import no.hiof.discgolfapp.services.api.cache.CoursesCache
 
 class SharedRepository {
 
-    suspend fun getCoursesByCountryCode(courseCode: String): ArrayList<Course>? {
+    suspend fun getCoursesByCountryCode(courseCode: String, courseType: CourseType): ArrayList<Course>? {
 
         val cachedCourses = CoursesCache.listOfCourseMap[courseCode]
         if (cachedCourses != null) {
-            return CourseMapper.buildFromListOFCoursesResponse(cachedCourses)
+            return CourseMapper.buildFromListOFCoursesResponse(cachedCourses, courseType)
         }
 
         val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
@@ -21,7 +22,7 @@ class SharedRepository {
             // Updating the cache
             CoursesCache.listOfCourseMap[courseCode] = request.body()!!
 
-            return CourseMapper.buildFromListOFCoursesResponse(request.body()!!)
+            return CourseMapper.buildFromListOFCoursesResponse(request.body()!!, courseType)
         }
 
         return null

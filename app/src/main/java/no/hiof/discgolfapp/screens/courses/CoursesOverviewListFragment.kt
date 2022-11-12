@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.CourseRecyclerAdapter
 import no.hiof.discgolfapp.databinding.FragmentCoursesOverviewListBinding
+import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.services.SharedViewModel
 
 
@@ -36,7 +37,7 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
-        viewModel.fetchCourses("NO")
+        viewModel.fetchCourses("NO", CourseType.TYPE1)
         viewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { listOfCourses ->
             if(listOfCourses == null) {
                 Toast.makeText(view.context, "network call was unsuccessful", Toast.LENGTH_SHORT).show()

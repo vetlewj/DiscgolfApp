@@ -1,5 +1,6 @@
 package no.hiof.discgolfapp.services.api.mappers
 
+import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.services.api.response.discgolfmetrix.GetCourseByIDResponse
 import no.hiof.discgolfapp.services.api.response.discgolfmetrix.GetListOfCoursesByCountryCodeResponse
 import no.hiof.discgolfapp.model.Course
@@ -9,14 +10,9 @@ object CourseMapper {
 
     const val EMPTY_STRING = ""
 
-    fun buildFromListOFCoursesResponse(response: GetListOfCoursesByCountryCodeResponse): ArrayList<Course> {
+    fun buildFromListOFCoursesResponse(response: GetListOfCoursesByCountryCodeResponse, courseType: CourseType): ArrayList<Course> {
 
-        return fetchListOfCoursesBasedOnType(response, "1")
-    }
-
-    fun buildFromListOFCoursesResponseByType(response: GetListOfCoursesByCountryCodeResponse, type: String): ArrayList<Course> {
-
-        return fetchListOfCoursesBasedOnType(response, "1")
+        return fetchListOfCoursesBasedOnType(response, courseType)
     }
 
     fun buildFromCourseResponse(response: GetCourseByIDResponse): Course? {
@@ -68,7 +64,7 @@ object CourseMapper {
         )
     }
 
-    private fun fetchListOfCoursesBasedOnType(response: GetListOfCoursesByCountryCodeResponse, type: String): ArrayList<Course>
+    private fun fetchListOfCoursesBasedOnType(response: GetListOfCoursesByCountryCodeResponse, courseType: CourseType): ArrayList<Course>
     {
         val listOfCourses = ArrayList<Course>()
 
@@ -77,26 +73,49 @@ object CourseMapper {
             if (course.Enddate == null )
             {
                 if (!(course.X.isNullOrBlank() || course.Y.isNullOrBlank())) {
-                    if (course.Type.equals(type) || course.ParentID == null)
-                    {
-                        val courseObj = Course(
-                            uid = course.ID!!.toInt(),
-                            name = course.Fullname.toString(),
-                            holes = null,
-                            rating = null,
-                            area = course.Area,
-                            city = course.City,
-                            location = course.Location,
-                            latitude = course.X.toFloat(),
-                            longitude = course.Y.toFloat(),
-                            type = null,
-                            par = null,
-                            ratingValue1 = null,
-                            ratingResult1 = null,
-                            ratingValue2 = null,
-                            ratingResult2 = null
-                        )
-                        listOfCourses.add(courseObj)
+                    if(courseType.type.equals("1")) {
+                        if (course.Type.equals(courseType.type) || course.ParentID == null) {
+                            val courseObj = Course(
+                                uid = course.ID!!.toInt(),
+                                name = course.Fullname.toString(),
+                                holes = null,
+                                rating = null,
+                                area = course.Area,
+                                city = course.City,
+                                location = course.Location,
+                                latitude = course.X.toFloat(),
+                                longitude = course.Y.toFloat(),
+                                type = null,
+                                par = null,
+                                ratingValue1 = null,
+                                ratingResult1 = null,
+                                ratingValue2 = null,
+                                ratingResult2 = null
+                            )
+                            listOfCourses.add(courseObj)
+                        }
+                    } else {
+                        if(course.Type.equals(courseType.type)) {
+                            val courseObj = Course(
+                                uid = course.ID!!.toInt(),
+                                name = course.Fullname.toString(),
+                                holes = null,
+                                rating = null,
+                                area = course.Area,
+                                city = course.City,
+                                location = course.Location,
+                                latitude = course.X.toFloat(),
+                                longitude = course.Y.toFloat(),
+                                type = null,
+                                par = null,
+                                ratingValue1 = null,
+                                ratingResult1 = null,
+                                ratingValue2 = null,
+                                ratingResult2 = null
+                            )
+                            listOfCourses.add(courseObj)
+                        }
+
                     }
                 }
             }
