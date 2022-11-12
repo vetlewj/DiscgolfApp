@@ -33,15 +33,18 @@
     <string name="disc_glide">Disc glide:</string>
     <string name="disc_turn">Disc turn:</string>
     <string name="disc_fade">Disc fade:</string>
-    <string name="name">Navn:</string>
-    <string name="speed">Speed:</string>
-    <string name="glide">Glide:</string>
-    <string name="turn">Turn:</string>
-    <string name="fade">Fade:</string>
+    <string name="name">Navn</string>
+    <string name="speed">Speed</string>
+    <string name="glide">Glide</string>
+    <string name="turn">Turn</string>
+    <string name="fade">Fade</string>
     <string name="disc_type">disc type</string>
     <string name="edit_button">Edit</string>
     <string name="add_button">+</string>
-    <string name="add_disc">Legg til ny disc:</string>
+    <string name="add_disc">Legg til ny disc</string>
+    <string name="disc_manufacture">Produsent</string>
+    <string name="disc_plastic">Plasttype</string>
+    <string name="disc_color">Farge</string>
 
     <!-- Take Score -->
     <string name="hole_number_description">Hull</string>
