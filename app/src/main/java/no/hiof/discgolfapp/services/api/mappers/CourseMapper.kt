@@ -58,9 +58,9 @@ object CourseMapper {
             type = null,
             par = sumPar,
             ratingValue1 =  try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException){ null},
-            ratingResult1 = try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException)  {null},
-            ratingValue2 = try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException) { null},
-            ratingResult2 = try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException) { null}
+            ratingResult1 = try {course.RatingResult1!!.toDouble()} catch (e:NullPointerException)  {null},
+            ratingValue2 = try {course.RatingValue2!!.toDouble()} catch (e:NullPointerException) { null},
+            ratingResult2 = try {course.RatingResult2!!.toDouble()} catch (e:NullPointerException) { null}
         )
     }
 
