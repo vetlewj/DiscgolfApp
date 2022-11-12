@@ -1,18 +1,28 @@
 package no.hiof.discgolfapp.services
 
-import no.hiof.discgolfapp.helper.mappers.CourseMapper
-import no.hiof.discgolfapp.helper.mappers.WeatherMapper
-import no.hiof.discgolfapp.helper.response.yr.GetWeatherReportFromCoordinatesResponse
+import no.hiof.discgolfapp.helper.CourseType
+import no.hiof.discgolfapp.services.api.mappers.CourseMapper
+import no.hiof.discgolfapp.services.api.mappers.WeatherMapper
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Weather
+import no.hiof.discgolfapp.services.api.NetworkLayer
+import no.hiof.discgolfapp.services.api.cache.CoursesCache
 
 class SharedRepository {
 
-    suspend fun getCoursesByCountryCode(courseCode: String): ArrayList<Course>? {
-        val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
+    suspend fun getCoursesByCountryCode(courseCode: String, courseType: CourseType): ArrayList<Course>? {
 
+        val cachedCourses = CoursesCache.listOfCourseMap[courseCode]
+        if (cachedCourses != null) {
+            return CourseMapper.buildFromListOFCoursesResponse(cachedCourses, courseType)
+        }
+
+        val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
         if(request.isSuccessful) {
-            return CourseMapper.buildFromListOFCoursesResponse(request.body()!!)
+            // Updating the cache
+            CoursesCache.listOfCourseMap[courseCode] = request.body()!!
+
+            return CourseMapper.buildFromListOFCoursesResponse(request.body()!!, courseType)
         }
 
         return null

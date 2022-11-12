@@ -1,11 +1,10 @@
 package no.hiof.discgolfapp.controller
 
-import android.widget.Button
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.airbnb.epoxy.Carousel
-import com.airbnb.epoxy.CarouselModel_
-import com.airbnb.epoxy.EpoxyController
+import androidx.recyclerview.widget.GridLayoutManager
+import com.airbnb.epoxy.*
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.*
 import no.hiof.discgolfapp.helper.DistanceMeasure
@@ -14,6 +13,7 @@ import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Hole
 import no.hiof.discgolfapp.model.Weather
 import no.hiof.discgolfapp.screens.courses.CourseInfoFragmentDirections
+
 
 class CourseInfoEpoxyController : EpoxyController() {
 
@@ -88,6 +88,7 @@ class CourseInfoEpoxyController : EpoxyController() {
                     .models(hole)
                     .numViewsToShowOnScreen(3.5F)
                     .addTo(this)
+
             }
 
         } catch (e: NullPointerException) {}

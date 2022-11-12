@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.switchmaterial.SwitchMaterial
 import no.hiof.discgolfapp.R
+import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.services.SharedViewModel
 import no.hiof.discgolfapp.services.location.SharedLocationViewModel
 
@@ -85,7 +86,7 @@ class CourseMapsFragment : Fragment() {
     }
 
     private fun addCourseMarkers() {
-        sharedViewModel.fetchCourses("NO")
+        sharedViewModel.fetchCourses("NO", CourseType.TYPE1)
         sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courses ->
             if (courses == null) {
                 Log.w("ChooseCourseFragment", "courses is null")
