@@ -150,6 +150,6 @@
     </fragment>
     <fragment
         android:id="@+id/createDiscsFragment"
-        android:name="no.hiof.discgolfapp.screens.maps.CreateDiscsFragment"
+        android:name="no.hiof.discgolfapp.screens.discs.CreateDiscsFragment"
         android:label="CreateDiscsFragment" />
 </navigation>

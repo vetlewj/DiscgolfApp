@@ -1,5 +1,6 @@
-package no.hiof.discgolfapp.screens.maps
+package no.hiof.discgolfapp.screens.discs
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ class CreateDiscsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_disc, container, false)
+
     }
 
 

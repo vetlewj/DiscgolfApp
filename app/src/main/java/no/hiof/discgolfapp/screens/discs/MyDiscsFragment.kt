@@ -1,5 +1,6 @@
 package no.hiof.discgolfapp.screens.discs
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ class MyDiscsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_my_discs, container, false)
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,7 +43,6 @@ class MyDiscsFragment : Fragment() {
         val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToCreateDiscsFragment()
 
             findNavController().navigate(action)
-
         }
 
 

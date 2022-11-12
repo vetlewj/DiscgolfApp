@@ -28,19 +28,20 @@
 
     <!-- Discs strings -->
     <string name="my_discs">Mine Discer</string>
-    <string name="disc_name">disc navn</string>
-    <string name="disc_speed">disc speed</string>
-    <string name="disc_glide">disc glide</string>
-    <string name="disc_turn">disc turn</string>
-    <string name="disc_fade">disc fade</string>
-    <string name="name">Navn</string>
-    <string name="speed">Speed</string>
-    <string name="glide">Glide</string>
-    <string name="turn">Turn</string>
-    <string name="fade">Fade</string>
+    <string name="disc_name">Disc navn:</string>
+    <string name="disc_speed">Disc speed:</string>
+    <string name="disc_glide">Disc glide:</string>
+    <string name="disc_turn">Disc turn:</string>
+    <string name="disc_fade">Disc fade:</string>
+    <string name="name">Navn:</string>
+    <string name="speed">Speed:</string>
+    <string name="glide">Glide:</string>
+    <string name="turn">Turn:</string>
+    <string name="fade">Fade:</string>
     <string name="disc_type">disc type</string>
     <string name="edit_button">Edit</string>
     <string name="add_button">+</string>
+    <string name="add_disc">Legg til ny disc:</string>
 
     <!-- Take Score -->
     <string name="hole_number_description">Hull</string>
