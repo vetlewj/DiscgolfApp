@@ -67,7 +67,6 @@ class ChooseCourseFragment : Fragment() {
         )
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         locationViewModel.setCurrentLocation(fusedLocationClient)
-
         locationViewModel.currentLocation.observe(viewLifecycleOwner) { currentLocation ->
             sharedViewModel.getSortedCoursesByDistance(
                 currentLocation.latitude,
@@ -90,6 +89,7 @@ class ChooseCourseFragment : Fragment() {
                     }
                 binding.chooseCourseRecyclerView.layoutManager = GridLayoutManager(context, 1)
             }
+            locationViewModel.currentLocation.removeObservers(viewLifecycleOwner)
         }
     }
 }

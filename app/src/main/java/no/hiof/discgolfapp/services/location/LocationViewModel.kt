@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.*
+import kotlin.time.Duration.Companion.minutes
 
 class SharedLocationViewModel : ViewModel() {
 
@@ -29,18 +30,28 @@ class SharedLocationViewModel : ViewModel() {
 
         }
         locationRequest =
-            LocationRequest.Builder(600).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
+            LocationRequest.Builder(10.minutes.inWholeMilliseconds)
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                _currentLocation.value = location
-                Log.d(
-                    TAG,
-                    "Current Location: ${currentLocation.value?.latitude}, ${currentLocation.value?.longitude}"
-                )
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+            .addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    _currentLocation.value = location
+                    Log.d(
+                        TAG,
+                        "Current Location: ${currentLocation.value?.latitude}, ${currentLocation.value?.longitude}"
+                    )
+                } else {
+                    fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                        if (location != null) {
+                            _currentLocation.value = location
+                            Log.d(
+                                TAG,
+                                "last location set as current location: ${currentLocation.value?.latitude}, ${currentLocation.value?.longitude}"
+                            )
+                        }
+                    }
+                }
             }
-        }
     }
-
-
 }
