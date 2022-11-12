@@ -3,19 +3,16 @@ package no.hiof.discgolfapp.screens.courses
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObjects
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCourseResultsBinding
-import no.hiof.discgolfapp.model.Course
-import no.hiof.discgolfapp.model.ScoreCard
 import no.hiof.discgolfapp.services.SharedViewModel
 import no.hiof.discgolfapp.services.StoredStatisticsViewModel
 
@@ -51,8 +48,9 @@ class CourseResultsFragment : Fragment() {
                 Log.w("ChooseCourseFragment", "courses is null")
                 return@observe
             }
+            // TODO: sort the scorecards by date, newest first
             storedStatisticsViewModel.fetchCourseScoreCardsFromFireStore(course.uid)
-            storedStatisticsViewModel.scoreCards.observe(viewLifecycleOwner) {
+            storedStatisticsViewModel.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
                 val bestScore = storedStatisticsViewModel.getBestScoreForCourse(args.courseId)
                 val avgScore = storedStatisticsViewModel.getAvgScoreForCourse(args.courseId)
 
@@ -67,8 +65,7 @@ class CourseResultsFragment : Fragment() {
                     (avgScore.minus(course.par ?: 0))
                 )
 
-                for (scoreCard in it) {
-                    // TODO: Navigate to ScoreCard Details when clicking on a scorecard
+                for (scoreCard in scoreCards) {
                     val textView = TextView(context)
                     val formattedDate = DateFormat.format("dd.MM.yy", scoreCard.date)
                     textView.text =
@@ -77,6 +74,17 @@ class CourseResultsFragment : Fragment() {
                             scoreCard.totalScore,
                             formattedDate
                         )
+                    textView.setPadding(0, 4, 0, 8)
+                    textView.textSize = 18f
+                    textView.setOnClickListener { view ->
+                        Log.d("CourseResultsFragment", "ScoreCard ${scoreCard.id} clicked")
+                        view.findNavController().navigate(
+                            CourseResultsFragmentDirections.actionCourseResultsFragmentToScoreBoardFragment(
+                                scoreCard.id!!,
+                                course.uid
+                            )
+                        )
+                    }
                     binding.scoresLinearLayout.addView(textView)
                 }
             }
