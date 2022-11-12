@@ -54,7 +54,7 @@ class CoursesOverviewListFragment : Fragment() {
                             CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
                         action.let {
                             it.uid = selectedCourse.uid
-                            it.courseName = selectedCourse.name
+                            it.type = selectedCourse.type!!
                             it.latitude = try {
                                 selectedCourse.latitude!!.toFloat()
                             } catch (e: NullPointerException) {

@@ -17,7 +17,8 @@ data class Course(
     val ratingValue1: Double?,
     val ratingResult1: Double?,
     val ratingValue2: Double?,
-    val ratingResult2: Double?
+    val ratingResult2: Double?,
+    val parentID: Int?
 ) {
     //TODO: Finish class
 
@@ -41,6 +42,7 @@ data class Course(
                     null,
                     null,
                     null,
+                    null,
                     null
                 ),
                 Course(
@@ -55,13 +57,13 @@ data class Course(
                     10.787161F,
                     null,
                     null,
-
                     null,
                 null,
                     null,
+                    null,
                     null
                 ),
-                Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null, null, null, null, null, null, null)
+                Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null, null, null, null, null, null, null, null)
 
             )
         }

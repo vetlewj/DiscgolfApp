@@ -39,7 +39,16 @@ class CourseInfoFragment : Fragment() {
 
         epoxyController.fragment = this
 
-        viewModel.fetchCourse(args.uid.toString())
+        if(args.type == 1) {
+            // må også skaffe parentID fra args
+            // fetchAllType2ConnectedToType1Course(args.parentID) : returnerer en liste med alle baner med ekstra info
+            //  deretter må jeg gjøre en del requests for å hente ut nødvendig informasjon basert på
+            //fetch list of all
+
+        } else {
+            viewModel.fetchCourse(args.uid.toString())
+        }
+
         viewModel.fetchWeather(String.format("%.4f",args.latitude), String.format("%.4f",args.longitude))
         viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
             epoxyController.courseResponse = course

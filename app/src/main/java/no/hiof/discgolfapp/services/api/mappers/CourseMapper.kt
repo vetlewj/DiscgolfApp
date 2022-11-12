@@ -47,7 +47,7 @@ object CourseMapper {
 
         return Course(
             uid = course.ID!!.toInt(),
-            name = course.Fullname.toString(),
+            name = try {course.Fullname!!} catch (e:NullPointerException) {course.Name!!},
             holes = if (holes.size == 0) null else holes,
             rating = parRating,
             area = course.Area,
@@ -60,7 +60,8 @@ object CourseMapper {
             ratingValue1 =  try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException){ null},
             ratingResult1 = try {course.RatingResult1!!.toDouble()} catch (e:NullPointerException)  {null},
             ratingValue2 = try {course.RatingValue2!!.toDouble()} catch (e:NullPointerException) { null},
-            ratingResult2 = try {course.RatingResult2!!.toDouble()} catch (e:NullPointerException) { null}
+            ratingResult2 = try {course.RatingResult2!!.toDouble()} catch (e:NullPointerException) { null},
+            parentID = try { course.ParentID!!.toInt()} catch (e:NullPointerException) {null}
         )
     }
 
@@ -77,7 +78,7 @@ object CourseMapper {
                         if (course.Type.equals(courseType.type) || course.ParentID == null) {
                             val courseObj = Course(
                                 uid = course.ID!!.toInt(),
-                                name = course.Fullname.toString(),
+                                name = course.Fullname!!,
                                 holes = null,
                                 rating = null,
                                 area = course.Area,
@@ -90,7 +91,8 @@ object CourseMapper {
                                 ratingValue1 = null,
                                 ratingResult1 = null,
                                 ratingValue2 = null,
-                                ratingResult2 = null
+                                ratingResult2 = null,
+                                parentID = null
                             )
                             listOfCourses.add(courseObj)
                         }
@@ -98,7 +100,7 @@ object CourseMapper {
                         if(course.Type.equals(courseType.type)) {
                             val courseObj = Course(
                                 uid = course.ID!!.toInt(),
-                                name = course.Fullname.toString(),
+                                name = course.Fullname!!,
                                 holes = null,
                                 rating = null,
                                 area = course.Area,
@@ -111,7 +113,8 @@ object CourseMapper {
                                 ratingValue1 = null,
                                 ratingResult1 = null,
                                 ratingValue2 = null,
-                                ratingResult2 = null
+                                ratingResult2 = null,
+                                parentID = try {course.ParentID!!.toInt()} catch (e:NullPointerException) {null}
                             )
                             listOfCourses.add(courseObj)
                         }
