@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Weather
-import no.hiof.discgolfapp.services.api.CoursesCache
+import no.hiof.discgolfapp.services.api.cache.CoursesCache
 
 class SharedViewModel : ViewModel() {
     private val repository = SharedRepository();
@@ -29,24 +29,11 @@ class SharedViewModel : ViewModel() {
 
 
     fun fetchCourses(coursesCode: String) {
-
-        // Checking courses exists in cache
-        val cachedCourses = CoursesCache.listOfCourseMap[coursesCode]
-        if (cachedCourses != null) {
-            _coursesByCountryCodeLiveData.postValue(cachedCourses)
-            return
-        }
-
-        // if not in cache, request character form API
         viewModelScope.launch {
             val response = repository.getCoursesByCountryCode(coursesCode)
 
             _coursesByCountryCodeLiveData.postValue(response)
 
-            // Updating the cache
-            response?.let {
-                CoursesCache.listOfCourseMap[coursesCode] = response
-            }
         }
     }
 
