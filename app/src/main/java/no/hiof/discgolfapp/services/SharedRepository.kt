@@ -28,13 +28,30 @@ class SharedRepository {
         return null
     }
 
+    suspend fun getCoursesByCountryCodeAndWithSameParentID(courseCode: String, parentID: Int ): ArrayList<Course>? {
+
+        val cachedCourses = CoursesCache.listOfCourseMap[courseCode]
+        if (cachedCourses != null) {
+            return CourseMapper.buildListOfType2WithParentIDFromType1(cachedCourses, parentID)
+        }
+
+        val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
+        if(request.isSuccessful) {
+            // Updating the cache
+            CoursesCache.listOfCourseMap[courseCode] = request.body()!!
+
+            return CourseMapper.buildListOfType2WithParentIDFromType1(request.body()!!, parentID)
+        }
+
+        return null
+    }
+
     suspend fun getCourseByID(courseID: String): Course? {
         val request = NetworkLayer.apiClient.getCourseByID(courseID)
 
         if(request.isSuccessful) {
             return  CourseMapper.buildFromCourseResponse(request.body()!!)
         }
-
         return null
     }
 

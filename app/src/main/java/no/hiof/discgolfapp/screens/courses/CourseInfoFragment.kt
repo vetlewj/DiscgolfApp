@@ -40,6 +40,7 @@ class CourseInfoFragment : Fragment() {
         epoxyController.fragment = this
 
         if(args.type == 1) {
+            viewModel.fetchAllType2ConnectedToType1Courses("NO", args.uid)
             // skaffed id, leter gjennom alle banene med den id
             // fetchAllType2ConnectedToType1Courses(args.uid) : returnerer en liste med alle baner med ekstra info
             //  deretter må jeg gjøre en del requests for å hente ut nødvendig informasjon basert på

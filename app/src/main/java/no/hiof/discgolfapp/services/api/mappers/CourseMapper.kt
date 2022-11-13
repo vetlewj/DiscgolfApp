@@ -15,6 +15,48 @@ object CourseMapper {
         return fetchListOfCoursesBasedOnType(response, courseType)
     }
 
+    fun buildListOfType2WithParentIDFromType1(response: GetListOfCoursesByCountryCodeResponse, parentID: Int): ArrayList<Course> {
+        val listOfCoursesWithTheSameParentID = ArrayList<Course>()
+
+        response.courses.forEach { course ->
+
+            if (course.Enddate == null )
+            {
+                if (!(course.X.isNullOrBlank() || course.Y.isNullOrBlank())) {
+                    if (course.Type.equals("2")) {
+                        if(!course.ParentID.isNullOrBlank()) {
+                            if(course.ParentID.equals(parentID.toString())) {
+                                val courseObj = Course(
+                                    uid = course.ID!!.toInt(),
+                                    name = cleanCourseName(course.Fullname!!),
+                                    holes = null,
+                                    rating = null,
+                                    area = course.Area,
+                                    city = course.City,
+                                    location = course.Location,
+                                    latitude = course.X.toFloat(),
+                                    longitude = course.Y.toFloat(),
+                                    type = course.Type!!.toInt(),
+                                    par = null,
+                                    ratingValue1 = null,
+                                    ratingResult1 = null,
+                                    ratingValue2 = null,
+                                    ratingResult2 = null,
+                                    parentID = course.ParentID.toInt()
+                                )
+                                listOfCoursesWithTheSameParentID.add(courseObj)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return listOfCoursesWithTheSameParentID
+
+
+
+    }
+
     fun buildFromCourseResponse(response: GetCourseByIDResponse): Course? {
 
         val course = response.course

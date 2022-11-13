@@ -61,13 +61,13 @@ class SharedViewModel : ViewModel() {
             }
         }
 
-//    fun fetchAllType2ConnectedToType1Courses(args.uid)    {
-//        viewModelScope.launch {
-//            val response = repository.getCoursesByCountryCode(coursesCode, courseType)
-//
-//            _coursesByCountryCodeLiveData.postValue(response)
-//        }
-//    }
+    fun fetchAllType2ConnectedToType1Courses(courseCode: String, parentID: Int)    {
+        viewModelScope.launch {
+            val response = repository.getCoursesByCountryCodeAndWithSameParentID(courseCode, parentID)
+
+            _coursesByCountryCodeLiveData.postValue(response)
+        }
+    }
 
         fun fetchCourse(CourseID: String) {
 
