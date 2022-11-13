@@ -31,6 +31,17 @@ class CourseInfoEpoxyController : EpoxyController() {
 
     var fragment: Fragment? = null
 
+    var listOfCoursesWithSameParentID: ArrayList<Course>? = null
+        set(value) {
+            field = value
+            if(field != null) {
+                isLoading++
+            }
+            if(isLoading == DONE_LOADING) {
+                requestModelBuild()
+            }
+        }
+
     var courseResponse: Course? = null
         set(value) {
             field = value
@@ -59,10 +70,23 @@ class CourseInfoEpoxyController : EpoxyController() {
             return
         }
 
-        HeaderEpoxyModel(
-            courseName = courseResponse!!.name,
-            rating = courseResponse!!.rating
-        ).id("header").addTo(this)
+        if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
+            listOfCoursesWithSameParentID!!.forEach{
+                HeaderEpoxyModel(
+                    courseName = it.name,
+                    rating = it.rating
+                ).id("header").addTo(this)
+
+            }
+
+        } else {
+            HeaderEpoxyModel(
+                courseName = courseResponse!!.name,
+                rating = courseResponse!!.rating
+            ).id("header").addTo(this)
+
+
+        }
 
         WeatherEpoxyModel(
             weatherSymbol = weatherResponse!!.weatherDrawable,
@@ -71,11 +95,26 @@ class CourseInfoEpoxyController : EpoxyController() {
             windDirectionSymbol = weatherResponse!!.windDrawable
         ).id("weather").addTo(this)
 
-        CreateScoreCardButtonEpoxyModel(
-            context = fragment,
-            uid = courseResponse!!.uid
+        if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
 
-        ).id("CreateScoreCardButton").addTo(this)
+            listOfCoursesWithSameParentID!!.forEach {
+                CreateScoreCardButtonEpoxyModel(
+                    context = fragment,
+                    uid = it.uid
+
+                ).id("CreateScoreCardButton").addTo(this)
+
+            }
+
+        } else {
+
+            CreateScoreCardButtonEpoxyModel(
+                context = fragment,
+                uid = courseResponse!!.uid
+
+            ).id("CreateScoreCardButton").addTo(this)
+        }
+
 
         // Holes carousel
         try {

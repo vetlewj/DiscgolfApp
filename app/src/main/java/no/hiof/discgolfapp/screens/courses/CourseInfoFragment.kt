@@ -39,27 +39,7 @@ class CourseInfoFragment : Fragment() {
 
         epoxyController.fragment = this
 
-        if(args.type == 1) {
-            viewModel.fetchAllType2ConnectedToType1Courses("NO", args.uid)
-            // skaffed id, leter gjennom alle banene med den id
-            // fetchAllType2ConnectedToType1Courses(args.uid) : returnerer en liste med alle baner med ekstra info
-            //  deretter må jeg gjøre en del requests for å hente ut nødvendig informasjon basert på
-            //fetch list of all
-            // foreach i listen,
-        //          gjør en viewModel.FetchCourse
-
-        } else {
-            viewModel.fetchCourse(args.uid.toString())
-        }
-
         viewModel.fetchWeather(String.format("%.4f",args.latitude), String.format("%.4f",args.longitude))
-        viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
-            epoxyController.courseResponse = course
-            if(course == null) {
-                Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
-                return@observe
-            }
-        }
         viewModel.weatherByCoordinatesLiveData.observe(viewLifecycleOwner) { weatherReport ->
             epoxyController.weatherResponse = weatherReport
             if(weatherReport == null) {
@@ -67,6 +47,28 @@ class CourseInfoFragment : Fragment() {
                 return@observe
             }
         }
+
+        if(args.type == 1) {
+            viewModel.fetchAllType2ConnectedToType1Courses("NO", args.uid)
+            viewModel.coursesByCountryCodeAndWithSameParentID.observe(viewLifecycleOwner) { listOfCoursesWithSameParentID ->
+                epoxyController.listOfCoursesWithSameParentID = listOfCoursesWithSameParentID
+                if(listOfCoursesWithSameParentID == null) {
+                    Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
+                    return@observe
+                }
+            }
+
+        } else {
+            viewModel.fetchCourse(args.uid.toString())
+            viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
+                epoxyController.courseResponse = course
+                if(course == null) {
+                    Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
+                    return@observe
+                }
+            }
+        }
+
 
         val epoxyRecyclerView = binding.epoxyCourseInfoRecyclerView
         epoxyRecyclerView.setControllerAndBuildModels(epoxyController)

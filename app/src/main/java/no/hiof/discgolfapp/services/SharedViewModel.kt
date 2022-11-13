@@ -28,6 +28,9 @@ class SharedViewModel : ViewModel() {
     private val _sortedCourseList: MutableLiveData<ArrayList<Course>> = MutableLiveData()
     val sortedCourseList: LiveData<ArrayList<Course>> = _sortedCourseList
 
+    private val _coursesByCountryCodeAndWithSameParentID: MutableLiveData<ArrayList<Course>?> = MutableLiveData()
+    val coursesByCountryCodeAndWithSameParentID: LiveData<ArrayList<Course>?> = _coursesByCountryCodeAndWithSameParentID
+
 
     fun fetchCourses(coursesCode: String, courseType: CourseType) {
         // Checking courses exists in cache
@@ -65,7 +68,7 @@ class SharedViewModel : ViewModel() {
         viewModelScope.launch {
             val response = repository.getCoursesByCountryCodeAndWithSameParentID(courseCode, parentID)
 
-            _coursesByCountryCodeLiveData.postValue(response)
+            _coursesByCountryCodeAndWithSameParentID.postValue(response)
         }
     }
 
