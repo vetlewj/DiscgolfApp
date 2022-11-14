@@ -18,7 +18,6 @@ import no.hiof.discgolfapp.model.Disc
 class CreateDiscsFragment : Fragment() {
 
     private var _binding: FragmentCreateDiscBinding? = null
-//    private var binding get() = _binding!!
     private lateinit var binding: FragmentCreateDiscBinding
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
@@ -27,9 +26,7 @@ class CreateDiscsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        _binding = FragmentCreateDiscBinding.inflate(inflater, container, false)
-//        return inflater.inflate(R.layout.fragment_create_disc, container, false)
+
         binding = FragmentCreateDiscBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -40,25 +37,32 @@ class CreateDiscsFragment : Fragment() {
 
 
         val discName = binding.DiscNameEditText.text
+        val discSpeed = binding.DiscSpeedEditText.text
+        val discGlide = binding.DiscGlideEditText.text
+        val discTurn = binding.DiscTurnEditText.text
+        val discFade = binding.DiscFadeEditText.text
+        val discManufacture = binding.DiscManufactureEditText.text
+        val discPlastic = binding.DiscPlasticEditText.text
+        val discColor = binding.DiscColorEditText.text
 
         val saveBtn : Button = view.findViewById(R.id.saveDiscBtn)
-
 
 
 
         saveBtn.setOnClickListener {
             Log.d("Button pressed", "Save disc button pressede")
             val disc = Disc(
-                "Test",
+                "111",
                 discName.toString(),
-                2,
-                3,
-                1,
-                4,
+                discSpeed.toString().toInt(),
+                discGlide.toString().toInt(),
+                discTurn.toString().toInt(),
+                discFade.toString().toInt(),
                 Disc.DiscType.DISTANCE_DRIVER,
-                "gummi",
+                discManufacture.toString(),
+                discPlastic.toString(),
                 175,
-                "Red"
+                discColor.toString()
             )
 
             firestore.collection("discs").document("test1").set(disc)
