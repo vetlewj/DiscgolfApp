@@ -104,6 +104,9 @@
         <action
             android:id="@+id/action_courseMapsFragment_to_coursesOverviewListFragment"
             app:destination="@id/coursesOverviewListFragment" />
+        <action
+            android:id="@+id/action_courseMapsFragment_to_courseInfoFragment"
+            app:destination="@id/courseInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"

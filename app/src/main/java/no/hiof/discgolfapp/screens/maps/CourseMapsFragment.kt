@@ -98,7 +98,6 @@ class CourseMapsFragment : Fragment() {
             val bitmap = drawable?.toBitmap().let {
                 Bitmap.createScaledBitmap(it!!, 150, 150, false)
             }
-
             for (course in courses) {
                 val lat = course.latitude?.toDouble() ?: 0.0
                 val lon = course.longitude?.toDouble() ?: 0.0
@@ -114,6 +113,17 @@ class CourseMapsFragment : Fragment() {
                             .title(course.name)
                             .icon(bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
                     )
+                    map.setOnMarkerClickListener { marker ->
+                        val action =
+                            CourseMapsFragmentDirections.actionCourseMapsFragmentToCourseInfoFragment()
+                        action.uid = course.uid
+                        action.longitude = course.longitude ?: 0.0F
+                        action.latitude = course.latitude ?: 0.0F
+                        action.type = course.type!!
+
+                        view?.findNavController()?.navigate(action)
+                        true
+                    }
                 }
             }
         }
