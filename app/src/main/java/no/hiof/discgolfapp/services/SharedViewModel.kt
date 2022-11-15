@@ -173,7 +173,7 @@ class SharedViewModel : ViewModel() {
                     it.latitude?.toDouble() ?: 0.0, it.longitude?.toDouble() ?: 0.0
                 )
             }
-            return sortedCourses
+            return ArrayList(sortedCourses.subList(0, 50))
         }
     }
 
