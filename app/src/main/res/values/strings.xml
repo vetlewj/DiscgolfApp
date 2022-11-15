@@ -44,6 +44,7 @@
     <string name="add_disc">Legg til ny disc</string>
     <string name="disc_manufacture">Produsent</string>
     <string name="disc_plastic">Plasttype</string>
+    <string name="disc_weight">Vekt</string>
     <string name="disc_color">Farge</string>
     <string name="save">Lagre</string>
 

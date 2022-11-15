@@ -44,15 +44,15 @@ class CreateDiscsFragment : Fragment() {
         val discManufacture = binding.DiscManufactureEditText.text
         val discPlastic = binding.DiscPlasticEditText.text
         val discColor = binding.DiscColorEditText.text
+        val discWeight = binding.DiscWeightEditText.text
 
         val saveBtn : Button = view.findViewById(R.id.saveDiscBtn)
-
 
 
         saveBtn.setOnClickListener {
             Log.d("Button pressed", "Save disc button pressede")
             val disc = Disc(
-                "111",
+                firebaseAuth.currentUser?.uid,
                 discName.toString(),
                 discSpeed.toString().toInt(),
                 discGlide.toString().toInt(),
@@ -61,15 +61,31 @@ class CreateDiscsFragment : Fragment() {
                 Disc.DiscType.DISTANCE_DRIVER,
                 discManufacture.toString(),
                 discPlastic.toString(),
-                175,
+                discWeight.toString().toInt(),
                 discColor.toString()
             )
 
-            firestore.collection("discs").document("test1").set(disc)
-            Toast.makeText(activity, "Button Saved pressed " + discName , Toast.LENGTH_LONG).show()
+//            firestore.collection("discs").document("test1").set(disc)
+            firestore.collection("discs").document().set(disc)
+            Toast.makeText(activity, "Disc saved " + discName , Toast.LENGTH_LONG).show()
+//            formReset()
 
         }
 
+
+
+    }
+
+    private fun formReset(){
+        binding.DiscNameEditText.text = null
+        binding.DiscSpeedEditText.text = null
+        binding.DiscGlideEditText.text = null
+        binding.DiscTurnEditText.text = null
+        binding.DiscFadeEditText.text = null
+        binding.DiscManufactureEditText.text = null
+        binding.DiscPlasticEditText.text = null
+        binding.DiscColorEditText.text = null
+        binding.DiscWeightEditText.text = null
     }
 
     override fun onDestroyView() {
