@@ -117,20 +117,58 @@ class CourseInfoEpoxyController : EpoxyController() {
 
 
         // Holes carousel
-        try {
-            if(courseResponse!!.holes!!.isNotEmpty()) {
-                val hole = courseResponse!!.holes!!.map {
-                    HoleCarouselItemEpoxyModel(it).id(it!!.holeNumber)
-                }
-                CarouselModel_()
-                    .id("HoleCarousel")
-                    .models(hole)
-                    .numViewsToShowOnScreen(3.5F)
-                    .addTo(this)
+        if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
+
+            listOfCoursesWithSameParentID!!.forEach { course ->
+                try {
+                    if(course.holes!!.isNotEmpty()) {
+                        val hole = course.holes.map {
+                            HoleCarouselItemEpoxyModel(it).id("${course.uid} ${it!!.holeNumber}")
+                        }
+                        CarouselModel_()
+                            .id("HoleCarousel ${course.uid} ")
+                            .models(hole)
+                            .numViewsToShowOnScreen(3.5F)
+                            .addTo(this)
+
+                    }
+
+                } catch (e: NullPointerException) {}
 
             }
+            try {
+                if(courseResponse!!.holes!!.isNotEmpty()) {
+                    val hole = courseResponse!!.holes!!.map {
+                        HoleCarouselItemEpoxyModel(it).id(it!!.holeNumber)
+                    }
+                    CarouselModel_()
+                        .id("HoleCarousel")
+                        .models(hole)
+                        .numViewsToShowOnScreen(3.5F)
+                        .addTo(this)
 
-        } catch (e: NullPointerException) {}
+                }
+
+            } catch (e: NullPointerException) {}
+
+
+        } else {
+            try {
+                if(courseResponse!!.holes!!.isNotEmpty()) {
+                    val hole = courseResponse!!.holes!!.map {
+                        HoleCarouselItemEpoxyModel(it).id(it!!.holeNumber)
+                    }
+                    CarouselModel_()
+                        .id("HoleCarousel")
+                        .models(hole)
+                        .numViewsToShowOnScreen(3.5F)
+                        .addTo(this)
+
+                }
+
+            } catch (e: NullPointerException) {}
+
+        }
 
         // add stats
         // add more we want in the info frag

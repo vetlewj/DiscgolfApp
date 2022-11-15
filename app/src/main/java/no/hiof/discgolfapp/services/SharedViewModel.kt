@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.model.Course
@@ -30,6 +30,9 @@ class SharedViewModel : ViewModel() {
 
     private val _coursesByCountryCodeAndWithSameParentID: MutableLiveData<ArrayList<Course>?> = MutableLiveData()
     val coursesByCountryCodeAndWithSameParentID: LiveData<ArrayList<Course>?> = _coursesByCountryCodeAndWithSameParentID
+
+    private val _coursesByCountryCodeAndWithSameParentIDWithHoles: MutableLiveData<ArrayList<Course>?> = MutableLiveData()
+    val coursesByCountryCodeAndWithSameParentIDWithHoles: LiveData<ArrayList<Course>?> = _coursesByCountryCodeAndWithSameParentIDWithHoles
 
 
     fun fetchCourses(coursesCode: String, courseType: CourseType) {
@@ -64,7 +67,48 @@ class SharedViewModel : ViewModel() {
             }
         }
 
-    fun fetchAllType2ConnectedToType1Courses(courseCode: String, parentID: Int)    {
+        fun fetchCourse(CourseID: String) {
+
+                // Checking courses exists in cache
+                val cachedCourse = CoursesCache.courseMap[CourseID]
+                if (cachedCourse != null) {
+                    _courseByIDLiveData.postValue(cachedCourse)
+                    return
+                }
+
+                viewModelScope.launch {
+                    val response = repository.getCourseByID(CourseID)
+
+                    _courseByIDLiveData.postValue(response)
+
+                    // Updating the cache
+                    response?.let {
+                        CoursesCache.courseMap[CourseID] = response
+                    }
+                }
+            }
+
+        fun fetchAdditionalInfoFromCoursesWithSameParentID(countryCode: String, parentID: Int, lifecycleOwner: LifecycleOwner ) {
+                val listOfCoursesWithSameParentIDWithHoles = ArrayList<Course>()
+
+                fetchAllCoursesWithSameParentID(countryCode, parentID)
+                coursesByCountryCodeAndWithSameParentID.observe(lifecycleOwner) { listOfCoursesWithSameParentID ->
+                     viewModelScope.launch {
+                        listOfCoursesWithSameParentID!!.forEach { course ->
+
+                            fetchCourseWithHoles(course.uid.toString())?.let {
+                                listOfCoursesWithSameParentIDWithHoles.add(it)
+                            }
+                        }
+                            _coursesByCountryCodeAndWithSameParentIDWithHoles.postValue(
+                                listOfCoursesWithSameParentIDWithHoles
+                            )
+                    }
+
+                }
+        }
+
+    private fun fetchAllCoursesWithSameParentID(courseCode: String, parentID: Int)    {
         viewModelScope.launch {
             val response = repository.getCoursesByCountryCodeAndWithSameParentID(courseCode, parentID)
 
@@ -72,26 +116,23 @@ class SharedViewModel : ViewModel() {
         }
     }
 
-        fun fetchCourse(CourseID: String) {
-
-            // Checking courses exists in cache
-            val cachedCourse = CoursesCache.courseMap[CourseID]
-            if (cachedCourse != null) {
-                _courseByIDLiveData.postValue(cachedCourse)
-                return
-            }
-
-            viewModelScope.launch {
-                val response = repository.getCourseByID(CourseID)
-
-                _courseByIDLiveData.postValue(response)
-
-                // Updating the cache
-                response?.let {
-                    CoursesCache.courseMap[CourseID] = response
-                }
-            }
+    private suspend fun fetchCourseWithHoles(CourseID: String): Course? {
+        // Checking courses exists in cache
+        val cachedCourse = CoursesCache.courseMap[CourseID]
+        if (cachedCourse != null) {
+            return cachedCourse
         }
+
+        val response = repository.getCourseByID(CourseID)
+        // Updating the cache
+        response?.let {
+            CoursesCache.courseMap[CourseID] = response
+        }
+
+        return response
+
+    }
+
 
         fun fetchWeather(lat: String, lon: String) {
             viewModelScope.launch {

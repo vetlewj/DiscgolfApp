@@ -57,7 +57,7 @@ object CourseMapper {
 
     }
 
-    fun buildFromCourseResponse(response: GetCourseByIDResponse): Course? {
+    fun buildFromCourseResponse(response: GetCourseByIDResponse): Course {
 
         val course = response.course
 
