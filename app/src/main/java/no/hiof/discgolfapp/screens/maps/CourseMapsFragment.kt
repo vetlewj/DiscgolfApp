@@ -26,12 +26,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.switchmaterial.SwitchMaterial
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.helper.CourseType
+import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.services.SharedViewModel
 import no.hiof.discgolfapp.services.location.SharedLocationViewModel
 
 class CourseMapsFragment : Fragment() {
     private val TAG = "CourseMapsFragment"
     private lateinit var map: GoogleMap
+    private lateinit var fragmentCourses : List<Course>
 
     private var locationViewModel = SharedLocationViewModel()
     private var sharedViewModel: SharedViewModel = SharedViewModel()
@@ -85,9 +87,14 @@ class CourseMapsFragment : Fragment() {
         }
         map.setOnInfoWindowClickListener { marker ->
             Log.d(TAG, "Marker clicked: ${marker.title}, ${marker.tag}")
+            val course = fragmentCourses.find { it.uid == marker.tag }
+
             val action =
                 CourseMapsFragmentDirections.actionCourseMapsFragmentToCourseInfoFragment()
             action.uid = marker.tag.toString().toInt()
+            action.longitude = course?.longitude?: 0.0F
+            action.latitude = course?.latitude?: 0.0F
+            action.type = course?.type ?: 1
 
             view?.findNavController()?.navigate(action)
         }
@@ -100,13 +107,14 @@ class CourseMapsFragment : Fragment() {
                 Log.w("ChooseCourseFragment", "courses is null")
                 return@observe
             }
+            fragmentCourses = courses
 
             // TODO: Change drawable resource to discgolf
             val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_golf_course, null)
             val bitmap = drawable?.toBitmap().let {
                 Bitmap.createScaledBitmap(it!!, 150, 150, false)
             }
-            for (course in courses) {
+            for (course in fragmentCourses) {
                 val lat = course.latitude?.toDouble() ?: 0.0
                 val lon = course.longitude?.toDouble() ?: 0.0
                 if (lat != 0.0 && lon != 0.0) {
