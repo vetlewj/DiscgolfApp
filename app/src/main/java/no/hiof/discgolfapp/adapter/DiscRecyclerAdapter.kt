@@ -11,7 +11,6 @@ import no.hiof.discgolfapp.model.Disc
 
 class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<DiscRecyclerAdapter.DiscViewHolder>(){
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): DiscViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.disc_list_item, parent, false)
         Log.d("onCreateViewHolder", "Creating view")
@@ -26,7 +25,7 @@ class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<D
 
     override fun getItemCount(): Int{
         Log.d("getItemCount" , discs.size.toString())
-        Log.d("List", "disc: $discs")
+        Log.d("Disc List", "disc: $discs")
         return discs.size
     }
 

@@ -65,10 +65,9 @@ class CreateDiscsFragment : Fragment() {
                 discColor.toString()
             )
 
-//            firestore.collection("discs").document("test1").set(disc)
             firestore.collection("discs").document().set(disc)
             Toast.makeText(activity, "Disc saved " + discName , Toast.LENGTH_LONG).show()
-//            formReset()
+            formReset()
 
         }
 
@@ -86,6 +85,7 @@ class CreateDiscsFragment : Fragment() {
         binding.DiscPlasticEditText.text = null
         binding.DiscColorEditText.text = null
         binding.DiscWeightEditText.text = null
+        Log.d("FormReset", "Create disc form reset")
     }
 
     override fun onDestroyView() {

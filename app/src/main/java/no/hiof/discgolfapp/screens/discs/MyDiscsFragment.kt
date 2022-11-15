@@ -2,6 +2,7 @@ package no.hiof.discgolfapp.screens.discs
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.DiscRecyclerAdapter
 import no.hiof.discgolfapp.model.Disc
@@ -19,10 +22,16 @@ import no.hiof.discgolfapp.screens.play.createscorecard.ChooseCourseFragmentDire
 
 class MyDiscsFragment : Fragment() {
 
+    private var firebaseAuth = FirebaseAuth.getInstance()
+    private var firestore = FirebaseFirestore.getInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        fetchDiscsFromFireStore()
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_discs, container, false)
     }
@@ -46,6 +55,20 @@ class MyDiscsFragment : Fragment() {
         }
 
 
+    }
+
+    fun fetchDiscsFromFireStore(){
+        val discs = firestore.collection("discs")
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d("Fetch Disc", "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener{ exception ->
+                Log.w("Fetch disc", "Error fetching discs from Firestore: ", exception)
+            }
     }
 
 }
