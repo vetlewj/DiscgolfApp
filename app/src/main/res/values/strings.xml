@@ -89,7 +89,7 @@
     <string name="hole_details">Par 3  100 m</string>
     <string name="rating_d">Rating: %d</string>
     <string name="finish_round">Fullfør runde</string>
-    <string name="scoreboard_date_header">Dato: %s</string>
+    <string name="scoreboard_date_header">%s</string>
     <string name="scoreboard_course_name_header">%s</string>
     <string name="unknown_date">Ukjent Dato</string>
     <string name="scoreboard_course_name_placeholder">Ukjent Bane</string>

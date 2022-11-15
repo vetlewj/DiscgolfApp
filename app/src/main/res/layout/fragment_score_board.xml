@@ -27,30 +27,30 @@
 
             <TextView
                 android:id="@+id/scoreBoardCourseHeader"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:text="@string/scoreboard_course_name_placeholder"
-                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/scoreBoardDateHeader"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:singleLine="false"/>
 
             <TextView
                 android:id="@+id/scoreBoardDateHeader"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="@string/scoreboard_date_header"
-                android:textSize="18sp"
+                android:text="@string/unknown_date"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/scoreBoardCourseHeader"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                android:singleLine="false"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
