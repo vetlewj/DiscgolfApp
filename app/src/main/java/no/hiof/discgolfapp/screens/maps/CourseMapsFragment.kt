@@ -83,6 +83,14 @@ class CourseMapsFragment : Fragment() {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f))
             locationViewModel.currentLocation.removeObservers(viewLifecycleOwner)
         }
+        map.setOnInfoWindowClickListener { marker ->
+            Log.d(TAG, "Marker clicked: ${marker.title}, ${marker.tag}")
+            val action =
+                CourseMapsFragmentDirections.actionCourseMapsFragmentToCourseInfoFragment()
+            action.uid = marker.tag.toString().toInt()
+
+            view?.findNavController()?.navigate(action)
+        }
     }
 
     private fun addCourseMarkers() {
@@ -112,18 +120,8 @@ class CourseMapsFragment : Fragment() {
                             .position(courseLatLng)
                             .title(course.name)
                             .icon(bitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
-                    )
-                    map.setOnMarkerClickListener { marker ->
-                        val action =
-                            CourseMapsFragmentDirections.actionCourseMapsFragmentToCourseInfoFragment()
-                        action.uid = course.uid
-                        action.longitude = course.longitude ?: 0.0F
-                        action.latitude = course.latitude ?: 0.0F
-                        action.type = course.type!!
+                    )?.tag = course.uid
 
-                        view?.findNavController()?.navigate(action)
-                        true
-                    }
                 }
             }
         }
