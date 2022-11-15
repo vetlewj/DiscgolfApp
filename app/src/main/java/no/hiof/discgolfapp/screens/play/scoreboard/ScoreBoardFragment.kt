@@ -1,6 +1,7 @@
 package no.hiof.discgolfapp.screens.play.scoreboard
 
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,11 +57,12 @@ class ScoreBoardFragment : Fragment() {
                 viewModel.scoreCard = scoreCard
                 binding.scoreBoardDateHeader.text = resources.getString(
                     R.string.scoreboard_date_header,
-                scoreCard?.date ?: R.string.unknown_date
+                    DateFormat.format("dd.MM.yy", scoreCard?.date) ?: R.string.unknown_date
                 )
                 binding.scoreBoardCourseHeader.text = resources.getString(
                     R.string.scoreboard_course_name_header,
-                    scoreCard?.course?.name ?: args.courseName ?: R.string.scoreboard_course_name_placeholder
+                    scoreCard?.course?.name ?: args.courseName
+                    ?: R.string.scoreboard_course_name_placeholder
                 )
 
                 for (holeScore in viewModel.scoreCard?.holeScores!!) {
