@@ -134,6 +134,10 @@
         <action
             android:id="@+id/action_scoreBoardFragment_to_courseResultsFragment"
             app:destination="@id/courseResultsFragment" />
+        <argument
+            android:name="courseName"
+            app:argType="string"
+            android:defaultValue="Ukjent bane" />
     </fragment>
     <fragment
         android:id="@+id/courseResultsFragment"

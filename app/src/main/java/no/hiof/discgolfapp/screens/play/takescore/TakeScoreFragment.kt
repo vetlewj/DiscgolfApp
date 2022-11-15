@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentTakeScoreBinding
 import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.model.Course
@@ -71,7 +72,7 @@ class TakeScoreFragment : Fragment() {
             if (viewModel.holeNumber == 0) {
                 viewModel.holeNumber = 1
             }
-            viewModel.par = course.holes?.get(viewModel.holeNumber-1)?.par ?: 0
+            viewModel.par = course.holes?.get(viewModel.holeNumber - 1)?.par ?: 0
             viewModel.score = viewModel.scoreCard?.score ?: 0
             viewModel.distance = getDistance(course, viewModel.holeNumber)
 
@@ -124,6 +125,13 @@ class TakeScoreFragment : Fragment() {
                     binding.parForHoleTextView.text = viewModel.par.toString()
                     binding.distanceForCurrentHoleTextView.text =
                         viewModel.distance.toString()
+                    if (viewModel.holeNumber == (course.holes?.size ?: 0)) {
+                        binding.nextHoleBtn.text = getString(R.string.finish_round)
+                    }
+                    Log.d(
+                        "TakeScoreFragment",
+                        "scorecard updated ${viewModel.scoreCard?.holeScores}"
+                    )
 
                 } else {
                     firestore.collection("scorecardsv1")
@@ -136,12 +144,18 @@ class TakeScoreFragment : Fragment() {
                             viewModel.scoreCard?.id.toString(),
                             viewModel.scoreCard?.course?.uid!!
                         )
+                    action.courseName = viewModel.scoreCard?.course?.name?: resources.getString(R.string.scoreboard_course_name_placeholder)
+                    Log.d(
+                        "TakeScoreFragment",
+                        "scorecard finished ${viewModel.scoreCard?.holeScores}"
+                    )
                     binding.root.findNavController().navigate(action)
                 }
             }
 
             binding.prevHoleBtn.setOnClickListener {
                 if (viewModel.holeNumber > 1) {
+                    binding.nextHoleBtn.text = getString(R.string.next_hole)
                     viewModel.score = binding.currentScoreForHole.text.toString().toInt()
                     viewModel.scoreCard?.addHoleScore(
                         viewModel.holeNumber,
@@ -160,6 +174,10 @@ class TakeScoreFragment : Fragment() {
                             "par", viewModel.totalScore,
                             "score", viewModel.totalPar
                         )
+                    Log.d(
+                        "TakeScoreFragment",
+                        "scorecard updated ${viewModel.scoreCard?.holeScores}"
+                    )
 
                     viewModel.holeNumber--
                     val holeScore = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)
@@ -190,7 +208,7 @@ class TakeScoreFragment : Fragment() {
         _binding = null
     }
 
-    private fun getDistance(course: Course, holeNumber: Int): Int{
+    private fun getDistance(course: Course, holeNumber: Int): Int {
         return course.holes?.get(holeNumber - 1)?.distance
             ?: DistanceMeasure.getDistanceToPositionInMeters(
                 course.holes?.get(holeNumber - 1)?.startLat,

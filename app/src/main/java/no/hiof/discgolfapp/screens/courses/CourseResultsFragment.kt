@@ -78,11 +78,14 @@ class CourseResultsFragment : Fragment() {
                     textView.textSize = 18f
                     textView.setOnClickListener { view ->
                         Log.d("CourseResultsFragment", "ScoreCard ${scoreCard.id} clicked")
-                        view.findNavController().navigate(
+                        val action =
                             CourseResultsFragmentDirections.actionCourseResultsFragmentToScoreBoardFragment(
                                 scoreCard.id!!,
                                 course.uid
                             )
+                        action.courseName = course.name
+                        view.findNavController().navigate(
+                            action
                         )
                     }
                     binding.scoresLinearLayout.addView(textView)

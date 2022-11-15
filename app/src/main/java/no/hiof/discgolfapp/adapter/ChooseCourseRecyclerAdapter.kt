@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Course
 
-class ChooseCourseRecyclerAdapter(private val courses: ArrayList<Course>, private val clickListener: View.OnClickListener) : RecyclerView.Adapter<ChooseCourseRecyclerAdapter.ChooseCourseViewHolder>() {
+class ChooseCourseRecyclerAdapter(
+    private val courses: ArrayList<Course>,
+    private val clickListener: View.OnClickListener
+) : RecyclerView.Adapter<ChooseCourseRecyclerAdapter.ChooseCourseViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseCourseViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.choose_course_list_item, parent, false)
-
-        Log.d("ChooseCourseAdapter", "onCreateViewHolder")
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.choose_course_list_item, parent, false)
 
         return ChooseCourseViewHolder(itemView)
     }
@@ -33,12 +35,11 @@ class ChooseCourseRecyclerAdapter(private val courses: ArrayList<Course>, privat
     }
 
     class ChooseCourseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val chooseCourseBtn : TextView = view.findViewById(R.id.chooseCourseBtn)
+        private val chooseCourseBtn: TextView = view.findViewById(R.id.chooseCourseBtn)
 
         fun bind(course: Course, clickListener: View.OnClickListener) {
             chooseCourseBtn.text = course.name
             itemView.setOnClickListener(clickListener)
-            Log.d("ChooseCourseAdapter", "bind: ${course.name}")
         }
 
     }
