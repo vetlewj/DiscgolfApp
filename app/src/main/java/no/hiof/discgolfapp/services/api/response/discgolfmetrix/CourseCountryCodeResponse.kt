@@ -9,7 +9,7 @@ data class CourseCountryCodeResponse(
     val ID: String?,
     val Location: String?,
     val Name: String,
-    val ParentID: Any?,
+    val ParentID: String?,
     val Type: String?,
     val X: String?,
     val Y: String?

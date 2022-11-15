@@ -37,7 +37,7 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
-        viewModel.fetchCourses("NO", CourseType.TYPE1)
+        viewModel.fetchCourses("NO", CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT)
         viewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { listOfCourses ->
             if(listOfCourses == null) {
                 Toast.makeText(view.context, "network call was unsuccessful", Toast.LENGTH_SHORT).show()
@@ -54,7 +54,7 @@ class CoursesOverviewListFragment : Fragment() {
                             CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
                         action.let {
                             it.uid = selectedCourse.uid
-                            it.courseName = selectedCourse.name
+                            it.type = selectedCourse.type!!
                             it.latitude = try {
                                 selectedCourse.latitude!!.toFloat()
                             } catch (e: NullPointerException) {

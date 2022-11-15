@@ -6,6 +6,8 @@ import no.hiof.discgolfapp.services.api.response.discgolfmetrix.GetListOfCourses
 object CoursesCache {
 
     val listOfCourseMap = mutableMapOf<String, GetListOfCoursesByCountryCodeResponse>()
+    val listOfCourseMapType1AndType2WithNoParent = mutableMapOf<String, ArrayList<Course>?>()
+    val listOfCourseMapType2 = mutableMapOf<String, ArrayList<Course>?>()
     val courseMap = mutableMapOf<String, Course>()
 
 }

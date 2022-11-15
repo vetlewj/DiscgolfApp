@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.model.Course
@@ -28,76 +28,152 @@ class SharedViewModel : ViewModel() {
     private val _sortedCourseList: MutableLiveData<ArrayList<Course>> = MutableLiveData()
     val sortedCourseList: LiveData<ArrayList<Course>> = _sortedCourseList
 
+    private val _coursesByCountryCodeAndWithSameParentID: MutableLiveData<ArrayList<Course>?> = MutableLiveData()
+    val coursesByCountryCodeAndWithSameParentID: LiveData<ArrayList<Course>?> = _coursesByCountryCodeAndWithSameParentID
+
+    private val _coursesByCountryCodeAndWithSameParentIDWithHoles: MutableLiveData<ArrayList<Course>?> = MutableLiveData()
+    val coursesByCountryCodeAndWithSameParentIDWithHoles: LiveData<ArrayList<Course>?> = _coursesByCountryCodeAndWithSameParentIDWithHoles
+
 
     fun fetchCourses(coursesCode: String, courseType: CourseType) {
+        // Checking courses exists in cache
+        if (courseType.type.equals("1")) {
+            val cachedCourse = CoursesCache.listOfCourseMapType1AndType2WithNoParent[coursesCode]
+            if (cachedCourse != null) {
+                _coursesByCountryCodeLiveData.postValue(cachedCourse)
+                return
+            }
+        } else {
+            val cachedCourse = CoursesCache.listOfCourseMapType2[coursesCode]
+            if (cachedCourse != null) {
+                _coursesByCountryCodeLiveData.postValue(cachedCourse)
+                return
+            }
+        }
+
         viewModelScope.launch {
             val response = repository.getCoursesByCountryCode(coursesCode, courseType)
 
             _coursesByCountryCodeLiveData.postValue(response)
+                // Updating the cache
+                if (courseType.type.equals("1"))
+                    response?.let {
+                        CoursesCache.listOfCourseMapType1AndType2WithNoParent[coursesCode] = response
+                    } else {
+                    response?.let {
+                        CoursesCache.listOfCourseMapType2[coursesCode] = response
+                    }
+                }
+            }
+        }
+
+        fun fetchCourse(CourseID: String) {
+
+                // Checking courses exists in cache
+                val cachedCourse = CoursesCache.courseMap[CourseID]
+                if (cachedCourse != null) {
+                    _courseByIDLiveData.postValue(cachedCourse)
+                    return
+                }
+
+                viewModelScope.launch {
+                    val response = repository.getCourseByID(CourseID)
+
+                    _courseByIDLiveData.postValue(response)
+
+                    // Updating the cache
+                    response?.let {
+                        CoursesCache.courseMap[CourseID] = response
+                    }
+                }
+            }
+
+        fun fetchAdditionalInfoFromCoursesWithSameParentID(countryCode: String, parentID: Int, lifecycleOwner: LifecycleOwner ) {
+                val listOfCoursesWithSameParentIDWithHoles = ArrayList<Course>()
+
+                fetchAllCoursesWithSameParentID(countryCode, parentID)
+                coursesByCountryCodeAndWithSameParentID.observe(lifecycleOwner) { listOfCoursesWithSameParentID ->
+                     viewModelScope.launch {
+                        listOfCoursesWithSameParentID!!.forEach { course ->
+
+                            fetchCourseWithHoles(course.uid.toString())?.let {
+                                listOfCoursesWithSameParentIDWithHoles.add(it)
+                            }
+                        }
+                            _coursesByCountryCodeAndWithSameParentIDWithHoles.postValue(
+                                listOfCoursesWithSameParentIDWithHoles
+                            )
+                    }
+
+                }
+        }
+
+    private fun fetchAllCoursesWithSameParentID(courseCode: String, parentID: Int)    {
+        viewModelScope.launch {
+            val response = repository.getCoursesByCountryCodeAndWithSameParentID(courseCode, parentID)
+
+            _coursesByCountryCodeAndWithSameParentID.postValue(response)
         }
     }
 
-    fun fetchCourse(CourseID: String) {
-
+    private suspend fun fetchCourseWithHoles(CourseID: String): Course? {
         // Checking courses exists in cache
         val cachedCourse = CoursesCache.courseMap[CourseID]
         if (cachedCourse != null) {
-            _courseByIDLiveData.postValue(cachedCourse)
-            return
+            return cachedCourse
         }
 
-        viewModelScope.launch {
-            val response = repository.getCourseByID(CourseID)
+        val response = repository.getCourseByID(CourseID)
+        // Updating the cache
+        response?.let {
+            CoursesCache.courseMap[CourseID] = response
+        }
 
-            _courseByIDLiveData.postValue(response)
+        return response
 
-            // Updating the cache
-            response?.let {
-                CoursesCache.courseMap[CourseID] = response
+    }
+
+
+        fun fetchWeather(lat: String, lon: String) {
+            viewModelScope.launch {
+                val response = repository.getWeatherByCoordinates(lat, lon)
+
+                _weatherByCoordinatesLiveData.postValue(response)
+
             }
         }
-    }
 
-    fun fetchWeather(lat: String, lon: String) {
-        viewModelScope.launch {
-            val response = repository.getWeatherByCoordinates(lat, lon)
-
-            _weatherByCoordinatesLiveData.postValue(response)
-
-        }
-    }
-
-    fun getSortedCoursesByDistance(lat: Double, lon: Double, lifecycleOwner: LifecycleOwner) {
-        if (_sortedCourseList.value?.isNotEmpty() == true) {
-            return
-        } else {
-            fetchCourses("NO", CourseType.TYPE2)
-
-        }
-        coursesByCountryCodeLiveData.observe(lifecycleOwner) { it ->
-            if (it != null) {
-                _sortedCourseList.value =
-                    getSortedCoursesByDistance(it, lat, lon)
+        fun getSortedCoursesByDistance(lat: Double, lon: Double, lifecycleOwner: LifecycleOwner) {
+            if (_sortedCourseList.value?.isNotEmpty() == true) {
+                return
+            } else {
+                fetchCourses("NO", CourseType.TYPE2)
+            }
+            coursesByCountryCodeLiveData.observe(lifecycleOwner) { it ->
+                if (it != null) {
+                    _sortedCourseList.value =
+                        getSortedCoursesByDistance(it, lat, lon)
+                }
             }
         }
-    }
 
-    private fun getSortedCoursesByDistance(
-        courses: ArrayList<Course>,
-        lat: Double,
-        lon: Double
-    ): ArrayList<Course> {
-        Log.d(
-            "SharedViewModel",
-            "Sorting courses by distance from $lat, $lon, ${_sortedCourseList.value?.size}"
-        )
-        val sortedCourses = ArrayList<Course>(courses)
-        sortedCourses.sortBy {
-            DistanceMeasure.getDistanceToPositionInMeters(
-                lat, lon,
-                it.latitude?.toDouble() ?: 0.0, it.longitude?.toDouble() ?: 0.0
+        private fun getSortedCoursesByDistance(
+            courses: ArrayList<Course>,
+            lat: Double,
+            lon: Double
+        ): ArrayList<Course> {
+            Log.d(
+                "SharedViewModel",
+                "Sorting courses by distance from $lat, $lon, ${_sortedCourseList.value?.size}"
             )
+            val sortedCourses = ArrayList<Course>(courses)
+            sortedCourses.sortBy {
+                DistanceMeasure.getDistanceToPositionInMeters(
+                    lat, lon,
+                    it.latitude?.toDouble() ?: 0.0, it.longitude?.toDouble() ?: 0.0
+                )
+            }
+            return sortedCourses
         }
-        return sortedCourses
     }
-}
+

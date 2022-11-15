@@ -86,7 +86,7 @@ class CourseMapsFragment : Fragment() {
     }
 
     private fun addCourseMarkers() {
-        sharedViewModel.fetchCourses("NO", CourseType.TYPE1)
+        sharedViewModel.fetchCourses("NO", CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT)
         sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courses ->
             if (courses == null) {
                 Log.w("ChooseCourseFragment", "courses is null")

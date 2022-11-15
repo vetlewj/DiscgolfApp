@@ -15,7 +15,49 @@ object CourseMapper {
         return fetchListOfCoursesBasedOnType(response, courseType)
     }
 
-    fun buildFromCourseResponse(response: GetCourseByIDResponse): Course? {
+    fun buildListOfType2WithParentIDFromType1(response: GetListOfCoursesByCountryCodeResponse, parentID: Int): ArrayList<Course> {
+        val listOfCoursesWithTheSameParentID = ArrayList<Course>()
+
+        response.courses.forEach { course ->
+
+            if (course.Enddate == null )
+            {
+                if (!(course.X.isNullOrBlank() || course.Y.isNullOrBlank())) {
+                    if (course.Type.equals("2")) {
+                        if(!course.ParentID.isNullOrBlank()) {
+                            if(course.ParentID.equals(parentID.toString())) {
+                                val courseObj = Course(
+                                    uid = course.ID!!.toInt(),
+                                    name = cleanCourseName(course.Fullname!!),
+                                    holes = null,
+                                    rating = null,
+                                    area = course.Area,
+                                    city = course.City,
+                                    location = course.Location,
+                                    latitude = course.X.toFloat(),
+                                    longitude = course.Y.toFloat(),
+                                    type = course.Type!!.toInt(),
+                                    par = null,
+                                    ratingValue1 = null,
+                                    ratingResult1 = null,
+                                    ratingValue2 = null,
+                                    ratingResult2 = null,
+                                    parentID = course.ParentID.toInt()
+                                )
+                                listOfCoursesWithTheSameParentID.add(courseObj)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return listOfCoursesWithTheSameParentID
+
+
+
+    }
+
+    fun buildFromCourseResponse(response: GetCourseByIDResponse): Course {
 
         val course = response.course
 
@@ -47,7 +89,7 @@ object CourseMapper {
 
         return Course(
             uid = course.ID!!.toInt(),
-            name = course.Fullname.toString(),
+            name = cleanCourseName(course.Fullname!!),
             holes = if (holes.size == 0) null else holes,
             rating = parRating,
             area = course.Area,
@@ -55,12 +97,13 @@ object CourseMapper {
             location = course.Location,
             latitude = if (course.Lat.equals(EMPTY_STRING)) null else course.Lat!!.toFloat(),
             longitude = if (course.Lng.equals(EMPTY_STRING)) null else course.Lng!!.toFloat(),
-            type = null,
+            type = course.Type!!.toInt(),
             par = sumPar,
             ratingValue1 =  try {course.RatingValue1!!.toDouble()} catch (e:NullPointerException){ null},
             ratingResult1 = try {course.RatingResult1!!.toDouble()} catch (e:NullPointerException)  {null},
             ratingValue2 = try {course.RatingValue2!!.toDouble()} catch (e:NullPointerException) { null},
-            ratingResult2 = try {course.RatingResult2!!.toDouble()} catch (e:NullPointerException) { null}
+            ratingResult2 = try {course.RatingResult2!!.toDouble()} catch (e:NullPointerException) { null},
+            parentID = try { course.ParentID!!.toInt()} catch (e:NullPointerException) {null}
         )
     }
 
@@ -77,7 +120,7 @@ object CourseMapper {
                         if (course.Type.equals(courseType.type) || course.ParentID == null) {
                             val courseObj = Course(
                                 uid = course.ID!!.toInt(),
-                                name = course.Fullname.toString(),
+                                name = cleanCourseName(course.Fullname!!),
                                 holes = null,
                                 rating = null,
                                 area = course.Area,
@@ -85,12 +128,13 @@ object CourseMapper {
                                 location = course.Location,
                                 latitude = course.X.toFloat(),
                                 longitude = course.Y.toFloat(),
-                                type = null,
+                                type = course.Type!!.toInt(),
                                 par = null,
                                 ratingValue1 = null,
                                 ratingResult1 = null,
                                 ratingValue2 = null,
-                                ratingResult2 = null
+                                ratingResult2 = null,
+                                parentID = null
                             )
                             listOfCourses.add(courseObj)
                         }
@@ -98,7 +142,7 @@ object CourseMapper {
                         if(course.Type.equals(courseType.type)) {
                             val courseObj = Course(
                                 uid = course.ID!!.toInt(),
-                                name = course.Fullname.toString(),
+                                name = cleanCourseName(course.Fullname!!),
                                 holes = null,
                                 rating = null,
                                 area = course.Area,
@@ -106,12 +150,13 @@ object CourseMapper {
                                 location = course.Location,
                                 latitude = course.X.toFloat(),
                                 longitude = course.Y.toFloat(),
-                                type = null,
+                                type = course.Type!!.toInt(),
                                 par = null,
                                 ratingValue1 = null,
                                 ratingResult1 = null,
                                 ratingValue2 = null,
-                                ratingResult2 = null
+                                ratingResult2 = null,
+                                parentID = try {course.ParentID!!.toInt()} catch (e:NullPointerException) {null}
                             )
                             listOfCourses.add(courseObj)
                         }
@@ -121,6 +166,13 @@ object CourseMapper {
             }
         }
         return listOfCourses
+    }
+
+    private fun cleanCourseName(courseName: String): String {
+
+        val regex = """(&rarr;)""".toRegex()
+
+        return regex.replace(courseName, "-")
     }
 
 }
