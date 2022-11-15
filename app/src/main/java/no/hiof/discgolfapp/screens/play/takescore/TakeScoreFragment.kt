@@ -124,6 +124,7 @@ class TakeScoreFragment : Fragment() {
                     binding.parForHoleTextView.text = viewModel.par.toString()
                     binding.distanceForCurrentHoleTextView.text =
                         viewModel.distance.toString()
+                    Log.d("TakeScoreFragment", "scorecard updated ${viewModel.scoreCard?.holeScores}")
 
                 } else {
                     firestore.collection("scorecardsv1")
@@ -136,6 +137,7 @@ class TakeScoreFragment : Fragment() {
                             viewModel.scoreCard?.id.toString(),
                             viewModel.scoreCard?.course?.uid!!
                         )
+                    Log.d("TakeScoreFragment", "scorecard finished ${viewModel.scoreCard?.holeScores}")
                     binding.root.findNavController().navigate(action)
                 }
             }
@@ -160,6 +162,7 @@ class TakeScoreFragment : Fragment() {
                             "par", viewModel.totalScore,
                             "score", viewModel.totalPar
                         )
+                    Log.d("TakeScoreFragment", "scorecard updated ${viewModel.scoreCard?.holeScores}")
 
                     viewModel.holeNumber--
                     val holeScore = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)
