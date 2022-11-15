@@ -144,6 +144,7 @@ class TakeScoreFragment : Fragment() {
                             viewModel.scoreCard?.id.toString(),
                             viewModel.scoreCard?.course?.uid!!
                         )
+                    action.courseName = viewModel.scoreCard?.course?.name?: resources.getString(R.string.scoreboard_course_name_placeholder)
                     Log.d(
                         "TakeScoreFragment",
                         "scorecard finished ${viewModel.scoreCard?.holeScores}"
