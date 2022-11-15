@@ -88,6 +88,7 @@
     <string name="par_rating">Rating \n 1002</string>
     <string name="hole_details">Par 3  100 m</string>
     <string name="rating_d">Rating: %d</string>
+    <string name="finish_round">Fullfør runde</string>
 
 
 </resources>
