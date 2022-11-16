@@ -257,4 +257,15 @@ class CourseInfoEpoxyController : EpoxyController() {
         }
     }
 
+    data class StatsItemEpoxyModel(
+        val bestScore: Int,
+        val avgScore: Int
+    ): ViewBindingKotlinModel<CourseInfoStatsBinding>(R.layout.course_info_stats) {
+
+        override fun CourseInfoStatsBinding.bind() {
+            bestRoundStatValueInfoTextView.text = bestScore.toString()
+            averageValueInfoTextView.text = avgScore.toString()
+        }
+    }
+
 }
