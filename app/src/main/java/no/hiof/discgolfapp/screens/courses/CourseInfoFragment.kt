@@ -66,6 +66,9 @@ class CourseInfoFragment : Fragment() {
             }
 
         } else {
+            epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
+            epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
+            viewModelStats.getAvgScoreForCourse(args.uid)
             viewModel.fetchCourse(args.uid.toString())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
                 epoxyController.courseResponse = course
