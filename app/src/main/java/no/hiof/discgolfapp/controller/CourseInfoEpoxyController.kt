@@ -64,6 +64,9 @@ class CourseInfoEpoxyController : EpoxyController() {
             }
         }
 
+    val avgScore: Int = 0
+    val bestScore: Int = 0
+
     override fun buildModels() {
         if (isLoading < DONE_LOADING) {
             LoadingEpoxyModel().id("Loading").addTo(this)
