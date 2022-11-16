@@ -14,6 +14,7 @@ import no.hiof.discgolfapp.controller.CourseInfoEpoxyController
 import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
 import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.services.SharedViewModel
+import no.hiof.discgolfapp.services.StoredStatisticsViewModel
 
 
 class CourseInfoFragment : Fragment() {
@@ -22,6 +23,9 @@ class CourseInfoFragment : Fragment() {
 
     val viewModel: SharedViewModel by lazy {
         ViewModelProvider(this).get(SharedViewModel::class.java)
+    }
+    val viewModelStats: StoredStatisticsViewModel by lazy {
+        ViewModelProvider(this).get(StoredStatisticsViewModel::class.java)
     }
 
     private val epoxyController = CourseInfoEpoxyController()
