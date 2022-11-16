@@ -173,7 +173,10 @@ class CourseInfoEpoxyController : EpoxyController() {
 
         }
 
-        // add stats
+        StatsItemEpoxyModel(
+            bestScore = bestScore,
+            avgScore = avgScore
+        ).id("stats").addTo(this)
         // add more we want in the info frag
 
     }
