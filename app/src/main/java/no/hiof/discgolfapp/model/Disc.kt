@@ -1,17 +1,17 @@
 package no.hiof.discgolfapp.model
 
 data class Disc(
-    val playerId: String? = null,
-    val name: String,
-    val speed: Int,
-    val glide: Int,
-    val turn: Int,
-    val fade: Int,
-    val type: DiscType,
-    val manufacturer: String,
-    val plastic: String?,
-    val weight: Int?,
-    val color: String?
+    var playerId: String? = null,
+    var name: String = "",
+    var speed: Int,
+    var glide: Int,
+    var turn: Int,
+    var fade: Int,
+    var type: DiscType,
+    var manufacturer: String = "",
+    var plastic: String? = "",
+    var weight: Int?,
+    var color: String? = ""
 ) {
     enum class DiscType(val type: String) {
         PUTTER("Putter"),

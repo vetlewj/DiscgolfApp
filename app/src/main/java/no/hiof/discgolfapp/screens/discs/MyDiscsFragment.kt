@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.DiscRecyclerAdapter
@@ -32,10 +33,8 @@ class MyDiscsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        //fetchDiscsFromFireStore()
-        fetchDiscsFromFireStore2()
+//        fetchDiscsFromFireStore2()
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_discs, container, false)
     }
 
@@ -66,8 +65,8 @@ class MyDiscsFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    Log.d("Fetch Disc", "${document.id} => ${document.data}")
-
+                    Log.d("Fetch Disc", "${document.data}")
+//                    document.toObject<Disc>()
                 }
             }
             .addOnFailureListener{ exception ->
@@ -80,13 +79,17 @@ class MyDiscsFragment : Fragment() {
         discs.whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
         .get().addOnCompleteListener { task ->
             if (task.isSuccessful){
+                Log.d("FetchDisc", "Successful")
                 val discsSnapshot = task.result!!
-//                val disc = discsSnapshot.toObjects<Disc>()
                 val disc = discsSnapshot.toObjects(Disc::class.java)!!
 
+
                 Log.d("Discs v2", "${disc}")
+
         }
+
         }
+
     }
 
 }

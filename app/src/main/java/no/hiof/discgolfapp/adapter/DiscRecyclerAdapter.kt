@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Disc
 
 class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<DiscRecyclerAdapter.DiscViewHolder>(){
+
+    private var firebaseAuth = FirebaseAuth.getInstance()
+    private var firestore = FirebaseFirestore.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): DiscViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.disc_list_item, parent, false)
