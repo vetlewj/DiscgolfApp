@@ -5,34 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Disc
 
-class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<DiscRecyclerAdapter.DiscViewHolder>(){
+//class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<DiscRecyclerAdapter.DiscViewHolder>(){
+class DiscRecyclerAdapter : ListAdapter<Disc, RecyclerView.ViewHolder>(DiscDiffCallback()){
 
-    private var firebaseAuth = FirebaseAuth.getInstance()
-    private var firestore = FirebaseFirestore.getInstance()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): DiscViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.disc_list_item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.fragment_disc_list_item, parent, false)
         Log.d("onCreateViewHolder", "Creating view")
         return DiscViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: DiscViewHolder, position: Int){
-        val currentDisc = discs[position]
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int){
+//        val currentDisc = discs[position]
+        val currentDisc = getItem(position)
         Log.d("onBindViewHolder", "Binding position $position")
-        holder.bind(currentDisc)
+//        holder.bind(currentDisc)
+        (holder as DiscViewHolder).bind(currentDisc)
     }
 
-    override fun getItemCount(): Int{
-        Log.d("getItemCount" , discs.size.toString())
-        Log.d("Disc List", "disc: $discs")
-        return discs.size
-    }
+//    override fun getItemCount(): Int{
+//        Log.d("getItemCount" , discs.size.toString())
+//        Log.d("Disc List", "disc: $discs")
+//        return discs.size
+//    }
 
     class DiscViewHolder (view: View) : RecyclerView.ViewHolder(view){
         private val discNameTextView : TextView = view.findViewById(R.id.discNameTextView)
@@ -53,5 +55,14 @@ class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<D
         }
     }
 
+    private class DiscDiffCallback : DiffUtil.ItemCallback<Disc>(){
+        override fun areItemsTheSame(oldItem: Disc, newItem: Disc): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: Disc, newItem: Disc): Boolean {
+            return oldItem == newItem
+        }
+    }
 
 }
