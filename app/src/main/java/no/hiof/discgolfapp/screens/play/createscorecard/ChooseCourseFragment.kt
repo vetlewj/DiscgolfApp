@@ -21,6 +21,7 @@ import no.hiof.discgolfapp.services.SharedViewModel
 import no.hiof.discgolfapp.services.location.SharedLocationViewModel
 
 class ChooseCourseFragment : Fragment() {
+    private val TAG = "ChooseCourseFragment"
 
     private var sharedViewModel = SharedViewModel()
     private var locationViewModel = SharedLocationViewModel()
@@ -28,20 +29,15 @@ class ChooseCourseFragment : Fragment() {
     private var _binding: FragmentChooseCourseBinding? = null
     private val binding get() = _binding!!
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-        when {
-            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                Log.d("ChooseCourseFragment", "Precise location access granted")
-            }
-            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                Log.d("ChooseCourseFragment", "Only approximate location access granted")
-            }
-            else -> {
-                Log.d("ChooseCourseFragment", "No location access granted")
-            }
+        if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
+            Log.d(TAG, "Precise location access granted")
+        } else if (permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
+            Log.d(TAG, "Only approximate location access granted")
+        } else {
+            Log.d(TAG, "No location access granted")
         }
     }
 
@@ -53,7 +49,6 @@ class ChooseCourseFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_choose_course, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
