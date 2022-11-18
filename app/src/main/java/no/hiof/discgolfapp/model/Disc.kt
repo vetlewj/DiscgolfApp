@@ -3,14 +3,14 @@ package no.hiof.discgolfapp.model
 data class Disc(
     var playerId: String? = null,
     var name: String = "",
-    var speed: Int,
-    var glide: Int,
-    var turn: Int,
-    var fade: Int,
-    var type: DiscType,
+    var speed: Int? = null,
+    var glide: Int? = null,
+    var turn: Int? = null,
+    var fade: Int? = null,
+    var type: DiscType ? = null,
     var manufacturer: String = "",
     var plastic: String? = "",
-    var weight: Int?,
+    var weight: Int? = null,
     var color: String? = ""
 ) {
     enum class DiscType(val type: String) {

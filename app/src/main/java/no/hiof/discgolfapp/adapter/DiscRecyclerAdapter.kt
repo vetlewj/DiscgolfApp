@@ -49,7 +49,7 @@ class DiscRecyclerAdapter(private val discs:List<Disc>) : RecyclerView.Adapter<D
             discGlideTextView.text = disc.glide.toString()
             discTurnTextView.text = disc.turn.toString()
             discFadeTextView.text = disc.fade.toString()
-            discTypeTextView.text = disc.type.type
+            discTypeTextView.text = disc.type.toString()
         }
     }
 

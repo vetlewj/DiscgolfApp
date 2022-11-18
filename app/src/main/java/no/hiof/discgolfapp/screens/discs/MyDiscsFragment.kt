@@ -33,7 +33,7 @@ class MyDiscsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        fetchDiscsFromFireStore2()
+        fetchDiscsFromFireStore2()
 
         return inflater.inflate(R.layout.fragment_my_discs, container, false)
     }
