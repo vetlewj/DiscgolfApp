@@ -33,30 +33,24 @@ import no.hiof.discgolfapp.services.location.SharedLocationViewModel
 class CourseMapsFragment : Fragment() {
     private val TAG = "CourseMapsFragment"
     private lateinit var map: GoogleMap
-    private lateinit var fragmentCourses : List<Course>
+    private lateinit var fragmentCourses: List<Course>
 
     private var locationViewModel = SharedLocationViewModel()
     private var sharedViewModel: SharedViewModel = SharedViewModel()
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
     val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-        when {
-            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                Log.d(TAG, "Precise location access granted")
-            }
-            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                Log.d(TAG, "Only approximate location access granted")
-            }
-            else -> {
-                Log.d(TAG, "No location access granted")
-            }
+        if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
+            Log.d(TAG, "Precise location access granted")
+        } else if (permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
+            Log.d(TAG, "Only approximate location access granted")
+        } else {
+            Log.d(TAG, "No location access granted")
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { googleMap ->
 
@@ -92,8 +86,8 @@ class CourseMapsFragment : Fragment() {
             val action =
                 CourseMapsFragmentDirections.actionCourseMapsFragmentToCourseInfoFragment()
             action.uid = marker.tag.toString().toInt()
-            action.longitude = course?.longitude?: 0.0F
-            action.latitude = course?.latitude?: 0.0F
+            action.longitude = course?.longitude ?: 0.0F
+            action.latitude = course?.latitude ?: 0.0F
             action.type = course?.type ?: 1
 
             view?.findNavController()?.navigate(action)
@@ -143,7 +137,6 @@ class CourseMapsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_course_maps, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
