@@ -1,6 +1,5 @@
 package no.hiof.discgolfapp.screens.user
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,9 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.R
-import org.checkerframework.checker.units.qual.A
-
-
 
 
 class ProfileFragment : Fragment() {
@@ -36,8 +32,8 @@ class ProfileFragment : Fragment() {
             val userFirstName = user.displayName.toString()
             val email = user.email.toString()
 
-            val emailTextView: TextView = view.findViewById(R.id.emailTextView)
-            val userNameTextView: TextView = view.findViewById(R.id.userFirstName)
+            val emailTextView: TextView = view.findViewById(R.id.userEmailTextView)
+            val userNameTextView: TextView = view.findViewById(R.id.userName)
 
             emailTextView.text = email
             userNameTextView.text = userFirstName

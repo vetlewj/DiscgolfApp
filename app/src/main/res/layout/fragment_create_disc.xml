@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/add_disc"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:id="@+id/DiscNameTextInputLayout"
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:inputType="text"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/DiscSpeedTextInputLayout"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/DiscNameTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DiscNameTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscSpeedEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/speed"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            android:inputType="numberSigned"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/DiscGlideTextInputLayout"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/DiscNameTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DiscNameTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscGlideEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/glide"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            android:inputType="numberSigned"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/DiscTurnTextInputLayout"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/DiscNameTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DiscSpeedTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscTurnEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/turn"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            android:inputType="numberSigned"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/DiscFadeTextInputLayout"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/DiscNameTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DiscGlideTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscFadeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/fade"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            android:inputType="numberSigned"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/DiscManufactureTextInputLayout"
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DiscTurnTextInputLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscManufactureEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/disc_manufacture"
+            android:inputType="text"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/DiscPlasticTextInputLayout"
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="156dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DiscManufactureTextInputLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscPlasticEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/disc_plastic"
+            android:inputType="text"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/DiscWeightTextInputLayout"
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DiscPlasticTextInputLayout"
+        app:layout_constraintVertical_bias="0.012">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscWeightEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/disc_weight"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/DiscColorTextInputLayout"
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DiscWeightTextInputLayout"
+        app:layout_constraintVertical_bias="0.012">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/DiscColorEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/disc_color"
+            android:inputType="text"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/saveDiscBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DiscColorTextInputLayout"
+        app:layout_constraintVertical_bias="0.112" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
