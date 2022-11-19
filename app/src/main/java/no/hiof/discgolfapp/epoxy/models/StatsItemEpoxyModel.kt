@@ -18,8 +18,15 @@ data class StatsItemEpoxyModel(
         val avgScoreComparedWithPar: Int? = avgScore?.minus(sumPar!!)
         val lastScoreComparedWithPar: Int? = lastScore?.minus(sumPar!!)
 
-        bestRoundStatValueInfoTextView.text = "${bestScore} (${bestScoreComparedWithPar})"
-        averageValueInfoTextView.text = "${avgScore} (${avgScoreComparedWithPar})"
-        lastRoundValueInfoTextView.text = "${lastScore} (${lastScoreComparedWithPar})"
+        //Individual stats:
+        bestRoundInfoTextView.text = "${bestScore} (${bestScoreComparedWithPar})"
+        averageScoreInfoTextView.text = "${avgScore} (${avgScoreComparedWithPar})"
+        lastRoundInfoTextView.text = "${lastScore} (${lastScoreComparedWithPar})"
+        //avgRatingOnCourseValue.text = "This needs a new value"
+
+        // Course information
+        //parRatingTextView.text = if (rating != null) "Rating \n ${String.format("%.1f",rating)}" else null
+        //parOnCourseTextView.text =
+        //numberOfHolesTextView.text =
     }
 }

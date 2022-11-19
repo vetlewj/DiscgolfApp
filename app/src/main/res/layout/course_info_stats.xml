@@ -1,83 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
+
 
     <View
-        android:id="@+id/courseInfoOwnStatsView"
-        android:layout_width="362dp"
-        android:layout_height="153dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        android:id="@+id/IndividualStatsView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/CourseInfoView"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551" />
+
+    <View
+        android:id="@+id/CourseInfoView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/IndividualStatsView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
 
     <TextView
-        android:id="@+id/bestRoundTitleInfotextView"
+        android:id="@+id/courseStatsTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/individual_course_stats_title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bestRoundInfoTextView"
+        app:layout_constraintEnd_toEndOf="@+id/IndividualStatsView"
+        app:layout_constraintStart_toStartOf="@+id/IndividualStatsView"
+        app:layout_constraintTop_toTopOf="@+id/IndividualStatsView"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/bestRoundInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
         android:text="@string/course_info_best_round"
-        app:layout_constraintBottom_toTopOf="@+id/bestRoundStatValueInfoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toTopOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintBottom_toTopOf="@+id/lastRoundInfoTextView"
+        app:layout_constraintEnd_toEndOf="@+id/IndividualStatsView"
+        app:layout_constraintStart_toStartOf="@+id/IndividualStatsView"
+        app:layout_constraintTop_toBottomOf="@+id/courseStatsTitleTextView"
+        tools:layout_editor_absoluteX="25dp" />
 
     <TextView
-        android:id="@+id/bestRoundStatValueInfoTextView"
+        android:id="@+id/lastRoundInfoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
-        android:text="@string/course_info_best_round_value"
-        app:layout_constraintBottom_toTopOf="@+id/lastRoundTitleTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/bestRoundTitleInfotextView" />
+        android:text="@string/course_info_last_round"
+        app:layout_constraintBottom_toTopOf="@+id/averageScoreInfoTextView"
+        app:layout_constraintEnd_toEndOf="@+id/IndividualStatsView"
+        app:layout_constraintStart_toStartOf="@+id/IndividualStatsView"
+        app:layout_constraintTop_toBottomOf="@+id/bestRoundInfoTextView"
+        tools:layout_editor_absoluteX="25dp" />
 
     <TextView
-        android:id="@+id/lastRoundTitleTextView"
+        android:id="@+id/averageScoreInfoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/course_info_last_round_title"
-        app:layout_constraintBottom_toTopOf="@+id/lastRoundValueInfoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/bestRoundStatValueInfoTextView" />
+        android:text="@string/course_info_average"
+        app:layout_constraintBottom_toTopOf="@+id/avgRatingOnCourseValue"
+        app:layout_constraintEnd_toEndOf="@+id/IndividualStatsView"
+        app:layout_constraintStart_toStartOf="@+id/IndividualStatsView"
+        app:layout_constraintTop_toBottomOf="@+id/lastRoundInfoTextView"
+        tools:layout_editor_absoluteX="23dp" />
 
     <TextView
-        android:id="@+id/lastRoundValueInfoTextView"
+        android:id="@+id/avgRatingOnCourseValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:text="@string/course_info_last_round_value"
-        app:layout_constraintBottom_toTopOf="@+id/averageTitleInfoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/lastRoundTitleTextView" />
+        android:text="@string/course_info_avg_rating"
+        app:layout_constraintBottom_toBottomOf="@+id/IndividualStatsView"
+        app:layout_constraintEnd_toEndOf="@+id/IndividualStatsView"
+        app:layout_constraintStart_toStartOf="@+id/IndividualStatsView"
+        app:layout_constraintTop_toBottomOf="@+id/averageScoreInfoTextView"
+        tools:layout_editor_absoluteX="16dp" />
+
 
     <TextView
-        android:id="@+id/averageTitleInfoTextView"
+        android:id="@+id/parRatingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/course_info_average_title"
-        app:layout_constraintBottom_toTopOf="@+id/averageValueInfoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/lastRoundValueInfoTextView" />
+        android:text="@string/par_rating"
+        app:layout_constraintBottom_toTopOf="@+id/parOnCourseTextView"
+        app:layout_constraintEnd_toEndOf="@+id/CourseInfoView"
+        app:layout_constraintStart_toStartOf="@+id/CourseInfoView"
+        app:layout_constraintTop_toBottomOf="@+id/courseInformationTitleTextView" />
 
     <TextView
-        android:id="@+id/averageValueInfoTextView"
+        android:id="@+id/parOnCourseTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/course_info_average_value"
-        app:layout_constraintBottom_toBottomOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintEnd_toEndOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintStart_toStartOf="@+id/courseInfoOwnStatsView"
-        app:layout_constraintTop_toBottomOf="@+id/averageTitleInfoTextView" />
+        android:text="@string/par_on_course"
+        app:layout_constraintBottom_toTopOf="@+id/numberOfHolesTextView"
+        app:layout_constraintEnd_toEndOf="@+id/CourseInfoView"
+        app:layout_constraintStart_toStartOf="@+id/CourseInfoView"
+        app:layout_constraintTop_toBottomOf="@+id/parRatingTextView"
+        tools:layout_editor_absoluteX="296dp" />
+
+    <TextView
+        android:id="@+id/numberOfHolesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/number_of_holes"
+        app:layout_constraintBottom_toBottomOf="@+id/CourseInfoView"
+        app:layout_constraintEnd_toEndOf="@+id/CourseInfoView"
+        app:layout_constraintStart_toStartOf="@+id/CourseInfoView"
+        app:layout_constraintTop_toBottomOf="@+id/parOnCourseTextView"
+        tools:layout_editor_absoluteX="274dp" />
+
+    <TextView
+        android:id="@+id/courseInformationTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/course_info_title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/parRatingTextView"
+        app:layout_constraintEnd_toEndOf="@+id/CourseInfoView"
+        app:layout_constraintStart_toStartOf="@+id/CourseInfoView"
+        app:layout_constraintTop_toTopOf="@+id/CourseInfoView"
+        tools:layout_editor_absoluteX="248dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

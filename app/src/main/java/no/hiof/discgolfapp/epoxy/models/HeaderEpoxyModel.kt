@@ -11,6 +11,6 @@ data class HeaderEpoxyModel(
 
     override fun CourseInfoHeaderBinding.bind() {
         courseNameInfoTextView.text = courseName
-        parRating.text = if (rating != null) "Rating \n ${String.format("%.1f",rating)}" else null
+        //parRating.text = if (rating != null) "Rating \n ${String.format("%.1f",rating)}" else null
     }
 }
