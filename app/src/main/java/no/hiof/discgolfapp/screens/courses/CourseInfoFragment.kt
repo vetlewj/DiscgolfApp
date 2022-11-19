@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.controller.CourseInfoEpoxyController
+import no.hiof.discgolfapp.epoxy.controller.CourseInfoEpoxyController
 import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
 import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.services.SharedViewModel

@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.controller
+package no.hiof.discgolfapp.epoxy.controller
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.*
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.*
+import no.hiof.discgolfapp.epoxy.models.*
 import no.hiof.discgolfapp.helper.DistanceMeasure
 import no.hiof.discgolfapp.helper.epoxy.ViewBindingKotlinModel
 import no.hiof.discgolfapp.model.Course
@@ -209,101 +210,6 @@ class CourseInfoEpoxyController : EpoxyController() {
         ).id("stats").addTo(this)
         // add more we want in the info frag
 
-    }
-
-    data class HeaderEpoxyModel(
-        val courseName: String,
-        val rating: Double?
-    ): ViewBindingKotlinModel<CourseInfoHeaderBinding>(R.layout.course_info_header) {
-
-        override fun CourseInfoHeaderBinding.bind() {
-            courseNameInfoTextView.text = courseName
-            parRating.text = if (rating != null) "Rating \n ${String.format("%.1f",rating)}" else null
-        }
-    }
-
-    data class WeatherEpoxyModel(
-        val weatherSymbol: Int,
-        val temperature: Double?,
-        val windSpeed: Double?,
-        val windDirectionSymbol: Int
-    ): ViewBindingKotlinModel<CourseInfoWeatherBinding>(R.layout.course_info_weather) {
-
-        override fun CourseInfoWeatherBinding.bind() {
-            weatherSymbolInfoImageView.setImageResource(weatherSymbol)
-            temperatureTextView.text = "${temperature.toString()} ºC"
-            windSpeedTextView.text = "${windSpeed.toString()} m/s"
-            windDirectionInfoImageView.setImageResource(windDirectionSymbol)
-        }
-    }
-
-    data class CreateScoreCardButtonEpoxyModel(
-        val context: Fragment?,
-        val uid: Int
-    ): ViewBindingKotlinModel<CourseInfoCreateScorecardButtonBinding>(R.layout.course_info_create_scorecard_button) {
-
-        override fun CourseInfoCreateScorecardButtonBinding.bind() {
-            createScoreCardInfobutton.setOnClickListener() {
-            val navController = context!!.findNavController()
-
-            val action =
-                CourseInfoFragmentDirections.actionCourseInfoFragmentToCreateScoreCardFragment(
-                    uid
-                )
-
-            navController.navigate(action)
-        }
-        }
-    }
-
-   class LoadingEpoxyModel: ViewBindingKotlinModel<CourseInfoLoadingBinding>(R.layout.course_info_loading) {
-        override fun CourseInfoLoadingBinding.bind() {
-            // Have nothing to do here, just load
-        }
-    }
-
-    data class HoleCarouselItemEpoxyModel(
-        val hole: Hole?,
-    ): ViewBindingKotlinModel<CourseInfoHolesBinding>(R.layout.course_info_holes)  {
-
-        override fun CourseInfoHolesBinding.bind() {
-
-            val distance = if(hole!!.startLat != null && hole.startLon != null && hole.endLat != null && hole.endLon != null) {
-                 DistanceMeasure.getDistanceToPositionInMeters(
-                    hole.startLat!!.toDouble(),
-                    hole.startLon.toDouble(),
-                    hole.endLat.toDouble(),
-                    hole.endLon.toDouble()
-                )
-            } else {
-                0
-            }
-
-            val holesDetailsSentence = if(hole.distance != null) {
-                "Par ${hole.par} \n ${hole.distance} m"
-            } else if (distance > 0) {
-                "Par ${hole.par} \n ${distance} m"
-            } else {
-                "Par ${hole.par}"
-            }
-
-            holeNumberTextView.text = "Hull \n  ${hole.holeNumber.toString()}"
-            holeDetailsTextView.text = holesDetailsSentence
-
-        }
-    }
-
-    data class StatsItemEpoxyModel(
-        val bestScore: Int?,
-        val avgScore: Int?,
-        val lastScore: Int?
-    ): ViewBindingKotlinModel<CourseInfoStatsBinding>(R.layout.course_info_stats) {
-
-        override fun CourseInfoStatsBinding.bind() {
-            bestRoundStatValueInfoTextView.text = bestScore.toString()
-            averageValueInfoTextView.text = avgScore.toString()
-            lastRoundValueInfoTextView.text = lastScore.toString()
-        }
     }
 
 }
