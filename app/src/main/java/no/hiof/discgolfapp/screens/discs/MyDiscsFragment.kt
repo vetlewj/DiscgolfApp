@@ -40,7 +40,7 @@ class MyDiscsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        fetchDiscsFromFireStore()
+//        fetchDiscsFromFireStore()
 
         return inflater.inflate(R.layout.fragment_my_discs, container, false)
     }
@@ -52,11 +52,29 @@ class MyDiscsFragment : Fragment() {
         val discRecyclerView = view.findViewById<RecyclerView>(R.id.discRecyclerView)
 
 
+        firestore.collection("discs")
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d("Fetch Disc", "${document.data}")
+                    val taskModel = document.toObject(Disc::class.java)!!
+                    discList.add(taskModel)
+                    Log.d("disc list list", "list: $discList")
 
+                    discRecyclerView.adapter = discRecyclerAdapter
+                    discRecyclerAdapter.submitList(discList)
+                    Log.d("Start adapter?" ,"DiscList = $discList")
+                    discRecyclerView.layoutManager = GridLayoutManager(context, 1)
+//                    document.toObject<Disc>()
+                }
+            }
+            .addOnFailureListener{ exception ->
+                Log.w("Fetch disc", "Error fetching discs from Firestore: ", exception)
+            }
 
 //        discRecyclerView.adapter = DiscRecyclerAdapter(Disc.getDiscs())
-        discRecyclerView.adapter = discRecyclerAdapter
-        discRecyclerAdapter.submitList(discList)
+
         discRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
         val addBtn: Button = view.findViewById(R.id.addButton)
@@ -98,7 +116,7 @@ class MyDiscsFragment : Fragment() {
                 Log.d("FetchDisc", "Successful")
                 val discsSnapshot = task.result!!
                 val disc = discsSnapshot.toObjects(Disc::class.java)!!
-                discList.add(disc)
+//                discList.add(disc)
 
 
 
@@ -113,9 +131,6 @@ class MyDiscsFragment : Fragment() {
 
 }
 
-private fun <E> MutableList<E>.add(element: List<E>) {
-
-}
 
 
 
