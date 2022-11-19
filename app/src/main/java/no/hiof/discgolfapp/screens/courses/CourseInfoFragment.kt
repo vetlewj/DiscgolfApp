@@ -45,35 +45,60 @@ class CourseInfoFragment : Fragment() {
 
         epoxyController.fragment = this
 
-        viewModel.fetchWeather(String.format("%.4f",args.latitude), String.format("%.4f",args.longitude))
+        viewModel.fetchWeather(
+            String.format("%.4f", args.latitude),
+            String.format("%.4f", args.longitude)
+        )
         viewModel.weatherByCoordinatesLiveData.observe(viewLifecycleOwner) { weatherReport ->
             epoxyController.weatherResponse = weatherReport
-            if(weatherReport == null) {
-                Toast.makeText(view.context, "weather network call was unsuccessful", Toast.LENGTH_SHORT).show()
+            if (weatherReport == null) {
+                Toast.makeText(
+                    view.context,
+                    "weather network call was unsuccessful",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@observe
             }
         }
 
-        if(args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
-            viewModel.fetchAdditionalInfoFromCoursesWithSameParentID("NO", args.uid, viewLifecycleOwner)
+        if (args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
+            viewModel.fetchAdditionalInfoFromCoursesWithSameParentID(
+                "NO",
+                args.uid,
+                viewLifecycleOwner
+            )
             viewModel.coursesByCountryCodeAndWithSameParentIDWithHoles.observe(viewLifecycleOwner) { listOfCoursesWithSameParentID ->
-                if(listOfCoursesWithSameParentID.isNullOrEmpty()) {
-                    Log.d("CourseInfoFrag"," the list of calues is null")
-                    Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
+                if (listOfCoursesWithSameParentID.isNullOrEmpty()) {
+                    Log.d("CourseInfoFrag", " the list of calues is null")
+                    Toast.makeText(
+                        view.context,
+                        "course network call was unsuccessful",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@observe
                 }
                 epoxyController.listOfCoursesWithSameParentID = listOfCoursesWithSameParentID
             }
 
         } else {
-            epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
-            epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
-            viewModelStats.getAvgScoreForCourse(args.uid)
+            viewModelStats.fetchCourseScoreCardsFromFireStore(args.uid)
+            viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
+                if (scoreCards.isNullOrEmpty()) {
+                    Log.d("CourseInfoFrag", "Could not retrieve scorecards")
+                    return@observe
+                }
+                epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
+                epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
+            }
             viewModel.fetchCourse(args.uid.toString())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
                 epoxyController.courseResponse = course
-                if(course == null) {
-                    Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
+                if (course == null) {
+                    Toast.makeText(
+                        view.context,
+                        "course network call was unsuccessful",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@observe
                 }
             }
