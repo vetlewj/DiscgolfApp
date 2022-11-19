@@ -24,7 +24,7 @@ data class Disc(
          fun getDiscs(): MutableList<Disc> {
              return listOf(
                  Disc(
-                     "111",
+                     "PuPVED2kZ8W58jyJ0QflZqeWhrf2",
                      "Thunderbird",
                      9,
                      5,
@@ -37,7 +37,7 @@ data class Disc(
                      "Red"
                  ),
                  Disc(
-                     "222",
+                     "PuPVED2kZ8W58jyJ0QflZqeWhrf2",
                      "Shryke",
                      13,
                      6,
@@ -50,7 +50,7 @@ data class Disc(
                      "Yellow"
                  ),
                  Disc(
-                     "222",
+                     "PuPVED2kZ8W58jyJ0QflZqeWhrf2",
                      "Sidewinder",
                      9,
                      5,
@@ -63,7 +63,7 @@ data class Disc(
                      "Pink"
                  ),
                  Disc(
-                     "222",
+                     "PuPVED2kZ8W58jyJ0QflZqeWhrf2",
                      "D Model S",
                      13,
                      6,
@@ -76,7 +76,7 @@ data class Disc(
                      "Green"
                  ),
                  Disc(
-                     "222",
+                     "PuPVED2kZ8W58jyJ0QflZqeWhrf2",
                      "Leopard3",
                      7,
                      5,
@@ -88,9 +88,9 @@ data class Disc(
                      174,
                      "Pink"
                  ),
-                 Disc("222", "Mako3", 5, 4, 0, 0, DiscType.MID_RANGE, "Innova", "Star", 174, "Yellow"),
-                 Disc("222", "Berg", 1, 1, 0, 2, DiscType.PUTTER, "Kastaplast", "K3", null, "Pink"),
-                 Disc("222", "Pure", 1, 1, 0, 2, DiscType.PUTTER, "Latitude64",null, null, "white"),
+                 Disc("PuPVED2kZ8W58jyJ0QflZqeWhrf2", "Mako3", 5, 4, 0, 0, DiscType.MID_RANGE, "Innova", "Star", 174, "Yellow"),
+                 Disc("PuPVED2kZ8W58jyJ0QflZqeWhrf2", "Berg", 1, 1, 0, 2, DiscType.PUTTER, "Kastaplast", "K3", null, "Pink"),
+                 Disc("PuPVED2kZ8W58jyJ0QflZqeWhrf2", "Pure", 1, 1, 0, 2, DiscType.PUTTER, "Latitude64",null, null, "white"),
              ) as MutableList<Disc>
          }
      }

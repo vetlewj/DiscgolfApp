@@ -75,8 +75,6 @@ class MyDiscsFragment : Fragment() {
             findNavController().navigate(action)
             discList.clear()
         }
-
-
     }
 
 
