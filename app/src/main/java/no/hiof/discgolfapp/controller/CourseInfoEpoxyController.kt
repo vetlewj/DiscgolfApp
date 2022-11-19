@@ -84,6 +84,16 @@ class CourseInfoEpoxyController : EpoxyController() {
                 requestModelBuild()
             }
         }
+    var lastScore: Int? = null
+        set(value) {
+            field = value
+            if(field != null) {
+                isLoading++
+            }
+            if(isLoading == DONE_LOADING) {
+                requestModelBuild()
+            }
+        }
 
 
     override fun buildModels() {
@@ -194,7 +204,8 @@ class CourseInfoEpoxyController : EpoxyController() {
 
         StatsItemEpoxyModel(
             bestScore = bestScore,
-            avgScore = avgScore
+            avgScore = avgScore,
+            lastScore = lastScore
         ).id("stats").addTo(this)
         // add more we want in the info frag
 
@@ -284,12 +295,14 @@ class CourseInfoEpoxyController : EpoxyController() {
 
     data class StatsItemEpoxyModel(
         val bestScore: Int?,
-        val avgScore: Int?
+        val avgScore: Int?,
+        val lastScore: Int?
     ): ViewBindingKotlinModel<CourseInfoStatsBinding>(R.layout.course_info_stats) {
 
         override fun CourseInfoStatsBinding.bind() {
             bestRoundStatValueInfoTextView.text = bestScore.toString()
             averageValueInfoTextView.text = avgScore.toString()
+            lastRoundValueInfoTextView.text = lastScore.toString()
         }
     }
 

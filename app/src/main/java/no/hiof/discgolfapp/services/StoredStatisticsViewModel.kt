@@ -66,6 +66,22 @@ class StoredStatisticsViewModel : ViewModel() {
         return 0
     }
 
+    fun getLastScoreForCourse(courseId: Int): Int {
+        if (_scoreCards.value != null) {
+            return _scoreCards.value?.maxByOrNull { it.date }?.totalScore ?: 0
+        }
+        if (retryCount < maxRetries) {
+            retryCount++
+            fetchCourseScoreCardsFromFireStore(courseId)
+            return getLastScoreForCourse(courseId)
+        }
+        Log.d(
+            "StoredStatistics",
+            "getLastScoreForCourse: No scorecards for course $courseId were found"
+        )
+        return 0
+    }
+
     fun getRatingForRound(result: Int, course: Course): Int {
         if (course.ratingValue1 != null && course.ratingValue2 != null && course.ratingResult1 != null && course.ratingResult2 != null) {
             val rating =
