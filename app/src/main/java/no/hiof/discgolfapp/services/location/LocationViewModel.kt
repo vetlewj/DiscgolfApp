@@ -17,6 +17,12 @@ class SharedLocationViewModel : ViewModel() {
     private val _currentLocation = MutableLiveData<Location>()
     var currentLocation: LiveData<Location> = _currentLocation
 
+    // default location as HiO if no location is found
+    private val defaultLocation = Location("default").apply {
+        latitude = 59.1293
+        longitude = 11.3528
+    }
+
     private val TAG = "SharedLocationViewModel"
 
     @SuppressLint("MissingPermission")
@@ -27,31 +33,47 @@ class SharedLocationViewModel : ViewModel() {
                 super.onLocationResult(locationResult)
                 _currentLocation.value = locationResult.lastLocation
             }
-
         }
         locationRequest =
             LocationRequest.Builder(10.minutes.inWholeMilliseconds)
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY).build()
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
-            .addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    _currentLocation.value = location
+            .addOnSuccessListener { currentLocation: Location? ->
+                if (currentLocation != null) {
+                    _currentLocation.value = currentLocation
                     Log.d(
                         TAG,
-                        "Current Location: ${currentLocation.value?.latitude}, ${currentLocation.value?.longitude}"
+                        "Current Location: ${this.currentLocation.value?.latitude}, ${this.currentLocation.value?.longitude}"
                     )
                 } else {
-                    fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                        if (location != null) {
-                            _currentLocation.value = location
-                            Log.d(
-                                TAG,
-                                "last location set as current location: ${currentLocation.value?.latitude}, ${currentLocation.value?.longitude}"
-                            )
+                    fusedLocationClient.lastLocation
+                        .addOnSuccessListener { lastLocation ->
+                            if (lastLocation != null) {
+                                _currentLocation.value = lastLocation
+                                Log.d(
+                                    TAG,
+                                    "last location set as current location: ${this.currentLocation.value?.latitude}, ${this.currentLocation.value?.longitude}"
+                                )
+                            } else {
+                                setCurrentLocationAsDefaultLocation()
+                            }
                         }
-                    }
+                        .addOnFailureListener {
+                            setCurrentLocationAsDefaultLocation()
+                        }
                 }
             }
+            .addOnFailureListener {
+                setCurrentLocationAsDefaultLocation()
+            }
+    }
+
+    fun setCurrentLocationAsDefaultLocation() {
+        Log.d(
+            TAG,
+            "Failed to get current location, setting location as default location: ${defaultLocation.latitude}, ${defaultLocation.longitude}"
+        )
+        _currentLocation.value = defaultLocation
     }
 }
