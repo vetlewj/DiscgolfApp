@@ -10,8 +10,24 @@ import no.hiof.discgolfapp.model.Weather
 class CourseInfoEpoxyController : EpoxyController() {
 
     companion object {
-        const val DONE_LOADING = 4
+        const val DONE_LOADING = 5
     }
+
+    var avgScore: Int? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+    var bestScore: Int? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+    var lastScore: Int? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
 
     override fun buildModels() {
         if (isLoading < DONE_LOADING) {
@@ -151,22 +167,6 @@ class CourseInfoEpoxyController : EpoxyController() {
         }
 
     var weatherResponse: Weather? = null
-        set(value) {
-            field = value
-            checkIfLoadingIsDone(field)
-        }
-
-    var avgScore: Int? = null
-        set(value) {
-            field = value
-            checkIfLoadingIsDone(field)
-        }
-    var bestScore: Int? = null
-        set(value) {
-            field = value
-            checkIfLoadingIsDone(field)
-        }
-    var lastScore: Int? = null
         set(value) {
             field = value
             checkIfLoadingIsDone(field)

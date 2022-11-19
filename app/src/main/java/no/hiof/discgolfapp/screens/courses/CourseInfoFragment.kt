@@ -60,8 +60,16 @@ class CourseInfoFragment : Fragment() {
                 return@observe
             }
         }
-
         if (args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
+            viewModelStats.fetchCourseScoreCardsFromFireStore(args.uid)
+            viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
+                if (scoreCards.isNullOrEmpty()) {
+                    Log.d("CourseInfoFrag", "Could not retrieve scorecards")
+                }
+                epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
+                epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
+                epoxyController.lastScore = viewModelStats.getLastScoreForCourse(args.uid)
+            }
             viewModel.fetchAdditionalInfoFromCoursesWithSameParentID(
                 "NO",
                 args.uid,
@@ -85,7 +93,6 @@ class CourseInfoFragment : Fragment() {
             viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
                 if (scoreCards.isNullOrEmpty()) {
                     Log.d("CourseInfoFrag", "Could not retrieve scorecards")
-                    return@observe
                 }
                 epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
                 epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
@@ -104,7 +111,6 @@ class CourseInfoFragment : Fragment() {
                 }
             }
         }
-
 
         val epoxyRecyclerView = binding.epoxyCourseInfoRecyclerView
         epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
