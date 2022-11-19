@@ -18,7 +18,7 @@ import no.hiof.discgolfapp.screens.courses.CourseInfoFragmentDirections
 class CourseInfoEpoxyController : EpoxyController() {
 
     companion object {
-        const val DONE_LOADING = 2
+        const val DONE_LOADING = 4
     }
 
     var isLoading: Int = 0
@@ -64,8 +64,27 @@ class CourseInfoEpoxyController : EpoxyController() {
             }
         }
 
-    var avgScore: Int = 0
-    var bestScore: Int = 0
+    var avgScore: Int? = null
+        set(value) {
+            field = value
+            if(field != null) {
+                isLoading++
+            }
+            if(isLoading == DONE_LOADING) {
+                requestModelBuild()
+            }
+        }
+    var bestScore: Int? = null
+        set(value) {
+            field = value
+            if(field != null) {
+                isLoading++
+            }
+            if(isLoading == DONE_LOADING) {
+                requestModelBuild()
+            }
+        }
+
 
     override fun buildModels() {
         if (isLoading < DONE_LOADING) {
@@ -264,8 +283,8 @@ class CourseInfoEpoxyController : EpoxyController() {
     }
 
     data class StatsItemEpoxyModel(
-        val bestScore: Int,
-        val avgScore: Int
+        val bestScore: Int?,
+        val avgScore: Int?
     ): ViewBindingKotlinModel<CourseInfoStatsBinding>(R.layout.course_info_stats) {
 
         override fun CourseInfoStatsBinding.bind() {
