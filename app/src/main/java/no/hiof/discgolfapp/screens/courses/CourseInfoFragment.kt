@@ -12,7 +12,9 @@ import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.controller.CourseInfoEpoxyController
 import no.hiof.discgolfapp.databinding.FragmentCourseInfoBinding
+import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.services.SharedViewModel
+import no.hiof.discgolfapp.services.StoredStatisticsViewModel
 
 
 class CourseInfoFragment : Fragment() {
@@ -21,6 +23,9 @@ class CourseInfoFragment : Fragment() {
 
     val viewModel: SharedViewModel by lazy {
         ViewModelProvider(this).get(SharedViewModel::class.java)
+    }
+    val viewModelStats: StoredStatisticsViewModel by lazy {
+        ViewModelProvider(this).get(StoredStatisticsViewModel::class.java)
     }
 
     private val epoxyController = CourseInfoEpoxyController()
@@ -49,15 +54,7 @@ class CourseInfoFragment : Fragment() {
             }
         }
 
-        if(args.type == 1) {
-//            viewModel.fetchAllType2ConnectedToType1Courses("NO", args.uid)
-//            viewModel.coursesByCountryCodeAndWithSameParentID.observe(viewLifecycleOwner) { listOfCoursesWithSameParentID ->
-//                epoxyController.listOfCoursesWithSameParentID = listOfCoursesWithSameParentID
-//                if(listOfCoursesWithSameParentID == null) {
-//                    Toast.makeText(view.context, "course network call was unsuccessful", Toast.LENGTH_SHORT).show()
-//                    return@observe
-//                }
-//            }
+        if(args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
             viewModel.fetchAdditionalInfoFromCoursesWithSameParentID("NO", args.uid, viewLifecycleOwner)
             viewModel.coursesByCountryCodeAndWithSameParentIDWithHoles.observe(viewLifecycleOwner) { listOfCoursesWithSameParentID ->
                 if(listOfCoursesWithSameParentID.isNullOrEmpty()) {
@@ -69,6 +66,9 @@ class CourseInfoFragment : Fragment() {
             }
 
         } else {
+            epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
+            epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
+            viewModelStats.getAvgScoreForCourse(args.uid)
             viewModel.fetchCourse(args.uid.toString())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
                 epoxyController.courseResponse = course

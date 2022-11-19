@@ -18,7 +18,7 @@ import no.hiof.discgolfapp.screens.courses.CourseInfoFragmentDirections
 class CourseInfoEpoxyController : EpoxyController() {
 
     companion object {
-        const val DONE_LOADING = 2
+        const val DONE_LOADING = 4
     }
 
     var isLoading: Int = 0
@@ -63,6 +63,28 @@ class CourseInfoEpoxyController : EpoxyController() {
                 requestModelBuild()
             }
         }
+
+    var avgScore: Int? = null
+        set(value) {
+            field = value
+            if(field != null) {
+                isLoading++
+            }
+            if(isLoading == DONE_LOADING) {
+                requestModelBuild()
+            }
+        }
+    var bestScore: Int? = null
+        set(value) {
+            field = value
+            if(field != null) {
+                isLoading++
+            }
+            if(isLoading == DONE_LOADING) {
+                requestModelBuild()
+            }
+        }
+
 
     override fun buildModels() {
         if (isLoading < DONE_LOADING) {
@@ -170,7 +192,10 @@ class CourseInfoEpoxyController : EpoxyController() {
 
         }
 
-        // add stats
+        StatsItemEpoxyModel(
+            bestScore = bestScore,
+            avgScore = avgScore
+        ).id("stats").addTo(this)
         // add more we want in the info frag
 
     }
@@ -254,6 +279,17 @@ class CourseInfoEpoxyController : EpoxyController() {
             holeNumberTextView.text = "Hull \n  ${hole.holeNumber.toString()}"
             holeDetailsTextView.text = holesDetailsSentence
 
+        }
+    }
+
+    data class StatsItemEpoxyModel(
+        val bestScore: Int?,
+        val avgScore: Int?
+    ): ViewBindingKotlinModel<CourseInfoStatsBinding>(R.layout.course_info_stats) {
+
+        override fun CourseInfoStatsBinding.bind() {
+            bestRoundStatValueInfoTextView.text = bestScore.toString()
+            averageValueInfoTextView.text = avgScore.toString()
         }
     }
 

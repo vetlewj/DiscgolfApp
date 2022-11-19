@@ -64,22 +64,22 @@ class Weather(
     }
 
     enum class WindDirection(val direction1: Float, val direction2: Float) {
-        // TODO fjern nne, ene osv, om vi ikke skal legge til flere piler
-        N(345.5F, 15.5F),
+        // N, NE, E, SE, S, SW, W, NW only wind directions used, the others can be used for a more accurate demonstration
+        N(335.5F, 25.5F),
         NNE(15.5F, 35.5F),
-        NE(35.5F, 55.5F),
+        NE(25.5F, 65.5F),
         ENE(55.5F, 75.5F),
-        E(75.5F, 105.5F),
+        E(65.5F, 115.5F),
         ESE(105.5F, 125.5F),
-        SE(125.5F, 145.5F),
+        SE(115.5F, 155.5F),
         SSE(145.5F, 165.5F),
-        S(165.5F, 195.5F),
+        S(155.5F, 205.5F),
         SSW(195.5F, 215.5F),
-        SW(215.5F, 235.5F),
+        SW(205.5F, 245.5F),
         WSW(235.5F, 255.5F),
-        W(255.5F, 285.5F),
+        W(245.5F, 295.5F),
         WNW(285.5F, 305.5F),
-        NW(305.5F, 325.5F),
+        NW(295.5F, 335.5F),
         NNW(325.5F, 345.5F)
     }
         
