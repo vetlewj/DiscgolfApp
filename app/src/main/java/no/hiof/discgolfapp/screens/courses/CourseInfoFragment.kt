@@ -100,7 +100,9 @@ class CourseInfoFragment : Fragment() {
             }
             viewModel.fetchCourse(args.uid.toString())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
+                epoxyController.sumPar = course!!.par
                 epoxyController.courseResponse = course
+
                 if (course == null) {
                     Toast.makeText(
                         view.context,

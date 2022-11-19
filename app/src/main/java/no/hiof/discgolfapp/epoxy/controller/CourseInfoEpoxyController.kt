@@ -13,22 +13,6 @@ class CourseInfoEpoxyController : EpoxyController() {
         const val DONE_LOADING = 5
     }
 
-    var avgScore: Int? = null
-        set(value) {
-            field = value
-            checkIfLoadingIsDone(field)
-        }
-    var bestScore: Int? = null
-        set(value) {
-            field = value
-            checkIfLoadingIsDone(field)
-        }
-    var lastScore: Int? = null
-        set(value) {
-            field = value
-            checkIfLoadingIsDone(field)
-        }
-
     override fun buildModels() {
         if (isLoading < DONE_LOADING) {
             LoadingEpoxyModel().id("Loading").addTo(this)
@@ -138,7 +122,8 @@ class CourseInfoEpoxyController : EpoxyController() {
         StatsItemEpoxyModel(
             bestScore = bestScore,
             avgScore = avgScore,
-            lastScore = lastScore
+            lastScore = lastScore,
+            sumPar = sumPar
         ).id("stats").addTo(this)
         // add more we want in the info frag
 
@@ -146,6 +131,7 @@ class CourseInfoEpoxyController : EpoxyController() {
 
     // variables
     var fragment: Fragment? = null
+    var sumPar: Int? = null
 
     var isLoading: Int = 0
         set(value) {
@@ -167,6 +153,22 @@ class CourseInfoEpoxyController : EpoxyController() {
         }
 
     var weatherResponse: Weather? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+
+    var avgScore: Int? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+    var bestScore: Int? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+    var lastScore: Int? = null
         set(value) {
             field = value
             checkIfLoadingIsDone(field)
