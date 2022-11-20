@@ -8,24 +8,24 @@
     tools:context=".screens.play.createscorecard.CreateScoreCardFragment">
 
     <Button
-        android:id="@+id/create_scorecard_btn3"
+        android:id="@+id/personal_avg_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_scorecard_personal_average_btn"
-        app:layout_constraintBottom_toTopOf="@+id/create_scorecard_btn4"
+        app:layout_constraintBottom_toTopOf="@+id/leaderboard_record"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_scorecard_btn2"
+        app:layout_constraintTop_toBottomOf="@+id/personal_record_btn"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"/>
 
     <Button
-        android:id="@+id/create_scorecard_btn"
+        android:id="@+id/par_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_scorecard_course_par_btn"
-        app:layout_constraintBottom_toTopOf="@+id/create_scorecard_btn2"
+        app:layout_constraintBottom_toTopOf="@+id/personal_record_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,33 +34,33 @@
         android:layout_marginBottom="8dp"/>
 
     <Button
-        android:id="@+id/create_scorecard_btn2"
+        android:id="@+id/personal_record_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_scorecard_personal_best_btn"
-        app:layout_constraintBottom_toTopOf="@+id/create_scorecard_btn3"
+        app:layout_constraintBottom_toTopOf="@+id/personal_avg_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_scorecard_btn"
+        app:layout_constraintTop_toBottomOf="@+id/par_btn"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"/>
 
     <Button
-        android:id="@+id/create_scorecard_btn4"
+        android:id="@+id/leaderboard_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_scorecard_leaderboard_record_btn"
-        app:layout_constraintBottom_toTopOf="@+id/create_scorecard_btn5"
+        app:layout_constraintBottom_toTopOf="@+id/custom_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_scorecard_btn3"
+        app:layout_constraintTop_toBottomOf="@+id/personal_avg_btn"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"/>
 
     <Button
-        android:id="@+id/create_scorecard_btn5"
+        android:id="@+id/custom_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_scorecard_custom_btn"
@@ -68,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_scorecard_btn4"
+        app:layout_constraintTop_toBottomOf="@+id/leaderboard_record"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"/>
 
@@ -94,7 +94,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
         android:text="@string/course_name"
-        app:layout_constraintBottom_toTopOf="@+id/create_scorecard_btn"
+        app:layout_constraintBottom_toTopOf="@+id/par_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

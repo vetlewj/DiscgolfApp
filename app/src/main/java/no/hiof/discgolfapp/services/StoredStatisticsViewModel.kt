@@ -24,7 +24,7 @@ class StoredStatisticsViewModel : ViewModel() {
 
     fun fetchCourseScoreCardsFromFireStore(courseId: Int) {
         Log.d("StoredStatistics", "getScoreCards: $courseId")
-        val storedCards = firestore.collection("scorecardsv1")
+        val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
             .whereEqualTo("courseId", courseId)
