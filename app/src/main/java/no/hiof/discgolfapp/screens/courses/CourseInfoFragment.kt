@@ -44,6 +44,7 @@ class CourseInfoFragment : Fragment() {
         fragmentBinding = binding
 
         epoxyController.fragment = this
+        epoxyController.courseName = args.courseName
 
         viewModel.fetchWeather(
             String.format("%.4f", args.latitude),

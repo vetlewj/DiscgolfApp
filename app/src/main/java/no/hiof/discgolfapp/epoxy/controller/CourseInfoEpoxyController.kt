@@ -18,22 +18,9 @@ class CourseInfoEpoxyController : EpoxyController() {
             LoadingEpoxyModel().id("Loading").addTo(this)
             return
         }
-
-        if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
-            listOfCoursesWithSameParentID!!.forEach{
-                HeaderEpoxyModel(
-                    courseName = it.name,
-                ).id("header").addTo(this)
-
-            }
-
-        } else {
-            HeaderEpoxyModel(
-                courseName = courseResponse!!.name,
-            ).id("header").addTo(this)
-
-
-        }
+        HeaderEpoxyModel(
+            courseName = courseName
+        ).id("header").addTo(this)
 
         WeatherEpoxyModel(
             weatherSymbol = weatherResponse!!.weatherDrawable,
@@ -132,8 +119,7 @@ class CourseInfoEpoxyController : EpoxyController() {
 
     // variables
     var fragment: Fragment? = null
-    var sumPar: Int? = null
-    var numberOfHoles: Int? = null
+    var courseName: String? = null
 
     var isLoading: Int = 0
         set(value) {

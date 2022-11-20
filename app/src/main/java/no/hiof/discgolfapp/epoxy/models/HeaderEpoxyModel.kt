@@ -5,7 +5,7 @@ import no.hiof.discgolfapp.databinding.CourseInfoHeaderBinding
 import no.hiof.discgolfapp.helper.epoxy.ViewBindingKotlinModel
 
 data class HeaderEpoxyModel(
-    val courseName: String
+    val courseName: String?
 ): ViewBindingKotlinModel<CourseInfoHeaderBinding>(R.layout.course_info_header) {
 
     override fun CourseInfoHeaderBinding.bind() {

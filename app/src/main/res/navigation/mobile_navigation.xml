@@ -79,6 +79,10 @@
             android:name="type"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="courseName"
+            app:argType="string"
+            android:defaultValue="course name" />
     </fragment>
     <fragment
         android:id="@+id/takeScoreFragment"
