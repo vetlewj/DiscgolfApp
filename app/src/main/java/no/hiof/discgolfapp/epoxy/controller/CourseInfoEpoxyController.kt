@@ -50,6 +50,7 @@ class CourseInfoEpoxyController : EpoxyController() {
                 ).id("CreateScoreCardButton").addTo(this)
 
                 // stats
+                // TODO bytt ut bestscore, AvgScore, lastScore med map
                 StatsItemEpoxyModel(
                     bestScore = bestScore,
                     avgScore = avgScore,
@@ -118,6 +119,25 @@ class CourseInfoEpoxyController : EpoxyController() {
             checkIfLoadingIsDone(field)
         }
 
+    // For type 1
+    var bestScoreMap: MutableMap<Int, Int>? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+    var avgScoreMap: MutableMap<Int, Int>? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+    var lastScoreMap: MutableMap<Int, Int>? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+
+
+    // For type2
     var avgScore: Int? = null
         set(value) {
             field = value
