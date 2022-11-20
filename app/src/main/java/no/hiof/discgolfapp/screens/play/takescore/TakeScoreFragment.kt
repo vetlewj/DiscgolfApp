@@ -63,7 +63,7 @@ class TakeScoreFragment : Fragment() {
                 scoreCard?.date?.let { docData.put("date", it) }
 
                 viewModel.scoreCard!!.id?.let {
-                    firestore.collection("scorecardsv1").document(it).set(docData)
+                    firestore.collection("scorecards").document(it).set(docData)
                 }
                 Log.d("TakeScoreFragment", "Scorecard created in firestore")
             }
@@ -101,7 +101,7 @@ class TakeScoreFragment : Fragment() {
                 viewModel.totalScore += viewModel.score
                 viewModel.totalPar += viewModel.par
 
-                firestore.collection("scorecardsv1").document(viewModel.scoreCard?.id.toString())
+                firestore.collection("scorecards").document(viewModel.scoreCard?.id.toString())
                     .update(
                         "holeScores", viewModel.scoreCard?.holeScores,
                         "totalPar", viewModel.totalPar,
@@ -134,7 +134,7 @@ class TakeScoreFragment : Fragment() {
                     )
 
                 } else {
-                    firestore.collection("scorecardsv1")
+                    firestore.collection("scorecards")
                         .document(viewModel.scoreCard?.id.toString())
                         .update(
                             "finished", true
@@ -167,7 +167,7 @@ class TakeScoreFragment : Fragment() {
                     viewModel.totalPar -= viewModel.scoreCard?.getHoleScore(viewModel.holeNumber - 1)?.par
                         ?: 0
 
-                    firestore.collection("scorecardsv1")
+                    firestore.collection("scorecards")
                         .document(viewModel.scoreCard?.id.toString())
                         .update(
                             "holeScores", viewModel.scoreCard?.holeScores,
