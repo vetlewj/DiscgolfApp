@@ -121,7 +121,8 @@ class CourseInfoEpoxyController : EpoxyController() {
             bestScore = bestScore,
             avgScore = avgScore,
             lastScore = lastScore,
-            sumPar = sumPar
+            sumPar = sumPar,
+            courseRating = courseResponse?.rating
         ).id("stats").addTo(this)
         // add more we want in the info frag
 
