@@ -42,7 +42,8 @@ object CourseMapper {
                                     ratingResult1 = null,
                                     ratingValue2 = null,
                                     ratingResult2 = null,
-                                    parentID = course.ParentID.toInt()
+                                    parentID = course.ParentID.toInt(),
+                                    null
                                 )
                                 listOfCoursesWithTheSameParentID.add(courseObj)
                             }
@@ -85,7 +86,7 @@ object CourseMapper {
 
         try {
             parRating = ((course.RatingValue2!!.toDouble() - course.RatingValue1!!.toDouble())*((sumPar - course.RatingResult1!!.toDouble())/(course.RatingResult2!!.toDouble() - course.RatingResult1.toDouble()))) + course.RatingValue1.toDouble()
-        } catch (e: NullPointerException) { }
+        } catch (_: NullPointerException) { }
 
         return Course(
             uid = course.ID!!.toInt(),
@@ -103,7 +104,8 @@ object CourseMapper {
             ratingResult1 = try {course.RatingResult1!!.toDouble()} catch (e:NullPointerException)  {null},
             ratingValue2 = try {course.RatingValue2!!.toDouble()} catch (e:NullPointerException) { null},
             ratingResult2 = try {course.RatingResult2!!.toDouble()} catch (e:NullPointerException) { null},
-            parentID = try { course.ParentID!!.toInt()} catch (e:NullPointerException) {null}
+            parentID = try { course.ParentID!!.toInt()} catch (e:NullPointerException) {null},
+            numberOfHoles = if (holes.size == 0) null else holes.size
         )
     }
 
@@ -134,7 +136,8 @@ object CourseMapper {
                                 ratingResult1 = null,
                                 ratingValue2 = null,
                                 ratingResult2 = null,
-                                parentID = null
+                                parentID = null,
+                                null
                             )
                             listOfCourses.add(courseObj)
                         }
@@ -156,7 +159,8 @@ object CourseMapper {
                                 ratingResult1 = null,
                                 ratingValue2 = null,
                                 ratingResult2 = null,
-                                parentID = try {course.ParentID!!.toInt()} catch (e:NullPointerException) {null}
+                                parentID = try {course.ParentID!!.toInt()} catch (e:NullPointerException) {null},
+                                null
                             )
                             listOfCourses.add(courseObj)
                         }
