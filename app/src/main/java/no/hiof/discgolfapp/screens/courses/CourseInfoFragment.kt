@@ -63,6 +63,7 @@ class CourseInfoFragment : Fragment() {
         }
         if (args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
 
+            // TODO: fetch a list of scorecards
             viewModelStats.fetchCourseScoreCardsFromFireStore(293)
                     viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
                         if (scoreCards.isNullOrEmpty()) {
@@ -89,20 +90,6 @@ class CourseInfoFragment : Fragment() {
                 }
 
                 epoxyController.listOfCoursesWithSameParentID = listOfCoursesWithSameParentID
-
-//                listOfCoursesWithSameParentID.forEach { course ->
-//
-//                    viewModelStats.fetchCourseScoreCardsFromFireStore(course.uid)
-//                    viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
-//                        if (scoreCards.isNullOrEmpty()) {
-//                            Log.d("CourseInfoFrag", "Could not retrieve scorecards")
-//                        }
-//                        epoxyController.bestScore = viewModelStats.getBestScoreForCourse(course.uid)
-//                        epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(course.uid)
-//                        epoxyController.lastScore = viewModelStats.getLastScoreForCourse(course.uid)
-//                    }
-//                }
-
             }
 
         } else {

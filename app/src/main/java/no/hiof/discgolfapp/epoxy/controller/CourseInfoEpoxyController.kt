@@ -50,11 +50,18 @@ class CourseInfoEpoxyController : EpoxyController() {
                 ).id("CreateScoreCardButton").addTo(this)
 
                 // stats
-
+                StatsItemEpoxyModel(
+                    bestScore = bestScore,
+                    avgScore = avgScore,
+                    lastScore = lastScore,
+                    sumPar = course.par,
+                    courseRating = course.rating,
+                    numberOfHoles = course.numberOfHoles,
+                    distance = course.distance
+                ).id("stats").addTo(this)
 
                 // holes
                 createCarouselModelForHoles(course)
-
             }
 
         } else {
