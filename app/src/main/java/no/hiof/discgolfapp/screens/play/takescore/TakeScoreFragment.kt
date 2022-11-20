@@ -121,6 +121,7 @@ class TakeScoreFragment : Fragment() {
     }
 
     private fun loadLayout(course: Course) {
+        // TODO: Refactor this (use databinding)
         if (viewModel.holeNumber == 0) {
             viewModel.holeNumber = 1
         }

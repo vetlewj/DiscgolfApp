@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCreateScoreCardBinding
 import no.hiof.discgolfapp.helper.CourseType
-import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.ScoreCard
 import no.hiof.discgolfapp.services.SharedViewModel
 
@@ -45,18 +44,25 @@ class CreateScoreCardFragment : Fragment() {
                 CreateScoreCardFragmentDirections.actionCreateScoreCardFragmentToTakeScoreFragment(
                     course?.uid ?: 0
                 )
-            binding.createScorecardBtn.setOnClickListener {
-                Log.d("CreateScoreCardFragment", "Create scorecard ${binding.createScorecardBtn.text} button clicked")
+            binding.parBtn.setOnClickListener {
+                Log.d(
+                    "CreateScoreCardFragment",
+                    "Create scorecard ${binding.parBtn.text} button clicked"
+                )
                 action.scoreCardType = ScoreCard.ScoreCardCreationType.PAR.toString()
                 NavHostFragment.findNavController(this).navigate(action)
             }
-            // TODO: Add other scorecard types for other buttons
-            binding.createScorecardBtn2.setOnClickListener {
-                Log.d("CreateScoreCardFragment", "Create scorecard ${binding.createScorecardBtn2.text} button clicked")
+
+            binding.personalRecordBtn.setOnClickListener {
+                Log.d(
+                    "CreateScoreCardFragment",
+                    "Create scorecard ${binding.personalRecordBtn.text} button clicked"
+                )
                 action.scoreCardType = ScoreCard.ScoreCardCreationType.PERSONAL_BEST.toString()
                 NavHostFragment.findNavController(this).navigate(action)
             }
-            binding.createScorecardBtn3.setOnClickListener {
+            // TODO: Implement average scorecard creation
+            binding.personalAvgBtn.setOnClickListener {
                 Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
                 Toast.makeText(
                     view.context,
@@ -64,7 +70,8 @@ class CreateScoreCardFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            binding.createScorecardBtn4.setOnClickListener {
+            // TODO: Implement leaderboard record scorecard creation
+            binding.leaderboardRecord.setOnClickListener {
                 Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
                 Toast.makeText(
                     view.context,
@@ -72,7 +79,8 @@ class CreateScoreCardFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            binding.createScorecardBtn5.setOnClickListener {
+            // TODO: Implement custom scorecard creation
+            binding.customBtn.setOnClickListener {
                 Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
                 Toast.makeText(
                     view.context,
