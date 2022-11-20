@@ -29,13 +29,10 @@ class ScoreCard(
             val holeScores = mutableListOf<HoleScore>()
             if (course.holes != null) {
                 if (scoreCardCreationType == ScoreCardCreationType.PAR) {
-                    val holeNum = 0
-
                     for (hole in course.holes) {
                         if (hole != null) {
-                            holeScores.plus(HoleScore(holeNum, 0, hole.par, null))
+                            holeScores.add(HoleScore(hole.holeNumber, 0, hole.par, null))
                         }
-                        holeNum.plus(1)
                     }
 
                 }
