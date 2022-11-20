@@ -100,8 +100,6 @@ class CourseInfoFragment : Fragment() {
             }
             viewModel.fetchCourse(args.uid.toString())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
-                epoxyController.sumPar = course!!.par
-                epoxyController.numberOfHoles = course.numberOfHoles
                 epoxyController.courseResponse = course
 
                 if (course == null) {

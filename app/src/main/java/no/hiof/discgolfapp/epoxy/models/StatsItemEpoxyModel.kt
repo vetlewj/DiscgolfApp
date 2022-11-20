@@ -11,7 +11,8 @@ data class StatsItemEpoxyModel(
     val lastScore: Int?,
     val sumPar: Int?,
     val courseRating: Double?,
-    val numberOfHoles: Int?
+    val numberOfHoles: Int?,
+    val distance: Int?
 ): ViewBindingKotlinModel<CourseInfoStatsBinding>(R.layout.course_info_stats) {
 
     override fun CourseInfoStatsBinding.bind() {
@@ -21,15 +22,15 @@ data class StatsItemEpoxyModel(
         val lastScoreComparedWithPar: Int? = lastScore?.minus(sumPar!!)
 
         //Individual stats:
-        bestRoundInfoTextView.text = "Beste runde: ${bestScore} (${bestScoreComparedWithPar})"
-        lastRoundInfoTextView.text = "Forrige runde: ${lastScore} (${lastScoreComparedWithPar})"
-        averageScoreInfoTextView.text = "Gjennomsnitt: ${avgScore} (${avgScoreComparedWithPar})"
+        bestRoundInfoTextView.text = if(bestScore == 0) "Beste runde: -" else "Beste runde: ${bestScore} (${bestScoreComparedWithPar})"
+        lastRoundInfoTextView.text = if(avgScore == 0) "Forrige runde: -"    else "Forrige runde: ${lastScore} (${lastScoreComparedWithPar})"
+        averageScoreInfoTextView.text = if(lastScore == 0) "Gjennomsnitt: -"  else "Gjennomsnitt: ${avgScore} (${avgScoreComparedWithPar})"
         //avgRatingOnCourseValue.text = "This needs a new value"
 
         // Course information
         parRatingTextView.text = if (courseRating != null) "Rating: ${String.format("%.1f",courseRating)}" else "Rating: -"
         parOnCourseTextView.text = "Par: ${sumPar}"
         numberOfHolesTextView.text = "Antall hull: ${numberOfHoles}"
-        courseDistance.text = "Distanse: 1000 m"
+        courseDistance.text = if(distance == 0) "Distanse: -" else "Distanse: ${distance} m"
     }
 }
