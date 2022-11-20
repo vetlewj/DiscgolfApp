@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/IndividualStatsView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintVertical_bias="0.41" />
 
     <TextView
         android:id="@+id/courseStatsTitleTextView"
@@ -92,6 +92,18 @@
         app:layout_constraintTop_toBottomOf="@+id/averageScoreInfoTextView"
         tools:layout_editor_absoluteX="16dp" />
 
+    <TextView
+        android:id="@+id/courseInformationTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/course_info_title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/parRatingTextView"
+        app:layout_constraintEnd_toEndOf="@+id/CourseInfoView"
+        app:layout_constraintStart_toStartOf="@+id/CourseInfoView"
+        app:layout_constraintTop_toTopOf="@+id/CourseInfoView"
+        tools:layout_editor_absoluteX="248dp" />
+
 
     <TextView
         android:id="@+id/parRatingTextView"
@@ -125,17 +137,6 @@
         app:layout_constraintTop_toBottomOf="@+id/parOnCourseTextView"
         tools:layout_editor_absoluteX="274dp" />
 
-    <TextView
-        android:id="@+id/courseInformationTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/course_info_title"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/parRatingTextView"
-        app:layout_constraintEnd_toEndOf="@+id/CourseInfoView"
-        app:layout_constraintStart_toStartOf="@+id/CourseInfoView"
-        app:layout_constraintTop_toTopOf="@+id/CourseInfoView"
-        tools:layout_editor_absoluteX="248dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
