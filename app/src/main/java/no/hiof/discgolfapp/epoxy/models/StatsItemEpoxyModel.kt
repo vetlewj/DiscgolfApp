@@ -27,8 +27,8 @@ data class StatsItemEpoxyModel(
         //avgRatingOnCourseValue.text = "This needs a new value"
 
         // Course information
-        parRatingTextView.text = if (courseRating != null) "Rating: ${String.format("%.1f",courseRating)}" else null
-        //parOnCourseTextView.text =
+        parRatingTextView.text = if (courseRating != null) "Rating: ${String.format("%.1f",courseRating)}" else "Rating: -"
+        parOnCourseTextView.text = "Par: ${sumPar}"
         //numberOfHolesTextView.text =
     }
 }
