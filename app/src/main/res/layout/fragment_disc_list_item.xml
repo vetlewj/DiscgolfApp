@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="20dp"
@@ -11,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="134dp">
+        android:layout_height="192dp">
 
         <TextView
             android:id="@+id/discNameTextView"
@@ -30,6 +31,7 @@
             android:id="@+id/discTypeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:text="@string/disc_type"
             app:layout_constraintBottom_toTopOf="@+id/discSpeedTextView"
             app:layout_constraintEnd_toEndOf="@+id/discNameTextView"
@@ -42,12 +44,12 @@
             android:id="@+id/discSpeedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="12dp"
             android:text="@string/disc_speed"
             app:layout_constraintEnd_toStartOf="@+id/discGlideTextView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/discNameTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/discGlideTextView"
@@ -83,42 +85,122 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="@string/speed"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/discSpeedTextView"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/discSpeedTextView"
-            app:layout_constraintTop_toTopOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/discNameTextView" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/turn"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/discTurnTextView"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/discTurnTextView"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:text="@string/fade"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/discFadeTextView"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/discFadeTextView"
-            app:layout_constraintTop_toBottomOf="@+id/discFadeTextView" />
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/glide"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/discGlideTextView"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/discGlideTextView"
-            app:layout_constraintTop_toTopOf="@+id/textView9" />
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/manufacturerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/disc_manufacture"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/discSpeedTextView"
+            app:layout_constraintStart_toStartOf="@+id/discSpeedTextView"
+            app:layout_constraintTop_toBottomOf="@+id/discSpeedTextView" />
+
+        <TextView
+            android:id="@+id/weightTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_weight"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/discGlideTextView"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toStartOf="@+id/discGlideTextView"
+            app:layout_constraintTop_toTopOf="@+id/manufacturerTextView" />
+
+        <TextView
+            android:id="@+id/plasticTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_plastic"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/discTurnTextView"
+            app:layout_constraintStart_toStartOf="@+id/discTurnTextView"
+            app:layout_constraintTop_toTopOf="@+id/weightTextView" />
+
+        <TextView
+            android:id="@+id/colorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_color"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/discFadeTextView"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="@+id/discFadeTextView"
+            app:layout_constraintTop_toTopOf="@+id/plasticTextView" />
+
+        <TextView
+            android:id="@+id/discManufactureTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/disc_manufacture"
+            app:layout_constraintEnd_toEndOf="@+id/discSpeedTextView"
+            app:layout_constraintStart_toStartOf="@+id/discSpeedTextView"
+            app:layout_constraintTop_toBottomOf="@+id/manufacturerTextView" />
+
+        <TextView
+            android:id="@+id/discWeightTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_weight"
+            app:layout_constraintEnd_toEndOf="@+id/discGlideTextView"
+            app:layout_constraintStart_toStartOf="@+id/discGlideTextView"
+            app:layout_constraintTop_toTopOf="@+id/discManufactureTextView" />
+
+        <TextView
+            android:id="@+id/discPlasticTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_plastic"
+            app:layout_constraintEnd_toEndOf="@+id/discTurnTextView"
+            app:layout_constraintStart_toStartOf="@+id/discTurnTextView"
+            app:layout_constraintTop_toTopOf="@+id/discWeightTextView" />
+
+        <TextView
+            android:id="@+id/discColorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disc_color"
+            app:layout_constraintEnd_toEndOf="@+id/discFadeTextView"
+            app:layout_constraintStart_toStartOf="@+id/discFadeTextView"
+            app:layout_constraintTop_toTopOf="@+id/discPlasticTextView" />
 
 
         <!--<Button
