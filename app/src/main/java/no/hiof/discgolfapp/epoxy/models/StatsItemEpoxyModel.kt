@@ -24,12 +24,12 @@ data class StatsItemEpoxyModel(
         bestRoundInfoTextView.text = "Beste runde: ${bestScore} (${bestScoreComparedWithPar})"
         lastRoundInfoTextView.text = "Forrige runde: ${lastScore} (${lastScoreComparedWithPar})"
         averageScoreInfoTextView.text = "Gjennomsnitt: ${avgScore} (${avgScoreComparedWithPar})"
-
         //avgRatingOnCourseValue.text = "This needs a new value"
 
         // Course information
         parRatingTextView.text = if (courseRating != null) "Rating: ${String.format("%.1f",courseRating)}" else "Rating: -"
         parOnCourseTextView.text = "Par: ${sumPar}"
         numberOfHolesTextView.text = "Antall hull: ${numberOfHoles}"
+        courseDistance.text = "Distanse: 1000 m"
     }
 }

@@ -9,7 +9,7 @@
     <View
         android:id="@+id/IndividualStatsView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
 
@@ -17,13 +17,12 @@
         app:layout_constraintEnd_toStartOf="@+id/CourseInfoView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/CourseInfoView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
@@ -31,8 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/IndividualStatsView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/courseStatsTitleTextView"
@@ -131,12 +129,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/number_of_holes"
-        app:layout_constraintBottom_toBottomOf="@+id/CourseInfoView"
+        app:layout_constraintBottom_toBottomOf="@+id/courseDistance"
         app:layout_constraintEnd_toEndOf="@+id/CourseInfoView"
         app:layout_constraintStart_toStartOf="@+id/CourseInfoView"
         app:layout_constraintTop_toBottomOf="@+id/parOnCourseTextView"
         tools:layout_editor_absoluteX="274dp" />
 
+    <TextView
+        android:id="@+id/courseDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/course_distance"
+        app:layout_constraintBottom_toBottomOf="@+id/CourseInfoView"
+        app:layout_constraintEnd_toEndOf="@+id/CourseInfoView"
+        app:layout_constraintStart_toStartOf="@+id/CourseInfoView"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfHolesTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

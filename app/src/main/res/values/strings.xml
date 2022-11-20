@@ -102,6 +102,7 @@
     <string name="number_of_holes">Antall hull: 21</string>
     <string name="course_info_title">Bane informasjon</string>
     <string name="individual_course_stats_title">Individuelle presentasjoner</string>
+    <string name="course_distance">Distanse: 1000 m</string>
 
 
 </resources>
