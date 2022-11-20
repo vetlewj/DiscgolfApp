@@ -51,10 +51,9 @@ class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val discWeight = binding.DiscWeightEditText.text
         val discType = resources.getStringArray(R.array.disc_type_array)
 
-
         val saveBtn : Button = view.findViewById(R.id.saveDiscBtn)
-
         val spinner : Spinner = view.findViewById(R.id.discTypeSpinner)
+
         this.context?.let {
             ArrayAdapter.createFromResource(
                 it,
@@ -65,27 +64,26 @@ class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         spinner.onItemSelectedListener = this
 
 
-            saveBtn.setOnClickListener {
-            Log.d("Button pressed", "Save disc button pressede")
-            Log.d("this disctype" ," disktype ${discTypeArrayPos?.let { discType.get(it) }}")
-            val disc = Disc(
-                firebaseAuth.currentUser?.uid,
-                discName.toString(),
-                discSpeed.toString().toInt(),
-                discGlide.toString().toInt(),
-                discTurn.toString().toInt(),
-                discFade.toString().toInt(),
-                discTypeArrayPos?.let { discType.get(it) },
-                discManufacture.toString(),
-                discPlastic.toString(),
-                discWeight.toString().toInt(),
-                discColor.toString()
-            )
+        saveBtn.setOnClickListener {
+        Log.d("Button pressed", "Save disc button pressede")
+        Log.d("this disctype" ," disktype ${discTypeArrayPos?.let { discType.get(it) }}")
+        val disc = Disc(
+            firebaseAuth.currentUser?.uid,
+            discName.toString(),
+            discSpeed.toString().toInt(),
+            discGlide.toString().toInt(),
+            discTurn.toString().toInt(),
+            discFade.toString().toInt(),
+            discTypeArrayPos?.let { discType.get(it) },
+            discManufacture.toString(),
+            discPlastic.toString(),
+            discWeight.toString().toInt(),
+            discColor.toString()
+        )
 
-            firestore.collection("discs").document().set(disc)
-            Toast.makeText(activity, "Disc saved " + discName , Toast.LENGTH_LONG).show()
-            formReset()
-
+        firestore.collection("discs").document().set(disc)
+        Toast.makeText(activity, "Disc saved " + discName , Toast.LENGTH_LONG).show()
+        formReset()
         }
 
     }
