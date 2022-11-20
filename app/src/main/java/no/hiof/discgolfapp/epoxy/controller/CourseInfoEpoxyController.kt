@@ -23,7 +23,6 @@ class CourseInfoEpoxyController : EpoxyController() {
             listOfCoursesWithSameParentID!!.forEach{
                 HeaderEpoxyModel(
                     courseName = it.name,
-                    rating = it.rating
                 ).id("header").addTo(this)
 
             }
@@ -31,7 +30,6 @@ class CourseInfoEpoxyController : EpoxyController() {
         } else {
             HeaderEpoxyModel(
                 courseName = courseResponse!!.name,
-                rating = courseResponse!!.rating
             ).id("header").addTo(this)
 
 
