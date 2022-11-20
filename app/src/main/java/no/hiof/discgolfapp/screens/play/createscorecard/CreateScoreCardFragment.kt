@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
@@ -32,7 +33,6 @@ class CreateScoreCardFragment : Fragment() {
         val binding = FragmentCreateScoreCardBinding.bind(view)
         fragmentBinding = binding
 
-        // TODO: Should be replaced by CourseId
         sharedViewModel.fetchCourses("NO", CourseType.TYPE2)
         sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courseList ->
             val course = courseList?.find { it.uid == args.courseId }
@@ -50,6 +50,38 @@ class CreateScoreCardFragment : Fragment() {
                 NavHostFragment.findNavController(this).navigate(action)
             }
             // TODO: Add other scorecard types for other buttons
+            binding.createScorecardBtn2.setOnClickListener {
+                Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.not_implemented_yet),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            binding.createScorecardBtn3.setOnClickListener {
+                Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.not_implemented_yet),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            binding.createScorecardBtn4.setOnClickListener {
+                Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.not_implemented_yet),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            binding.createScorecardBtn5.setOnClickListener {
+                Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.not_implemented_yet),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
     }

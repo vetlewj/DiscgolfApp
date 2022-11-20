@@ -47,7 +47,6 @@ class ScoreBoardFragment : Fragment() {
         )
 
         val scoreCardId = args.scoreCardId
-        // TODO: Replace collection scorecards with scorecards when ready
         val storedCard =
             firestore.collection("scorecards").document(scoreCardId).get()
         val layout = binding.scoreBoardLinearLayout

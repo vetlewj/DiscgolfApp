@@ -103,6 +103,7 @@
     <string name="course_info_title">Bane informasjon</string>
     <string name="individual_course_stats_title">Individuelle presentasjoner</string>
     <string name="course_distance">Distanse: 1000 m</string>
+    <string name="not_implemented_yet">Ikke implementert enda</string>
 
 
 </resources>
