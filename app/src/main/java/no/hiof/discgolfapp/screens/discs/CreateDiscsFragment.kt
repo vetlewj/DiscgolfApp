@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -14,12 +17,15 @@ import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCreateDiscBinding
 import no.hiof.discgolfapp.model.Disc
 
-class CreateDiscsFragment : Fragment() {
+class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentCreateDiscBinding? = null
     private lateinit var binding: FragmentCreateDiscBinding
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
+    private var discTypeArrayPos: Int? = null
+//    private val discTypesArray = resources.getStringArray(R.array.disc_type_array)
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +41,7 @@ class CreateDiscsFragment : Fragment() {
         _binding = FragmentCreateDiscBinding.bind(view)
 
 
+
         val discName = binding.DiscNameEditText.text
         val discSpeed = binding.DiscSpeedEditText.text
         val discGlide = binding.DiscGlideEditText.text
@@ -44,12 +51,26 @@ class CreateDiscsFragment : Fragment() {
         val discPlastic = binding.DiscPlasticEditText.text
         val discColor = binding.DiscColorEditText.text
         val discWeight = binding.DiscWeightEditText.text
+        val discType = resources.getStringArray(R.array.disc_type_array)
+
+
 
         val saveBtn : Button = view.findViewById(R.id.saveDiscBtn)
 
+        val spinner : Spinner = view.findViewById(R.id.discTypeSpinner)
+        this.context?.let {
+            ArrayAdapter.createFromResource(
+                it,
+                R.array.disc_type_array,
+                android.R.layout.simple_spinner_item).also{adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = adapter}
+        }
+        spinner.onItemSelectedListener = this
 
-        saveBtn.setOnClickListener {
+
+            saveBtn.setOnClickListener {
             Log.d("Button pressed", "Save disc button pressede")
+            Log.d("this disctype" ," disktype ${discTypeArrayPos?.let { discType.get(it) }}")
             val disc = Disc(
                 firebaseAuth.currentUser?.uid,
                 discName.toString(),
@@ -57,7 +78,7 @@ class CreateDiscsFragment : Fragment() {
                 discGlide.toString().toInt(),
                 discTurn.toString().toInt(),
                 discFade.toString().toInt(),
-                Disc.DiscType.DISTANCE_DRIVER,
+                discTypeArrayPos?.let { discType.get(it) },
                 discManufacture.toString(),
                 discPlastic.toString(),
                 discWeight.toString().toInt(),
@@ -69,8 +90,6 @@ class CreateDiscsFragment : Fragment() {
             formReset()
 
         }
-
-
 
     }
 
@@ -87,9 +106,20 @@ class CreateDiscsFragment : Fragment() {
         Log.d("FormReset", "Create disc form reset")
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        discTypeArrayPos = position
+        Log.d("Disc Types", "Type: ${resources.getStringArray(R.array.disc_type_array).get(position)}")
+
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("Not yet implemented")
     }
 
 

@@ -48,6 +48,15 @@
     <string name="disc_color">Farge</string>
     <string name="save">Lagre</string>
 
+
+    <string-array name="disc_type_array">
+        <item>Putter</item>
+        <item>Mid Range</item>
+        <item>Fairway Driver</item>
+        <item>Distance Driver</item>
+    </string-array>
+
+
     <!-- Take Score -->
     <string name="hole_number_description">Hull</string>
     <string name="distance_description">Distanse</string>

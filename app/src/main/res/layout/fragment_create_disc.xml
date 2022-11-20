@@ -217,9 +217,24 @@
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DiscColorTextInputLayout"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.347" />
+
+    <Spinner
+        android:id="@+id/discTypeSpinner"
+        android:layout_width="280dp"
+        android:layout_height="46dp"
+        android:contentDescription="@string/disc_type"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/saveDiscBtn"
+        app:layout_constraintEnd_toEndOf="@+id/DiscColorTextInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/DiscColorTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DiscColorTextInputLayout"
+        />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
