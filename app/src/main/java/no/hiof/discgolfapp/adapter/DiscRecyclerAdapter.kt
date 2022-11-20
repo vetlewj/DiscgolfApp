@@ -33,6 +33,11 @@ class DiscRecyclerAdapter : ListAdapter<Disc, RecyclerView.ViewHolder>(DiscDiffC
         private val discTurnTextView : TextView = view.findViewById(R.id.discTurnTextView)
         private val discFadeTextView : TextView = view.findViewById(R.id.discFadeTextView)
         private val discTypeTextView : TextView = view.findViewById(R.id.discTypeTextView)
+        private val discManufacturerTextView : TextView = view.findViewById(R.id.discManufactureTextView)
+        private val discWeightTextView : TextView = view.findViewById(R.id.discWeightTextView)
+        private val discPlasticTextView : TextView = view.findViewById(R.id.discPlasticTextView)
+        private val discColorTextView : TextView = view.findViewById(R.id.discColorTextView)
+
 
         fun bind(disc: Disc){
             discNameTextView.text = disc.name
@@ -41,6 +46,10 @@ class DiscRecyclerAdapter : ListAdapter<Disc, RecyclerView.ViewHolder>(DiscDiffC
             discTurnTextView.text = disc.turn.toString()
             discFadeTextView.text = disc.fade.toString()
             discTypeTextView.text = disc.type.toString()
+            discManufacturerTextView.text = disc.manufacturer
+            discWeightTextView.text = disc.weight.toString()
+            discPlasticTextView.text = disc.plastic
+            discColorTextView.text = disc.color
         }
     }
 

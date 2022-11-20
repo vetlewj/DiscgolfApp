@@ -33,7 +33,6 @@ class MyDiscsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_my_discs, container, false)
     }
 
@@ -53,7 +52,6 @@ class MyDiscsFragment : Fragment() {
                     val discObject = document.toObject(Disc::class.java)!!
                     discList.add(discObject)
                     Log.d("disc list", "list: $discList")
-
                     discRecyclerView.adapter = discRecyclerAdapter
                     discRecyclerAdapter.submitList(discList)
                     discRecyclerView.layoutManager = GridLayoutManager(context, 1)
@@ -71,7 +69,6 @@ class MyDiscsFragment : Fragment() {
 
         addBtn.setOnClickListener {
         val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToCreateDiscsFragment()
-
             findNavController().navigate(action)
             discList.clear()
         }
