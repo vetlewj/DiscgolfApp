@@ -24,7 +24,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="52dp"
                 app:navigationIcon="@drawable/ic_baseline_menu_24"
                 app:title="@string/app_name" />
         </com.google.android.material.appbar.AppBarLayout>

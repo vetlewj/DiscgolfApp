@@ -9,7 +9,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:text="@string/add_disc"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,11 +17,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:id="@+id/DiscNameTextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="280dp"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
         android:id="@+id/DiscSpeedTextInputLayout"
         android:layout_width="120dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintStart_toStartOf="@+id/DiscNameTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/DiscNameTextInputLayout">
 
@@ -51,9 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/speed"
+            android:inputType="numberSigned"
             android:textColorHint="#757575"
             android:textSize="16sp"
-            android:inputType="numberSigned"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,7 +61,7 @@
         android:id="@+id/DiscGlideTextInputLayout"
         android:layout_width="120dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="@+id/DiscNameTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/DiscNameTextInputLayout">
 
@@ -70,9 +70,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/glide"
+            android:inputType="numberSigned"
             android:textColorHint="#757575"
             android:textSize="16sp"
-            android:inputType="numberSigned"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +80,7 @@
         android:id="@+id/DiscTurnTextInputLayout"
         android:layout_width="120dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintStart_toStartOf="@+id/DiscNameTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/DiscSpeedTextInputLayout">
 
@@ -89,9 +89,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/turn"
+            android:inputType="numberSigned"
             android:textColorHint="#757575"
             android:textSize="16sp"
-            android:inputType="numberSigned"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +99,7 @@
         android:id="@+id/DiscFadeTextInputLayout"
         android:layout_width="120dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="@+id/DiscNameTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/DiscGlideTextInputLayout">
 
@@ -108,23 +108,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/fade"
+            android:inputType="numberSigned"
             android:textColorHint="#757575"
             android:textSize="16sp"
-            android:inputType="numberSigned"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/discTypeSpinner"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@string/disc_type"
+        android:padding="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="@+id/DiscNameTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DiscFadeTextInputLayout"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/DiscManufactureTextInputLayout"
         android:layout_width="280dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DiscTurnTextInputLayout"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/discTypeSpinner">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/DiscManufactureEditText"
@@ -141,14 +150,10 @@
         android:id="@+id/DiscPlasticTextInputLayout"
         android:layout_width="280dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="156dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DiscManufactureTextInputLayout"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/DiscManufactureTextInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/DiscPlasticEditText"
@@ -165,14 +170,10 @@
         android:id="@+id/DiscWeightTextInputLayout"
         android:layout_width="280dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DiscPlasticTextInputLayout"
-        app:layout_constraintVertical_bias="0.012">
+        app:layout_constraintTop_toBottomOf="@+id/DiscPlasticTextInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/DiscWeightEditText"
@@ -189,14 +190,10 @@
         android:id="@+id/DiscColorTextInputLayout"
         android:layout_width="280dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DiscWeightTextInputLayout"
-        app:layout_constraintVertical_bias="0.012">
+        app:layout_constraintTop_toBottomOf="@+id/DiscWeightTextInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/DiscColorEditText"
@@ -209,17 +206,29 @@
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <Button
         android:id="@+id/saveDiscBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DiscColorTextInputLayout"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/discType"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:text="@string/disc_type"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/DiscManufactureTextInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/DiscNameTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DiscTurnTextInputLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

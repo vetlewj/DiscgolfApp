@@ -38,7 +38,7 @@
     <string name="glide">Glide</string>
     <string name="turn">Turn</string>
     <string name="fade">Fade</string>
-    <string name="disc_type">disc type</string>
+    <string name="disc_type">Type:</string>
     <string name="edit_button">Edit</string>
     <string name="add_button">+</string>
     <string name="add_disc">Legg til ny disc</string>
@@ -47,6 +47,15 @@
     <string name="disc_weight">Vekt</string>
     <string name="disc_color">Farge</string>
     <string name="save">Lagre</string>
+
+
+    <string-array name="disc_type_array">
+        <item>Putter</item>
+        <item>Mid Range</item>
+        <item>Fairway Driver</item>
+        <item>Distance Driver</item>
+    </string-array>
+
 
     <!-- Take Score -->
     <string name="hole_number_description">Hull</string>
