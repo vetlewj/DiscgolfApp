@@ -42,7 +42,9 @@ object CourseMapper {
                                     ratingResult1 = null,
                                     ratingValue2 = null,
                                     ratingResult2 = null,
-                                    parentID = course.ParentID.toInt()
+                                    parentID = course.ParentID.toInt(),
+                                    numberOfHoles = null,
+                                    distance = null
                                 )
                                 listOfCoursesWithTheSameParentID.add(courseObj)
                             }
@@ -53,8 +55,6 @@ object CourseMapper {
         }
         return listOfCoursesWithTheSameParentID
 
-
-
     }
 
     fun buildFromCourseResponse(response: GetCourseByIDResponse): Course {
@@ -62,11 +62,15 @@ object CourseMapper {
         val course = response.course
 
         var sumPar = 0
+        var sumHoleDistance: Int = 0
 
         val holes: ArrayList<Hole> = ArrayList()
         response.baskets?.forEach { basket ->
 
             sumPar += basket.Par!!.toInt()
+            if(basket.Length != null) {
+                sumHoleDistance +=   basket.Length.toInt()
+            }
 
             val hole = Hole(
                 holeNumber = basket.Number!!.toInt(),
@@ -85,7 +89,7 @@ object CourseMapper {
 
         try {
             parRating = ((course.RatingValue2!!.toDouble() - course.RatingValue1!!.toDouble())*((sumPar - course.RatingResult1!!.toDouble())/(course.RatingResult2!!.toDouble() - course.RatingResult1.toDouble()))) + course.RatingValue1.toDouble()
-        } catch (e: NullPointerException) { }
+        } catch (_: NullPointerException) { }
 
         return Course(
             uid = course.ID!!.toInt(),
@@ -103,7 +107,9 @@ object CourseMapper {
             ratingResult1 = try {course.RatingResult1!!.toDouble()} catch (e:NullPointerException)  {null},
             ratingValue2 = try {course.RatingValue2!!.toDouble()} catch (e:NullPointerException) { null},
             ratingResult2 = try {course.RatingResult2!!.toDouble()} catch (e:NullPointerException) { null},
-            parentID = try { course.ParentID!!.toInt()} catch (e:NullPointerException) {null}
+            parentID = try { course.ParentID!!.toInt()} catch (e:NullPointerException) {null},
+            numberOfHoles = if (holes.size == 0) null else holes.size,
+            distance = sumHoleDistance
         )
     }
 
@@ -134,7 +140,9 @@ object CourseMapper {
                                 ratingResult1 = null,
                                 ratingValue2 = null,
                                 ratingResult2 = null,
-                                parentID = null
+                                parentID = null,
+                                numberOfHoles = null,
+                                distance = null
                             )
                             listOfCourses.add(courseObj)
                         }
@@ -156,7 +164,9 @@ object CourseMapper {
                                 ratingResult1 = null,
                                 ratingValue2 = null,
                                 ratingResult2 = null,
-                                parentID = try {course.ParentID!!.toInt()} catch (e:NullPointerException) {null}
+                                parentID = try {course.ParentID!!.toInt()} catch (e:NullPointerException) {null},
+                                numberOfHoles = null,
+                                distance = null
                             )
                             listOfCourses.add(courseObj)
                         }

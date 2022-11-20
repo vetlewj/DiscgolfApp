@@ -18,24 +18,9 @@ class CourseInfoEpoxyController : EpoxyController() {
             LoadingEpoxyModel().id("Loading").addTo(this)
             return
         }
-
-        if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
-            listOfCoursesWithSameParentID!!.forEach{
-                HeaderEpoxyModel(
-                    courseName = it.name,
-                    rating = it.rating
-                ).id("header").addTo(this)
-
-            }
-
-        } else {
-            HeaderEpoxyModel(
-                courseName = courseResponse!!.name,
-                rating = courseResponse!!.rating
-            ).id("header").addTo(this)
-
-
-        }
+        HeaderEpoxyModel(
+            courseName = courseName
+        ).id("header").addTo(this)
 
         WeatherEpoxyModel(
             weatherSymbol = weatherResponse!!.weatherDrawable,
@@ -44,94 +29,69 @@ class CourseInfoEpoxyController : EpoxyController() {
             windDirectionSymbol = weatherResponse!!.windDrawable
         ).id("weather").addTo(this)
 
+
+
+        // if true make for type 1 with layouts else for type 2 with no parentID
         if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
 
-            listOfCoursesWithSameParentID!!.forEach {
+            listOfCoursesWithSameParentID!!.forEach { course ->
+
+                // header
+                //TODO: Change to another model with smaller text size
+                HeaderEpoxyModel(
+                    courseName = course.name
+                ).id("header").addTo(this)
+
+                // button
                 CreateScoreCardButtonEpoxyModel(
                     context = fragment,
-                    uid = it.uid
+                    uid = course.uid
 
                 ).id("CreateScoreCardButton").addTo(this)
 
+                // stats
+                StatsItemEpoxyModel(
+                    bestScore = bestScore,
+                    avgScore = avgScore,
+                    lastScore = lastScore,
+                    sumPar = course.par,
+                    courseRating = course.rating,
+                    numberOfHoles = course.numberOfHoles,
+                    distance = course.distance
+                ).id("stats").addTo(this)
+
+                // holes
+                createCarouselModelForHoles(course)
             }
 
         } else {
 
+            // button
             CreateScoreCardButtonEpoxyModel(
                 context = fragment,
                 uid = courseResponse!!.uid
 
             ).id("CreateScoreCardButton").addTo(this)
+
+            //stats
+            StatsItemEpoxyModel(
+                bestScore = bestScore,
+                avgScore = avgScore,
+                lastScore = lastScore,
+                sumPar = courseResponse?.par,
+                courseRating = courseResponse?.rating,
+                numberOfHoles = courseResponse?.numberOfHoles,
+                distance = courseResponse?.distance
+            ).id("stats").addTo(this)
+
+            //holes
+            createCarouselModelForHoles(courseResponse)
         }
-
-
-        // Holes carousel
-        if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
-
-            listOfCoursesWithSameParentID!!.forEach { course ->
-                try {
-                    if(course.holes!!.isNotEmpty()) {
-                        val hole = course.holes.map {
-                            HoleCarouselItemEpoxyModel(it).id("${course.uid} ${it!!.holeNumber}")
-                        }
-                        CarouselModel_()
-                            .id("HoleCarousel ${course.uid} ")
-                            .models(hole)
-                            .numViewsToShowOnScreen(3.5F)
-                            .addTo(this)
-
-                    }
-
-                } catch (e: NullPointerException) {}
-
-            }
-            try {
-                if(courseResponse!!.holes!!.isNotEmpty()) {
-                    val hole = courseResponse!!.holes!!.map {
-                        HoleCarouselItemEpoxyModel(it).id(it!!.holeNumber)
-                    }
-                    CarouselModel_()
-                        .id("HoleCarousel")
-                        .models(hole)
-                        .numViewsToShowOnScreen(3.5F)
-                        .addTo(this)
-
-                }
-
-            } catch (e: NullPointerException) {}
-
-
-        } else {
-            try {
-                if(courseResponse!!.holes!!.isNotEmpty()) {
-                    val hole = courseResponse!!.holes!!.map {
-                        HoleCarouselItemEpoxyModel(it).id(it!!.holeNumber)
-                    }
-                    CarouselModel_()
-                        .id("HoleCarousel")
-                        .models(hole)
-                        .numViewsToShowOnScreen(3.5F)
-                        .addTo(this)
-
-                }
-
-            } catch (e: NullPointerException) {}
-
-        }
-
-        StatsItemEpoxyModel(
-            bestScore = bestScore,
-            avgScore = avgScore,
-            lastScore = lastScore,
-            sumPar = sumPar
-        ).id("stats").addTo(this)
-        // add more we want in the info frag
-
     }
 
     // variables
     var fragment: Fragment? = null
-    var sumPar: Int? = null
+    var courseName: String? = null
 
     var isLoading: Int = 0
         set(value) {
@@ -182,5 +142,22 @@ class CourseInfoEpoxyController : EpoxyController() {
                 requestModelBuild()
             }
         }
+
+    private fun createCarouselModelForHoles(course: Course?) {
+        try {
+            if(course!!.holes!!.isNotEmpty()) {
+                val hole = course.holes!!.map {
+                    HoleCarouselItemEpoxyModel(it).id("${course.uid} ${it!!.holeNumber}")
+                }
+                CarouselModel_()
+                    .id("HoleCarousel ${course.uid} ")
+                    .models(hole)
+                    .numViewsToShowOnScreen(3.5F)
+                    .addTo(this)
+
+            }
+
+        } catch (_: NullPointerException) {}
+    }
     }
 

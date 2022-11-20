@@ -50,6 +50,8 @@ class CourseDataService(var context: Context) {
                     null,
                     null,
                     null,
+                    null,
+                    null,
                     null
                 )
                 Course.addCourseToAllCourses(course)

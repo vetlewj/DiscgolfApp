@@ -18,9 +18,11 @@ data class Course(
     val ratingResult1: Double?,
     val ratingValue2: Double?,
     val ratingResult2: Double?,
-    val parentID: Int?
+    val parentID: Int?,
+    val numberOfHoles: Int?,
+    val distance: Int?
 ) {
-    //TODO: Finish class
+
 
     companion object {
         private val courses: ArrayList<Course?> = ArrayList()
@@ -37,6 +39,8 @@ data class Course(
                     null,
                     59.939369F,
                     10.785842F,
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -61,9 +65,11 @@ data class Course(
                 null,
                     null,
                     null,
+                    null,
+                    null,
                     null
                 ),
-                Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null, null, null, null, null, null, null, null)
+                Course(2, "Frogner", Hole.getHoles(), null, "", null, null, null, null, null, null, null, null, null, null, null, null, null)
 
             )
         }

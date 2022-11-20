@@ -44,6 +44,7 @@ class CourseInfoFragment : Fragment() {
         fragmentBinding = binding
 
         epoxyController.fragment = this
+        epoxyController.courseName = args.courseName
 
         viewModel.fetchWeather(
             String.format("%.4f", args.latitude),
@@ -61,15 +62,17 @@ class CourseInfoFragment : Fragment() {
             }
         }
         if (args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
-            viewModelStats.fetchCourseScoreCardsFromFireStore(args.uid)
-            viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
-                if (scoreCards.isNullOrEmpty()) {
-                    Log.d("CourseInfoFrag", "Could not retrieve scorecards")
-                }
-                epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
-                epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
-                epoxyController.lastScore = viewModelStats.getLastScoreForCourse(args.uid)
-            }
+
+            // TODO: fetch a list of scorecards
+            viewModelStats.fetchCourseScoreCardsFromFireStore(293)
+                    viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
+                        if (scoreCards.isNullOrEmpty()) {
+                            Log.d("CourseInfoFrag", "Could not retrieve scorecards")
+                        }
+                        epoxyController.bestScore = viewModelStats.getBestScoreForCourse(293)
+                        epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(293)
+                        epoxyController.lastScore = viewModelStats.getLastScoreForCourse(293)
+                    }
             viewModel.fetchAdditionalInfoFromCoursesWithSameParentID(
                 "NO",
                 args.uid,
@@ -85,6 +88,7 @@ class CourseInfoFragment : Fragment() {
                     ).show()
                     return@observe
                 }
+
                 epoxyController.listOfCoursesWithSameParentID = listOfCoursesWithSameParentID
             }
 
@@ -100,7 +104,6 @@ class CourseInfoFragment : Fragment() {
             }
             viewModel.fetchCourse(args.uid.toString())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
-                epoxyController.sumPar = course!!.par
                 epoxyController.courseResponse = course
 
                 if (course == null) {

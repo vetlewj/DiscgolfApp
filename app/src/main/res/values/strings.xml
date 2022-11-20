@@ -83,16 +83,13 @@
     <string name="toggleMapButtonText">Kart</string>
     <string name="weather_temperature_value">11ºC</string>
     <string name="weather_wind_speed">10 m/s</string>
-    <string name="course_info_best_round">Beste runde:</string>
-    <string name="course_info_best_round_value">74 (+13)</string>
-    <string name="course_info_last_round_title">Forrige runde:</string>
-    <string name="course_info_last_round_value">81 (+21)</string>
-    <string name="course_info_average_title">Gjennomsnitt:</string>
-    <string name="course_info_average_value">80.2 (+20.2)</string>
+    <string name="course_info_best_round">Beste runde: 74 (+13)</string>
+    <string name="course_info_last_round">Forrige runde: 81 (+21)</string>
+    <string name="course_info_average">Gjennomsnitt: 80.2 (+20.2)</string>
     <string name="show_prev_results">Se tidligere resultater</string>
     <string name="score_date">Score: %d, %s</string>
     <string name="choose_course">Velg bane</string>
-    <string name="par_rating">Rating \n 1002</string>
+    <string name="par_rating">Rating: 1002</string>
     <string name="hole_details">Par 3  100 m</string>
     <string name="rating_d">Rating: %d</string>
     <string name="finish_round">Fullfør runde</string>
@@ -100,6 +97,12 @@
     <string name="scoreboard_course_name_header">%s</string>
     <string name="unknown_date">Ukjent Dato</string>
     <string name="scoreboard_course_name_placeholder">Ukjent Bane</string>
+    <string name="course_info_avg_rating">Gjennomsnittsrating 1000.0</string>
+    <string name="par_on_course">Par: 60</string>
+    <string name="number_of_holes">Antall hull: 21</string>
+    <string name="course_info_title">Bane informasjon</string>
+    <string name="individual_course_stats_title">Individuelle presentasjoner</string>
+    <string name="course_distance">Distanse: 1000 m</string>
 
 
 </resources>
