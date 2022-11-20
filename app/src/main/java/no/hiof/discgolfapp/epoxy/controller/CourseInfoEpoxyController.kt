@@ -113,7 +113,7 @@ class CourseInfoEpoxyController : EpoxyController() {
 
                 }
 
-            } catch (e: NullPointerException) {}
+            } catch (_: NullPointerException) {}
 
         }
 
@@ -122,7 +122,8 @@ class CourseInfoEpoxyController : EpoxyController() {
             avgScore = avgScore,
             lastScore = lastScore,
             sumPar = sumPar,
-            courseRating = courseResponse?.rating
+            courseRating = courseResponse?.rating,
+            numberOfHoles = numberOfHoles
         ).id("stats").addTo(this)
         // add more we want in the info frag
 
@@ -131,6 +132,7 @@ class CourseInfoEpoxyController : EpoxyController() {
     // variables
     var fragment: Fragment? = null
     var sumPar: Int? = null
+    var numberOfHoles: Int? = null
 
     var isLoading: Int = 0
         set(value) {

@@ -99,7 +99,7 @@
     <string name="scoreboard_course_name_placeholder">Ukjent Bane</string>
     <string name="course_info_avg_rating">Gjennomsnittsrating 1000.0</string>
     <string name="par_on_course">Par: 60</string>
-    <string name="number_of_holes">Antall hull: 18</string>
+    <string name="number_of_holes">Antall hull: 21</string>
     <string name="course_info_title">Bane informasjon</string>
     <string name="individual_course_stats_title">Individuelle presentasjoner</string>
 
