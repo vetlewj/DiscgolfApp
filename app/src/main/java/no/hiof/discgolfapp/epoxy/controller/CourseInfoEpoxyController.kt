@@ -37,6 +37,7 @@ class CourseInfoEpoxyController : EpoxyController() {
             listOfCoursesWithSameParentID!!.forEach { course ->
 
                 // header
+                //TODO: Change to another model with smaller text size
                 HeaderEpoxyModel(
                     courseName = course.name
                 ).id("header").addTo(this)
@@ -52,20 +53,7 @@ class CourseInfoEpoxyController : EpoxyController() {
 
 
                 // holes
-                try {
-                    if(course.holes!!.isNotEmpty()) {
-                        val hole = course.holes.map {
-                            HoleCarouselItemEpoxyModel(it).id("${course.uid} ${it!!.holeNumber}")
-                        }
-                        CarouselModel_()
-                            .id("HoleCarousel ${course.uid} ")
-                            .models(hole)
-                            .numViewsToShowOnScreen(3.5F)
-                            .addTo(this)
-
-                    }
-
-                } catch (e: NullPointerException) {}
+                createCarouselModelForHoles(course)
 
             }
 
@@ -90,20 +78,7 @@ class CourseInfoEpoxyController : EpoxyController() {
             ).id("stats").addTo(this)
 
             //holes
-            try {
-                if(courseResponse!!.holes!!.isNotEmpty()) {
-                    val hole = courseResponse!!.holes!!.map {
-                        HoleCarouselItemEpoxyModel(it).id(it!!.holeNumber)
-                    }
-                    CarouselModel_()
-                        .id("HoleCarousel")
-                        .models(hole)
-                        .numViewsToShowOnScreen(3.5F)
-                        .addTo(this)
-
-                }
-
-            } catch (_: NullPointerException) {}
+            createCarouselModelForHoles(courseResponse)
         }
     }
 
@@ -160,5 +135,22 @@ class CourseInfoEpoxyController : EpoxyController() {
                 requestModelBuild()
             }
         }
+
+    private fun createCarouselModelForHoles(course: Course?) {
+        try {
+            if(course!!.holes!!.isNotEmpty()) {
+                val hole = course.holes!!.map {
+                    HoleCarouselItemEpoxyModel(it).id("${course.uid} ${it!!.holeNumber}")
+                }
+                CarouselModel_()
+                    .id("HoleCarousel ${course.uid} ")
+                    .models(hole)
+                    .numViewsToShowOnScreen(3.5F)
+                    .addTo(this)
+
+            }
+
+        } catch (_: NullPointerException) {}
+    }
     }
 
