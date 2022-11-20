@@ -13,6 +13,7 @@ import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCreateScoreCardBinding
 import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.model.ScoreCard
 import no.hiof.discgolfapp.services.SharedViewModel
 
 class CreateScoreCardFragment : Fragment() {
@@ -45,18 +46,15 @@ class CreateScoreCardFragment : Fragment() {
                     course?.uid ?: 0
                 )
             binding.createScorecardBtn.setOnClickListener {
-                Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
-                action.scoreCardType = "PAR"
+                Log.d("CreateScoreCardFragment", "Create scorecard ${binding.createScorecardBtn.text} button clicked")
+                action.scoreCardType = ScoreCard.ScoreCardCreationType.PAR.toString()
                 NavHostFragment.findNavController(this).navigate(action)
             }
             // TODO: Add other scorecard types for other buttons
             binding.createScorecardBtn2.setOnClickListener {
-                Log.d("CreateScoreCardFragment", "Create scorecard button clicked")
-                Toast.makeText(
-                    view.context,
-                    getString(R.string.not_implemented_yet),
-                    Toast.LENGTH_SHORT
-                ).show()
+                Log.d("CreateScoreCardFragment", "Create scorecard ${binding.createScorecardBtn2.text} button clicked")
+                action.scoreCardType = ScoreCard.ScoreCardCreationType.PERSONAL_BEST.toString()
+                NavHostFragment.findNavController(this).navigate(action)
             }
             binding.createScorecardBtn3.setOnClickListener {
                 Log.d("CreateScoreCardFragment", "Create scorecard button clicked")

@@ -56,6 +56,55 @@ class ScoreCard(
 
             return ScoreCard(null, course, par, 0, Date(), holeScores)
         }
+
+        fun createScoreCardFromHoleScoresAsPar(
+            playerId: String?,
+            course: Course,
+            holeScores: MutableList<HoleScore>
+        ): ScoreCard {
+            var par = 0
+            if (playerId != null) {
+                val holeScoresReset = mutableListOf<HoleScore>()
+                for (holeScore in holeScores) {
+                    holeScoresReset.add(HoleScore(holeScore.holeNumber, 0, holeScore.score, null))
+                    par += holeScore.score
+                }
+                return ScoreCard(playerId, course, par, 0, Date(), holeScoresReset)
+            }
+            return createEmptyScoreCard(playerId ?: "0", course, ScoreCardCreationType.PAR)
+        }
+
+        fun createScoreCardFromScoreCardsList(
+            playerId: String?,
+            course: Course,
+            playerScoreCards: MutableList<ScoreCard>,
+            scoreCardCreationType: ScoreCardCreationType
+        ): ScoreCard {
+            val holeScores = mutableListOf<HoleScore>()
+            val par = 0
+            val score = 0
+
+            if (course.holes != null) {
+                val holeNum = 0
+                for (hole in course.holes) {
+                    if (hole != null) {
+                        val holeScore = HoleScore(holeNum, 0, hole.par)
+                        if (scoreCardCreationType == ScoreCardCreationType.PERSONAL_BEST) {
+                            val bestScoreCard =
+                                playerScoreCards.minByOrNull { it.holeScores[holeNum].score }
+                            return createScoreCardFromHoleScoresAsPar(
+                                playerId,
+                                course,
+                                bestScoreCard?.holeScores ?: holeScores
+                            )
+                        }
+                        holeScores.plus(holeScore)
+                    }
+                    holeNum.plus(1)
+                }
+            }
+            return ScoreCard(null, course, par, score, Date(), holeScores)
+        }
     }
 
     fun addHoleScore(holeNumber: Int, score: Int, par: Int) {
@@ -72,7 +121,7 @@ class ScoreCard(
     }
 
     enum class ScoreCardCreationType {
-        PAR, PERSONAL_BEST, PERSONAL_AVERAGE, PERSONAL_WORST, PERSONAL_LAST, LEADERBOARD_RECORD, CUSTOM
+        PAR, PERSONAL_BEST, PERSONAL_AVERAGE, PERSONAL_WORST, PERSONAL_LAST, LEADERBOARD_RECORD, CUSTOM, PERSONAL_IDEAL
     }
 
 }
