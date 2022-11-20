@@ -38,7 +38,7 @@
     <string name="glide">Glide</string>
     <string name="turn">Turn</string>
     <string name="fade">Fade</string>
-    <string name="disc_type">disc type</string>
+    <string name="disc_type">Type:</string>
     <string name="edit_button">Edit</string>
     <string name="add_button">+</string>
     <string name="add_disc">Legg til ny disc</string>

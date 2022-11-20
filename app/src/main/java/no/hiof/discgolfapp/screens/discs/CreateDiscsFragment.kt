@@ -24,7 +24,6 @@ class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
     private var discTypeArrayPos: Int? = null
-//    private val discTypesArray = resources.getStringArray(R.array.disc_type_array)
 
 
     override fun onCreateView(
@@ -41,7 +40,6 @@ class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         _binding = FragmentCreateDiscBinding.bind(view)
 
 
-
         val discName = binding.DiscNameEditText.text
         val discSpeed = binding.DiscSpeedEditText.text
         val discGlide = binding.DiscGlideEditText.text
@@ -52,7 +50,6 @@ class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val discColor = binding.DiscColorEditText.text
         val discWeight = binding.DiscWeightEditText.text
         val discType = resources.getStringArray(R.array.disc_type_array)
-
 
 
         val saveBtn : Button = view.findViewById(R.id.saveDiscBtn)
@@ -115,12 +112,10 @@ class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         discTypeArrayPos = position
         Log.d("Disc Types", "Type: ${resources.getStringArray(R.array.disc_type_array).get(position)}")
-
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
     }
-
 
 }
