@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                     .addOnSuccessListener { documentReference ->
                         Log.d("Making user collection", "DocumentSnapshot added with ID: ${documentReference.id}")
 
-                        documentRefDataField["documentUid"] = documentReference.id
+                        documentRefDataField["documetRefUid"] = documentReference.id
 
                         db.collection("users").document(documentReference.id).set(documentRefDataField, SetOptions.merge())
                     }

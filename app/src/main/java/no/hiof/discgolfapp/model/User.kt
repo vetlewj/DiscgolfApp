@@ -3,9 +3,10 @@ package no.hiof.discgolfapp.model
 import java.util.Date
 
 class User(
-    val id: Int,
+    val authUid: String,
     val guest: Boolean,
     val dateCreated: Date,
+    val documetRefUid: String,
     var name: String?,
     var email: String?,
     var pictureUrl: String?,
