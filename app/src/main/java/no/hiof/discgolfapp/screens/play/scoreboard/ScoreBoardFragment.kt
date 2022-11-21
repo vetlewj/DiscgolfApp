@@ -2,6 +2,7 @@ package no.hiof.discgolfapp.screens.play.scoreboard
 
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -118,6 +119,23 @@ class ScoreBoardFragment : Fragment() {
                 R.string.scoreboard_text_average_score,
                 avgScore, (avgScore.minus(totalPar))
             )
+        }
+
+        val courseIdList = mutableListOf<Int>()
+        courseIdList.add(args.courseId)
+        courseIdList.add(24195)
+        courseIdList.add(28754)
+        storedStatisticsViewModel.fetchAvgScoreCourseListMap(courseIdList)
+        storedStatisticsViewModel.fetchBestScoreCourseListMap(courseIdList)
+        storedStatisticsViewModel.fetchLastScoreCourseListMap(courseIdList)
+        storedStatisticsViewModel.avgScoresListMap.observe(viewLifecycleOwner) {
+            Log.d("ScoreBoardFragment", "AvgScoreListMap: $it")
+        }
+        storedStatisticsViewModel.bestScoresListMap.observe(viewLifecycleOwner) {
+            Log.d("ScoreBoardFragment", "BestScoreListMap: $it")
+        }
+        storedStatisticsViewModel.lastScoresListMap.observe(viewLifecycleOwner) {
+            Log.d("ScoreBoardFragment", "LastScoreListMap: $it")
         }
 
 

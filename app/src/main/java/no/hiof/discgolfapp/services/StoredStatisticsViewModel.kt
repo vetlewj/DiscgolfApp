@@ -20,13 +20,17 @@ class StoredStatisticsViewModel : ViewModel() {
     val scoreCards: LiveData<List<ScoreCard>> = _scoreCards
 
     private var _avgScoresMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
-    val avgScoresMap: LiveData<MutableMap<Int, Int>> = _avgScoresMap
-
     private var _bestScoresMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
-    val bestScoresMap: LiveData<MutableMap<Int, Int>> = _bestScoresMap
-
     private var _lastScoresMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
-    val lastScoresMap: LiveData<MutableMap<Int, Int>> = _lastScoresMap
+
+    private var _avgScoresListMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
+    val avgScoresListMap: LiveData<MutableMap<Int, Int>> = _avgScoresListMap
+
+    private var _bestScoresListMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
+    val bestScoresListMap: LiveData<MutableMap<Int, Int>> = _bestScoresListMap
+
+    private var _lastScoresListMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
+    val lastScoresListMap: LiveData<MutableMap<Int, Int>> = _lastScoresListMap
 
     private var retryCount = 0
     private var maxRetries = 5
@@ -112,7 +116,7 @@ class StoredStatisticsViewModel : ViewModel() {
         )) + ratingValue1).roundToInt()
     }
 
-    fun fetchAvgScoreCourseMap(courseId: Int) {
+    private fun fetchAvgScoreCourseMap(courseId: Int) {
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -127,7 +131,7 @@ class StoredStatisticsViewModel : ViewModel() {
         }
     }
 
-    fun fetchBestScoreCourseMap(courseId: Int) {
+    private fun fetchBestScoreCourseMap(courseId: Int) {
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -143,7 +147,7 @@ class StoredStatisticsViewModel : ViewModel() {
         }
     }
 
-    fun fetchLastScoreCourseMap(courseId: Int) {
+    private fun fetchLastScoreCourseMap(courseId: Int) {
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -155,6 +159,38 @@ class StoredStatisticsViewModel : ViewModel() {
             currentLastScoresMap[courseId] = scoreCards.maxByOrNull { it.date }?.totalScore ?: 0
             _lastScoresMap.value = currentLastScoresMap
             Log.d("StoredStatistics", "fetchLastScoreCourseMap: $currentLastScoresMap")
+        }
+    }
+    fun fetchBestScoreCourseListMap(courseIds: List<Int>){
+        val currentBestScoresListMap = _bestScoresListMap.value ?: mutableMapOf()
+        courseIds.forEach { courseId ->
+            fetchBestScoreCourseMap(courseId)
+            currentBestScoresListMap[courseId] = _bestScoresMap.value?.get(courseId) ?: 0
+        }
+        if (currentBestScoresListMap.size == courseIds.size){
+            _bestScoresListMap.value = currentBestScoresListMap
+        }
+    }
+
+    fun fetchLastScoreCourseListMap(courseIds: List<Int>){
+        val currentLastScoresListMap = _lastScoresListMap.value ?: mutableMapOf()
+        courseIds.forEach { courseId ->
+            fetchLastScoreCourseMap(courseId)
+            currentLastScoresListMap[courseId] = _lastScoresMap.value?.get(courseId) ?: 0
+        }
+        if (currentLastScoresListMap.size == courseIds.size){
+            _lastScoresListMap.value = currentLastScoresListMap
+        }
+    }
+
+    fun fetchAvgScoreCourseListMap(courseIds: List<Int>){
+        val currentAvgScoresListMap = _avgScoresListMap.value ?: mutableMapOf()
+        courseIds.forEach { courseId ->
+            fetchAvgScoreCourseMap(courseId)
+            currentAvgScoresListMap[courseId] = _avgScoresMap.value?.get(courseId) ?: 0
+        }
+        if (currentAvgScoresListMap.size == courseIds.size){
+            _avgScoresListMap.value = currentAvgScoresListMap
         }
     }
 }
