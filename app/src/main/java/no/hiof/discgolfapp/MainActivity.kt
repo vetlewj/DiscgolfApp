@@ -1,5 +1,6 @@
 package no.hiof.discgolfapp
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -91,9 +92,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSignInResult (result: FirebaseAuthUIAuthenticationResult){
+        val response = result.idpResponse
         if (result.resultCode == RESULT_OK){
             //Login successfull
             val user = FirebaseAuth.getInstance().currentUser
+            // Create a new user document in users collection if user is new
+            if(response!!.isNewUser) {
+                val db = Firebase.firestore
+                val newUser = hashMapOf(
+                    "uid" to "${user?.uid}",
+                    "email" to "${user?.email}",
+                    "name" to "${user?.displayName}"
+                )
+
+                // Add a new document with a generated ID
+                db.collection("users")
+                    .add(newUser)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("Making user collection", "DocumentSnapshot added with ID: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(ContentValues.TAG, "Error adding document", e)
+                    }
+            }
             Toast.makeText(this, this.getString(R.string.sign_in) + " " + user?.displayName, Toast.LENGTH_SHORT).show()
         }
         else {
