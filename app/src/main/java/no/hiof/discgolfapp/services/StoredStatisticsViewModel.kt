@@ -108,8 +108,8 @@ class StoredStatisticsViewModel : ViewModel() {
         result: Int,
         ratingValue1: Double,
         ratingValue2: Double,
-        ratingResult1: Int,
-        ratingResult2: Int
+        ratingResult1: Double,
+        ratingResult2: Double
     ): Int {
         return ((ratingValue2.minus(ratingValue1)) * (result.minus(ratingResult1)) / (ratingResult2.minus(
             ratingResult1
