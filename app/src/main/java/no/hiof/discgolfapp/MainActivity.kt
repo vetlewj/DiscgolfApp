@@ -82,7 +82,8 @@ class MainActivity : AppCompatActivity() {
     private fun createSignInIntent(){
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build()
+            AuthUI.IdpConfig.GoogleBuilder().build(),
+            AuthUI.IdpConfig.AnonymousBuilder().build()
         )
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
@@ -93,29 +94,41 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSignInResult (result: FirebaseAuthUIAuthenticationResult){
         val response = result.idpResponse
+        Log.d("Making user response", "$response")
         if (result.resultCode == RESULT_OK){
             //Login successfull
             val user = FirebaseAuth.getInstance().currentUser
             // Create a new user document in users collection if user is new
             if(response!!.isNewUser) {
                 val db = Firebase.firestore
-                val newUser = hashMapOf(
-                    "uid" to "${user?.uid}",
-                    "email" to "${user?.email}",
-                    "name" to "${user?.displayName}"
-                )
 
+                val newUser = if(response.providerType == "anonymous") {
+                    Toast.makeText(this, "${this.getString(R.string.sign_in)} gjest", Toast.LENGTH_SHORT).show()
+                    hashMapOf(
+                        "uid" to "${user?.uid}",
+                        "guest" to true
+                    )
+                } else {
+                    Toast.makeText(this, "${this.getString(R.string.sign_in)}  ${user?.displayName}", Toast.LENGTH_SHORT).show()
+                    hashMapOf(
+                        "uid" to "${user?.uid}",
+                        "email" to "${user?.email}",
+                        "name" to "${user?.displayName}",
+                        "guest" to false
+                    )
+                }
                 // Add a new document with a generated ID
                 db.collection("users")
                     .add(newUser)
                     .addOnSuccessListener { documentReference ->
-                        Log.d("Making user collection", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        Log.d("Making user collection", "$response DocumentSnapshot added with ID: ${documentReference.id}")
                     }
                     .addOnFailureListener { e ->
                         Log.w(ContentValues.TAG, "Error adding document", e)
                     }
             }
-            Toast.makeText(this, this.getString(R.string.sign_in) + " " + user?.displayName, Toast.LENGTH_SHORT).show()
+
+
         }
         else {
             //Login failed.
