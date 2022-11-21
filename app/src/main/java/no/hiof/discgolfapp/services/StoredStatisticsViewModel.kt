@@ -19,6 +19,15 @@ class StoredStatisticsViewModel : ViewModel() {
     private var _scoreCards: MutableLiveData<List<ScoreCard>> = MutableLiveData()
     val scoreCards: LiveData<List<ScoreCard>> = _scoreCards
 
+    private var _avgScoresMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
+    val avgScoresMap: LiveData<MutableMap<Int, Int>> = _avgScoresMap
+
+    private var _bestScoresMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
+    val bestScoresMap: LiveData<MutableMap<Int, Int>> = _bestScoresMap
+
+    private var _lastScoresMap: MutableLiveData<MutableMap<Int, Int>> = MutableLiveData()
+    val lastScoresMap: LiveData<MutableMap<Int, Int>> = _lastScoresMap
+
     private var retryCount = 0
     private var maxRetries = 5
 
@@ -101,5 +110,51 @@ class StoredStatisticsViewModel : ViewModel() {
         return ((ratingValue2.minus(ratingValue1)) * (result.minus(ratingResult1)) / (ratingResult2.minus(
             ratingResult1
         )) + ratingValue1).roundToInt()
+    }
+
+    fun fetchAvgScoreCourseMap(courseId: Int) {
+        val storedCards = firestore.collection("scorecards")
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .whereEqualTo("finished", true)
+            .whereEqualTo("courseId", courseId)
+            .get()
+        storedCards.addOnSuccessListener { documents ->
+            val scoreCards = documents.toObjects<ScoreCard>()
+            val currentAvgScoresMap = _avgScoresMap.value ?: mutableMapOf()
+            currentAvgScoresMap[courseId] = scoreCards.map { it.totalScore }.average().toInt()
+            _avgScoresMap.value = currentAvgScoresMap
+            Log.d("StoredStatistics", "fetchAvgScoreCourseMap: $currentAvgScoresMap")
+        }
+    }
+
+    fun fetchBestScoreCourseMap(courseId: Int) {
+        val storedCards = firestore.collection("scorecards")
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .whereEqualTo("finished", true)
+            .whereEqualTo("courseId", courseId)
+            .get()
+        storedCards.addOnSuccessListener { documents ->
+            val scoreCards = documents.toObjects<ScoreCard>()
+            val currentBestScoresMap = _bestScoresMap.value ?: mutableMapOf()
+            currentBestScoresMap[courseId] =
+                scoreCards.minByOrNull { it.totalScore }?.totalScore ?: 0
+            _bestScoresMap.value = currentBestScoresMap
+            Log.d("StoredStatistics", "fetchBestScoreCourseMap: $currentBestScoresMap")
+        }
+    }
+
+    fun fetchLastScoreCourseMap(courseId: Int) {
+        val storedCards = firestore.collection("scorecards")
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .whereEqualTo("finished", true)
+            .whereEqualTo("courseId", courseId)
+            .get()
+        storedCards.addOnSuccessListener { documents ->
+            val scoreCards = documents.toObjects<ScoreCard>()
+            val currentLastScoresMap = _lastScoresMap.value ?: mutableMapOf()
+            currentLastScoresMap[courseId] = scoreCards.maxByOrNull { it.date }?.totalScore ?: 0
+            _lastScoresMap.value = currentLastScoresMap
+            Log.d("StoredStatistics", "fetchLastScoreCourseMap: $currentLastScoresMap")
+        }
     }
 }
