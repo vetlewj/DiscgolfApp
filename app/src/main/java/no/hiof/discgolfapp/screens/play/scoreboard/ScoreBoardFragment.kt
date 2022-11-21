@@ -121,23 +121,6 @@ class ScoreBoardFragment : Fragment() {
             )
         }
 
-        val courseIdList = mutableListOf<Int>()
-        courseIdList.add(args.courseId)
-        courseIdList.add(24195)
-        courseIdList.add(28754)
-        storedStatisticsViewModel.fetchAvgScoreCourseListMap(courseIdList)
-        storedStatisticsViewModel.fetchBestScoreCourseListMap(courseIdList)
-        storedStatisticsViewModel.fetchLastScoreCourseListMap(courseIdList)
-        storedStatisticsViewModel.avgScoresListMap.observe(viewLifecycleOwner) {
-            Log.d("ScoreBoardFragment", "AvgScoreListMap: $it")
-        }
-        storedStatisticsViewModel.bestScoresListMap.observe(viewLifecycleOwner) {
-            Log.d("ScoreBoardFragment", "BestScoreListMap: $it")
-        }
-        storedStatisticsViewModel.lastScoresListMap.observe(viewLifecycleOwner) {
-            Log.d("ScoreBoardFragment", "LastScoreListMap: $it")
-        }
-
 
         val continueButton = binding.finishScoreBoardButton
         continueButton.setOnClickListener {
