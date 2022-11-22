@@ -14,7 +14,43 @@ class User(
     val discs: ArrayList<Disc>?,
     val friends: ArrayList<User>?,
     val throws: ArrayList<Throw>?,
-    val friendsRequests: ArrayList<MutableMap<String, Boolean>>
+    val friendsRequests: ArrayList<MutableMap<String, Boolean>>?
 
 ) {
+    companion object {
+
+        fun getUsers(): List<User> {
+            return listOf(
+                User(
+                    "1234",
+                    false,
+                    Date(),
+                    "1321321",
+                    "Ole Sveinesen",
+                    "ole@ole.com",
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                ),
+                User(
+                    "1233",
+                    false,
+                    Date(),
+                    "dsad231dsada",
+                    "Geir Geiresen",
+                    "Geir@hotmail.com",
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+            )
+
+        }
+}
 }

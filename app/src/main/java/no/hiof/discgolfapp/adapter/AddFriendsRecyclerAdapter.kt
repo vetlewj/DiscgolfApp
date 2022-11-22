@@ -9,7 +9,7 @@ import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.User
 
-class AddFriendsRecyclerAdapter(private val users: ArrayList<User>, private val clickListener: View.OnClickListener) : RecyclerView.Adapter<AddFriendsRecyclerAdapter.UsersViewHolder>() {
+class AddFriendsRecyclerAdapter(private val users: List<User>, private val clickListener: View.OnClickListener) : RecyclerView.Adapter<AddFriendsRecyclerAdapter.UsersViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddFriendsRecyclerAdapter.UsersViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.fragment_add_users_item, parent, false)
@@ -40,4 +40,5 @@ class AddFriendsRecyclerAdapter(private val users: ArrayList<User>, private val 
         }
 
 
+    }
 }
