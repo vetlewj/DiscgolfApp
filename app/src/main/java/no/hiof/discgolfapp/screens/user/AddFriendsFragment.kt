@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import no.hiof.discgolfapp.R
+import no.hiof.discgolfapp.databinding.FragmentCoursesOverviewListBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,6 +20,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class AddFriendsFragment : Fragment() {
 
+    private var fragmentBinding: FragmentCoursesOverviewListBinding? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +32,8 @@ class AddFriendsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentCoursesOverviewListBinding.bind(view)
+        fragmentBinding = binding
 
     }
 
