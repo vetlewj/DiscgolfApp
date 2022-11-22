@@ -47,6 +47,7 @@
     <string name="disc_weight">Vekt</string>
     <string name="disc_color">Farge</string>
     <string name="save">Lagre</string>
+    <string name="no_disc_name">Vennligs velg et navn</string>
 
 
     <string-array name="disc_type_array">
