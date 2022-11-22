@@ -89,6 +89,7 @@ class CourseMapsFragment : Fragment() {
             action.longitude = course?.longitude ?: 0.0F
             action.latitude = course?.latitude ?: 0.0F
             action.type = course?.type ?: 1
+            action.courseName = course?.name ?: ""
 
             view?.findNavController()?.navigate(action)
         }
