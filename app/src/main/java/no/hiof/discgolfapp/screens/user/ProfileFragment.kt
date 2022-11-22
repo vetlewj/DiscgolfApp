@@ -34,6 +34,7 @@ class ProfileFragment : Fragment() {
 
             val emailTextView: TextView = view.findViewById(R.id.userEmailTextView)
             val userNameTextView: TextView = view.findViewById(R.id.userName)
+            val addFriendBtn: Button = view.findViewById(R.id.addFriendButton)
 
             emailTextView.text = email
             userNameTextView.text = userFirstName
@@ -48,6 +49,12 @@ class ProfileFragment : Fragment() {
                 navController.navigate(action)
 //                activity?.finish()
             }
+
+            addFriendBtn.setOnClickListener {
+                // TODO naviger til liste av personer fragment
+            }
+
+
 
         }
     }
