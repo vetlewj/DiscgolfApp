@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp
+package no.hiof.discgolfapp.screens.user
 
 import android.os.Bundle
 import android.util.Log
