@@ -51,7 +51,7 @@ class ProfileFragment : Fragment() {
             }
 
             addFriendBtn.setOnClickListener {
-                // TODO naviger til liste av personer fragment
+                findNavController().navigate(R.id.action_userFragment_to_addFriendsFragment)
             }
 
 

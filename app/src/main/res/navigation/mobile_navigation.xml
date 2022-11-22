@@ -124,6 +124,9 @@
         <action
             android:id="@+id/action_userFragment_to_coursesOverviewListFragment2"
             app:destination="@id/coursesOverviewListFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_addFriendsFragment"
+            app:destination="@id/addFriendsFragment" />
     </fragment>
     <fragment
         android:id="@+id/scoreBoardFragment"

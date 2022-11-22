@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.screens.user
+package no.hiof.discgolfapp
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,16 +10,7 @@ import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.databinding.FragmentCoursesOverviewListBinding
 import no.hiof.discgolfapp.screens.courses.CourseInfoFragmentArgs
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddFriendsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddFriendsFragment : Fragment() {
 
     private val args: CourseInfoFragmentArgs by navArgs()
