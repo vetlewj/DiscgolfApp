@@ -52,9 +52,9 @@ class CourseInfoEpoxyController : EpoxyController() {
                 // stats
                 // TODO bytt ut bestscore, AvgScore, lastScore med map
                 StatsItemEpoxyModel(
-                    bestScore = bestScore,
-                    avgScore = avgScore,
-                    lastScore = lastScore,
+                    bestScore = bestScoreMap?.get(course.uid),
+                    avgScore = avgScoreMap?.get(course.uid),
+                    lastScore = lastScoreMap?.get(course.uid),
                     sumPar = course.par,
                     courseRating = course.rating,
                     numberOfHoles = course.numberOfHoles,

@@ -90,6 +90,25 @@ class CourseInfoFragment : Fragment() {
                 }
 
                 epoxyController.listOfCoursesWithSameParentID = listOfCoursesWithSameParentID
+                val listOfUidsOfCoursesWithSameParrentId: ArrayList<Int> = ArrayList()
+
+                listOfCoursesWithSameParentID.forEach {
+                    listOfUidsOfCoursesWithSameParrentId.add(it.uid)
+                }
+
+                viewModelStats.fetchAvgScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
+                viewModelStats.fetchBestScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
+                viewModelStats.fetchLastScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
+                viewModelStats.avgScoresListMap.observe(viewLifecycleOwner) {
+                    epoxyController.avgScoreMap = it
+                }
+                viewModelStats.avgScoresListMap.observe(viewLifecycleOwner) {
+                    epoxyController.bestScoreMap = it
+                }
+                viewModelStats.avgScoresListMap.observe(viewLifecycleOwner) {
+                    epoxyController.lastScoreMap = it
+                }
+
             }
 
         } else {
