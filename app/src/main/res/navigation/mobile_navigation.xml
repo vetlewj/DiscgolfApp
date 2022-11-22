@@ -124,6 +124,9 @@
         <action
             android:id="@+id/action_userFragment_to_coursesOverviewListFragment2"
             app:destination="@id/coursesOverviewListFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_addFriendsFragment"
+            app:destination="@id/addFriendsFragment" />
     </fragment>
     <fragment
         android:id="@+id/scoreBoardFragment"
@@ -166,4 +169,9 @@
         android:id="@+id/createDiscsFragment"
         android:name="no.hiof.discgolfapp.screens.discs.CreateDiscsFragment"
         android:label="CreateDiscsFragment" />
+    <fragment
+        android:id="@+id/addFriendsFragment"
+        android:name="no.hiof.discgolfapp.AddFriendsFragment"
+        android:label="fragment_add_friends"
+        tools:layout="@layout/fragment_add_friends" />
 </navigation>

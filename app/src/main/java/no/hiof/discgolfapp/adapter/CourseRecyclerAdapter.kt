@@ -19,7 +19,7 @@ class CourseRecyclerAdapter(private val courses: ArrayList<Course>, private val 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
         val currentCourse = courses[position]
 
-            holder.bind(currentCourse, clickListener)
+        holder.bind(currentCourse, clickListener)
 
     }
 
@@ -27,7 +27,6 @@ class CourseRecyclerAdapter(private val courses: ArrayList<Course>, private val 
         return courses.size
     }
 
-    // TODO: Choose the selected course and navigate to CreateScoreCardFragment with the selected course
     class CourseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val courseNameTextView : TextView = view.findViewById(R.id.courseNameTextView)
         private val courseAreaTextView : TextView = view.findViewById(R.id.courseAreaTextView)

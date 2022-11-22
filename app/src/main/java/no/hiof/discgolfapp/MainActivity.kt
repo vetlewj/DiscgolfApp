@@ -2,6 +2,7 @@ package no.hiof.discgolfapp
 
 import android.content.ContentValues
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +15,11 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.databinding.ActivityMainBinding
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -105,27 +108,36 @@ class MainActivity : AppCompatActivity() {
                 val newUser = if(response.providerType == "anonymous") {
                     Toast.makeText(this, "${this.getString(R.string.sign_in)} gjest", Toast.LENGTH_SHORT).show()
                     hashMapOf(
-                        "uid" to "${user?.uid}",
-                        "guest" to true
+                        "authUid" to "${user?.uid}",
+                        "guest" to true,
+                        "dateCreated" to  Date(),
+
                     )
                 } else {
                     Toast.makeText(this, "${this.getString(R.string.sign_in)}  ${user?.displayName}", Toast.LENGTH_SHORT).show()
                     hashMapOf(
-                        "uid" to "${user?.uid}",
+                        "authUid" to "${user?.uid}",
                         "email" to "${user?.email}",
                         "name" to "${user?.displayName}",
-                        "guest" to false
+                        "guest" to false,
+                        "dateCreated" to  Date(),
                     )
                 }
+                val documentRefDataField = HashMap<String, String>()
                 // Add a new document with a generated ID
                 db.collection("users")
                     .add(newUser)
                     .addOnSuccessListener { documentReference ->
-                        Log.d("Making user collection", "$response DocumentSnapshot added with ID: ${documentReference.id}")
+                        Log.d("Making user collection", "DocumentSnapshot added with ID: ${documentReference.id}")
+
+                        documentRefDataField["documetRefUid"] = documentReference.id
+
+                        db.collection("users").document(documentReference.id).set(documentRefDataField, SetOptions.merge())
                     }
                     .addOnFailureListener { e ->
                         Log.w(ContentValues.TAG, "Error adding document", e)
                     }
+
             }
 
 
