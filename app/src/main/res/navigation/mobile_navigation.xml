@@ -166,4 +166,9 @@
         android:id="@+id/createDiscsFragment"
         android:name="no.hiof.discgolfapp.screens.discs.CreateDiscsFragment"
         android:label="CreateDiscsFragment" />
+    <fragment
+        android:id="@+id/addFriendsFragment"
+        android:name="no.hiof.discgolfapp.AddFriendsFragment"
+        android:label="fragment_add_friends"
+        tools:layout="@layout/fragment_add_friends" />
 </navigation>
