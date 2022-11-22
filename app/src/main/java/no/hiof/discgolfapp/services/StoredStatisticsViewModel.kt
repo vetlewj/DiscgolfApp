@@ -120,6 +120,9 @@ class StoredStatisticsViewModel : ViewModel() {
     }
 
     private suspend fun fetchAvgScoreCourseMap(courseId: Int) {
+        if (_avgScoresMap.value?.containsKey(courseId) == true) {
+            return
+        }
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -135,6 +138,9 @@ class StoredStatisticsViewModel : ViewModel() {
     }
 
     private suspend fun fetchBestScoreCourseMap(courseId: Int) {
+        if (_bestScoresMap.value?.containsKey(courseId) == true) {
+            return
+        }
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -151,6 +157,9 @@ class StoredStatisticsViewModel : ViewModel() {
     }
 
     private suspend fun fetchLastScoreCourseMap(courseId: Int) {
+        if (_lastScoresMap.value?.containsKey(courseId) == true) {
+            return
+        }
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -171,10 +180,13 @@ class StoredStatisticsViewModel : ViewModel() {
             viewModelScope.launch {
                 fetchBestScoreCourseMap(courseId)
                 currentBestScoresListMap[courseId] = _bestScoresMap.value?.get(courseId) ?: 0
-
-            }
-            if (currentBestScoresListMap.size == courseIds.size) {
-                _bestScoresListMap.value = currentBestScoresListMap
+                if (currentBestScoresListMap.keys.containsAll(courseIds)) {
+                    _bestScoresListMap.value = currentBestScoresListMap
+                    Log.d(
+                        "StoredStatistics",
+                        "fetchBestScoreCourseListMap: $currentBestScoresListMap"
+                    )
+                }
             }
         }
     }
@@ -185,10 +197,13 @@ class StoredStatisticsViewModel : ViewModel() {
             viewModelScope.launch {
                 fetchLastScoreCourseMap(courseId)
                 currentLastScoresListMap[courseId] = _lastScoresMap.value?.get(courseId) ?: 0
-
-            }
-            if (currentLastScoresListMap.size == courseIds.size) {
-                _lastScoresListMap.value = currentLastScoresListMap
+                if (currentLastScoresListMap.keys.containsAll(courseIds)) {
+                    _lastScoresListMap.value = currentLastScoresListMap
+                    Log.d(
+                        "StoredStatistics",
+                        "fetchLastScoreCourseListMap: $currentLastScoresListMap"
+                    )
+                }
             }
         }
     }
@@ -199,11 +214,13 @@ class StoredStatisticsViewModel : ViewModel() {
             viewModelScope.launch {
                 fetchAvgScoreCourseMap(courseId)
                 currentAvgScoresListMap[courseId] = _avgScoresMap.value?.get(courseId) ?: 0
-
-
-            }
-            if (currentAvgScoresListMap.size == courseIds.size) {
-                _avgScoresListMap.value = currentAvgScoresListMap
+                if (currentAvgScoresListMap.keys.containsAll(courseIds)) {
+                    _avgScoresListMap.value = currentAvgScoresListMap
+                    Log.d(
+                        "StoredStatistics",
+                        "fetchAvgScoreCourseListMap: $currentAvgScoresListMap"
+                    )
+                }
             }
         }
     }

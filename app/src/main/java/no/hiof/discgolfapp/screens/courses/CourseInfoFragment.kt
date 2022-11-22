@@ -65,14 +65,14 @@ class CourseInfoFragment : Fragment() {
 
             // TODO: fetch a list of scorecards
             viewModelStats.fetchCourseScoreCardsFromFireStore(293)
-                    viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
-                        if (scoreCards.isNullOrEmpty()) {
-                            Log.d("CourseInfoFrag", "Could not retrieve scorecards")
-                        }
-                        epoxyController.bestScore = viewModelStats.getBestScoreForCourse(293)
-                        epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(293)
-                        epoxyController.lastScore = viewModelStats.getLastScoreForCourse(293)
-                    }
+            viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
+                if (scoreCards.isNullOrEmpty()) {
+                    Log.d("CourseInfoFrag", "Could not retrieve scorecards")
+                }
+                epoxyController.bestScore = viewModelStats.getBestScoreForCourse(293)
+                epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(293)
+                epoxyController.lastScore = viewModelStats.getLastScoreForCourse(293)
+            }
             viewModel.fetchAdditionalInfoFromCoursesWithSameParentID(
                 "NO",
                 args.uid,
@@ -102,10 +102,10 @@ class CourseInfoFragment : Fragment() {
                 viewModelStats.avgScoresListMap.observe(viewLifecycleOwner) {
                     epoxyController.avgScoreMap = it
                 }
-                viewModelStats.avgScoresListMap.observe(viewLifecycleOwner) {
+                viewModelStats.bestScoresListMap.observe(viewLifecycleOwner) {
                     epoxyController.bestScoreMap = it
                 }
-                viewModelStats.avgScoresListMap.observe(viewLifecycleOwner) {
+                viewModelStats.lastScoresListMap.observe(viewLifecycleOwner) {
                     epoxyController.lastScoreMap = it
                 }
 
