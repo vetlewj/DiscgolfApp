@@ -41,15 +41,23 @@ class DiscRecyclerAdapter : ListAdapter<Disc, RecyclerView.ViewHolder>(DiscDiffC
 
         fun bind(disc: Disc){
             discNameTextView.text = disc.name
-            discSpeedTextView.text = disc.speed.toString()
-            discGlideTextView.text = disc.glide.toString()
-            discTurnTextView.text = disc.turn.toString()
-            discFadeTextView.text = disc.fade.toString()
+            discSpeedTextView.text = checkForNull(disc.speed, disc.speed.toString())
+            discGlideTextView.text = checkForNull(disc.glide, disc.glide.toString())
+            discTurnTextView.text = checkForNull(disc.turn, disc.turn.toString())
+            discFadeTextView.text = checkForNull(disc.fade, disc.fade.toString())
             discTypeTextView.text = disc.type.toString()
             discManufacturerTextView.text = disc.manufacturer
-            discWeightTextView.text = disc.weight.toString()
+            discWeightTextView.text = checkForNull(disc.weight, disc.weight.toString())
             discPlasticTextView.text = disc.plastic
             discColorTextView.text = disc.color
+        }
+
+        fun checkForNull(value: Int?, discNumber: String): String {
+            return if (value == null){
+                ""
+            } else{
+                discNumber
+            }
         }
     }
 
