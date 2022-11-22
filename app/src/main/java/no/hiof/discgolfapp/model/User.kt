@@ -2,19 +2,19 @@ package no.hiof.discgolfapp.model
 
 import java.util.Date
 
-class User(
-    val authUid: String,
-    val guest: Boolean,
-    val dateCreated: Date,
-    val documetRefUid: String,
-    var name: String?,
-    var email: String?,
-    var pictureUrl: String?,
-    val scoreCards: ArrayList<ScoreCard>?,
-    val discs: ArrayList<Disc>?,
-    val friends: ArrayList<User>?,
-    val throws: ArrayList<Throw>?,
-    val friendsRequests: ArrayList<MutableMap<String, Boolean>>?
+data class User(
+    val authUid: String = "",
+    val guest: Boolean? = null ,
+    val dateCreated: Date? = null,
+    val documetRefUid: String? = null,
+    var name: String? = "",
+    var email: String?= "",
+    var pictureUrl: String? = "",
+    val scoreCards: ArrayList<ScoreCard>? = null,
+    val discs: ArrayList<Disc>? = null,
+    val friends: ArrayList<User>? = null,
+    val throws: ArrayList<Throw>? = null,
+    val friendsRequests: MutableMap<String, Boolean>? = null
 
 ) {
     companion object {

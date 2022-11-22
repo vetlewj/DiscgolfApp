@@ -38,6 +38,9 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
 
             addFriendButton.setOnClickListener {
                 Toast.makeText(itemView.context, "sent friend request to ${user.name}", Toast.LENGTH_SHORT).show()
+                // TODO hente documentRefUid fra nåværende bruker og legge til en friend request i brukeren her.
+                // så
+                user.friendsRequests?.put("RefUidFromThisUser", false)
             }
 
             itemView.setOnClickListener(clickListener)
