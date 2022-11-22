@@ -76,13 +76,13 @@
         <ScrollView
             android:id="@+id/scoreBoardLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="8dp">
 
             <LinearLayout
                 android:id="@+id/scoreBoardLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 android:contentDescription="@string/scoreboard_ll_content_desc"
                 android:orientation="vertical" />
 
