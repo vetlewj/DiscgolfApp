@@ -39,15 +39,18 @@
     <string name="turn">Turn</string>
     <string name="fade">Fade</string>
     <string name="disc_type">Type:</string>
-    <string name="edit_button">Edit</string>
-    <string name="add_button">+</string>
     <string name="add_disc">Legg til ny disc</string>
     <string name="disc_manufacture">Produsent</string>
     <string name="disc_plastic">Plasttype</string>
     <string name="disc_weight">Vekt</string>
     <string name="disc_color">Farge</string>
-    <string name="save">Lagre</string>
     <string name="no_disc_name">Vennligs velg et navn</string>
+
+    <!-- Discs buttons -->
+    <string name="save">Lagre</string>
+    <string name="add_button">Legg til</string>
+    <string name="gridButton">Grid</string>
+    <string name="edit_button">Edit</string>
 
 
     <string-array name="disc_type_array">
@@ -116,6 +119,7 @@
     <string name="not_implemented_yet">Ikke implementert enda</string>
     <string name="add_friend_button">legg til venn</string>
     <string name="profile_picture">profle picture</string>
+
 
 
 </resources>

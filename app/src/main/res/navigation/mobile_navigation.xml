@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_myDiscsFragment_to_createDiscsFragment"
             app:destination="@id/createDiscsFragment" />
+        <action
+            android:id="@+id/action_myDiscsFragment_to_discGridFragment"
+            app:destination="@id/discGridFragment" />
     </fragment>
     <fragment
         android:id="@+id/createScoreCardFragment"
@@ -174,4 +177,8 @@
         android:name="no.hiof.discgolfapp.AddFriendsFragment"
         android:label="fragment_add_friends"
         tools:layout="@layout/fragment_add_friends" />
+    <fragment
+        android:id="@+id/discGridFragment"
+        android:name="no.hiof.discgolfapp.screens.discs.DiscGridFragment"
+        android:label="DiscGridFragment" />
 </navigation>
