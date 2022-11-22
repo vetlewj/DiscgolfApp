@@ -4,9 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObjects
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.ScoreCard
 import kotlin.math.roundToInt
@@ -116,7 +119,7 @@ class StoredStatisticsViewModel : ViewModel() {
         )) + ratingValue1).roundToInt()
     }
 
-    private fun fetchAvgScoreCourseMap(courseId: Int) {
+    private suspend fun fetchAvgScoreCourseMap(courseId: Int) {
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -128,10 +131,10 @@ class StoredStatisticsViewModel : ViewModel() {
             currentAvgScoresMap[courseId] = scoreCards.map { it.totalScore }.average().toInt()
             _avgScoresMap.value = currentAvgScoresMap
             Log.d("StoredStatistics", "fetchAvgScoreCourseMap: $currentAvgScoresMap")
-        }
+        }.await()
     }
 
-    private fun fetchBestScoreCourseMap(courseId: Int) {
+    private suspend fun fetchBestScoreCourseMap(courseId: Int) {
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -144,10 +147,10 @@ class StoredStatisticsViewModel : ViewModel() {
                 scoreCards.minByOrNull { it.totalScore }?.totalScore ?: 0
             _bestScoresMap.value = currentBestScoresMap
             Log.d("StoredStatistics", "fetchBestScoreCourseMap: $currentBestScoresMap")
-        }
+        }.await()
     }
 
-    private fun fetchLastScoreCourseMap(courseId: Int) {
+    private suspend fun fetchLastScoreCourseMap(courseId: Int) {
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
@@ -159,38 +162,49 @@ class StoredStatisticsViewModel : ViewModel() {
             currentLastScoresMap[courseId] = scoreCards.maxByOrNull { it.date }?.totalScore ?: 0
             _lastScoresMap.value = currentLastScoresMap
             Log.d("StoredStatistics", "fetchLastScoreCourseMap: $currentLastScoresMap")
-        }
+        }.await()
     }
-    fun fetchBestScoreCourseListMap(courseIds: List<Int>){
+
+    fun fetchBestScoreCourseListMap(courseIds: List<Int>) {
         val currentBestScoresListMap = _bestScoresListMap.value ?: mutableMapOf()
         courseIds.forEach { courseId ->
-            fetchBestScoreCourseMap(courseId)
-            currentBestScoresListMap[courseId] = _bestScoresMap.value?.get(courseId) ?: 0
-        }
-        if (currentBestScoresListMap.size == courseIds.size){
-            _bestScoresListMap.value = currentBestScoresListMap
+            viewModelScope.launch {
+                fetchBestScoreCourseMap(courseId)
+                currentBestScoresListMap[courseId] = _bestScoresMap.value?.get(courseId) ?: 0
+
+            }
+            if (currentBestScoresListMap.size == courseIds.size) {
+                _bestScoresListMap.value = currentBestScoresListMap
+            }
         }
     }
 
-    fun fetchLastScoreCourseListMap(courseIds: List<Int>){
+    fun fetchLastScoreCourseListMap(courseIds: List<Int>) {
         val currentLastScoresListMap = _lastScoresListMap.value ?: mutableMapOf()
         courseIds.forEach { courseId ->
-            fetchLastScoreCourseMap(courseId)
-            currentLastScoresListMap[courseId] = _lastScoresMap.value?.get(courseId) ?: 0
-        }
-        if (currentLastScoresListMap.size == courseIds.size){
-            _lastScoresListMap.value = currentLastScoresListMap
+            viewModelScope.launch {
+                fetchLastScoreCourseMap(courseId)
+                currentLastScoresListMap[courseId] = _lastScoresMap.value?.get(courseId) ?: 0
+
+            }
+            if (currentLastScoresListMap.size == courseIds.size) {
+                _lastScoresListMap.value = currentLastScoresListMap
+            }
         }
     }
 
-    fun fetchAvgScoreCourseListMap(courseIds: List<Int>){
+    fun fetchAvgScoreCourseListMap(courseIds: List<Int>) {
         val currentAvgScoresListMap = _avgScoresListMap.value ?: mutableMapOf()
         courseIds.forEach { courseId ->
-            fetchAvgScoreCourseMap(courseId)
-            currentAvgScoresListMap[courseId] = _avgScoresMap.value?.get(courseId) ?: 0
-        }
-        if (currentAvgScoresListMap.size == courseIds.size){
-            _avgScoresListMap.value = currentAvgScoresListMap
+            viewModelScope.launch {
+                fetchAvgScoreCourseMap(courseId)
+                currentAvgScoresListMap[courseId] = _avgScoresMap.value?.get(courseId) ?: 0
+
+
+            }
+            if (currentAvgScoresListMap.size == courseIds.size) {
+                _avgScoresListMap.value = currentAvgScoresListMap
+            }
         }
     }
 }
