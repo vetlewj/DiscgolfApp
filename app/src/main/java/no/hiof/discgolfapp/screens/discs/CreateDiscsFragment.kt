@@ -62,7 +62,6 @@ class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
         spinner.onItemSelectedListener = this
 
-        
 
         saveBtn.setOnClickListener {
             Log.d("Button pressed", "Save disc button pressede")
@@ -79,14 +78,16 @@ class CreateDiscsFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.DiscNameTextInputLayout.error = "Vennligs velg et navn"
 
 
-
-
             } else {
                 val discSpeed = binding.DiscSpeedEditText.text.toString().toIntOrNull()
                 val discGlide = binding.DiscGlideEditText.text.toString().toIntOrNull()
                 val discTurn = binding.DiscTurnEditText.text.toString().toIntOrNull()
                 val discFade = binding.DiscFadeEditText.text.toString().toIntOrNull()
                 val discWeight = binding.DiscWeightEditText.text.toString().toIntOrNull()
+
+                binding.DiscNameTextInputLayout.isErrorEnabled = false
+                binding.DiscNameTextInputLayout.error = null
+                binding.DiscNameTextInputLayout.refreshErrorIconDrawableState()
 
                 try {
                     val disc = Disc(
