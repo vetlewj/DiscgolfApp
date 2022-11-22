@@ -11,7 +11,7 @@ import no.hiof.discgolfapp.services.api.cache.CoursesCache
 class SharedRepository {
 
     suspend fun getCoursesByCountryCode(courseCode: String, courseType: CourseType): ArrayList<Course>? {
-
+        // TODO: Check if the courses exists in cache, if not try to fetch all courses from API and update firestore cache
         val cachedCourses = CoursesCache.listOfCourseMap[courseCode]
         if (cachedCourses != null) {
             return CourseMapper.buildFromListOFCoursesResponse(cachedCourses, courseType)
@@ -29,7 +29,7 @@ class SharedRepository {
     }
 
     suspend fun getCoursesByCountryCodeAndWithSameParentID(courseCode: String, parentID: Int ): ArrayList<Course>? {
-
+        // TODO: Check if the courses exists in cache, if not try to fetch all courses from API and update firestore cache
         val cachedCourses = CoursesCache.listOfCourseMap[courseCode]
         if (cachedCourses != null) {
             return CourseMapper.buildListOfType2WithParentIDFromType1(cachedCourses, parentID)
@@ -47,6 +47,7 @@ class SharedRepository {
     }
 
     suspend fun getCourseByID(courseID: String): Course? {
+        // TODO: Check if course exists in cache, if not try to get course from API and update firestore cache
         val request = NetworkLayer.apiClient.getCourseByID(courseID)
 
         if(request.isSuccessful) {
@@ -56,6 +57,7 @@ class SharedRepository {
     }
 
     suspend fun getWeatherByCoordinates(lat: String, lon: String): Weather? {
+        // TODO: Try to get weather, if not possible (e.g. not connected to internet), return null
         val request = NetworkLayer.apiClient.getWeatherByCoordinates(lat, lon)
 
         if(request.isSuccessful) {

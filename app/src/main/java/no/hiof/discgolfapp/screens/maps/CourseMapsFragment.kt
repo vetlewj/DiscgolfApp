@@ -140,6 +140,7 @@ class CourseMapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // TODO: Check if user is connected to internet, and handle accordingly. Map and fetch courses if connected, else show error message
 
         val mapSwitch = view.findViewById<SwitchMaterial>(R.id.mapsToCoursesListSwitch)
         mapSwitch?.setOnCheckedChangeListener { _, isChecked ->

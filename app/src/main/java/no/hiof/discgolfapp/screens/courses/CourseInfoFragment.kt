@@ -121,6 +121,7 @@ class CourseInfoFragment : Fragment() {
                 epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
                 epoxyController.lastScore = viewModelStats.getLastScoreForCourse(args.uid)
             }
+            // TODO: Check if user is connected to internet, and handle accordingly
             viewModel.fetchCourse(args.uid.toString())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
                 epoxyController.courseResponse = course
