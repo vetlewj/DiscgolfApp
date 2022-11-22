@@ -3,7 +3,9 @@ package no.hiof.discgolfapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Course
@@ -17,9 +19,9 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
     }
 
     override fun onBindViewHolder(holder: AddFriendsRecyclerAdapter.UsersViewHolder, position: Int) {
-        val currentCourse = users[position]
+        val currentUser = users[position]
 
-        holder.bind(currentCourse, clickListener)
+        holder.bind(currentUser, clickListener)
 
     }
 
@@ -28,14 +30,17 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
     }
 
     class UsersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        //private val courseNameTextView : TextView = view.findViewById(R.id.courseNameTextView)
-        //private val courseAreaTextView : TextView = view.findViewById(R.id.courseAreaTextView)
+        private val userNameTextView : TextView = view.findViewById(R.id.userNameTextView)
+        private val addFriendButton : Button = view.findViewById(R.id.addNewFriendButton)
 
         fun bind(user: User, clickListener: View.OnClickListener) {
-//            courseNameTextView.text = course.name
-//            courseAreaTextView.text = course.area
-//
-//            itemView.setOnClickListener(clickListener)
+            userNameTextView.text = user.name
+
+            addFriendButton.setOnClickListener {
+                Toast.makeText(itemView.context, "sent friend request to ${user.name}", Toast.LENGTH_SHORT).show()
+            }
+
+            itemView.setOnClickListener(clickListener)
 
         }
 
