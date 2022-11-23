@@ -14,7 +14,7 @@ data class User(
     val discs: ArrayList<Disc>? = null,
     val friends: ArrayList<User>? = null,
     val throws: ArrayList<Throw>? = null,
-    val friendsRequests: MutableMap<String, Boolean>? = null
+    val friendsRequests: ArrayList<FriendRequest>? = null
 
 ) {
     companion object {
@@ -50,6 +50,17 @@ data class User(
                     null
                 )
             )
+
+        }
+
+        data class FriendRequest(
+            val date: Date,
+            val sentFromUid: String,
+            val name: String,
+            val pictureUrl: String,
+            val acceptRequest: Boolean?,
+
+        ) {
 
         }
 }

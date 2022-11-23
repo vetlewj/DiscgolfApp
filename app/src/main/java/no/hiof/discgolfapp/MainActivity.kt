@@ -125,14 +125,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 val documentRefDataField = HashMap<String, String>()
                 // Add a new document with a generated ID
-                db.collection("users")
-                    .add(newUser)
+                db.collection("users").document("${user?.uid}")
+                    .set(newUser)
                     .addOnSuccessListener { documentReference ->
-                        Log.d("Making user collection", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        Log.d("Making user collection", "DocumentSnapshot added with ID: ${user?.uid}")
 
-                        documentRefDataField["documetRefUid"] = documentReference.id
 
-                        db.collection("users").document(documentReference.id).set(documentRefDataField, SetOptions.merge())
                     }
                     .addOnFailureListener { e ->
                         Log.w(ContentValues.TAG, "Error adding document", e)

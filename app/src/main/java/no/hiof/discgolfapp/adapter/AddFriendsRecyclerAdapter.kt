@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.User
@@ -36,11 +38,22 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
         fun bind(user: User, clickListener: View.OnClickListener) {
             userNameTextView.text = user.name
 
+            // lag en fetch her til senere
+
             addFriendButton.setOnClickListener {
                 Toast.makeText(itemView.context, "sent friend request to ${user.name}", Toast.LENGTH_SHORT).show()
                 // TODO hente documentRefUid fra nåværende bruker og legge til en friend request i brukeren her.
-                // så
-                user.friendsRequests?.put("RefUidFromThisUser", false)
+                val currentuUser = Firebase.auth.currentUser
+                // lag en fetch her til senere
+
+
+                // Trenger id user som skal ha request
+
+                // Hva skal en request inneholde
+                // date()
+                //
+
+               // user.friendsRequests?.put("RefUidFromThisUser", false)
             }
 
             itemView.setOnClickListener(clickListener)
