@@ -56,6 +56,14 @@ class MyDiscsFragment : Fragment() {
                     discRecyclerAdapter.submitList(discList)
                     discRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
+                    val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToDiscGridFragment()
+                    action.let {
+//                        var  sendSpeed = discList[0].speed
+//                        Log.d("send disc speed", "speed: $sendSpeed")
+                        it.speed = discList[0].speed!!
+                    }
+                    findNavController().navigate(action)
+
                 }
             }
             .addOnFailureListener{ exception ->

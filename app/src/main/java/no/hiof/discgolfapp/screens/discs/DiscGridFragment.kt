@@ -13,9 +13,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import io.grpc.NameResolver.Args
 import no.hiof.discgolfapp.databinding.FragmentDiscGridBinding
 import no.hiof.discgolfapp.model.Disc
 import no.hiof.discgolfapp.screens.discs.MyDiscsFragment
@@ -24,7 +27,8 @@ class DiscGridFragment : Fragment()  {
 
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
-//    private val discList: MutableList<Disc> = mutableListOf()
+//    private val discList2: MutableList<Disc> = MyDiscsFragment
+    private val args: DiscGridFragmentArgs by navArgs()
 
     private var _binding: FragmentDiscGridBinding? = null
     private lateinit var binding: FragmentDiscGridBinding
@@ -36,12 +40,16 @@ class DiscGridFragment : Fragment()  {
         savedInstanceState: Bundle?
     ): View? {
 
+
         binding = FragmentDiscGridBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
 
         firestore.collection("discs")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
@@ -63,8 +71,8 @@ class DiscGridFragment : Fragment()  {
 //
 
 //        lateinit val speed = discList.get(0).speed.toString().toInt()
-//        MyDiscsFragment.val discList
-//        Log.d("disc speed", "speed: $speed")
+
+        Log.d("disc speed", "speed!!!: ${args.speed}")
 
 
         val width = 700

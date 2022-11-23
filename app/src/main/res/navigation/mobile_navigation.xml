@@ -24,10 +24,12 @@
         tools:layout="@layout/fragment_my_discs">
         <action
             android:id="@+id/action_myDiscsFragment_to_createDiscsFragment"
-            app:destination="@id/createDiscsFragment" />
+            app:destination="@id/createDiscsFragment"
+            tools:layout="@layout/fragment_create_disc"/>
         <action
             android:id="@+id/action_myDiscsFragment_to_discGridFragment"
-            app:destination="@id/discGridFragment" />
+            app:destination="@id/discGridFragment"
+            tools:layout="@layout/fragment_disc_grid"/>
     </fragment>
     <fragment
         android:id="@+id/createScoreCardFragment"
@@ -205,5 +207,10 @@
     <fragment
         android:id="@+id/discGridFragment"
         android:name="no.hiof.discgolfapp.screens.discs.DiscGridFragment"
-        android:label="DiscGridFragment" />
+        android:label="DiscGridFragment" >
+        <argument
+            android:name="speed"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
 </navigation>
