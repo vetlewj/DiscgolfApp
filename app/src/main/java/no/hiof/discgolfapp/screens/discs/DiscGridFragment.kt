@@ -44,7 +44,7 @@ class DiscGridFragment : Fragment()  {
         var right = 660.toFloat()
         var bottom = 840.toFloat()
 
-        val gridWidth = right+left
+        val gridWidth = right-left
         val gridHeight = bottom-top
 
 
@@ -69,26 +69,47 @@ class DiscGridFragment : Fragment()  {
 
 //        canvas.drawCircle(5,5,5, Paint(color.Red))
 
-        canvas.drawCircle((gridWidth / 2).toFloat(), (gridHeight/2 ).toFloat(), 5F, Paint().apply { setARGB(255, 255, 0, 0)})
+        canvas.drawCircle((width / 2).toFloat(), (bottom/2 ).toFloat(), 5F, Paint().apply { setARGB(255, 255, 0, 0)})
 
         val blackPaint = Paint()
         blackPaint.color = Color.BLACK
         blackPaint.strokeWidth = 2.5F
 
-        var gridHeightNumber = 15
-        var i = 0
-        Log.d("canvas lines", "Drawing grid height lines")
-        while (i <= gridHeightNumber){
-            var heightSteps = top+((gridHeight / gridHeightNumber)*i)
-            canvas.drawLine(left, heightSteps, right, heightSteps,blackPaint)
-            i++
+
+
+
+        fun drawGridHeightLines() {
+            var gridHeightNumber = 15
+            var i = 0
+            Log.d("canvas lines", "Drawing grid height lines")
+            while (i <= gridHeightNumber) {
+                var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
+                canvas.drawLine(left, heightSteps, right, heightSteps, blackPaint)
+                i++
+            }
         }
 
+        
+
+        fun drawGridWidthLines(){
+            var gridWidthNumber = 12
+            var i = 0
+            while (i <= gridWidthNumber){
+                var widthSteps = left + ((gridWidth / gridWidthNumber) * i)
+                canvas.drawLine(widthSteps, top, widthSteps, bottom, blackPaint)
+                i++
+            }
+        }
+
+        drawGridHeightLines()
+        drawGridWidthLines()
+
+
         fun gridFrame() {
-            canvas.drawLine(left, top, right, top, blackPaint)
-            canvas.drawLine(left, top, left, bottom, blackPaint)
-            canvas.drawLine(left, bottom, right, bottom, blackPaint)
-            canvas.drawLine(right, top, right, bottom, blackPaint)
+            canvas.drawLine(left, top, right, top, blackPaint) //Top
+            canvas.drawLine(left, top, left, bottom, blackPaint)    //Left
+            canvas.drawLine(left, bottom, right, bottom, blackPaint)    //Bottom
+            canvas.drawLine(right, top, right, bottom, blackPaint)  //right
         }
 
 //        gridFrame()
