@@ -63,14 +63,14 @@ class CourseInfoFragment : Fragment() {
         }
         if (args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
 
-            viewModelStats.fetchCourseScoreCardsFromFireStore(293)
+            viewModelStats.fetchCourseScoreCardsFromFireStore(args.uid)
             viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
                 if (scoreCards.isNullOrEmpty()) {
                     Log.d("CourseInfoFrag", "Could not retrieve scorecards")
                 }
-                epoxyController.bestScore = viewModelStats.getBestScoreForCourse(293)
-                epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(293)
-                epoxyController.lastScore = viewModelStats.getLastScoreForCourse(293)
+                epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
+                epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
+                epoxyController.lastScore = viewModelStats.getLastScoreForCourse(args.uid)
             }
             viewModel.fetchAdditionalInfoFromCoursesWithSameParentID(
                 "NO",
@@ -96,19 +96,18 @@ class CourseInfoFragment : Fragment() {
                     listOfUidsOfCoursesWithSameParrentId.add(it.uid)
                 }
 
-                viewModelStats.fetchAvgScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
-                viewModelStats.fetchBestScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
-                viewModelStats.fetchLastScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
-                viewModelStats.avgScoresListMap.observe(viewLifecycleOwner) {
-                    epoxyController.avgScoreMap = it
+                viewModelStats.fetchScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
+                viewModelStats.childCoursesScoreCardsMap.observe(viewLifecycleOwner) { scoreCardsMap ->
+                    if (scoreCardsMap.isNullOrEmpty()) {
+                        Log.d("CourseInfoFrag", "Could not retrieve scorecards")
+                    }
+                    epoxyController.avgScoreMap =
+                        viewModelStats.getAverageScoreMap(scoreCardsMap)
+                    epoxyController.bestScoreMap =
+                        viewModelStats.getBestScoreMap(scoreCardsMap)
+                    epoxyController.lastScoreMap =
+                        viewModelStats.getLastScoreMap(scoreCardsMap)
                 }
-                viewModelStats.bestScoresListMap.observe(viewLifecycleOwner) {
-                    epoxyController.bestScoreMap = it
-                }
-                viewModelStats.lastScoresListMap.observe(viewLifecycleOwner) {
-                    epoxyController.lastScoreMap = it
-                }
-
             }
 
         } else {
