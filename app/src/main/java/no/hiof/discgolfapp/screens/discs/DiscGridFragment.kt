@@ -75,24 +75,14 @@ class DiscGridFragment : Fragment()  {
         blackPaint.color = Color.BLACK
         blackPaint.strokeWidth = 2.5F
 
-//        canvas.drawLine(left, top+20, right, top+20, blackPaint)
-
-        var hightLines = 6
-//        var hightSteps = gridHeight / hightLines
-        var hightSteps = (height / hightLines) - hightLines
-//        var hightSteps = 200-hightLines
+        var gridHeightNumber = 15
         var i = 0
-        Log.d("Lines HightSteps", "HightSteps: $hightSteps")
-        while (i < hightLines){
-            var lineHight = top+(hightSteps*i)
-            canvas.drawLine(left, lineHight, right, lineHight,blackPaint)
-
-            Log.d("Lines stepsvalue", "Drawing line at hight $lineHight")
-            Log.d("Lines i count", "I = $i")
+        Log.d("canvas lines", "Drawing grid height lines")
+        while (i <= gridHeightNumber){
+            var heightSteps = top+((gridHeight / gridHeightNumber)*i)
+            canvas.drawLine(left, heightSteps, right, heightSteps,blackPaint)
             i++
         }
-        Log.d("Lines", "lines: $i")
-
 
         fun gridFrame() {
             canvas.drawLine(left, top, right, top, blackPaint)
