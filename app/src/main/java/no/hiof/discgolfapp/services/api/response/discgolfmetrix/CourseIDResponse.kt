@@ -1,20 +1,38 @@
 package no.hiof.discgolfapp.services.api.response.discgolfmetrix
 
+import com.google.firebase.firestore.PropertyName
+
 data class CourseIDResponse(
-    val Area: String?,
-    val City: String?,
-    val CountryCode: String?,
-    val Enddate: String?,
-    val Fullname: String?,
-    val ID: String?,
-    val Lat: String?,
-    val Lng: String?,
-    val Location: String?,
-    val Name: String?,
-    val ParentID: String?,
-    val RatingResult1: String?,
-    val RatingResult2: String?,
-    val RatingValue1: String?,
-    val RatingValue2: String?,
-    val Type: String?
+    @PropertyName("area")
+    val Area: String? = null,
+    @PropertyName("city")
+    val City: String? = null,
+    @PropertyName("countryCode")
+    val CountryCode: String? = null,
+    @PropertyName("enddate")
+    val Enddate: String? = null,
+    @PropertyName("fullname")
+    val Fullname: String? = null,
+    @PropertyName("uid")
+    val ID: String? = null,
+    @PropertyName("latitude")
+    val Lat: String? = null,
+    @PropertyName("longitude")
+    val Lng: String? = null,
+    @PropertyName("location")
+    val Location: String? = null,
+    @PropertyName("name")
+    val Name: String? = null,
+    @PropertyName("parentID")
+    val ParentID: String? = null,
+    @PropertyName("ratingResult1")
+    val RatingResult1: String? = null,
+    @PropertyName("ratingResult2")
+    val RatingResult2: String? = null,
+    @PropertyName("ratingValue1")
+    val RatingValue1: String? = null,
+    @PropertyName("ratingValue2")
+    val RatingValue2: String? = null,
+    @PropertyName("type")
+    val Type: String? = null
 )
