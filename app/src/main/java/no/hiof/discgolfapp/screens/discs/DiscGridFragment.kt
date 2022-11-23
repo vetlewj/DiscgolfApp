@@ -18,11 +18,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.databinding.FragmentDiscGridBinding
 import no.hiof.discgolfapp.model.Disc
+import no.hiof.discgolfapp.screens.discs.MyDiscsFragment
 
 class DiscGridFragment : Fragment()  {
 
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
+//    private val discList: MutableList<Disc> = mutableListOf()
 
     private var _binding: FragmentDiscGridBinding? = null
     private lateinit var binding: FragmentDiscGridBinding
@@ -48,11 +50,21 @@ class DiscGridFragment : Fragment()  {
                 for (document in documents) {
                     Log.d("Fetch Disc", "${document.data}")
                     val discObject = document.toObject(Disc::class.java)!!
+//                    discList.add(discObject)
+//                    val speed = discList.get(0).speed.toString().toInt()
+//                    Log.d("disc speed", "speed: $speed")
+
                 }
             }
             .addOnFailureListener{ exception ->
                 Log.w("Fetch disc", "Error fetching discs from Firestore: ", exception)
             }
+
+//
+
+//        lateinit val speed = discList.get(0).speed.toString().toInt()
+//        MyDiscsFragment.val discList
+//        Log.d("disc speed", "speed: $speed")
 
 
         val width = 700
@@ -144,6 +156,7 @@ class DiscGridFragment : Fragment()  {
         drawGridWidthLines()
         drawGridSpeedNumbers()
         drawGridStabilityNumbers()
+
 
 
         val imageView = binding.imageView

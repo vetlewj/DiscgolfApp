@@ -20,7 +20,7 @@ import no.hiof.discgolfapp.model.Disc
 
 class MyDiscsFragment : Fragment() {
 
-    private val discList: MutableList<Disc> = mutableListOf()
+    public val discList: MutableList<Disc> = mutableListOf()
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
 
