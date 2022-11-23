@@ -74,10 +74,11 @@ class SharedRepository {
                         parentID
                     )
                 }
-                for (course in request.body()!!.courses) {
-                    firestore.collection("coursesByCountryCode").document(course.ID.toString())
-                        .set(course)
-                }
+                // commented out to reduce number of write requests to Firestore
+//                for (course in request.body()!!.courses) {
+//                    firestore.collection("coursesByCountryCode").document(course.ID.toString())
+//                        .set(course)
+//                }
                 return courses
             }
         }

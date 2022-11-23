@@ -135,8 +135,12 @@ class StoredStatisticsViewModel : ViewModel() {
             for (courseId in scoreCardsMap.keys) {
                 val scoreCards = scoreCardsMap[courseId]
                 if (scoreCards != null) {
-                    val averageScore = scoreCards.map { it.totalScore }.average().roundToInt()
-                    averageScoreMap[courseId] = averageScore
+                    val averageScore = scoreCards.map { it.totalScore }.average()
+                    if (!averageScore.isNaN()){
+                        averageScoreMap[courseId] = averageScore.toInt()
+                    }else{
+                        averageScoreMap[courseId] = 0
+                    }
                 }
             }
             return averageScoreMap
