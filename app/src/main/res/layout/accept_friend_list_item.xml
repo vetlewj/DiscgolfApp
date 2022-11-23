@@ -18,9 +18,8 @@
             android:contentDescription="@string/profile_picture"
             app:layout_constraintBottom_toBottomOf="@+id/FriendLineView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/accceptNewFriendButton"
             app:layout_constraintTop_toTopOf="parent"
+
             tools:srcCompat="@tools:sample/avatars[1]" />
 
         <TextView
@@ -30,21 +29,10 @@
             android:text="@string/user_name"
             app:layout_constraintBottom_toTopOf="@+id/accceptNewFriendButton"
             app:layout_constraintEnd_toEndOf="@+id/accceptNewFriendButton"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/accceptNewFriendButton"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.555" />
+        />
 
-        <Button
-            android:id="@+id/accceptNewFriendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_friend_button"
-            app:layout_constraintBottom_toTopOf="@+id/FriendLineView"
-            app:layout_constraintEnd_toStartOf="@+id/profilePictureInAddFriendsListImageView"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/FriendLineView"
@@ -57,5 +45,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/accceptNewFriendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accept_friend"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/declineFriendButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/declineFriendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/decline_friend"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/profilePictureInAddFriendsListImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
