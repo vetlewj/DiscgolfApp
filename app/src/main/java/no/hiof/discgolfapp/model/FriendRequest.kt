@@ -5,7 +5,8 @@ import java.util.*
 
 data class FriendRequest(
     val date: Date,
-    val sentFromUid: String,
+    val senderUid: String,
+    val receiverUid: String,
     val name: String,
     val pictureUrl: Uri?,
     val acceptRequest: Boolean?

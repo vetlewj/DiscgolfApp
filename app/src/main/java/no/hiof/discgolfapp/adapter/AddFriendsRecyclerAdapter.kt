@@ -1,5 +1,7 @@
 package no.hiof.discgolfapp.adapter
 
+import android.content.ContentValues
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.R
@@ -48,23 +49,39 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
                 val currentuUser = Firebase.auth.currentUser
                 val db = Firebase.firestore
 
-
                 try {
                     val newFriendRequest: FriendRequest =
                             FriendRequest(
                                 date = Date(),
-                                sentFromUid = currentuUser!!.uid,
+                                senderUid = currentuUser!!.uid,
+                                receiverUid = user.authUid,
                                 name = currentuUser.displayName!!,
                                 pictureUrl = currentuUser.photoUrl,
                                 acceptRequest = null
                             )
 
+                    db.collection("friend-request")
+                        .add(newFriendRequest)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(ContentValues.TAG, "Error adding document", e)
+                        }
+
                 } catch (_: java.lang.NullPointerException) {
                     Toast.makeText(itemView.context, "Something went wrong when tring to send request, please try again", Toast.LENGTH_SHORT).show()
                 }
 
-//                db.collection("users").document(user.authUid)
-//                    .set(newFriendRequest, SetOptions.merge())
+                // Måter å gjøre det på
+                // Collection inne i user
+                // Trenger userUID
+                // lagrer det hos
+                // Eget dokument
+                // - da må jeg ha uid til den som skal ha requesten
+                // - og ha en uid for den som sente den
+                // En liste hos user
+
 
             }
 

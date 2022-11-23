@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
 
-                // Add a new document with a generated ID
+                // Add a new document
                 db.collection("users").document("${user?.uid}")
                     .set(newUser)
                     .addOnSuccessListener { documentReference ->
