@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.MetadataChanges
 import kotlinx.coroutines.tasks.await
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.helper.CourseType
@@ -14,6 +15,8 @@ import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.Weather
 import no.hiof.discgolfapp.services.api.NetworkLayer
 import no.hiof.discgolfapp.services.api.cache.CoursesCache
+import no.hiof.discgolfapp.services.api.response.discgolfmetrix.CourseCountryCodeResponse
+import no.hiof.discgolfapp.services.api.response.discgolfmetrix.GetListOfCoursesByCountryCodeResponse
 
 class SharedRepository {
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -31,6 +34,7 @@ class SharedRepository {
             )
             return CourseMapper.buildFromListOFCoursesResponse(cachedCourses, courseType)
         }
+        var courses = arrayListOf<Course>()
         if (NetworkConnectionHelper.isNetworkConnected(context)) {
             Log.d(
                 "SharedRepository",
@@ -39,21 +43,42 @@ class SharedRepository {
             val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
             if (request.isSuccessful) {
                 CoursesCache.listOfCourseMap[courseCode] = request.body()!!
-                val courses =
+                courses =
                     CourseMapper.buildFromListOFCoursesResponse(request.body()!!, courseType)
-                for (course in courses) {
-                    firestore.collection("courses").document(course.uid.toString()).set(course)
+                for (course in request.body()!!.courses) {
+                    firestore.collection("coursesByCountryCode").document(course.ID.toString()).set(course)
                 }
                 return courses
             }
         }
-        // TODO: try to fetch from firestore local cache if not internet connection
-        Toast.makeText(
-            context,
-            context.getString(R.string.connect_to_internet_to_get_courses),
-            Toast.LENGTH_SHORT
-        ).show()
-        return null
+        val data = firestore.collection("coursesByCountryCode").whereEqualTo("countryCode", courseCode)
+            data.addSnapshotListener(MetadataChanges.INCLUDE) { snapshot, e ->
+                if (e != null) {
+                    Log.w("SharedRepository", "Listen error:", e)
+                    return@addSnapshotListener
+                }
+                if (snapshot != null && !snapshot.isEmpty) {
+                    val coursesResponse = snapshot.toObjects(CourseCountryCodeResponse::class.java)
+                    val coursesResponseList =
+                        GetListOfCoursesByCountryCodeResponse(coursesResponse)
+                    CoursesCache.listOfCourseMap[courseCode] = coursesResponseList
+                    courses = CourseMapper.buildFromListOFCoursesResponse(
+                        coursesResponseList,
+                        courseType
+                    )
+                    return@addSnapshotListener
+                } else {
+                    Log.d("SharedRepository", "Current data: null")
+                }
+            }
+        if (data.get().await().isEmpty) {
+            Toast.makeText(
+                context,
+                context.getString(R.string.connect_to_internet_to_get_courses),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        return courses
     }
 
     suspend fun getCoursesByCountryCodeAndWithSameParentID(
