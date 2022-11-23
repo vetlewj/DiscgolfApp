@@ -66,7 +66,8 @@ class ChooseCourseFragment : Fragment() {
             sharedViewModel.getSortedCoursesByDistance(
                 currentLocation.latitude,
                 currentLocation.longitude,
-                viewLifecycleOwner
+                viewLifecycleOwner,
+                requireContext()
             )
 
             sharedViewModel.sortedCourseList.observe(viewLifecycleOwner) { courses ->

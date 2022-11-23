@@ -42,7 +42,7 @@ class CourseResultsFragment : Fragment() {
                 .navigate(R.id.action_courseResultsFragment_to_coursesOverviewListFragment)
         }
 
-        sharedViewModel.fetchCourse(args.courseId.toString())
+        sharedViewModel.fetchCourse(args.courseId.toString(), requireContext())
         sharedViewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
             if (course == null) {
                 Log.w("ChooseCourseFragment", "courses is null")
