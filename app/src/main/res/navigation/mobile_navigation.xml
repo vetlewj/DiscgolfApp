@@ -9,7 +9,7 @@
         android:id="@+id/coursesOverviewListFragment"
         android:name="no.hiof.discgolfapp.screens.courses.CoursesOverviewListFragment"
         android:label="fragment_courses_overview_list"
-        tools:layout="@layout/fragment_courses_overview_list" >
+        tools:layout="@layout/fragment_courses_overview_list">
         <action
             android:id="@+id/action_coursesOverviewListFragment_to_courseInfoFragment"
             app:destination="@id/courseInfoFragment" />
@@ -21,7 +21,7 @@
         android:id="@+id/myDiscsFragment"
         android:name="no.hiof.discgolfapp.screens.discs.MyDiscsFragment"
         android:label="fragment_my_discs"
-        tools:layout="@layout/fragment_my_discs" >
+        tools:layout="@layout/fragment_my_discs">
         <action
             android:id="@+id/action_myDiscsFragment_to_createDiscsFragment"
             app:destination="@id/createDiscsFragment" />
@@ -33,7 +33,7 @@
         android:id="@+id/createScoreCardFragment"
         android:name="no.hiof.discgolfapp.screens.play.createscorecard.CreateScoreCardFragment"
         android:label="fragment_create_score_card"
-        tools:layout="@layout/fragment_create_score_card" >
+        tools:layout="@layout/fragment_create_score_card">
         <action
             android:id="@+id/action_createScoreCardFragment_to_chooseCourseFragment"
             app:destination="@id/chooseCourseFragment" />
@@ -48,7 +48,7 @@
         android:id="@+id/chooseCourseFragment"
         android:name="no.hiof.discgolfapp.screens.play.createscorecard.ChooseCourseFragment"
         android:label="fragment_choose_course"
-        tools:layout="@layout/fragment_choose_course" >
+        tools:layout="@layout/fragment_choose_course">
         <action
             android:id="@+id/action_chooseCourseFragment_to_createScoreCardFragment"
             app:destination="@id/createScoreCardFragment" />
@@ -62,44 +62,44 @@
         android:id="@+id/courseInfoFragment"
         android:name="no.hiof.discgolfapp.screens.courses.CourseInfoFragment"
         android:label="fragment_course_info"
-        tools:layout="@layout/fragment_course_info" >
+        tools:layout="@layout/fragment_course_info">
         <argument
             android:name="uid"
-            app:argType="integer"
-            android:defaultValue="1" />
+            android:defaultValue="1"
+            app:argType="integer" />
         <action
             android:id="@+id/action_courseInfoFragment_to_createScoreCardFragment"
             app:destination="@id/createScoreCardFragment" />
         <argument
             android:name="longitude"
-            app:argType="float"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="float" />
         <argument
             android:name="latitude"
-            app:argType="float"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="float" />
         <argument
             android:name="type"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <argument
             android:name="courseName"
-            app:argType="string"
-            android:defaultValue="course name" />
+            android:defaultValue="course name"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/takeScoreFragment"
         android:name="no.hiof.discgolfapp.screens.play.takescore.TakeScoreFragment"
         android:label="fragment_take_score"
-        tools:layout="@layout/fragment_take_score" >
+        tools:layout="@layout/fragment_take_score">
         <argument
             android:name="ScoreCardType"
-            app:argType="string"
-            android:defaultValue="par" />
+            android:defaultValue="par"
+            app:argType="string" />
         <argument
             android:name="holeNumber"
-            app:argType="integer"
-            android:defaultValue="1" />
+            android:defaultValue="1"
+            app:argType="integer" />
         <action
             android:id="@+id/action_takeScoreFragment_to_scoreBoardFragment"
             app:destination="@id/scoreBoardFragment" />
@@ -111,7 +111,7 @@
         android:id="@+id/courseMapsFragment"
         android:name="no.hiof.discgolfapp.screens.maps.CourseMapsFragment"
         android:label="fragment_course_maps"
-        tools:layout="@layout/fragment_course_maps" >
+        tools:layout="@layout/fragment_course_maps">
         <action
             android:id="@+id/action_courseMapsFragment_to_coursesOverviewListFragment"
             app:destination="@id/coursesOverviewListFragment" />
@@ -123,7 +123,7 @@
         android:id="@+id/userFragment"
         android:name="no.hiof.discgolfapp.screens.user.ProfileFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_userFragment_to_coursesOverviewListFragment2"
             app:destination="@id/coursesOverviewListFragment" />
@@ -141,7 +141,7 @@
         android:id="@+id/scoreBoardFragment"
         android:name="no.hiof.discgolfapp.screens.play.scoreboard.ScoreBoardFragment"
         android:label="fragment_score_board"
-        tools:layout="@layout/fragment_score_board" >
+        tools:layout="@layout/fragment_score_board">
         <argument
             android:name="ScoreCardId"
             app:argType="string" />
@@ -156,14 +156,14 @@
             app:destination="@id/courseResultsFragment" />
         <argument
             android:name="courseName"
-            app:argType="string"
-            android:defaultValue="Ukjent bane" />
+            android:defaultValue="Ukjent bane"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/courseResultsFragment"
         android:name="no.hiof.discgolfapp.screens.courses.CourseResultsFragment"
         android:label="fragment_course_results"
-        tools:layout="@layout/fragment_course_results" >
+        tools:layout="@layout/fragment_course_results">
         <argument
             android:name="courseId"
             app:argType="integer" />
@@ -192,7 +192,7 @@
         android:id="@+id/friendsListFragment"
         android:name="no.hiof.discgolfapp.screens.user.FriendsListFragment"
         android:label="fragment_friends_list"
-        tools:layout="@layout/fragment_friends_list" >
+        tools:layout="@layout/fragment_friends_list">
         <action
             android:id="@+id/action_friendsListFragment_to_friendsProfileFragment"
             app:destination="@id/friendsProfileFragment" />
@@ -203,7 +203,6 @@
         android:label="fragment_friends_profile"
         tools:layout="@layout/fragment_friends_profile" />
     <fragment
-       DiscsGrid
         android:id="@+id/discGridFragment"
         android:name="no.hiof.discgolfapp.screens.discs.DiscGridFragment"
         android:label="DiscGridFragment" />
