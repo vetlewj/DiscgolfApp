@@ -10,7 +10,7 @@ class NetworkConnectionHelper {
     companion object {
         // Used method from https://www.geeksforgeeks.org/how-to-check-internet-connection-in-kotlin/
         // and https://stackoverflow.com/questions/66675693/android-check-internet-connection-in-kotlin
-        // as a base and Android Studio Intellisense to create this method
+        // as a base to create this method
         @SuppressLint("MissingPermission")
         fun isNetworkConnected(context: Context): Boolean {
             val connectivityManager =

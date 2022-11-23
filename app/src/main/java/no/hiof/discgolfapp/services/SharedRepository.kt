@@ -2,7 +2,10 @@ package no.hiof.discgolfapp.services
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
+import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.helper.CourseType
 import no.hiof.discgolfapp.helper.network.NetworkConnectionHelper
 import no.hiof.discgolfapp.services.api.mappers.CourseMapper
@@ -29,15 +32,23 @@ class SharedRepository {
             )
             return CourseMapper.buildFromListOFCoursesResponse(cachedCourses, courseType)
         }
-
-        val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
-        if (request.isSuccessful) {
-            // Updating the cache
-            CoursesCache.listOfCourseMap[courseCode] = request.body()!!
-
-            return CourseMapper.buildFromListOFCoursesResponse(request.body()!!, courseType)
+        if (NetworkConnectionHelper.isNetworkConnected(context)) {
+            Log.d(
+                "SharedRepository",
+                "getCoursesByCountryCode: No cached courses for $courseCode, fetching from API"
+            )
+            val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
+            if (request.isSuccessful) {
+                CoursesCache.listOfCourseMap[courseCode] = request.body()!!
+                val courses =
+                    CourseMapper.buildFromListOFCoursesResponse(request.body()!!, courseType)
+                for (course in courses) {
+                    firestore.collection("courses").document(course.uid.toString()).set(course)
+                }
+                return courses
+            }
         }
-
+        Toast.makeText(context, context.getString(R.string.connect_to_internet_to_get_courses), Toast.LENGTH_SHORT).show()
         return null
     }
 
@@ -51,25 +62,32 @@ class SharedRepository {
         if (cachedCourses != null) {
             return CourseMapper.buildListOfType2WithParentIDFromType1(cachedCourses, parentID)
         }
-
-        val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
-        if (request.isSuccessful) {
-            // Updating the cache
-            CoursesCache.listOfCourseMap[courseCode] = request.body()!!
-
-            return CourseMapper.buildListOfType2WithParentIDFromType1(request.body()!!, parentID)
+        if (NetworkConnectionHelper.isNetworkConnected(context)) {
+            val request = NetworkLayer.apiClient.getCoursesByCountryCode(courseCode)
+            if (request.isSuccessful) {
+                CoursesCache.listOfCourseMap[courseCode] = request.body()!!
+                val courses =
+                    CourseMapper.buildListOfType2WithParentIDFromType1(request.body()!!, parentID)
+                for (course in courses) {
+                    firestore.collection("courses").document(course.uid.toString()).set(course)
+                }
+            }
         }
-
+        Toast.makeText(context, context.getString(R.string.connect_to_internet_to_get_courses), Toast.LENGTH_SHORT).show()
         return null
     }
 
     suspend fun getCourseByID(courseID: String, context: Context): Course? {
         // TODO: Check if course exists in cache, if not try to get course from API and update firestore cache
-        val request = NetworkLayer.apiClient.getCourseByID(courseID)
-
-        if (request.isSuccessful) {
-            return CourseMapper.buildFromCourseResponse(request.body()!!)
+        if (NetworkConnectionHelper.isNetworkConnected(context)) {
+            val request = NetworkLayer.apiClient.getCourseByID(courseID)
+            if (request.isSuccessful) {
+                val course = CourseMapper.buildFromCourseResponse(request.body()!!)
+                firestore.collection("course").document(course.uid.toString()).set(course)
+                return course
+            }
         }
+        Toast.makeText(context, context.getString(R.string.connect_to_internet_to_get_course), Toast.LENGTH_SHORT).show()
         return null
     }
 
