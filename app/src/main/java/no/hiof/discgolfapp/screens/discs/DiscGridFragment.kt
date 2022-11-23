@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,40 +35,73 @@ class DiscGridFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gridWidth = 700
-        val gridHeight = 1000
+        val width = 700
+        val height = 1000
 
-        val bitmap: Bitmap = Bitmap.createBitmap(gridWidth, gridHeight, Bitmap.Config.ARGB_8888)
+        // rectangle positions
+        var left = 40.toFloat()
+        var top = 60.toFloat()
+        var right = 660.toFloat()
+        var bottom = 840.toFloat()
+
+        val gridWidth = right+left
+        val gridHeight = bottom-top
+
+
+
+        val bitmap: Bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
 
         val canvas = Canvas(bitmap)
 
         var shapeDrawable: ShapeDrawable
 
-        // rectangle positions
-        var left = 30.toFloat()
-        var top = 50.toFloat()
-        var right = 670.toFloat()
-        var bottom = 600.toFloat()
 
-        // draw rectangle shape to canvas
-        shapeDrawable = ShapeDrawable(RectShape())
-        shapeDrawable.setBounds(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
-        shapeDrawable.getPaint().setColor(Color.parseColor("lightgray"))
-        shapeDrawable.draw(canvas)
 
-        val paint = Paint()
-        paint.color = Color.BLACK
-        paint.strokeWidth = 2F
+
+        fun drawRectangle() {
+            shapeDrawable = ShapeDrawable(RectShape())
+            shapeDrawable.setBounds(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
+            shapeDrawable.getPaint().setColor(Color.parseColor("lightgray"))
+            shapeDrawable.draw(canvas)
+        }
+
+        drawRectangle()
+
+//        canvas.drawCircle(5,5,5, Paint(color.Red))
+
+        canvas.drawCircle((gridWidth / 2).toFloat(), (gridHeight/2 ).toFloat(), 5F, Paint().apply { setARGB(255, 255, 0, 0)})
+
+        val blackPaint = Paint()
+        blackPaint.color = Color.BLACK
+        blackPaint.strokeWidth = 2.5F
+
+//        canvas.drawLine(left, top+20, right, top+20, blackPaint)
+
+        var hightLines = 6
+//        var hightSteps = gridHeight / hightLines
+        var hightSteps = (height / hightLines) - hightLines
+//        var hightSteps = 200-hightLines
+        var i = 0
+        Log.d("Lines HightSteps", "HightSteps: $hightSteps")
+        while (i < hightLines){
+            var lineHight = top+(hightSteps*i)
+            canvas.drawLine(left, lineHight, right, lineHight,blackPaint)
+
+            Log.d("Lines stepsvalue", "Drawing line at hight $lineHight")
+            Log.d("Lines i count", "I = $i")
+            i++
+        }
+        Log.d("Lines", "lines: $i")
 
 
         fun gridFrame() {
-            canvas.drawLine(left, top, right, top, paint)
-            canvas.drawLine(left, top, left, bottom, paint)
-            canvas.drawLine(left, bottom, right, bottom, paint)
-            canvas.drawLine(right, top, right, bottom, paint)
+            canvas.drawLine(left, top, right, top, blackPaint)
+            canvas.drawLine(left, top, left, bottom, blackPaint)
+            canvas.drawLine(left, bottom, right, bottom, blackPaint)
+            canvas.drawLine(right, top, right, bottom, blackPaint)
         }
 
-        gridFrame()
+//        gridFrame()
 
         val imageView = binding.imageView
         imageView.background = BitmapDrawable(getResources(), bitmap)
