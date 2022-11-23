@@ -15,6 +15,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         createAuthListener()
+        setFirestoreSettings()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -159,10 +161,12 @@ class MainActivity : AppCompatActivity() {
             Log.d("Autenticate User", "Sign in failed")
         }
     }
-
-
-
-
-
-
+    fun setFirestoreSettings(){
+        val db = Firebase.firestore
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+            .build()
+        db.firestoreSettings = settings
+    }
 }
