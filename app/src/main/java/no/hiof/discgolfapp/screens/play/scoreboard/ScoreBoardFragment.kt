@@ -84,7 +84,7 @@ class ScoreBoardFragment : Fragment() {
                     (totalScore.minus(totalPar))
                 )
 
-                sharedViewModel.fetchCourse(args.courseId.toString())
+                sharedViewModel.fetchCourse(args.courseId.toString(), requireContext())
                 val courseFromApi = sharedViewModel.courseByIDLiveData
                 courseFromApi.observe(viewLifecycleOwner) { course ->
                     if (course != null) {

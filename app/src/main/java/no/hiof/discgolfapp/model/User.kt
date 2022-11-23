@@ -4,9 +4,8 @@ import java.util.Date
 
 data class User(
     val authUid: String = "",
-    val guest: Boolean? = null ,
+    val guest: Boolean? = null,
     val dateCreated: Date? = null,
-    val documetRefUid: String? = null,
     var name: String? = "",
     var email: String?= "",
     var pictureUrl: String? = "",
@@ -14,7 +13,7 @@ data class User(
     val discs: ArrayList<Disc>? = null,
     val friends: ArrayList<User>? = null,
     val throws: ArrayList<Throw>? = null,
-    val friendsRequests: MutableMap<String, Boolean>? = null
+    val friendsRequests: ArrayList<FriendRequest>? = null
 
 ) {
     companion object {
@@ -33,7 +32,7 @@ data class User(
                     null,
                     null,
                     null,
-                    null
+
                 ),
                 User(
                     "1233",
@@ -47,10 +46,10 @@ data class User(
                     null,
                     null,
                     null,
-                    null
                 )
             )
 
         }
+
 }
 }

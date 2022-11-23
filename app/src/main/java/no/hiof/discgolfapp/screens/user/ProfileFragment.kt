@@ -13,9 +13,13 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.R
+import no.hiof.discgolfapp.databinding.FragmentAddFriendsBinding
+import no.hiof.discgolfapp.databinding.FragmentProfileBinding
 
 
 class ProfileFragment : Fragment() {
+
+    private var fragmentBinding: FragmentProfileBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,22 +30,18 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentProfileBinding.bind(view)
+        fragmentBinding = binding
 
         val user = Firebase.auth.currentUser
         user?.let {
             val userFirstName = user.displayName.toString()
             val email = user.email.toString()
 
-            val emailTextView: TextView = view.findViewById(R.id.userEmailTextView)
-            val userNameTextView: TextView = view.findViewById(R.id.userName)
-            val addFriendBtn: Button = view.findViewById(R.id.addFriendButton)
+            binding.userEmailTextView.text = email
+            binding.userName.text = userFirstName
 
-            emailTextView.text = email
-            userNameTextView.text = userFirstName
-
-            val signOutBtn: Button = view.findViewById(R.id.signOutButton)
-
-            signOutBtn.setOnClickListener {
+            binding.signOutButton.setOnClickListener {
                 signOut()
                 val navController = this.findNavController()
                 val action =
@@ -50,10 +50,16 @@ class ProfileFragment : Fragment() {
 //                activity?.finish()
             }
 
-            addFriendBtn.setOnClickListener {
+            binding.addFriendButton.setOnClickListener {
                 findNavController().navigate(R.id.action_userFragment_to_addFriendsFragment)
             }
 
+            binding.friendRequestsButton.setOnClickListener {
+                findNavController().navigate(R.id.action_userFragment_to_acceptFriendFragment)
+            }
+            binding.friendListButton.setOnClickListener {
+                findNavController().navigate(R.id.action_userFragment_to_friendsListFragment)
+            }
 
 
         }

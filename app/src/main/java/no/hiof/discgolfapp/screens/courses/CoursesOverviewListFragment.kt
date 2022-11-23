@@ -37,44 +37,44 @@ class CoursesOverviewListFragment : Fragment() {
         val binding = FragmentCoursesOverviewListBinding.bind(view)
         fragmentBinding = binding
 
-        viewModel.fetchCourses("NO", CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT)
+        viewModel.fetchCourses("NO", CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT, requireContext())
         viewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { listOfCourses ->
-            if(listOfCourses == null) {
-                Toast.makeText(view.context, "network call was unsuccessful", Toast.LENGTH_SHORT).show()
+            if (listOfCourses == null) {
+                Toast.makeText(view.context, "network call was unsuccessful", Toast.LENGTH_SHORT)
+                    .show()
                 return@observe
             }
 
             binding.courseRecyclerView.adapter =
-                    CourseRecyclerAdapter(listOfCourses, View.OnClickListener { it ->
-                        val position = binding.courseRecyclerView.getChildAdapterPosition(it)
+                CourseRecyclerAdapter(listOfCourses, View.OnClickListener { it ->
+                    val position = binding.courseRecyclerView.getChildAdapterPosition(it)
 
-                        val selectedCourse = listOfCourses[position]
+                    val selectedCourse = listOfCourses[position]
 
-                        val action =
-                            CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
-                        action.let {
-                            it.uid = selectedCourse.uid
-                            it.courseName = selectedCourse.name
-                            it.type = selectedCourse.type!!
-                            it.latitude = try {
-                                selectedCourse.latitude!!.toFloat()
-                            } catch (e: NullPointerException) {
-                                1000F
-                            }
-                            it.longitude = try {
-                                selectedCourse.longitude!!.toFloat()
-                            } catch (e: NullPointerException) {
-                                1000F
-                            }
+                    val action =
+                        CoursesOverviewListFragmentDirections.actionCoursesOverviewListFragmentToCourseInfoFragment()
+                    action.let {
+                        it.uid = selectedCourse.uid
+                        it.courseName = selectedCourse.name
+                        it.type = selectedCourse.type!!
+                        it.latitude = try {
+                            selectedCourse.latitude!!.toFloat()
+                        } catch (e: NullPointerException) {
+                            1000F
                         }
-                        findNavController().navigate(action)
-                    })
-                binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
+                        it.longitude = try {
+                            selectedCourse.longitude!!.toFloat()
+                        } catch (e: NullPointerException) {
+                            1000F
+                        }
+                    }
+                    findNavController().navigate(action)
+                })
+            binding.courseRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
-            }
+        }
 
-        binding.coursesOverviewListToMapSwitch.setOnCheckedChangeListener {
-                compoundButton, b ->
+        binding.coursesOverviewListToMapSwitch.setOnCheckedChangeListener { compoundButton, b ->
 
             findNavController().navigate(R.id.action_coursesOverviewListFragment_to_courseMapsFragment)
         }

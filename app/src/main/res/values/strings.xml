@@ -122,7 +122,12 @@
     <string name="not_implemented_yet">Ikke implementert enda</string>
     <string name="add_friend_button">legg til venn</string>
     <string name="profile_picture">profle picture</string>
-
+    <string name="connect_to_internet_to_get_courses">Koble til internett for å hente baner</string>
+    <string name="connect_to_internet_to_get_course">Koble til internett for å hente baneinfo</string>
+    <string name="friend_requests_button">venneforespørsler</string>
+    <string name="friend_list_button">venneliste</string>
+    <string name="accept_friend">Godta </string>
+    <string name="decline_friend">Avslå</string>
 
 
 </resources>

@@ -2,7 +2,6 @@ package no.hiof.discgolfapp
 
 import android.content.ContentValues
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,10 +14,11 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.databinding.ActivityMainBinding
+import no.hiof.discgolfapp.model.User
 import java.util.Date
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         createAuthListener()
+        setFirestoreSettings()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -107,32 +108,43 @@ class MainActivity : AppCompatActivity() {
 
                 val newUser = if(response.providerType == "anonymous") {
                     Toast.makeText(this, "${this.getString(R.string.sign_in)} gjest", Toast.LENGTH_SHORT).show()
-                    hashMapOf(
-                        "authUid" to "${user?.uid}",
-                        "guest" to true,
-                        "dateCreated" to  Date(),
 
+                    User(
+                        authUid = "${user?.uid}",
+                        guest = true,
+                        dateCreated = Date(),
+                        name = null,
+                        email = null,
+                        pictureUrl = null,
+                        scoreCards = ArrayList(),
+                        discs = ArrayList(),
+                        friends = null,
+                        throws = ArrayList(),
+                        friendsRequests = null
                     )
                 } else {
                     Toast.makeText(this, "${this.getString(R.string.sign_in)}  ${user?.displayName}", Toast.LENGTH_SHORT).show()
-                    hashMapOf(
-                        "authUid" to "${user?.uid}",
-                        "email" to "${user?.email}",
-                        "name" to "${user?.displayName}",
-                        "guest" to false,
-                        "dateCreated" to  Date(),
+
+                    User(
+                        authUid = "${user?.uid}",
+                        guest = false,
+                        dateCreated = Date(),
+                        name = "${user?.displayName}",
+                        email = "${user?.email}",
+                        pictureUrl = null,
+                        scoreCards = ArrayList(),
+                        discs = ArrayList(),
+                        friends = ArrayList(),
+                        throws = ArrayList(),
+                        friendsRequests = ArrayList()
                     )
                 }
-                val documentRefDataField = HashMap<String, String>()
-                // Add a new document with a generated ID
-                db.collection("users")
-                    .add(newUser)
+
+                // Add a new document
+                db.collection("users").document("${user?.uid}")
+                    .set(newUser)
                     .addOnSuccessListener { documentReference ->
-                        Log.d("Making user collection", "DocumentSnapshot added with ID: ${documentReference.id}")
-
-                        documentRefDataField["documetRefUid"] = documentReference.id
-
-                        db.collection("users").document(documentReference.id).set(documentRefDataField, SetOptions.merge())
+                        Log.d("Making user collection", "DocumentSnapshot added with ID: ${user?.uid}")
                     }
                     .addOnFailureListener { e ->
                         Log.w(ContentValues.TAG, "Error adding document", e)
@@ -147,10 +159,12 @@ class MainActivity : AppCompatActivity() {
             Log.d("Autenticate User", "Sign in failed")
         }
     }
-
-
-
-
-
-
+    private fun setFirestoreSettings(){
+        val db = Firebase.firestore
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+            .build()
+        db.firestoreSettings = settings
+    }
 }

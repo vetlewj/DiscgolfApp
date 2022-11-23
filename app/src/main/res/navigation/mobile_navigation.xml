@@ -130,6 +130,12 @@
         <action
             android:id="@+id/action_userFragment_to_addFriendsFragment"
             app:destination="@id/addFriendsFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_acceptFriendFragment"
+            app:destination="@id/acceptFriendFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_friendsListFragment"
+            app:destination="@id/friendsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/scoreBoardFragment"
@@ -174,10 +180,30 @@
         android:label="CreateDiscsFragment" />
     <fragment
         android:id="@+id/addFriendsFragment"
-        android:name="no.hiof.discgolfapp.AddFriendsFragment"
+        android:name="no.hiof.discgolfapp.screens.user.AddFriendsFragment"
         android:label="fragment_add_friends"
         tools:layout="@layout/fragment_add_friends" />
     <fragment
+        android:id="@+id/acceptFriendFragment"
+        android:name="no.hiof.discgolfapp.screens.user.AcceptFriendFragment"
+        android:label="fragment_accept_friend"
+        tools:layout="@layout/fragment_accept_friend" />
+    <fragment
+        android:id="@+id/friendsListFragment"
+        android:name="no.hiof.discgolfapp.screens.user.FriendsListFragment"
+        android:label="fragment_friends_list"
+        tools:layout="@layout/fragment_friends_list" >
+        <action
+            android:id="@+id/action_friendsListFragment_to_friendsProfileFragment"
+            app:destination="@id/friendsProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendsProfileFragment"
+        android:name="no.hiof.discgolfapp.screens.user.FriendsProfileFragment"
+        android:label="fragment_friends_profile"
+        tools:layout="@layout/fragment_friends_profile" />
+    <fragment
+       DiscsGrid
         android:id="@+id/discGridFragment"
         android:name="no.hiof.discgolfapp.screens.discs.DiscGridFragment"
         android:label="DiscGridFragment" />
