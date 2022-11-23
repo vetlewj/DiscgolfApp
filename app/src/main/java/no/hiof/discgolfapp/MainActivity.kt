@@ -19,6 +19,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.databinding.ActivityMainBinding
+import no.hiof.discgolfapp.model.User
 import java.util.Date
 
 class MainActivity : AppCompatActivity() {
@@ -107,30 +108,43 @@ class MainActivity : AppCompatActivity() {
 
                 val newUser = if(response.providerType == "anonymous") {
                     Toast.makeText(this, "${this.getString(R.string.sign_in)} gjest", Toast.LENGTH_SHORT).show()
-                    hashMapOf(
-                        "authUid" to "${user?.uid}",
-                        "guest" to true,
-                        "dateCreated" to  Date(),
 
+                    User(
+                        authUid = "${user?.uid}",
+                        guest = true,
+                        dateCreated = Date(),
+                        name = null,
+                        email = null,
+                        pictureUrl = null,
+                        scoreCards = ArrayList(),
+                        discs = ArrayList(),
+                        friends = null,
+                        throws = ArrayList(),
+                        friendsRequests = null
                     )
                 } else {
                     Toast.makeText(this, "${this.getString(R.string.sign_in)}  ${user?.displayName}", Toast.LENGTH_SHORT).show()
-                    hashMapOf(
-                        "authUid" to "${user?.uid}",
-                        "email" to "${user?.email}",
-                        "name" to "${user?.displayName}",
-                        "guest" to false,
-                        "dateCreated" to  Date(),
+
+                    User(
+                        authUid = "${user?.uid}",
+                        guest = false,
+                        dateCreated = Date(),
+                        name = "${user?.displayName}",
+                        email = "${user?.email}",
+                        pictureUrl = null,
+                        scoreCards = ArrayList(),
+                        discs = ArrayList(),
+                        friends = ArrayList(),
+                        throws = ArrayList(),
+                        friendsRequests = ArrayList()
                     )
                 }
-                val documentRefDataField = HashMap<String, String>()
+
                 // Add a new document with a generated ID
                 db.collection("users").document("${user?.uid}")
                     .set(newUser)
                     .addOnSuccessListener { documentReference ->
                         Log.d("Making user collection", "DocumentSnapshot added with ID: ${user?.uid}")
-
-
                     }
                     .addOnFailureListener { e ->
                         Log.w(ContentValues.TAG, "Error adding document", e)

@@ -8,13 +8,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.model.Course
+import no.hiof.discgolfapp.model.FriendRequest
 import no.hiof.discgolfapp.model.User
+import java.util.*
 
 class AddFriendsRecyclerAdapter(private val users: List<User>, private val clickListener: View.OnClickListener) : RecyclerView.Adapter<AddFriendsRecyclerAdapter.UsersViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddFriendsRecyclerAdapter.UsersViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.fragment_add_users_item, parent, false)
         return UsersViewHolder(itemView)
@@ -44,16 +46,26 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
                 Toast.makeText(itemView.context, "sent friend request to ${user.name}", Toast.LENGTH_SHORT).show()
                 // TODO hente documentRefUid fra nåværende bruker og legge til en friend request i brukeren her.
                 val currentuUser = Firebase.auth.currentUser
-                // lag en fetch her til senere
+                val db = Firebase.firestore
 
 
-                // Trenger id user som skal ha request
+                try {
+                    val newFriendRequest: FriendRequest =
+                            FriendRequest(
+                                date = Date(),
+                                sentFromUid = currentuUser!!.uid,
+                                name = currentuUser.displayName!!,
+                                pictureUrl = currentuUser.photoUrl,
+                                acceptRequest = null
+                            )
 
-                // Hva skal en request inneholde
-                // date()
-                //
+                } catch (_: java.lang.NullPointerException) {
+                    Toast.makeText(itemView.context, "Something went wrong when tring to send request, please try again", Toast.LENGTH_SHORT).show()
+                }
 
-               // user.friendsRequests?.put("RefUidFromThisUser", false)
+//                db.collection("users").document(user.authUid)
+//                    .set(newFriendRequest, SetOptions.merge())
+
             }
 
             itemView.setOnClickListener(clickListener)

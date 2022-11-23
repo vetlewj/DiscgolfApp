@@ -4,9 +4,8 @@ import java.util.Date
 
 data class User(
     val authUid: String = "",
-    val guest: Boolean? = null ,
+    val guest: Boolean? = null,
     val dateCreated: Date? = null,
-    val documetRefUid: String? = null,
     var name: String? = "",
     var email: String?= "",
     var pictureUrl: String? = "",
@@ -33,7 +32,7 @@ data class User(
                     null,
                     null,
                     null,
-                    null
+
                 ),
                 User(
                     "1233",
@@ -47,21 +46,10 @@ data class User(
                     null,
                     null,
                     null,
-                    null
                 )
             )
 
         }
 
-        data class FriendRequest(
-            val date: Date,
-            val sentFromUid: String,
-            val name: String,
-            val pictureUrl: String,
-            val acceptRequest: Boolean?
-
-        ) {
-
-        }
 }
 }
