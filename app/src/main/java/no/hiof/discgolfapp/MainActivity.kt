@@ -2,7 +2,6 @@ package no.hiof.discgolfapp
 
 import android.content.ContentValues
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.databinding.ActivityMainBinding
@@ -34,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         createAuthListener()
-        // setFirestoreSettings()
+        setFirestoreSettings()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -161,7 +159,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("Autenticate User", "Sign in failed")
         }
     }
-    fun setFirestoreSettings(){
+    private fun setFirestoreSettings(){
         val db = Firebase.firestore
         val settings = FirebaseFirestoreSettings.Builder()
             .setPersistenceEnabled(true)
