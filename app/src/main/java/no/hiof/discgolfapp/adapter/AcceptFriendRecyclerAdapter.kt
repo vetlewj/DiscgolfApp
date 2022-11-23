@@ -65,36 +65,15 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
                         "profilePicture" to friendRequest.pictureUrl
                     )
                     val newFriendSender = hashMapOf(
-                        "name" to currentuUser?.displayName,
+                        "name" to "${currentuUser?.displayName}",
                         "friendAuthUid" to friendRequest.senderUid,
                         "date" to Date(),
-                        "profilePicture" to currentuUser?.photoUrl
+                        "profilePicture" to "${currentuUser?.photoUrl}"
                     )
 
-//                    db.collection("users").document(friendRequest.receiverUid.toString()).collection("friends")
-//                        .add(newFriendReciver)
-//                        .addOnSuccessListener { documentReference ->
-//                            Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
-//                        }
-//                        .addOnFailureListener { e ->
-//                            Log.w(ContentValues.TAG, "Error adding document", e)
-//                        }
-//
-//                    db.collection("users").document(friendRequest.senderUid.toString()).collection("friends")
-//                        .add(newFriendSender)
-//                        .addOnSuccessListener { documentReference ->
-//                            Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
-//                        }
-//                        .addOnFailureListener { e ->
-//                            Log.w(ContentValues.TAG, "Error adding document", e)
-//                        }
-
-
                     db.runBatch { batch ->
-
-
                         batch.set(receivedFriendRequestRef, newFriendReciver )
-                        batch.set(senderFriendRequestRef, senderFriendRequestRef)
+                        batch.set(senderFriendRequestRef, newFriendSender)
 
                     }.addOnSuccessListener { documentReference ->
                         Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: $documentReference")
@@ -103,7 +82,7 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
                             Log.w("FriendRequestCollection", "Error adding document", e)
                         }
 
-                } catch (_: java.lang.NullPointerException) {
+                } catch (_: Exception) {
                     Toast.makeText(itemView.context, "Something went wrong when tring to send request, please try again", Toast.LENGTH_SHORT).show()
                 }
             }
