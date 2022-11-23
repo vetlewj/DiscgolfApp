@@ -58,7 +58,7 @@ data class User(
             val sentFromUid: String,
             val name: String,
             val pictureUrl: String,
-            val acceptRequest: Boolean?,
+            val acceptRequest: Boolean?
 
         ) {
 

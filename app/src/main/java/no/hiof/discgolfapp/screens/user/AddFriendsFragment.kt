@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -38,8 +39,10 @@ class AddFriendsFragment : Fragment() {
         fragmentBinding = binding
 
         val db = Firebase.firestore
+        val currentuUser = Firebase.auth.currentUser
 
         db.collection("users")
+            .whereNotEqualTo("authUid", "${currentuUser?.uid}" )
             .whereEqualTo("guest", false)
             .get()
             .addOnSuccessListener { documents ->
