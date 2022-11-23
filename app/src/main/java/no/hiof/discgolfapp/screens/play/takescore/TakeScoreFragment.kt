@@ -38,7 +38,6 @@ class TakeScoreFragment : Fragment() {
 
         val args =
             TakeScoreFragmentArgs.fromBundle(requireArguments())
-        // TODO: Check if user is connected to internet, and handle accordingly
         sharedViewModel.fetchCourse(args.courseId.toString(), requireContext())
         sharedViewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
             if (course == null) {

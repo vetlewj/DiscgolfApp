@@ -23,7 +23,6 @@ class SharedRepository {
         courseType: CourseType,
         context: Context
     ): ArrayList<Course>? {
-        // TODO: Check if the courses exists in cache, if not try to fetch all courses from API and update firestore cache
         val cachedCourses = CoursesCache.listOfCourseMap[courseCode]
         if (cachedCourses != null) {
             Log.d(
@@ -48,6 +47,7 @@ class SharedRepository {
                 return courses
             }
         }
+        // TODO: try to fetch from firestore local cache if not internet connection
         Toast.makeText(
             context,
             context.getString(R.string.connect_to_internet_to_get_courses),
@@ -61,7 +61,6 @@ class SharedRepository {
         parentID: Int,
         context: Context
     ): ArrayList<Course>? {
-        // TODO: Check if the courses exists in cache, if not try to fetch all courses from API and update firestore cache
         val cachedCourses = CoursesCache.listOfCourseMap[courseCode]
         if (cachedCourses != null) {
             return CourseMapper.buildListOfType2WithParentIDFromType1(cachedCourses, parentID)
@@ -77,6 +76,7 @@ class SharedRepository {
                 }
             }
         }
+        // TODO: try to fetch from firestore local cache if not internet connection
         Toast.makeText(
             context,
             context.getString(R.string.connect_to_internet_to_get_courses),
@@ -86,7 +86,6 @@ class SharedRepository {
     }
 
     suspend fun getCourseByID(courseID: String, context: Context): Course? {
-        // TODO: Check if course exists in cache, if not try to get course from API and update firestore cache
         if (NetworkConnectionHelper.isNetworkConnected(context)) {
             val request = NetworkLayer.apiClient.getCourseByID(courseID)
             if (request.isSuccessful) {
@@ -95,6 +94,7 @@ class SharedRepository {
                 return course
             }
         }
+        // TODO: try to fetch from firestore local cache if not internet connection
         Toast.makeText(
             context,
             context.getString(R.string.connect_to_internet_to_get_course),
@@ -104,14 +104,12 @@ class SharedRepository {
     }
 
     suspend fun getWeatherByCoordinates(lat: String, lon: String): Weather? {
-        // TODO: Try to get weather, if not possible (e.g. not connected to internet), return null
         try {
             val request = NetworkLayer.apiClient.getWeatherByCoordinates(lat, lon)
 
             if (request.isSuccessful) {
                 return WeatherMapper.buildFromWeatherResponse(request.body()!!)
-            }
-            else{
+            } else {
                 Log.w("SharedRepository", "getWeatherByCoordinates: ${request.errorBody()}")
             }
         } catch (e: Exception) {

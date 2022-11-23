@@ -63,7 +63,6 @@ class CourseInfoFragment : Fragment() {
         }
         if (args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
 
-            // TODO: fetch a list of scorecards
             viewModelStats.fetchCourseScoreCardsFromFireStore(293)
             viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
                 if (scoreCards.isNullOrEmpty()) {
@@ -122,7 +121,6 @@ class CourseInfoFragment : Fragment() {
                 epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
                 epoxyController.lastScore = viewModelStats.getLastScoreForCourse(args.uid)
             }
-            // TODO: Check if user is connected to internet, and handle accordingly
             viewModel.fetchCourse(args.uid.toString(), requireContext())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
                 epoxyController.courseResponse = course
