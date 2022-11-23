@@ -56,13 +56,7 @@ class MyDiscsFragment : Fragment() {
                     discRecyclerAdapter.submitList(discList)
                     discRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
-                    val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToDiscGridFragment()
-                    action.let {
-//                        var  sendSpeed = discList[0].speed
-//                        Log.d("send disc speed", "speed: $sendSpeed")
-                        it.speed = discList[0].speed!!
-                    }
-                    findNavController().navigate(action)
+
 
                 }
             }
@@ -84,7 +78,17 @@ class MyDiscsFragment : Fragment() {
 
         gridBtn.setOnClickListener {
             val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToDiscGridFragment()
+
+            val ar
+            action.let {
+//                        var  sendSpeed = discList[0].speed
+//                        Log.d("send disc speed", "speed: $sendSpeed")
+                        it.turn = discList[0].turn!!
+                        it.speed = discList[0].speed!!
+                        it.fade = discList
+            }
             findNavController().navigate(action)
+
         }
 
     }

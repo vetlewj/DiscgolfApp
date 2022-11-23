@@ -24,12 +24,10 @@
         tools:layout="@layout/fragment_my_discs">
         <action
             android:id="@+id/action_myDiscsFragment_to_createDiscsFragment"
-            app:destination="@id/createDiscsFragment"
-            tools:layout="@layout/fragment_create_disc"/>
+            app:destination="@id/createDiscsFragment"/>
         <action
             android:id="@+id/action_myDiscsFragment_to_discGridFragment"
-            app:destination="@id/discGridFragment"
-            tools:layout="@layout/fragment_disc_grid"/>
+            app:destination="@id/discGridFragment"/>
     </fragment>
     <fragment
         android:id="@+id/createScoreCardFragment"
@@ -179,7 +177,8 @@
     <fragment
         android:id="@+id/createDiscsFragment"
         android:name="no.hiof.discgolfapp.screens.discs.CreateDiscsFragment"
-        android:label="CreateDiscsFragment" />
+        android:label="CreateDiscsFragment"
+        tools:layout="@layout/fragment_create_disc"/>
     <fragment
         android:id="@+id/addFriendsFragment"
         android:name="no.hiof.discgolfapp.screens.user.AddFriendsFragment"
@@ -207,10 +206,25 @@
     <fragment
         android:id="@+id/discGridFragment"
         android:name="no.hiof.discgolfapp.screens.discs.DiscGridFragment"
-        android:label="DiscGridFragment" >
+        android:label="DiscGridFragment"
+        tools:layout="@layout/fragment_disc_grid">
         <argument
             android:name="speed"
-            app:argType="integer"
-            android:defaultValue="1" />
+            app:argType="integer" />
+        <argument
+            android:name="turn"
+            app:argType="integer" />
+        <argument
+            android:name="fade"
+            app:argType="integer" />
+        <argument
+            android:name="discsList"
+            app:argType="no.hiof.discgolfapp.model.Disc$DiscType" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="color"
+            app:argType="string" />
     </fragment>
 </navigation>

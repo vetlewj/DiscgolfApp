@@ -50,29 +50,13 @@ class DiscGridFragment : Fragment()  {
 
 
 
-
-        firestore.collection("discs")
-            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d("Fetch Disc", "${document.data}")
-                    val discObject = document.toObject(Disc::class.java)!!
-//                    discList.add(discObject)
-//                    val speed = discList.get(0).speed.toString().toInt()
-//                    Log.d("disc speed", "speed: $speed")
-
-                }
-            }
-            .addOnFailureListener{ exception ->
-                Log.w("Fetch disc", "Error fetching discs from Firestore: ", exception)
-            }
-
-//
-
-//        lateinit val speed = discList.get(0).speed.toString().toInt()
-
         Log.d("disc speed", "speed!!!: ${args.speed}")
+        val name = args.name
+        val speed = args.speed
+        val turn = args.turn
+        val fade = args.fade
+
+
 
 
         val width = 700
