@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.shapes.RectShape
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import no.hiof.discgolfapp.databinding.FragmentDiscGridBinding
-import java.lang.reflect.Modifier
 
 class DiscGridFragment : Fragment()  {
 
@@ -36,31 +34,40 @@ class DiscGridFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val gridWidth = 700
+        val gridHeight = 1000
 
-        val bitmap: Bitmap = Bitmap.createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
+        val bitmap: Bitmap = Bitmap.createBitmap(gridWidth, gridHeight, Bitmap.Config.ARGB_8888)
 
         val canvas = Canvas(bitmap)
 
         var shapeDrawable: ShapeDrawable
 
         // rectangle positions
-        var left = 30
-        var top = 50
-        var right = 670
-        var bottom = 600
+        var left = 30.toFloat()
+        var top = 50.toFloat()
+        var right = 670.toFloat()
+        var bottom = 600.toFloat()
 
         // draw rectangle shape to canvas
         shapeDrawable = ShapeDrawable(RectShape())
-        shapeDrawable.setBounds( left, top, right, bottom)
+        shapeDrawable.setBounds(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
         shapeDrawable.getPaint().setColor(Color.parseColor("lightgray"))
         shapeDrawable.draw(canvas)
 
         val paint = Paint()
-        paint.color = Color.RED
-        paint.strokeWidth = 5F
+        paint.color = Color.BLACK
+        paint.strokeWidth = 2F
 
-        canvas.drawLine(30F, 50F, 670F, 50F, paint)
-        canvas.drawLine(30F, 50F, 30F, 600F, paint)
+
+        fun gridFrame() {
+            canvas.drawLine(left, top, right, top, paint)
+            canvas.drawLine(left, top, left, bottom, paint)
+            canvas.drawLine(left, bottom, right, bottom, paint)
+            canvas.drawLine(right, top, right, bottom, paint)
+        }
+
+        gridFrame()
 
         val imageView = binding.imageView
         imageView.background = BitmapDrawable(getResources(), bitmap)
