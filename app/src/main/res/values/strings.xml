@@ -52,6 +52,9 @@
     <string name="gridButton">Grid</string>
     <string name="edit_button">Edit</string>
 
+    <!-- Discs Grid -->
+    <string name="gridDescription">Visuelt rutenett som viser disc speed og stability</string>
+
 
     <string-array name="disc_type_array">
         <item>Putter</item>
