@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         createAuthListener()
-        setFirestoreSettings()
+        // setFirestoreSettings()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

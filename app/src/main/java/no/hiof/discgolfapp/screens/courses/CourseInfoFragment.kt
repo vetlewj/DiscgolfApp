@@ -63,14 +63,15 @@ class CourseInfoFragment : Fragment() {
         }
         if (args.type == CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT.type.toInt()) {
 
-            viewModelStats.fetchCourseScoreCardsFromFireStore(293)
+            viewModelStats.fetchCourseScoreCardsFromFireStore(args.uid)
             viewModelStats.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
                 if (scoreCards.isNullOrEmpty()) {
                     Log.d("CourseInfoFrag", "Could not retrieve scorecards")
                 }
-                epoxyController.bestScore = viewModelStats.getBestScoreForCourse(293)
-                epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(293)
-                epoxyController.lastScore = viewModelStats.getLastScoreForCourse(293)
+                // TODO: Update methods to work without internet
+                epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
+                epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
+                epoxyController.lastScore = viewModelStats.getLastScoreForCourse(args.uid)
             }
             viewModel.fetchAdditionalInfoFromCoursesWithSameParentID(
                 "NO",
@@ -96,6 +97,7 @@ class CourseInfoFragment : Fragment() {
                     listOfUidsOfCoursesWithSameParrentId.add(it.uid)
                 }
 
+                // TODO: Update methods to work without internet
                 viewModelStats.fetchAvgScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
                 viewModelStats.fetchBestScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
                 viewModelStats.fetchLastScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
@@ -117,6 +119,7 @@ class CourseInfoFragment : Fragment() {
                 if (scoreCards.isNullOrEmpty()) {
                     Log.d("CourseInfoFrag", "Could not retrieve scorecards")
                 }
+                // TODO: Update methods to work without internet
                 epoxyController.bestScore = viewModelStats.getBestScoreForCourse(args.uid)
                 epoxyController.avgScore = viewModelStats.getAvgScoreForCourse(args.uid)
                 epoxyController.lastScore = viewModelStats.getLastScoreForCourse(args.uid)
