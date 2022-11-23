@@ -33,7 +33,7 @@ class CreateScoreCardFragment : Fragment() {
         val binding = FragmentCreateScoreCardBinding.bind(view)
         fragmentBinding = binding
 
-        sharedViewModel.fetchCourses("NO", CourseType.TYPE2)
+        sharedViewModel.fetchCourses("NO", CourseType.TYPE2, requireContext())
         sharedViewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { courseList ->
             val course = courseList?.find { it.uid == args.courseId }
 

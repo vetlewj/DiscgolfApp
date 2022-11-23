@@ -76,7 +76,8 @@ class CourseInfoFragment : Fragment() {
             viewModel.fetchAdditionalInfoFromCoursesWithSameParentID(
                 "NO",
                 args.uid,
-                viewLifecycleOwner
+                viewLifecycleOwner,
+                requireContext()
             )
             viewModel.coursesByCountryCodeAndWithSameParentIDWithHoles.observe(viewLifecycleOwner) { listOfCoursesWithSameParentID ->
                 if (listOfCoursesWithSameParentID.isNullOrEmpty()) {
@@ -122,7 +123,7 @@ class CourseInfoFragment : Fragment() {
                 epoxyController.lastScore = viewModelStats.getLastScoreForCourse(args.uid)
             }
             // TODO: Check if user is connected to internet, and handle accordingly
-            viewModel.fetchCourse(args.uid.toString())
+            viewModel.fetchCourse(args.uid.toString(), requireContext())
             viewModel.courseByIDLiveData.observe(viewLifecycleOwner) { course ->
                 epoxyController.courseResponse = course
 

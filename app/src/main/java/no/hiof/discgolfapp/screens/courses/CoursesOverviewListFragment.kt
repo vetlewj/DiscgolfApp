@@ -38,7 +38,7 @@ class CoursesOverviewListFragment : Fragment() {
         fragmentBinding = binding
 
         // TODO: Check if user is connected to internet, and handle accordingly
-        viewModel.fetchCourses("NO", CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT)
+        viewModel.fetchCourses("NO", CourseType.TYPE1_AND_TYPE2_WITH_NO_PARENT, requireContext())
         viewModel.coursesByCountryCodeLiveData.observe(viewLifecycleOwner) { listOfCourses ->
             if(listOfCourses == null) {
                 Toast.makeText(view.context, "network call was unsuccessful", Toast.LENGTH_SHORT).show()
