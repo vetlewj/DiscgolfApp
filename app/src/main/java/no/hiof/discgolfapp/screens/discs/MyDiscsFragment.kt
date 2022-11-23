@@ -20,7 +20,7 @@ import no.hiof.discgolfapp.model.Disc
 
 class MyDiscsFragment : Fragment() {
 
-    private val discList: MutableList<Disc> = mutableListOf()
+    public val discList: MutableList<Disc> = mutableListOf()
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
 
@@ -66,12 +66,19 @@ class MyDiscsFragment : Fragment() {
         discRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
         val addBtn: Button = view.findViewById(R.id.addButton)
+        val gridBtn: Button = view.findViewById(R.id.gridButton)
 
         addBtn.setOnClickListener {
         val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToCreateDiscsFragment()
             findNavController().navigate(action)
             discList.clear()
         }
+
+        gridBtn.setOnClickListener {
+            val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToDiscGridFragment()
+            findNavController().navigate(action)
+        }
+
     }
 
 
