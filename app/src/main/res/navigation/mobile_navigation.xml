@@ -218,9 +218,6 @@
             android:name="fade"
             app:argType="integer" />
         <argument
-            android:name="discsList"
-            app:argType="no.hiof.discgolfapp.model.Disc$DiscType" />
-        <argument
             android:name="name"
             app:argType="string" />
         <argument

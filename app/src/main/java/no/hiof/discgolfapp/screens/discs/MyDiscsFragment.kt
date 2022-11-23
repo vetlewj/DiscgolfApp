@@ -20,7 +20,7 @@ import no.hiof.discgolfapp.model.Disc
 
 class MyDiscsFragment : Fragment() {
 
-    public val discList: MutableList<Disc> = mutableListOf()
+    private val discList: MutableList<Disc> = mutableListOf()
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
 
@@ -77,15 +77,23 @@ class MyDiscsFragment : Fragment() {
         }
 
         gridBtn.setOnClickListener {
-            val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToDiscGridFragment()
-
-            val ar
+            val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToDiscGridFragment(
+                discList[1].speed!! ,
+                discList[1].turn!!,
+                discList[1].fade!!,
+                discList[1].name,
+                discList[1].color.toString(),
+            )
             action.let {
-//                        var  sendSpeed = discList[0].speed
-//                        Log.d("send disc speed", "speed: $sendSpeed")
-                        it.turn = discList[0].turn!!
-                        it.speed = discList[0].speed!!
-                        it.fade = discList
+//                        it.turn = discList[0].turn!!
+//                        it.speed = discList[0].speed!!
+//                        it.name = discList[0].name
+//                        it.fade = discList[0].fade!!
+//                        it.color = discList[0].color.toString()
+
+                Log.d("disc send data", "Sending data to GridDiscFragment")
+
+
             }
             findNavController().navigate(action)
 
