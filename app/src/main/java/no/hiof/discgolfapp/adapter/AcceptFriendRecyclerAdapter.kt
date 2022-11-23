@@ -43,45 +43,64 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
 
         fun bind(friendRequest: FriendRequest, clickListener: View.OnClickListener) {
             userName.text = friendRequest.name
+            val currentuUser = Firebase.auth.currentUser
+            val db = Firebase.firestore
 
             declineFriendButton.setOnClickListener {
                 //delete request
+
+
             }
 
             acceptFriendButton.setOnClickListener {
                 // add friends in both friends collection
-                val currentuUser = Firebase.auth.currentUser
-                val db = Firebase.firestore
-
+                val receivedFriendRequestRef = db.collection("users").document(friendRequest.receiverUid.toString()).collection("friends").document()
+                val senderFriendRequestRef = db.collection("users").document(friendRequest.senderUid.toString()).collection("friends").document()
                 try {
 
                     val newFriendReciver = hashMapOf(
                         "name" to friendRequest.name,
                         "friendAuthUid" to friendRequest.senderUid,
-                        "date" to Date()
+                        "date" to Date(),
+                        "profilePicture" to friendRequest.pictureUrl
                     )
                     val newFriendSender = hashMapOf(
-                        "name" to friendRequest.name,
+                        "name" to currentuUser?.displayName,
                         "friendAuthUid" to friendRequest.senderUid,
-                        "date" to Date()
+                        "date" to Date(),
+                        "profilePicture" to currentuUser?.photoUrl
                     )
 
-                    db.collection("users").document(friendRequest.receiverUid.toString()).collection("friends")
-                        .add(newFriendReciver)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(ContentValues.TAG, "Error adding document", e)
-                        }
+//                    db.collection("users").document(friendRequest.receiverUid.toString()).collection("friends")
+//                        .add(newFriendReciver)
+//                        .addOnSuccessListener { documentReference ->
+//                            Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
+//                        }
+//                        .addOnFailureListener { e ->
+//                            Log.w(ContentValues.TAG, "Error adding document", e)
+//                        }
+//
+//                    db.collection("users").document(friendRequest.senderUid.toString()).collection("friends")
+//                        .add(newFriendSender)
+//                        .addOnSuccessListener { documentReference ->
+//                            Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
+//                        }
+//                        .addOnFailureListener { e ->
+//                            Log.w(ContentValues.TAG, "Error adding document", e)
+//                        }
 
-                    db.collection("users").document(friendRequest.senderUid.toString()).collection("friends")
-                        .add(newFriendSender)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(ContentValues.TAG, "Error adding document", e)
+
+                    db.runBatch { batch ->
+
+
+                        batch.set(receivedFriendRequestRef, newFriendReciver )
+                        batch.set(senderFriendRequestRef, senderFriendRequestRef)
+
+                    }.addOnSuccessListener { documentReference ->
+                        Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: $documentReference")
+                    }
+                    .addOnFailureListener { e ->
+                            Log.w("FriendRequestCollection", "Error adding document", e)
                         }
 
                 } catch (_: java.lang.NullPointerException) {
