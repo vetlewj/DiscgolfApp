@@ -12,5 +12,27 @@ data class FriendRequest(
     val acceptRequest: Boolean?
 
 ) {
+    companion object {
+
+        fun getFriendRequests(): List<FriendRequest> {
+            return listOf(
+                FriendRequest(
+                    Date(),
+                    "dsadad2dsada",
+                    "1321321",
+                    "Ole Sveinesen",
+                    null,
+                    null,
+                    ),
+                FriendRequest(
+                    Date(),
+                    "dsadad2dsada",
+                    "1321321",
+                    "Ole Sveinesen",
+                    null,
+                    null,
+                ),
+            )
+        }
 
 }
