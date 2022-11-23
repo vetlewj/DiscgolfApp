@@ -3,6 +3,7 @@ package no.hiof.discgolfapp.screens.discs
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
@@ -54,9 +55,17 @@ class DiscGridFragment : Fragment()  {
         shapeDrawable.getPaint().setColor(Color.parseColor("lightgray"))
         shapeDrawable.draw(canvas)
 
+        val paint = Paint()
+        paint.color = Color.RED
+        paint.strokeWidth = 5F
+
+        canvas.drawLine(30F, 50F, 670F, 50F, paint)
+        canvas.drawLine(30F, 50F, 30F, 600F, paint)
 
         val imageView = binding.imageView
         imageView.background = BitmapDrawable(getResources(), bitmap)
+
+
     }
 
 
