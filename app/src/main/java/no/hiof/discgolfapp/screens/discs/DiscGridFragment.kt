@@ -13,10 +13,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.databinding.FragmentDiscGridBinding
+import no.hiof.discgolfapp.model.Disc
 
 class DiscGridFragment : Fragment()  {
 
+    private var firebaseAuth = FirebaseAuth.getInstance()
+    private var firestore = FirebaseFirestore.getInstance()
 
     private var _binding: FragmentDiscGridBinding? = null
     private lateinit var binding: FragmentDiscGridBinding
@@ -35,6 +41,20 @@ class DiscGridFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        firestore.collection("discs")
+            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d("Fetch Disc", "${document.data}")
+                    val discObject = document.toObject(Disc::class.java)!!
+                }
+            }
+            .addOnFailureListener{ exception ->
+                Log.w("Fetch disc", "Error fetching discs from Firestore: ", exception)
+            }
+
+
         val width = 700
         val height = 1000
 
@@ -48,14 +68,9 @@ class DiscGridFragment : Fragment()  {
         val gridHeight = bottom-top
 
 
-
         val bitmap: Bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-
         val canvas = Canvas(bitmap)
-
         var shapeDrawable: ShapeDrawable
-
-
 
 
         fun drawRectangle() {
@@ -80,10 +95,6 @@ class DiscGridFragment : Fragment()  {
         blackText.color = Color.BLACK
 
 
-
-
-
-
         fun drawGridHeightLines() {
             var gridHeightNumber = 15
             var i = 0
@@ -91,7 +102,6 @@ class DiscGridFragment : Fragment()  {
             while (i <= gridHeightNumber) {
                 var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
                 canvas.drawLine(left, heightSteps, right, heightSteps, blackPaint)
-
                 i++
             }
         }
@@ -130,21 +140,11 @@ class DiscGridFragment : Fragment()  {
             }
         }
 
-
         drawGridHeightLines()
         drawGridWidthLines()
         drawGridSpeedNumbers()
         drawGridStabilityNumbers()
 
-
-        fun gridFrame() {
-            canvas.drawLine(left, top, right, top, blackPaint) //Top
-            canvas.drawLine(left, top, left, bottom, blackPaint)    //Left
-            canvas.drawLine(left, bottom, right, bottom, blackPaint)    //Bottom
-            canvas.drawLine(right, top, right, bottom, blackPaint)  //right
-        }
-
-//        gridFrame()
 
         val imageView = binding.imageView
         imageView.background = BitmapDrawable(getResources(), bitmap)
