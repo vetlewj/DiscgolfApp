@@ -3,6 +3,7 @@ package no.hiof.discgolfapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.model.FriendRequest
@@ -11,7 +12,7 @@ import no.hiof.discgolfapp.model.User
 class FriendsListRecyclerAdapter(private val friends: List<User>, private val clickListener: View.OnClickListener) : RecyclerView.Adapter<FriendsListRecyclerAdapter.FriendsListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendsListViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.course_list_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.friend_list_item, parent, false)
         return FriendsListViewHolder(itemView)
     }
 
@@ -27,9 +28,11 @@ class FriendsListRecyclerAdapter(private val friends: List<User>, private val cl
     }
 
     class FriendsListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val userName : TextView = view.findViewById(R.id.userNameTextView)
 
         fun bind(friend: User, clickListener: View.OnClickListener) {
 
+            userName.text = friend.name
 
             itemView.setOnClickListener(clickListener)
 

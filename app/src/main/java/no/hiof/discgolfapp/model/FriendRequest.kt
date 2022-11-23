@@ -4,12 +4,12 @@ import android.net.Uri
 import java.util.*
 
 data class FriendRequest(
-    val date: Date,
-    val senderUid: String,
-    val receiverUid: String,
-    val name: String,
-    val pictureUrl: Uri?,
-    val acceptRequest: Boolean?
+    val date: Date? = null,
+    val senderUid: String? = "",
+    val receiverUid: String? = "",
+    val name: String? = "",
+    val pictureUrl: Uri? = null,
+    val acceptRequest: Boolean? = null
 
 ) {
     companion object {
@@ -23,7 +23,7 @@ data class FriendRequest(
                     "Ole Sveinesen",
                     null,
                     null,
-                    ),
+                ),
                 FriendRequest(
                     Date(),
                     "dsadad2dsada",
@@ -35,4 +35,5 @@ data class FriendRequest(
             )
         }
 
+    }
 }
