@@ -50,7 +50,7 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
                 val db = Firebase.firestore
 
                 try {
-                    val newFriendRequest: FriendRequest =
+                    val newFriendRequest =
                             FriendRequest(
                                 date = Date(),
                                 senderUid = currentuUser!!.uid,
@@ -72,15 +72,6 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
                 } catch (_: java.lang.NullPointerException) {
                     Toast.makeText(itemView.context, "Something went wrong when tring to send request, please try again", Toast.LENGTH_SHORT).show()
                 }
-
-                // Måter å gjøre det på
-                // Collection inne i user
-                // Trenger userUID
-                // lagrer det hos
-                // Eget dokument
-                // - da må jeg ha uid til den som skal ha requesten
-                // - og ha en uid for den som sente den
-                // En liste hos user
 
 
             }
