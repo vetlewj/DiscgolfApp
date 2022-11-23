@@ -48,7 +48,11 @@ class SharedRepository {
                 return courses
             }
         }
-        Toast.makeText(context, context.getString(R.string.connect_to_internet_to_get_courses), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            context.getString(R.string.connect_to_internet_to_get_courses),
+            Toast.LENGTH_SHORT
+        ).show()
         return null
     }
 
@@ -73,7 +77,11 @@ class SharedRepository {
                 }
             }
         }
-        Toast.makeText(context, context.getString(R.string.connect_to_internet_to_get_courses), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            context.getString(R.string.connect_to_internet_to_get_courses),
+            Toast.LENGTH_SHORT
+        ).show()
         return null
     }
 
@@ -87,18 +95,28 @@ class SharedRepository {
                 return course
             }
         }
-        Toast.makeText(context, context.getString(R.string.connect_to_internet_to_get_course), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            context.getString(R.string.connect_to_internet_to_get_course),
+            Toast.LENGTH_SHORT
+        ).show()
         return null
     }
 
     suspend fun getWeatherByCoordinates(lat: String, lon: String): Weather? {
         // TODO: Try to get weather, if not possible (e.g. not connected to internet), return null
-        val request = NetworkLayer.apiClient.getWeatherByCoordinates(lat, lon)
+        try {
+            val request = NetworkLayer.apiClient.getWeatherByCoordinates(lat, lon)
 
-        if (request.isSuccessful) {
-            return WeatherMapper.buildFromWeatherResponse(request.body()!!)
+            if (request.isSuccessful) {
+                return WeatherMapper.buildFromWeatherResponse(request.body()!!)
+            }
+            else{
+                Log.w("SharedRepository", "getWeatherByCoordinates: ${request.errorBody()}")
+            }
+        } catch (e: Exception) {
+            Log.d("SharedRepository", "getWeatherByCoordinates: ${e.message}")
         }
-
         return null
     }
 
