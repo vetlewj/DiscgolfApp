@@ -98,19 +98,18 @@ class CourseInfoFragment : Fragment() {
                 }
 
                 // TODO: Update methods to work without internet
-                viewModelStats.fetchAvgScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
-                viewModelStats.fetchBestScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
-                viewModelStats.fetchLastScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
-                viewModelStats.avgScoresListMap.observe(viewLifecycleOwner) {
-                    epoxyController.avgScoreMap = it
+                viewModelStats.fetchScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId)
+                viewModelStats.childCoursesScoreCardsMap.observe(viewLifecycleOwner) { scoreCardsMap ->
+                    if (scoreCardsMap.isNullOrEmpty()) {
+                        Log.d("CourseInfoFrag", "Could not retrieve scorecards")
+                    }
+                    epoxyController.avgScoreMap =
+                        viewModelStats.getAverageScoreMap(scoreCardsMap)
+                    epoxyController.bestScoreMap =
+                        viewModelStats.getBestScoreMap(scoreCardsMap)
+                    epoxyController.lastScoreMap =
+                        viewModelStats.getLastScoreMap(scoreCardsMap)
                 }
-                viewModelStats.bestScoresListMap.observe(viewLifecycleOwner) {
-                    epoxyController.bestScoreMap = it
-                }
-                viewModelStats.lastScoresListMap.observe(viewLifecycleOwner) {
-                    epoxyController.lastScoreMap = it
-                }
-
             }
 
         } else {

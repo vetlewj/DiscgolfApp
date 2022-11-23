@@ -14,7 +14,8 @@ class ScoreCard(
     val id: String? = UUID.randomUUID().toString(),
     var totalScore: Int = 0,
     var totalPar: Int = 0,
-    var finished: Boolean = false
+    var finished: Boolean = false,
+    var courseId: Int? = course?.uid,
 
 ) {
     //TODO: Implement custom class mapper to get course based on courseId from firestore
