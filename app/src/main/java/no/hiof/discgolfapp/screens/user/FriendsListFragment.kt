@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import no.hiof.discgolfapp.R
 import no.hiof.discgolfapp.adapter.FriendsListRecyclerAdapter
 import no.hiof.discgolfapp.databinding.FragmentAcceptFriendBinding
@@ -32,12 +33,12 @@ class FriendsListFragment : Fragment() {
         fragmentBinding = binding
         
         
-        binding.friendsListRecyclerView.adapter = FriendsListRecyclerAdapter (User.getUsers()) {
-            
+        binding.friendsListRecyclerView.adapter = FriendsListRecyclerAdapter (User.getUsers())  {
             Toast.makeText(context, "you clicked on a friend", Toast.LENGTH_SHORT ).show()
-            
-            
         }
+
+        binding.friendsListRecyclerView.layoutManager = GridLayoutManager(view.context, 1)
     }
+
 
 }
