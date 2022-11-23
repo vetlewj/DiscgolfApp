@@ -4,16 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.ktx.toObjects
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import no.hiof.discgolfapp.model.Course
 import no.hiof.discgolfapp.model.ScoreCard
-import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class StoredStatisticsViewModel : ViewModel() {
@@ -113,7 +109,6 @@ class StoredStatisticsViewModel : ViewModel() {
     }
 
     fun fetchScoreCourseListMap(listOfUidsOfCoursesWithSameParrentId: ArrayList<Int>) {
-        // fetch all scorecards for the courses in the list
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", true)
