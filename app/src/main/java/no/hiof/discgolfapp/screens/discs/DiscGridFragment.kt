@@ -75,6 +75,12 @@ class DiscGridFragment : Fragment()  {
         blackPaint.color = Color.BLACK
         blackPaint.strokeWidth = 2.5F
 
+        val blackText = Paint()
+        blackText.textSize = 30F
+        blackText.color = Color.BLACK
+
+
+
 
 
 
@@ -85,11 +91,10 @@ class DiscGridFragment : Fragment()  {
             while (i <= gridHeightNumber) {
                 var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
                 canvas.drawLine(left, heightSteps, right, heightSteps, blackPaint)
+
                 i++
             }
         }
-
-        
 
         fun drawGridWidthLines(){
             var gridWidthNumber = 12
@@ -101,8 +106,35 @@ class DiscGridFragment : Fragment()  {
             }
         }
 
+        fun drawGridSpeedNumbers(){
+            var gridHeightNumber = 15
+            var i = 0
+            var x = gridHeightNumber
+            while(i < gridHeightNumber){
+                var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
+                canvas.drawText(x.toString(), (left/2)-15, ((gridHeight / gridHeightNumber)/2)+15+ heightSteps, blackText)
+                i++
+                x--
+            }
+        }
+
+        fun drawGridStabilityNumbers(){
+            var gridWidthNumber = 12
+            var i = 0
+            var x = gridWidthNumber
+            while(i < gridWidthNumber){
+                var widthSteps = left + ((gridWidth / gridWidthNumber) * i)
+                canvas.drawText(x.toString(), ((gridWidth / gridWidthNumber)/2)-10+ widthSteps, top-5, blackText)
+                i++
+                x--
+            }
+        }
+
+
         drawGridHeightLines()
         drawGridWidthLines()
+        drawGridSpeedNumbers()
+        drawGridStabilityNumbers()
 
 
         fun gridFrame() {
