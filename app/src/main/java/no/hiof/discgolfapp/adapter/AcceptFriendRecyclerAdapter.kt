@@ -48,8 +48,26 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
 
             declineFriendButton.setOnClickListener {
                 //delete request
+                db.collection("friend-request")
+                    .whereEqualTo("receiverUid", friendRequest.receiverUid.toString())
+                    .whereEqualTo("senderUid", friendRequest.senderUid.toString())
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        Log.d("GetFriendRequest", "DocumentSnapshot successfully deleted!")
 
+                        for (document in documents) {
+                            db.collection("friend-request").document(document.id)
+                                .delete()
+                                .addOnSuccessListener { documentReference ->
+                                    Log.d("DeleteRequest", "DocumentSnapshot added with ID: ${documentReference}")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.w(ContentValues.TAG, "Error adding document", e)
+                                }
+                        }
 
+                    }
+                    .addOnFailureListener { e -> Log.w("DeleteRequest", "Error deleting document", e) }
             }
 
             acceptFriendButton.setOnClickListener {
@@ -71,6 +89,7 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
                         "profilePicture" to "${currentuUser?.photoUrl}"
                     )
 
+
                     db.runBatch { batch ->
                         batch.set(receivedFriendRequestRef, newFriendReciver )
                         batch.set(senderFriendRequestRef, newFriendSender)
@@ -82,7 +101,7 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
                             Log.w("FriendRequestCollection", "Error adding document", e)
                         }
 
-                } catch (_: Exception) {
+                } catch (_: java.lang.NullPointerException) {
                     Toast.makeText(itemView.context, "Something went wrong when tring to send request, please try again", Toast.LENGTH_SHORT).show()
                 }
             }
