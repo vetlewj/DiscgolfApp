@@ -22,12 +22,14 @@ class CourseInfoEpoxyController : EpoxyController() {
             courseName = courseName
         ).id("header").addTo(this)
 
-        WeatherEpoxyModel(
-            weatherSymbol = weatherResponse!!.weatherDrawable,
-            temperature = weatherResponse!!.temperature,
-            windSpeed = weatherResponse!!.windspeed,
-            windDirectionSymbol = weatherResponse!!.windDrawable
-        ).id("weather").addTo(this)
+        weatherResponse?.let {
+            WeatherEpoxyModel(
+                weatherSymbol = it.weatherDrawable,
+                temperature = it.temperature,
+                windSpeed = it.windspeed,
+                windDirectionSymbol = it.windDrawable
+            ).id("weather").addTo(this)
+        }
 
 
 
@@ -68,11 +70,13 @@ class CourseInfoEpoxyController : EpoxyController() {
         } else {
 
             // button
-            CreateScoreCardButtonEpoxyModel(
-                context = fragment,
-                uid = courseResponse!!.uid
+            courseResponse?.uid?.let {
+                CreateScoreCardButtonEpoxyModel(
+                    context = fragment,
+                    uid = it
 
-            ).id("CreateScoreCardButton").addTo(this)
+                ).id("CreateScoreCardButton").addTo(this)
+            }
 
             //stats
             StatsItemEpoxyModel(
