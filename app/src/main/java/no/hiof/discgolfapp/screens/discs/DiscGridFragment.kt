@@ -3,7 +3,6 @@ package no.hiof.discgolfapp.screens.discs
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Color.rgb
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ShapeDrawable
@@ -27,8 +26,6 @@ class DiscGridFragment : Fragment()  {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         binding = FragmentDiscGridBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -37,21 +34,19 @@ class DiscGridFragment : Fragment()  {
         super.onViewCreated(view, savedInstanceState)
 
 
-        var max = args.speedArray.max()
-        Log.d("Max", "max: $max")
-
-        var gridHeightNumber = max   //Max disc speed = 15
-        var gridWidthNumber = 12
+        val max = args.speedArray.max()
+        val gridHeightNumber = max   //Max disc speed = 15
+        val gridWidthNumber = 12
 
 
         val width = 700
         val height = 1000
 
         // rectangle positions
-        var left = 40.toFloat()
-        var top = 60.toFloat()
-        var right = 680.toFloat()
-        var bottom = 840.toFloat()
+        val left = 40.toFloat()
+        val top = 60.toFloat()
+        val right = 680.toFloat()
+        val bottom = 840.toFloat()
 
         val gridWidth = right-left
         val gridHeight = bottom-top
@@ -63,16 +58,16 @@ class DiscGridFragment : Fragment()  {
         var shapeDrawable: ShapeDrawable
 
 
-
         fun drawRectangle() {
             shapeDrawable = ShapeDrawable(RectShape())
             shapeDrawable.setBounds(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
-            shapeDrawable.getPaint().setColor(Color.parseColor("lightgray"))
+            shapeDrawable.paint.color = Color.parseColor("lightgray")
             shapeDrawable.draw(canvas)
         }
-
         drawRectangle()
 
+
+        //Colors:
         val gridLinesColor = Paint()
         gridLinesColor.color = Color.WHITE
         gridLinesColor.strokeWidth = 2.5F
@@ -80,10 +75,10 @@ class DiscGridFragment : Fragment()  {
         val blackText = Paint()
         blackText.textSize = 30F
 
-
         val discText = Paint()
         discText.textSize = 25F
         discText.color = Color.BLACK
+
 
         fun discColor (color: String): Paint {
             color.lowercase()
@@ -91,21 +86,20 @@ class DiscGridFragment : Fragment()  {
             val colorDisc = Paint()
             try {
                 colorDisc.color = Color.parseColor(color.lowercase())
-            }
-            catch (e: IllegalArgumentException){
+            } catch (e: IllegalArgumentException){
                 Log.e("ParseColor error", "IllegalArgumentException, color= $color not found")
                 colorDisc.color = Color.BLACK
             }finally{
             }
             return colorDisc
         }
-        
+
 
         fun drawGridHeightLines() {
             var i = 0
             Log.d("canvas lines", "Drawing grid height lines")
             while (i <= gridHeightNumber) {
-                var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
+                val heightSteps = top + ((gridHeight / gridHeightNumber) * i)
                 Log.d("heightSteps", "heightSteps = $heightSteps")
                 canvas.drawLine(left, heightSteps, right, heightSteps, gridLinesColor)
                 i++
@@ -115,7 +109,7 @@ class DiscGridFragment : Fragment()  {
         fun drawGridWidthLines(){
             var i = 0
             while (i <= gridWidthNumber){
-                var widthSteps = left + ((gridWidth / gridWidthNumber) * i)
+                val widthSteps = left + ((gridWidth / gridWidthNumber) * i)
                 canvas.drawLine(widthSteps, top, widthSteps, bottom, gridLinesColor)
                 i++
             }
@@ -125,7 +119,7 @@ class DiscGridFragment : Fragment()  {
             var i = 0
             var x = gridHeightNumber
             while(i < gridHeightNumber){
-                var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
+                val heightSteps = top + ((gridHeight / gridHeightNumber) * i)
                 canvas.drawText(x.toString(), (left/2)-15, ((gridHeight / gridHeightNumber)/2)+15+ heightSteps, blackText)
                 i++
                 x--
@@ -139,7 +133,7 @@ class DiscGridFragment : Fragment()  {
             var i = 0
 //            var x = gridWidthNumber
             while(i < gridWidthNumber){
-                var widthSteps = left + ((gridWidth / gridWidthNumber) * i)
+                val widthSteps = left + ((gridWidth / gridWidthNumber) * i)
 //                canvas.drawText(x.toString(), ((gridWidth / gridWidthNumber)/2)-10+ widthSteps, top-5, blackText)
                 canvas.drawText(stabilityNumbers[i].toString(), ((gridWidth / gridWidthNumber)/2)-10+ widthSteps, top-5, blackText)
                 i++
@@ -153,16 +147,15 @@ class DiscGridFragment : Fragment()  {
         drawGridStabilityNumbers()
 
         fun stability(turn: Int, fade: Int): Int {
-            var stabilityNumberOffset = 6 // Offset to match grid stabilityNumbers
+            val stabilityNumberOffset = 6 // Offset to match grid stabilityNumbers
             return (turn + fade) + stabilityNumberOffset
         }
 
 
         fun drawDiscCircle(speed: Int, turn : Int, fade: Int, name: String, color: String){
-            var stability = stability(turn, fade)
+            val stability = stability(turn, fade)
             val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
             val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
-
 
             canvas.drawCircle(stabilityValue-6, speedValue+4,15f, discColor(color))
             canvas.drawText("($name)", stabilityValue+10, speedValue+29, discText)
@@ -175,8 +168,6 @@ class DiscGridFragment : Fragment()  {
         }
 
         val imageView = binding.imageView
-        imageView.background = BitmapDrawable(getResources(), bitmap)
+        imageView.background = BitmapDrawable(resources, bitmap)
     }
-
-
 }
