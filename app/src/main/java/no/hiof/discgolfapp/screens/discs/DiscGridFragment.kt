@@ -51,9 +51,9 @@ class DiscGridFragment : Fragment()  {
         val height = 1000
 
         // rectangle positions
-        var left = 40.toFloat()
+        var left = 60.toFloat()
         var top = 60.toFloat()
-        var right = 660.toFloat()
+        var right = 680.toFloat()
         var bottom = 840.toFloat()
 
         val gridWidth = right-left
