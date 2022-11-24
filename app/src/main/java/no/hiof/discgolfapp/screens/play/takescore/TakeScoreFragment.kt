@@ -45,12 +45,13 @@ class TakeScoreFragment : Fragment() {
                 return@observe
             }
 
-            if (!args.scorecardId.isNullOrEmpty()) {
+            if (!args.scorecardId.isNullOrEmpty() && viewModel.scoreCard == null) {
                 viewModel.fetchScoreCard(args.scorecardId!!, requireContext())
                 viewModel.storedScoreCard.observe(viewLifecycleOwner) { scorecard ->
                     viewModel.scoreCard = scorecard
                     viewModel.par = scorecard.getHoleScore(1)?.par ?: 0
                     viewModel.score = scorecard.getHoleScore(1)?.score ?: 0
+                    loadLayout(course)
                 }
             } else {
 
@@ -154,7 +155,7 @@ class TakeScoreFragment : Fragment() {
             viewModel.holeNumber = 1
         }
         viewModel.par = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)?.par ?: 0
-        viewModel.score = viewModel.scoreCard?.score ?: 0
+        viewModel.score = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)?.score ?: 0
         viewModel.distance = getDistance(course, viewModel.holeNumber)
 
         binding.parForHoleTextView.text = viewModel.par.toString()
