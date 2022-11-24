@@ -209,19 +209,19 @@
         android:label="DiscGridFragment"
         tools:layout="@layout/fragment_disc_grid">
         <argument
-            android:name="speed"
-            app:argType="integer" />
+            android:name="nameArray"
+            app:argType="string[]" />
         <argument
-            android:name="turn"
-            app:argType="integer" />
+            android:name="speedArray"
+            app:argType="integer[]" />
         <argument
-            android:name="fade"
-            app:argType="integer" />
+            android:name="turnArray"
+            app:argType="integer[]" />
         <argument
-            android:name="name"
-            app:argType="string" />
+            android:name="fadeArray"
+            app:argType="integer[]" />
         <argument
-            android:name="color"
-            app:argType="string" />
+            android:name="colorArray"
+            app:argType="string[]" />
     </fragment>
 </navigation>

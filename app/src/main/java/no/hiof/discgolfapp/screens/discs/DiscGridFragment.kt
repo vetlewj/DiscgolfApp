@@ -13,21 +13,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import io.grpc.NameResolver.Args
 import no.hiof.discgolfapp.databinding.FragmentDiscGridBinding
-import no.hiof.discgolfapp.model.Disc
-import no.hiof.discgolfapp.screens.discs.MyDiscsFragment
 
 class DiscGridFragment : Fragment()  {
 
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
-//    private val discList2: MutableList<Disc> = MyDiscsFragment
     private val args: DiscGridFragmentArgs by navArgs()
 
     private var _binding: FragmentDiscGridBinding? = null
@@ -49,21 +43,18 @@ class DiscGridFragment : Fragment()  {
         super.onViewCreated(view, savedInstanceState)
 
 
+        Log.d("disc speed", "name!!!: ${args.nameArray}")
+        Log.d("disc speed", "speed!!!: ${args.speedArray}")
+        Log.d("disc speed", "turn!!!: ${args.turnArray}")
+        Log.d("disc speed", "fade!!!: ${args.fadeArray}")
+        Log.d("disc speed", "color!!!: ${args.colorArray}")
 
-        Log.d("disc speed", "speed!!!: ${args.speed}")
-        Log.d("disc speed", "turn!!!: ${args.turn}")
-        Log.d("disc speed", "fade!!!: ${args.fade}")
-        Log.d("disc speed", "name!!!: ${args.name}")
-        Log.d("disc speed", "color!!!: ${args.color}")
+        val name = args.nameArray[0]
+        val speed = args.speedArray[0]
+        val turn = args.turnArray[0]
+        val fade = args.fadeArray[0]
+        val color = args.colorArray[0]
 
-        val speed = args.speed
-        val turn = args.turn
-        val fade = args.fade
-        val name = args.name
-        val color = args.color.uppercase()
-        var stabilityNumberOffset = 6 //
-
-        val stability = (turn + fade)+stabilityNumberOffset
 
         var gridHeightNumber = 15
         var gridWidthNumber = 12
@@ -116,17 +107,26 @@ class DiscGridFragment : Fragment()  {
 
 
 
-        val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
 
-//        val stabilityTest = 12
 
-        val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
 
-//        stabilityValue 
+        fun stability(turn: Int, Fade: Int): Int {
+            var stabilityNumberOffset = 6 //
+            return (turn + fade) + stabilityNumberOffset
+        }
 
-        fun drawDriscCircle(){
+//        while ()
+
+
+        fun drawDiscCircle(speed: Int, turn : Int, fade: Int){
+            var stability = stability(turn, fade)
+            val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
+            val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
             canvas.drawCircle(stabilityValue, speedValue,15f, discColor)
         }
+
+        drawDiscCircle(args.speedArray[1], args.turnArray[1], args.fadeArray[1] )
+        drawDiscCircle(args.speedArray[0], args.turnArray[0], args.fadeArray[0] )
 
 
 
@@ -155,7 +155,6 @@ class DiscGridFragment : Fragment()  {
             var x = gridHeightNumber
             while(i < gridHeightNumber){
                 var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
-
                 canvas.drawText(x.toString(), (left/2)-15, ((gridHeight / gridHeightNumber)/2)+15+ heightSteps, blackText)
                 i++
                 x--
@@ -181,7 +180,7 @@ class DiscGridFragment : Fragment()  {
         drawGridWidthLines()
         drawGridSpeedNumbers()
         drawGridStabilityNumbers()
-        drawDriscCircle()
+//        drawDiscCircle()
 
 
 
