@@ -66,7 +66,7 @@ class CourseResultsFragment : Fragment() {
                 )
 
                 for (scoreCard in scoreCards) {
-                    val textView = TextView(context)
+                    val textView = TextView(requireContext())
                     val formattedDate = DateFormat.format("dd.MM.yy", scoreCard.date)
                     textView.text =
                         resources.getString(

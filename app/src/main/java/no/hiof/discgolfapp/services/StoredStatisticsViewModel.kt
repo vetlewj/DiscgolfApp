@@ -115,7 +115,7 @@ class StoredStatisticsViewModel : ViewModel() {
             .whereIn("courseId", listOfUidsOfCoursesWithSameParrentId)
         storedCards.addSnapshotListener(MetadataChanges.INCLUDE) { value, error ->
             if (error != null) {
-                Log.d("StoredStatistics", "Listen failed.", error)
+                Log.d("StoredStatistics", "Listen failed, could not get scorecards", error)
                 return@addSnapshotListener
             }
             if (value != null) {

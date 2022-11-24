@@ -3,24 +3,24 @@ package no.hiof.discgolfapp.model
 import java.util.*
 
 data class Course(
-    val uid: Int,
-    val name: String,
-    val holes: List<Hole?>?,
-    val rating: Double?,
-    val area: String?,
-    val city: String?,
-    val location: String?,
-    val latitude: Float?,
-    val longitude: Float?,
-    val type: Int?,
+    val uid: Int = 0,
+    val name: String = "",
+    val holes: List<Hole?>? = null,
+    val rating: Double? = null,
+    val area: String? = null,
+    val city: String? = null,
+    val location: String? = null,
+    val latitude: Float? = null,
+    val longitude: Float? = null,
+    val type: Int? = null,
     val par: Int? = 0,
-    val ratingValue1: Double?,
-    val ratingResult1: Double?,
-    val ratingValue2: Double?,
-    val ratingResult2: Double?,
-    val parentID: Int?,
-    val numberOfHoles: Int?,
-    val distance: Int?
+    val ratingValue1: Double? = null,
+    val ratingResult1: Double? = null,
+    val ratingValue2: Double? = null,
+    val ratingResult2: Double? = null,
+    val parentID: Int? = null,
+    val numberOfHoles: Int? = null,
+    val distance: Int? = null
 ) {
 
 
