@@ -14,19 +14,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.databinding.FragmentDiscGridBinding
 
 class DiscGridFragment : Fragment()  {
 
-    private var firebaseAuth = FirebaseAuth.getInstance()
-    private var firestore = FirebaseFirestore.getInstance()
     private val args: DiscGridFragmentArgs by navArgs()
-
-    private var _binding: FragmentDiscGridBinding? = null
     private lateinit var binding: FragmentDiscGridBinding
-
 
 
     override fun onCreateView(
@@ -51,7 +44,7 @@ class DiscGridFragment : Fragment()  {
         val height = 1000
 
         // rectangle positions
-        var left = 60.toFloat()
+        var left = 40.toFloat()
         var top = 60.toFloat()
         var right = 680.toFloat()
         var bottom = 840.toFloat()
@@ -62,7 +55,9 @@ class DiscGridFragment : Fragment()  {
 
         val bitmap: Bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
+        canvas.drawColor(Color.WHITE)
         var shapeDrawable: ShapeDrawable
+
 
 
         fun drawRectangle() {
@@ -79,40 +74,20 @@ class DiscGridFragment : Fragment()  {
 //        canvas.drawCircle((width / 2).toFloat(), (bottom/2 ).toFloat(), 5F, Paint().apply { setARGB(255, 255, 0, 0)})
 
 
-
-        val blackPaint = Paint()
-        blackPaint.color = Color.BLACK
-        blackPaint.strokeWidth = 2.5F
+        val gridLinesColor = Paint()
+        gridLinesColor.color = Color.WHITE
+        gridLinesColor.strokeWidth = 2.5F
 
         val blackText = Paint()
         blackText.textSize = 30F
-        blackText.color = Color.BLACK
+//        blackText.color = Color.BLACK
+
+        val discText = Paint()
+        discText.textSize = 25F
+        discText.color = Color.BLACK
 
         val discColor = Paint()
         discColor.color = Color.RED
-
-
-
-
-        fun stability(turn: Int, fade: Int): Int {
-            var stabilityNumberOffset = 6 // Offset to match grid stabilityNumbers
-            return (turn + fade) + stabilityNumberOffset
-        }
-
-
-        fun drawDiscCircle(speed: Int, turn : Int, fade: Int){
-            var stability = stability(turn, fade)
-            val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
-            val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
-
-            canvas.drawCircle(stabilityValue, speedValue,15f, discColor)
-        }
-
-        var y = 0
-        while (y < args.nameArray.size) {
-            drawDiscCircle(args.speedArray[y], args.turnArray[y], args.fadeArray[y])
-            y++
-        }
 
 
         fun drawGridHeightLines() {
@@ -121,7 +96,7 @@ class DiscGridFragment : Fragment()  {
             while (i <= gridHeightNumber) {
                 var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
                 Log.d("heightSteps", "heightSteps = $heightSteps")
-                canvas.drawLine(left, heightSteps, right, heightSteps, blackPaint)
+                canvas.drawLine(left, heightSteps, right, heightSteps, gridLinesColor)
                 i++
             }
         }
@@ -130,7 +105,7 @@ class DiscGridFragment : Fragment()  {
             var i = 0
             while (i <= gridWidthNumber){
                 var widthSteps = left + ((gridWidth / gridWidthNumber) * i)
-                canvas.drawLine(widthSteps, top, widthSteps, bottom, blackPaint)
+                canvas.drawLine(widthSteps, top, widthSteps, bottom, gridLinesColor)
                 i++
             }
         }
@@ -165,6 +140,27 @@ class DiscGridFragment : Fragment()  {
         drawGridWidthLines()
         drawGridSpeedNumbers()
         drawGridStabilityNumbers()
+
+        fun stability(turn: Int, fade: Int): Int {
+            var stabilityNumberOffset = 6 // Offset to match grid stabilityNumbers
+            return (turn + fade) + stabilityNumberOffset
+        }
+
+
+        fun drawDiscCircle(speed: Int, turn : Int, fade: Int, name: String){
+            var stability = stability(turn, fade)
+            val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
+            val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
+
+            canvas.drawCircle(stabilityValue, speedValue,15f, discColor)
+            canvas.drawText("($name)", stabilityValue+10, speedValue+29, discText)
+        }
+
+        var y = 0
+        while (y < args.nameArray.size) {
+            drawDiscCircle(args.speedArray[y], args.turnArray[y], args.fadeArray[y], args.nameArray[y])
+            y++
+        }
 
 
         val imageView = binding.imageView
