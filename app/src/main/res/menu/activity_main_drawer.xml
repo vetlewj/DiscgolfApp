@@ -14,6 +14,11 @@
                 android:checkable="true"
                 android:icon="@drawable/fui_ic_anonymous_white_24dp"
                 android:title="@string/user_profile" />
+            <item
+                android:id="@+id/unfinishedScorecardsFragment"
+                android:checkable="true"
+                android:icon="@drawable/ic_baseline_featured_play_list_24"
+                android:title="@string/scorecards" />
 
         </menu>
     </item>
