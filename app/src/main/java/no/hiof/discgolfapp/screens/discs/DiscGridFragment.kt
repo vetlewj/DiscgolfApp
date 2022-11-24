@@ -3,6 +3,7 @@ package no.hiof.discgolfapp.screens.discs
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Color.rgb
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ShapeDrawable
@@ -72,26 +73,33 @@ class DiscGridFragment : Fragment()  {
 
         drawRectangle()
 
-//        canvas.drawCircle(5,5,5, Paint(color.Red))
-
-//        canvas.drawCircle((width / 2).toFloat(), (bottom/2 ).toFloat(), 5F, Paint().apply { setARGB(255, 255, 0, 0)})
-
-
         val gridLinesColor = Paint()
         gridLinesColor.color = Color.WHITE
         gridLinesColor.strokeWidth = 2.5F
 
         val blackText = Paint()
         blackText.textSize = 30F
-//        blackText.color = Color.BLACK
+
 
         val discText = Paint()
         discText.textSize = 25F
         discText.color = Color.BLACK
 
-        val discColor = Paint()
-        discColor.color = Color.RED
-
+        fun discColor (color: String): Paint {
+            color.lowercase()
+            Log.d("Color String", "color: $color")
+            val colorDisc = Paint()
+            try {
+                colorDisc.color = Color.parseColor(color.lowercase())
+            }
+            catch (e: IllegalArgumentException){
+                Log.e("ParseColor error", "IllegalArgumentException, color= $color not found")
+                colorDisc.color = Color.BLACK
+            }finally{
+            }
+            return colorDisc
+        }
+        
 
         fun drawGridHeightLines() {
             var i = 0
@@ -150,26 +158,24 @@ class DiscGridFragment : Fragment()  {
         }
 
 
-        fun drawDiscCircle(speed: Int, turn : Int, fade: Int, name: String){
+        fun drawDiscCircle(speed: Int, turn : Int, fade: Int, name: String, color: String){
             var stability = stability(turn, fade)
             val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
             val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
 
-            canvas.drawCircle(stabilityValue-6, speedValue+4,15f, discColor)
+
+            canvas.drawCircle(stabilityValue-6, speedValue+4,15f, discColor(color))
             canvas.drawText("($name)", stabilityValue+10, speedValue+29, discText)
         }
 
         var y = 0
         while (y < args.nameArray.size) {
-            drawDiscCircle(args.speedArray[y], args.turnArray[y], args.fadeArray[y], args.nameArray[y])
+            drawDiscCircle(args.speedArray[y], args.turnArray[y], args.fadeArray[y], args.nameArray[y], args.colorArray[y])
             y++
         }
 
-
         val imageView = binding.imageView
         imageView.background = BitmapDrawable(getResources(), bitmap)
-
-
     }
 
 
