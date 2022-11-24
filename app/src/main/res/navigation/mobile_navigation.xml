@@ -206,7 +206,12 @@
         android:id="@+id/friendsProfileFragment"
         android:name="no.hiof.discgolfapp.screens.user.FriendsProfileFragment"
         android:label="fragment_friends_profile"
-        tools:layout="@layout/fragment_friends_profile" />
+        tools:layout="@layout/fragment_friends_profile" >
+        <argument
+            android:name="friendsUID"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/discGridFragment"
         android:name="no.hiof.discgolfapp.screens.discs.DiscGridFragment"
