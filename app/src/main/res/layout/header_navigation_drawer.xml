@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -15,7 +15,7 @@
         android:textColor="?attr/colorOnSurface"
         android:text="@string/nav_drawer_header_title" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"

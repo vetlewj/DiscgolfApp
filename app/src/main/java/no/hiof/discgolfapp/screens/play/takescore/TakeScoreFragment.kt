@@ -45,58 +45,69 @@ class TakeScoreFragment : Fragment() {
                 return@observe
             }
 
-            var scoreCardType =
-                ScoreCard.ScoreCardCreationType.valueOf(args.scoreCardType.uppercase())
+            if (!args.scorecardId.isNullOrEmpty() && viewModel.scoreCard == null) {
+                viewModel.fetchScoreCard(args.scorecardId!!, requireContext())
+                viewModel.storedScoreCard.observe(viewLifecycleOwner) { scorecard ->
+                    viewModel.scoreCard = scorecard
+                    viewModel.par = scorecard.getHoleScore(1)?.par ?: 0
+                    viewModel.score = scorecard.getHoleScore(1)?.score ?: 0
+                    loadLayout(course)
+                }
+            } else {
 
-            if (viewModel.scoreCard == null) {
-                val playerId = firebaseAuth.currentUser?.uid
+                var scoreCardType =
+                    ScoreCard.ScoreCardCreationType.valueOf(args.scoreCardType.uppercase())
 
-                if (scoreCardType == ScoreCard.ScoreCardCreationType.PAR) {
-                    viewModel.scoreCard =
-                        course.let {
-                            ScoreCard.createEmptyScoreCard(
-                                playerId,
-                                it,
-                                scoreCardType
-                            )
-                        }
-                    createScoreCardInFirestore(viewModel.scoreCard)
-                } else {
-                    statisticsViewModel.fetchCourseScoreCardsFromFireStore(course.uid)
-                    statisticsViewModel.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
-                        if (scoreCards == null) {
-                            Log.w(
-                                "ChooseCourseFragment",
-                                "No existing scorecards found, creating based on par"
-                            )
-                            scoreCardType = ScoreCard.ScoreCardCreationType.PAR
-                        }
-                        if (scoreCardType == ScoreCard.ScoreCardCreationType.PERSONAL_BEST) {
-                            val bestScoreCard = scoreCards.minByOrNull { it.totalScore }
-                            viewModel.scoreCard = ScoreCard.createScoreCardFromHoleScoresAsPar(
-                                playerId,
-                                course,
-                                bestScoreCard?.holeScores ?: mutableListOf()
-                            )
-                            Log.d(
-                                "ChooseCourseFragment",
-                                "Creating scorecard based on personal best, id: ${bestScoreCard?.id}"
-                            )
-                        }
-                        if (scoreCardType == ScoreCard.ScoreCardCreationType.PAR) {
-                            viewModel.scoreCard =
-                                course.let {
-                                    ScoreCard.createEmptyScoreCard(
-                                        playerId,
-                                        it,
-                                        scoreCardType
-                                    )
-                                }
-                        }
+                if (viewModel.scoreCard == null) {
+                    val playerId = firebaseAuth.currentUser?.uid
 
+                    if (scoreCardType == ScoreCard.ScoreCardCreationType.PAR) {
+                        viewModel.scoreCard =
+                            course.let {
+                                ScoreCard.createEmptyScoreCard(
+                                    playerId,
+                                    it,
+                                    scoreCardType
+                                )
+                            }
                         createScoreCardInFirestore(viewModel.scoreCard)
-                        Log.d("TakeScoreFragment", "Scorecard created in firestore")
-                        loadLayout(course)
+                    } else {
+                        statisticsViewModel.fetchCourseScoreCardsFromFireStore(course.uid)
+                        statisticsViewModel.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
+                            if (scoreCards == null) {
+                                Log.w(
+                                    "ChooseCourseFragment",
+                                    "No existing scorecards found, creating based on par"
+                                )
+                                scoreCardType = ScoreCard.ScoreCardCreationType.PAR
+                            }
+                            if (scoreCardType == ScoreCard.ScoreCardCreationType.PERSONAL_BEST) {
+                                val bestScoreCard = scoreCards.minByOrNull { it.totalScore }
+                                viewModel.scoreCard = ScoreCard.createScoreCardFromHoleScoresAsPar(
+                                    playerId,
+                                    course,
+                                    bestScoreCard?.holeScores ?: mutableListOf()
+                                )
+                                Log.d(
+                                    "ChooseCourseFragment",
+                                    "Creating scorecard based on personal best, id: ${bestScoreCard?.id}"
+                                )
+                            }
+                            if (scoreCardType == ScoreCard.ScoreCardCreationType.PAR) {
+                                viewModel.scoreCard =
+                                    course.let {
+                                        ScoreCard.createEmptyScoreCard(
+                                            playerId,
+                                            it,
+                                            scoreCardType
+                                        )
+                                    }
+                            }
+
+                            createScoreCardInFirestore(viewModel.scoreCard)
+                            Log.d("TakeScoreFragment", "Scorecard created in firestore")
+                            loadLayout(course)
+                        }
                     }
                 }
             }
@@ -107,6 +118,7 @@ class TakeScoreFragment : Fragment() {
 
     private fun createScoreCardInFirestore(scoreCard: ScoreCard?) {
         val docData = HashMap<String, Any>()
+        scoreCard?.course?.let { docData.put("course", it) }
         scoreCard?.course?.uid?.let { docData.put("courseId", it) }
         scoreCard?.playerId?.let { docData.put("playerId", it) }
         scoreCard?.scoreCardType?.let { docData.put("scoreCardType", it) }
@@ -115,6 +127,7 @@ class TakeScoreFragment : Fragment() {
         scoreCard?.score?.let { docData.put("totalScore", it) }
         scoreCard?.par?.let { docData.put("totalPar", it) }
         scoreCard?.date?.let { docData.put("date", it) }
+        docData["finished"] = false
 
         viewModel.scoreCard!!.id?.let {
             firestore.collection("scorecards").document(it).set(docData)
@@ -142,7 +155,7 @@ class TakeScoreFragment : Fragment() {
             viewModel.holeNumber = 1
         }
         viewModel.par = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)?.par ?: 0
-        viewModel.score = viewModel.scoreCard?.score ?: 0
+        viewModel.score = viewModel.scoreCard?.getHoleScore(viewModel.holeNumber)?.score ?: 0
         viewModel.distance = getDistance(course, viewModel.holeNumber)
 
         binding.parForHoleTextView.text = viewModel.par.toString()

@@ -46,6 +46,7 @@ class AddFriendsFragment : Fragment() {
             .whereEqualTo("guest", false)
             .get()
             .addOnSuccessListener { documents ->
+
                 val users: ArrayList<User>  = ArrayList()
                 for (document in documents) {
                     Log.d("GetUsers", "${document.id} => ${document.data}")
@@ -56,7 +57,7 @@ class AddFriendsFragment : Fragment() {
                 binding.addFriendsRecyclerView.adapter = AddFriendsRecyclerAdapter(
                     users
                 ) {
-                    Toast.makeText(view.context, "You have clicked on a user", Toast.LENGTH_SHORT).show()
+                    // naviger til brukerens profil
                 }
             }
             .addOnFailureListener { exception ->

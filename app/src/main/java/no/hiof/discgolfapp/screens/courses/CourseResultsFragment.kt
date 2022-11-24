@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.material.divider.MaterialDivider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.R
@@ -48,7 +50,6 @@ class CourseResultsFragment : Fragment() {
                 Log.w("ChooseCourseFragment", "courses is null")
                 return@observe
             }
-            // TODO: sort the scorecards by date, newest first
             storedStatisticsViewModel.fetchCourseScoreCardsFromFireStore(course.uid)
             storedStatisticsViewModel.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
                 val bestScore = storedStatisticsViewModel.getBestScoreForCourse(args.courseId)
@@ -64,17 +65,18 @@ class CourseResultsFragment : Fragment() {
                     avgScore,
                     (avgScore.minus(course.par ?: 0))
                 )
+                val sortedScoreCards = scoreCards.sortedByDescending { it.date }
 
-                for (scoreCard in scoreCards) {
-                    val textView = TextView(context)
-                    val formattedDate = DateFormat.format("dd.MM.yy", scoreCard.date)
+                for (scoreCard in sortedScoreCards) {
+                    val textView = TextView(requireContext())
+                    val formattedDate = DateFormat.format("dd.MM.yy HH:mm", scoreCard.date)
                     textView.text =
                         resources.getString(
                             R.string.score_date,
                             scoreCard.totalScore,
                             formattedDate
                         )
-                    textView.setPadding(0, 4, 0, 8)
+                    textView.setPadding(24)
                     textView.textSize = 18f
                     textView.setOnClickListener { view ->
                         Log.d("CourseResultsFragment", "ScoreCard ${scoreCard.id} clicked")
@@ -88,7 +90,11 @@ class CourseResultsFragment : Fragment() {
                             action
                         )
                     }
+                    val divider = MaterialDivider(requireContext())
+                    divider.dividerInsetEnd
+                    divider.dividerInsetStart
                     binding.scoresLinearLayout.addView(textView)
+                    binding.scoresLinearLayout.addView(divider)
                 }
             }
         }

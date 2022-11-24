@@ -42,7 +42,6 @@ class AcceptFriendFragment : Fragment() {
         val db = Firebase.firestore
         val currentUser = Firebase.auth.currentUser
 
-        binding.acceptFriendsRecyclerView.adapter
         db.collection("friend-request")
             .whereEqualTo("receiverUid","${currentUser?.uid}" )
             .get()

@@ -129,6 +129,10 @@
     <string name="friend_list_button">venneliste</string>
     <string name="accept_friend">Godta </string>
     <string name="decline_friend">Avslå</string>
+    <string name="notification_message">Hei, lenge siden vi har sett deg! Spill en runde med frisbeegolf i dag!</string>
+    <string name="unfinished_rounds">Ikke fullførte runder</string>
+    <string name="could_not_find_unfinished_scorecards">Fant ingen ikke-fullførte poengkort</string>
+    <string name="scorecards">Poengkort</string>
 
 
 </resources>

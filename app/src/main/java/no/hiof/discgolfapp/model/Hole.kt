@@ -3,14 +3,14 @@ package no.hiof.discgolfapp.model
 import no.hiof.discgolfapp.helper.DistanceMeasure
 
 class Hole(
-    val holeNumber: Int,
-    val par: Int,
-    var distance: Int?,
-    val startLat: Double?,
-    val startLon: Double?,
-    val endLat: Double?,
-    val endLon: Double?,
-    val unit: String?
+    val holeNumber: Int = 0,
+    val par: Int = 0,
+    var distance: Int? = null,
+    val startLat: Double? = null,
+    val startLon: Double? = null,
+    val endLat: Double? = null,
+    val endLon: Double? = null,
+    val unit: String? = null
 ) {
     companion object {
         fun getHoles(): ArrayList<Hole> {
