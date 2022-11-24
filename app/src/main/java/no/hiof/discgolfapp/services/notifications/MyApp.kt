@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp
+package no.hiof.discgolfapp.services.notifications
 
 import android.app.Application
 import android.app.NotificationChannel
