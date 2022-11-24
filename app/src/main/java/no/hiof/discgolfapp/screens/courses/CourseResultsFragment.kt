@@ -50,7 +50,6 @@ class CourseResultsFragment : Fragment() {
                 Log.w("ChooseCourseFragment", "courses is null")
                 return@observe
             }
-            // TODO: sort the scorecards by date, newest first
             storedStatisticsViewModel.fetchCourseScoreCardsFromFireStore(course.uid)
             storedStatisticsViewModel.scoreCards.observe(viewLifecycleOwner) { scoreCards ->
                 val bestScore = storedStatisticsViewModel.getBestScoreForCourse(args.courseId)
@@ -66,8 +65,9 @@ class CourseResultsFragment : Fragment() {
                     avgScore,
                     (avgScore.minus(course.par ?: 0))
                 )
+                val sortedScoreCards = scoreCards.sortedByDescending { it.date }
 
-                for (scoreCard in scoreCards) {
+                for (scoreCard in sortedScoreCards) {
                     val textView = TextView(requireContext())
                     val formattedDate = DateFormat.format("dd.MM.yy HH:mm", scoreCard.date)
                     textView.text =
