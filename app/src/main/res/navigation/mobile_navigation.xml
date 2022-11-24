@@ -216,7 +216,7 @@
         android:id="@+id/discGridFragment"
         android:name="no.hiof.discgolfapp.screens.discs.DiscGridFragment"
         android:label="DiscGridFragment"
-        tools:layout="@layout/fragment_disc_grid">
+        tools:layout="@layout/fragment_disc_grid"/>
         <argument
             android:name="nameArray"
             app:argType="string[]" />
