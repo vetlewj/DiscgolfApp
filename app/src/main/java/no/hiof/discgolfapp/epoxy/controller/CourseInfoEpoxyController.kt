@@ -57,11 +57,7 @@ class CourseInfoEpoxyController : EpoxyController() {
                     bestScore = bestScoreMap?.get(course.uid),
                     avgScore = avgScoreMap?.get(course.uid),
                     lastScore = lastScoreMap?.get(course.uid),
-                    sumPar = course.par,
-                    courseRating = course.rating,
-                    numberOfHoles = course.numberOfHoles,
-                    distance = course.distance,
-                    avgRating = 0
+                    course = course
                 ).id("stats ${id}").addTo(this)
 
                 // holes
@@ -85,11 +81,7 @@ class CourseInfoEpoxyController : EpoxyController() {
                 bestScore = bestScore,
                 avgScore = avgScore,
                 lastScore = lastScore,
-                sumPar = courseResponse?.par,
-                courseRating = courseResponse?.rating,
-                numberOfHoles = courseResponse?.numberOfHoles,
-                distance = courseResponse?.distance,
-                avgRating = 0
+                course = courseResponse
             ).id("stats").addTo(this)
 
             //holes
@@ -160,6 +152,7 @@ class CourseInfoEpoxyController : EpoxyController() {
             field = value
             checkIfLoadingIsDone(field)
         }
+
 
     private fun <T> checkIfLoadingIsDone(value: T) {
             if(value != null) {
