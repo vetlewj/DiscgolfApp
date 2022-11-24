@@ -45,11 +45,12 @@
     <string name="disc_weight">Vekt</string>
     <string name="disc_color">Farge</string>
     <string name="no_disc_name">Vennligs velg et navn</string>
+    <string name="disc_stability">Stability (Turn + Fade) </string>
 
     <!-- Discs buttons -->
     <string name="save">Lagre</string>
     <string name="add_button">Legg til</string>
-    <string name="gridButton">Grid</string>
+    <string name="gridButton">Flight path</string>
     <string name="edit_button">Edit</string>
 
     <!-- Discs Grid -->
