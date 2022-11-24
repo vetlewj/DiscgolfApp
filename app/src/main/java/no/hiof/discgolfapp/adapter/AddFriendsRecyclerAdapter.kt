@@ -36,7 +36,7 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
 
     class UsersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val userNameTextView : TextView = view.findViewById(R.id.userNameTextView)
-        private val addFriendButton : Button = view.findViewById(R.id.accceptNewFriendButton)
+        private val addFriendButton : Button = view.findViewById(R.id.addNewFriendButton)
 
         fun bind(user: User, clickListener: View.OnClickListener) {
             userNameTextView.text = user.name
