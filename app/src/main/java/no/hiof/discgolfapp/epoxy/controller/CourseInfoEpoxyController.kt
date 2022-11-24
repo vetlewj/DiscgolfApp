@@ -36,20 +36,21 @@ class CourseInfoEpoxyController : EpoxyController() {
         // if true make for type 1 with layouts else for type 2 with no parentID
         if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
 
-            listOfCoursesWithSameParentID!!.forEach { course ->
 
+            listOfCoursesWithSameParentID!!.forEach { course ->
+                val id = course.uid
                 // header
                 //TODO: Change to another model with smaller text size
                 HeaderEpoxyModel(
                     courseName = course.name
-                ).id("header").addTo(this)
+                ).id("header ${id}").addTo(this)
 
                 // button
                 CreateScoreCardButtonEpoxyModel(
                     context = fragment,
                     uid = course.uid
 
-                ).id("CreateScoreCardButton").addTo(this)
+                ).id("CreateScoreCardButton ${id}").addTo(this)
 
                 // stats
                 // TODO bytt ut bestscore, AvgScore, lastScore med map
@@ -61,10 +62,11 @@ class CourseInfoEpoxyController : EpoxyController() {
                     courseRating = course.rating,
                     numberOfHoles = course.numberOfHoles,
                     distance = course.distance
-                ).id("stats").addTo(this)
+                ).id("stats ${id}").addTo(this)
 
                 // holes
                 createCarouselModelForHoles(course)
+
             }
 
         } else {
