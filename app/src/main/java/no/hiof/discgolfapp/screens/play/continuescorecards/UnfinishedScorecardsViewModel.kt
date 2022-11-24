@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.MetadataChanges
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObjects
 import no.hiof.discgolfapp.model.ScoreCard
 
@@ -24,6 +25,7 @@ class UnfinishedScorecardsViewModel : ViewModel() {
         val storedCards = firestore.collection("scorecards")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .whereEqualTo("finished", false)
+            .orderBy("date", Query.Direction.DESCENDING)
         storedCards.addSnapshotListener(MetadataChanges.INCLUDE) { value, error ->
             if (error != null){
                 Log.d("UnfinishedScorecards", "Listen failed, could not get scorecards")
