@@ -32,7 +32,6 @@ class CourseInfoEpoxyController : EpoxyController() {
         }
 
 
-
         // if true make for type 1 with layouts else for type 2 with no parentID
         if(!listOfCoursesWithSameParentID.isNullOrEmpty()) {
 

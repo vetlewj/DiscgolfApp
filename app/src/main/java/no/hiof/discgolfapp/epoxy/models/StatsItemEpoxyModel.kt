@@ -22,9 +22,9 @@ data class StatsItemEpoxyModel(
         val lastScoreComparedWithPar: Int? = lastScore?.minus(sumPar!!)
 
         //Individual stats:
-        bestRoundInfoTextView.text = if(bestScore == 0) "Beste runde: -" else "Beste runde: ${bestScore} (${bestScoreComparedWithPar})"
-        lastRoundInfoTextView.text = if(avgScore == 0) "Forrige runde: -"    else "Forrige runde: ${lastScore} (${lastScoreComparedWithPar})"
-        averageScoreInfoTextView.text = if(lastScore == 0) "Gjennomsnitt: -"  else "Gjennomsnitt: ${avgScore} (${avgScoreComparedWithPar})"
+        bestRoundInfoTextView.text = if(bestScore == 0 || bestScore == null) "Beste runde: -" else "Beste runde: ${bestScore} (${bestScoreComparedWithPar})"
+        lastRoundInfoTextView.text = if(avgScore == 0 || bestScore == null) "Forrige runde: -"    else "Forrige runde: ${lastScore} (${lastScoreComparedWithPar})"
+        averageScoreInfoTextView.text = if(lastScore == 0 || bestScore == null) "Gjennomsnitt: -"  else "Gjennomsnitt: ${avgScore} (${avgScoreComparedWithPar})"
         //avgRatingOnCourseValue.text = "This needs a new value"
 
         // Course information
