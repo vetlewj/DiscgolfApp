@@ -3,24 +3,18 @@ package no.hiof.discgolfapp.screens.play.continuescorecards
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.marginBottom
 import androidx.core.view.setPadding
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.divider.MaterialDivider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.databinding.FragmentCourseResultsBinding
 import no.hiof.discgolfapp.databinding.FragmentUnfinishedScorecardsBinding
-import no.hiof.discgolfapp.screens.courses.CourseResultsFragmentDirections
 
 class UnfinishedScorecardsFragment : Fragment() {
     private var _binding: FragmentUnfinishedScorecardsBinding? = null
@@ -45,37 +39,40 @@ class UnfinishedScorecardsFragment : Fragment() {
                 ).show()
             }
             for (scorecard in scorecards) {
-                val textView = TextView(requireContext())
+                if (!viewModel.printedScoreCardIds.contains(scorecard.id)) {
+                    val textView = TextView(requireContext())
 
-                val formattedDate = DateFormat.format("dd.MM.yy HH:mm", scorecard.date)
-                textView.text = buildString {
-                    append(scorecard.course?.name)
-                    append(", ")
-                    append(formattedDate)
-                }
-                textView.textSize = 18f
-                textView.setPadding(24)
-
-                textView.setOnClickListener { view ->
-                    Log.d("UnfinishedScorecards", "Scorecard ${scorecard.id} clicked")
-                    val action = scorecard.courseId?.let {
-                        UnfinishedScorecardsFragmentDirections.actionUnfinishedScorecardsFragmentToTakeScoreFragment(
-                            it,
-                        )
+                    val formattedDate = DateFormat.format("dd.MM.yy HH:mm", scorecard.date)
+                    textView.text = buildString {
+                        append(scorecard.course?.name)
+                        append(", ")
+                        append(formattedDate)
                     }
-                    action?.scorecardId = scorecard.id
-                    if (action != null) {
-                        view.findNavController().navigate(action)
-                    } else {
-                        Log.w("UnfinishedScorecards", "Failed to navigate to take course")
-                    }
-                }
+                    textView.textSize = 18f
+                    textView.setPadding(24)
 
-                val divider = MaterialDivider(requireContext())
-                divider.dividerInsetEnd
-                divider.dividerInsetStart
-                binding.unfinishedScoreCardsLinear.addView(textView)
-                binding.unfinishedScoreCardsLinear.addView(divider)
+                    textView.setOnClickListener { view ->
+                        Log.d("UnfinishedScorecards", "Scorecard ${scorecard.id} clicked")
+                        val action = scorecard.courseId?.let {
+                            UnfinishedScorecardsFragmentDirections.actionUnfinishedScorecardsFragmentToTakeScoreFragment(
+                                it,
+                            )
+                        }
+                        action?.scorecardId = scorecard.id
+                        if (action != null) {
+                            view.findNavController().navigate(action)
+                        } else {
+                            Log.w("UnfinishedScorecards", "Failed to navigate to take course")
+                        }
+                    }
+
+                    val divider = MaterialDivider(requireContext())
+                    divider.dividerInsetEnd
+                    divider.dividerInsetStart
+                    binding.unfinishedScoreCardsLinear.addView(textView)
+                    binding.unfinishedScoreCardsLinear.addView(divider)
+                    scorecard.id?.let { viewModel.printedScoreCardIds.add(it) }
+                }
             }
         }
         return binding.root
