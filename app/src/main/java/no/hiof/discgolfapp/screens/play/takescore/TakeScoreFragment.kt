@@ -49,6 +49,8 @@ class TakeScoreFragment : Fragment() {
                 viewModel.fetchScoreCard(args.scorecardId!!, requireContext())
                 viewModel.storedScoreCard.observe(viewLifecycleOwner) { scorecard ->
                     viewModel.scoreCard = scorecard
+                    viewModel.par = scorecard.getHoleScore(1)?.par ?: 0
+                    viewModel.score = scorecard.getHoleScore(1)?.score ?: 0
                 }
             } else {
 
@@ -115,6 +117,7 @@ class TakeScoreFragment : Fragment() {
 
     private fun createScoreCardInFirestore(scoreCard: ScoreCard?) {
         val docData = HashMap<String, Any>()
+        scoreCard?.course?.let { docData.put("course", it) }
         scoreCard?.course?.uid?.let { docData.put("courseId", it) }
         scoreCard?.playerId?.let { docData.put("playerId", it) }
         scoreCard?.scoreCardType?.let { docData.put("scoreCardType", it) }
@@ -123,6 +126,7 @@ class TakeScoreFragment : Fragment() {
         scoreCard?.score?.let { docData.put("totalScore", it) }
         scoreCard?.par?.let { docData.put("totalPar", it) }
         scoreCard?.date?.let { docData.put("date", it) }
+        docData["finished"] = false
 
         viewModel.scoreCard!!.id?.let {
             firestore.collection("scorecards").document(it).set(docData)
