@@ -31,6 +31,8 @@ class CoursesOverviewListFragment : Fragment() {
     val viewModel: SharedViewModel by lazy {
         ViewModelProvider(this).get(SharedViewModel::class.java)
     }
+
+    // kopiert fra dokumentasjonen i firebase
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -99,6 +101,7 @@ class CoursesOverviewListFragment : Fragment() {
 
     }
 
+    // Hentet fra dokumentasjonen
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
