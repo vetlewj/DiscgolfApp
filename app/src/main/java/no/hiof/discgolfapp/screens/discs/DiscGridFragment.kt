@@ -43,19 +43,6 @@ class DiscGridFragment : Fragment()  {
         super.onViewCreated(view, savedInstanceState)
 
 
-        Log.d("disc speed", "name!!!: ${args.nameArray}")
-        Log.d("disc speed", "speed!!!: ${args.speedArray}")
-        Log.d("disc speed", "turn!!!: ${args.turnArray}")
-        Log.d("disc speed", "fade!!!: ${args.fadeArray}")
-        Log.d("disc speed", "color!!!: ${args.colorArray}")
-
-        val name = args.nameArray[0]
-        val speed = args.speedArray[0]
-        val turn = args.turnArray[0]
-        val fade = args.fadeArray[0]
-        val color = args.colorArray[0]
-
-
         var gridHeightNumber = 15
         var gridWidthNumber = 12
 
@@ -107,27 +94,25 @@ class DiscGridFragment : Fragment()  {
 
 
 
-
-
-
-        fun stability(turn: Int, Fade: Int): Int {
-            var stabilityNumberOffset = 6 //
+        fun stability(turn: Int, fade: Int): Int {
+            var stabilityNumberOffset = 6 // Offset to match grid stabilityNumbers
             return (turn + fade) + stabilityNumberOffset
         }
-
-//        while ()
 
 
         fun drawDiscCircle(speed: Int, turn : Int, fade: Int){
             var stability = stability(turn, fade)
             val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
             val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
+
             canvas.drawCircle(stabilityValue, speedValue,15f, discColor)
         }
 
-        drawDiscCircle(args.speedArray[1], args.turnArray[1], args.fadeArray[1] )
-        drawDiscCircle(args.speedArray[0], args.turnArray[0], args.fadeArray[0] )
-
+        var y = 0
+        while (y < args.nameArray.size) {
+            drawDiscCircle(args.speedArray[y], args.turnArray[y], args.fadeArray[y])
+            y++
+        }
 
 
         fun drawGridHeightLines() {
@@ -180,8 +165,6 @@ class DiscGridFragment : Fragment()  {
         drawGridWidthLines()
         drawGridSpeedNumbers()
         drawGridStabilityNumbers()
-//        drawDiscCircle()
-
 
 
         val imageView = binding.imageView
