@@ -47,7 +47,7 @@ class UnfinishedScorecardsFragment : Fragment() {
             for (scorecard in scorecards) {
                 val textView = TextView(requireContext())
 
-                val formattedDate = DateFormat.format("dd.MM.yy", scorecard.date)
+                val formattedDate = DateFormat.format("dd.MM.yy HH:mm", scorecard.date)
                 textView.text = buildString {
                     append(scorecard.course?.name)
                     append(", ")
