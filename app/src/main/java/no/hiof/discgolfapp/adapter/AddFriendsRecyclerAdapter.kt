@@ -40,57 +40,59 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
 
         fun bind(user: User, clickListener: View.OnClickListener) {
             userNameTextView.text = user.name
+            // lag en fetch her til senere
             val currentuUser = Firebase.auth.currentUser
             val db = Firebase.firestore
+            val watingResponse = "venter på svar"
 
             // lag en fetch her til senere
+            val newFriendRequest =
+                FriendRequest(
+                    date = Date(),
+                    senderUid = currentuUser!!.uid,
+                    receiverUid = user.authUid,
+                    name = currentuUser.displayName!!,
+                    pictureUrl = currentuUser.photoUrl,
+                    acceptRequest = null
+                )
 
-            addFriendButton.setOnClickListener {
-                try {
-                    // If friend request exists
-                    // with same receiverUID and sender UID
-                    // Så den viser, men pending friend request. Få opp en melding om at venneforespørsel allerede er sendt
-                    // og når man har trykket på knappen så skifter den til pendning og sier at man har sendt en forespørsel
-
-                    // Hvordan løse, først sjekke om den eksisterer, om den gjør det endre knapp til pending friend request.
-                    val newFriendRequest =
-                            FriendRequest(
-                                date = Date(),
-                                senderUid = currentuUser!!.uid,
-                                receiverUid = user.authUid,
-                                name = currentuUser.displayName!!,
-                                pictureUrl = currentuUser.photoUrl,
-                                acceptRequest = null
-                            )
-
-                    db.collection("friend-request")
-                        .whereEqualTo("senderUid", currentuUser.uid)
-                        .whereEqualTo("receiverUid", user.authUid)
-                        .get()
-                        .addOnSuccessListener { document ->
-                             if(document.isEmpty) {
-                                 db.collection("friend-request")
-                                     .add(newFriendRequest)
-                                     .addOnSuccessListener { documentReference ->
-                                         Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
-                                         addFriendButton.text = "pending response "
-                                         Toast.makeText(itemView.context, "sent friend request to ${user.name}", Toast.LENGTH_SHORT).show()
-                                     }
-                                     .addOnFailureListener { e ->
-                                         Log.w(ContentValues.TAG, "Error adding document", e)
-                                     }
-                             } else {
-                                 addFriendButton.text = "pending response "
-                             }
+            db.collection("friend-request")
+                .whereEqualTo("senderUid", currentuUser.uid)
+                .whereEqualTo("receiverUid", user.authUid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if(document.isEmpty) {
+                        addFriendButton.setOnClickListener {
+                            try {
+                                db.collection("friend-request")
+                                    .whereEqualTo("senderUid", currentuUser.uid)
+                                    .whereEqualTo("receiverUid", user.authUid)
+                                    .get()
+                                    .addOnSuccessListener { document ->
+                                        if(document.isEmpty) {
+                                            db.collection("friend-request")
+                                                .add(newFriendRequest)
+                                                .addOnSuccessListener { documentReference ->
+                                                    Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
+                                                    addFriendButton.text = watingResponse
+                                                    Toast.makeText(itemView.context, "sent friend request to ${user.name}", Toast.LENGTH_SHORT).show()
+                                                }
+                                                .addOnFailureListener { e ->
+                                                    Log.w(ContentValues.TAG, "Error adding document", e)
+                                                }
+                                        } else {
+                                            addFriendButton.text = watingResponse
+                                        }
+                                    }
+                            } catch (_: java.lang.NullPointerException) {
+                                Toast.makeText(itemView.context, "Something went wrong when trying to send request, please try again", Toast.LENGTH_SHORT).show()
+                            }
                         }
-
-
-                } catch (_: java.lang.NullPointerException) {
-                    Toast.makeText(itemView.context, "Something went wrong when trying to send request, please try again", Toast.LENGTH_SHORT).show()
+                    } else {
+                        addFriendButton.text = watingResponse
+                    }
                 }
 
-
-            }
 
             itemView.setOnClickListener(clickListener)
 
