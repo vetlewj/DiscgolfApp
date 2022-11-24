@@ -20,7 +20,7 @@ import no.hiof.discgolfapp.model.Disc
 
 class MyDiscsFragment : Fragment() {
 
-    private val discList: MutableList<Disc> = mutableListOf()
+    public val discList: MutableList<Disc> = mutableListOf()
     private var firebaseAuth = FirebaseAuth.getInstance()
     private var firestore = FirebaseFirestore.getInstance()
 
@@ -56,7 +56,6 @@ class MyDiscsFragment : Fragment() {
                     discRecyclerAdapter.submitList(discList)
                     discRecyclerView.layoutManager = GridLayoutManager(context, 1)
 
-
                 }
             }
             .addOnFailureListener{ exception ->
@@ -75,56 +74,9 @@ class MyDiscsFragment : Fragment() {
             discList.clear()
         }
 
-
-
-
-//        for (i in discList) {
-//            discNameArray.add(discList[1].name)
-//        }
-
-        var array3: Array<String> = arrayOf("Mashroom", "Kitkat", "Oreo", "Lolipop")
-
         gridBtn.setOnClickListener {
-
-            var discNameArray: MutableList<String> =  ArrayList()
-            var discSpeedArray: MutableList<Int> =  ArrayList()
-            var discTurnArray: MutableList<Int> =  ArrayList()
-            var discFadeArray: MutableList<Int> =  ArrayList()
-            var discColorArray: MutableList<String> =  ArrayList()
-
-
-            var i = 0
-            while(i < discList.size) {
-//                discNameArray.add(discList[i].name)
-                discList[i].name?.let { it1 -> discNameArray.add(it1) }
-                discList[i].speed?.let { it1 -> discSpeedArray.add(it1) }
-                discList[i].turn?.let { it1 -> discTurnArray.add(it1) }
-                discList[i].fade?.let { it1 -> discFadeArray.add(it1) }
-                discList[i].color?.let { it1 -> discColorArray.add(it1) }
-                i++
-
-            }
-
-            val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToDiscGridFragment(
-                discNameArray.toTypedArray(),
-                discSpeedArray.toIntArray(),
-                discTurnArray.toIntArray(),
-                discFadeArray.toIntArray(),
-                discColorArray.toTypedArray()
-            )
-            action.let {
-//                        it.turn = discList[0].turn!!
-//                        it.speed = discList[0].speed!!
-//                        it.name = discList[0].name
-//                        it.fade = discList[0].fade!!
-//                        it.color = discList[0].color.toString()
-
-                Log.d("disc send data", "Sending data to GridDiscFragment")
-
-
-            }
+            val action = MyDiscsFragmentDirections.actionMyDiscsFragmentToDiscGridFragment()
             findNavController().navigate(action)
-
         }
 
     }
