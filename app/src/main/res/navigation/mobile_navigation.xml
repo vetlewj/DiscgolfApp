@@ -233,6 +233,7 @@
         <argument
             android:name="colorArray"
             app:argType="string[]" />
+    </fragment>
     <fragment
         android:id="@+id/unfinishedScorecardsFragment"
         android:name="no.hiof.discgolfapp.screens.play.continuescorecards.UnfinishedScorecardsFragment"
