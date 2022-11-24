@@ -12,7 +12,7 @@
 
 
     <application
-        android:name=".MyApp"
+        android:name=".services.notifications.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -33,7 +33,7 @@
             android:resource="@color/md_theme_dark_outline" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".services.notifications.MyFirebaseMessagingService"
             android:exported="false"
             android:directBootAware="true">
             <intent-filter>
