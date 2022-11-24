@@ -14,7 +14,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:contentDescription="logo"
-            android:src="@mipmap/frisbee_golf_icon"
+            android:src="@mipmap/frisbee_golf_icon_round"
             android:layout_marginTop="10dp"
             android:requiresFadingEdge="horizontal"
             android:layout_marginLeft="5dp"/>
