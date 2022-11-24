@@ -13,29 +13,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.navigation.fragment.navArgs
 import no.hiof.discgolfapp.databinding.FragmentDiscGridBinding
-import no.hiof.discgolfapp.model.Disc
-import no.hiof.discgolfapp.screens.discs.MyDiscsFragment
 
 class DiscGridFragment : Fragment()  {
 
-    private var firebaseAuth = FirebaseAuth.getInstance()
-    private var firestore = FirebaseFirestore.getInstance()
-//    private val discList: MutableList<Disc> = mutableListOf()
-
-    private var _binding: FragmentDiscGridBinding? = null
+    private val args: DiscGridFragmentArgs by navArgs()
     private lateinit var binding: FragmentDiscGridBinding
-
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentDiscGridBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -43,38 +33,20 @@ class DiscGridFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firestore.collection("discs")
-            .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d("Fetch Disc", "${document.data}")
-                    val discObject = document.toObject(Disc::class.java)!!
-//                    discList.add(discObject)
-//                    val speed = discList.get(0).speed.toString().toInt()
-//                    Log.d("disc speed", "speed: $speed")
 
-                }
-            }
-            .addOnFailureListener{ exception ->
-                Log.w("Fetch disc", "Error fetching discs from Firestore: ", exception)
-            }
-
-//
-
-//        lateinit val speed = discList.get(0).speed.toString().toInt()
-//        MyDiscsFragment.val discList
-//        Log.d("disc speed", "speed: $speed")
+        val max = args.speedArray.max()
+        val gridHeightNumber = max   //Max disc speed = 15
+        val gridWidthNumber = 12
 
 
         val width = 700
         val height = 1000
 
         // rectangle positions
-        var left = 40.toFloat()
-        var top = 60.toFloat()
-        var right = 660.toFloat()
-        var bottom = 840.toFloat()
+        val left = 40.toFloat()
+        val top = 60.toFloat()
+        val right = 680.toFloat()
+        val bottom = 840.toFloat()
 
         val gridWidth = right-left
         val gridHeight = bottom-top
@@ -82,73 +54,90 @@ class DiscGridFragment : Fragment()  {
 
         val bitmap: Bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
+        canvas.drawColor(Color.WHITE)
         var shapeDrawable: ShapeDrawable
 
 
         fun drawRectangle() {
             shapeDrawable = ShapeDrawable(RectShape())
             shapeDrawable.setBounds(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
-            shapeDrawable.getPaint().setColor(Color.parseColor("lightgray"))
+            shapeDrawable.paint.color = Color.parseColor("lightgray")
             shapeDrawable.draw(canvas)
         }
-
         drawRectangle()
 
-//        canvas.drawCircle(5,5,5, Paint(color.Red))
 
-        canvas.drawCircle((width / 2).toFloat(), (bottom/2 ).toFloat(), 5F, Paint().apply { setARGB(255, 255, 0, 0)})
-
-        val blackPaint = Paint()
-        blackPaint.color = Color.BLACK
-        blackPaint.strokeWidth = 2.5F
+        //Colors:
+        val gridLinesColor = Paint()
+        gridLinesColor.color = Color.WHITE
+        gridLinesColor.strokeWidth = 2.5F
 
         val blackText = Paint()
         blackText.textSize = 30F
-        blackText.color = Color.BLACK
+
+        val discText = Paint()
+        discText.textSize = 25F
+        discText.color = Color.BLACK
+
+
+        fun discColor (color: String): Paint {
+            color.lowercase()
+            Log.d("Color String", "color: $color")
+            val colorDisc = Paint()
+            try {
+                colorDisc.color = Color.parseColor(color.lowercase())
+            } catch (e: IllegalArgumentException){
+                Log.e("ParseColor error", "IllegalArgumentException, color= $color not found")
+                colorDisc.color = Color.BLACK
+            }finally{
+            }
+            return colorDisc
+        }
 
 
         fun drawGridHeightLines() {
-            var gridHeightNumber = 15
             var i = 0
             Log.d("canvas lines", "Drawing grid height lines")
             while (i <= gridHeightNumber) {
-                var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
-                canvas.drawLine(left, heightSteps, right, heightSteps, blackPaint)
+                val heightSteps = top + ((gridHeight / gridHeightNumber) * i)
+                Log.d("heightSteps", "heightSteps = $heightSteps")
+                canvas.drawLine(left, heightSteps, right, heightSteps, gridLinesColor)
                 i++
             }
         }
 
         fun drawGridWidthLines(){
-            var gridWidthNumber = 12
             var i = 0
             while (i <= gridWidthNumber){
-                var widthSteps = left + ((gridWidth / gridWidthNumber) * i)
-                canvas.drawLine(widthSteps, top, widthSteps, bottom, blackPaint)
+                val widthSteps = left + ((gridWidth / gridWidthNumber) * i)
+                canvas.drawLine(widthSteps, top, widthSteps, bottom, gridLinesColor)
                 i++
             }
         }
 
         fun drawGridSpeedNumbers(){
-            var gridHeightNumber = 15
             var i = 0
             var x = gridHeightNumber
             while(i < gridHeightNumber){
-                var heightSteps = top + ((gridHeight / gridHeightNumber) * i)
+                val heightSteps = top + ((gridHeight / gridHeightNumber) * i)
                 canvas.drawText(x.toString(), (left/2)-15, ((gridHeight / gridHeightNumber)/2)+15+ heightSteps, blackText)
                 i++
                 x--
             }
         }
 
+        val stabilityNumbers = listOf(6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5)
+
+        //Stability = (Turn+Fade)
         fun drawGridStabilityNumbers(){
-            var gridWidthNumber = 12
             var i = 0
-            var x = gridWidthNumber
+//            var x = gridWidthNumber
             while(i < gridWidthNumber){
-                var widthSteps = left + ((gridWidth / gridWidthNumber) * i)
-                canvas.drawText(x.toString(), ((gridWidth / gridWidthNumber)/2)-10+ widthSteps, top-5, blackText)
+                val widthSteps = left + ((gridWidth / gridWidthNumber) * i)
+//                canvas.drawText(x.toString(), ((gridWidth / gridWidthNumber)/2)-10+ widthSteps, top-5, blackText)
+                canvas.drawText(stabilityNumbers[i].toString(), ((gridWidth / gridWidthNumber)/2)-10+ widthSteps, top-5, blackText)
                 i++
-                x--
+//                x--
             }
         }
 
@@ -157,13 +146,28 @@ class DiscGridFragment : Fragment()  {
         drawGridSpeedNumbers()
         drawGridStabilityNumbers()
 
+        fun stability(turn: Int, fade: Int): Int {
+            val stabilityNumberOffset = 6 // Offset to match grid stabilityNumbers
+            return (turn + fade) + stabilityNumberOffset
+        }
 
+
+        fun drawDiscCircle(speed: Int, turn : Int, fade: Int, name: String, color: String){
+            val stability = stability(turn, fade)
+            val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
+            val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
+
+            canvas.drawCircle(stabilityValue-6, speedValue+4,15f, discColor(color))
+            canvas.drawText("($name)", stabilityValue+10, speedValue+29, discText)
+        }
+
+        var y = 0
+        while (y < args.nameArray.size) {
+            drawDiscCircle(args.speedArray[y], args.turnArray[y], args.fadeArray[y], args.nameArray[y], args.colorArray[y])
+            y++
+        }
 
         val imageView = binding.imageView
-        imageView.background = BitmapDrawable(getResources(), bitmap)
-
-
+        imageView.background = BitmapDrawable(resources, bitmap)
     }
-
-
 }
