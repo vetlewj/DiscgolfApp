@@ -31,6 +31,8 @@ class CoursesOverviewListFragment : Fragment() {
     val viewModel: SharedViewModel by lazy {
         ViewModelProvider(this).get(SharedViewModel::class.java)
     }
+
+    // kopiert fra dokumentasjonen i firebase
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->

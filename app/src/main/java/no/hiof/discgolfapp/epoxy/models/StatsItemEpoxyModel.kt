@@ -12,7 +12,8 @@ data class StatsItemEpoxyModel(
     val sumPar: Int?,
     val courseRating: Double?,
     val numberOfHoles: Int?,
-    val distance: Int?
+    val distance: Int?,
+    val avgRating: Int?,
 ): ViewBindingKotlinModel<CourseInfoStatsBinding>(R.layout.course_info_stats) {
 
     override fun CourseInfoStatsBinding.bind() {
@@ -25,7 +26,7 @@ data class StatsItemEpoxyModel(
         bestRoundInfoTextView.text = if(bestScore == 0 || bestScore == null) "Beste runde: -" else "Beste runde: ${bestScore} (${bestScoreComparedWithPar})"
         lastRoundInfoTextView.text = if(avgScore == 0 || bestScore == null) "Forrige runde: -"    else "Forrige runde: ${lastScore} (${lastScoreComparedWithPar})"
         averageScoreInfoTextView.text = if(lastScore == 0 || bestScore == null) "Gjennomsnitt: -"  else "Gjennomsnitt: ${avgScore} (${avgScoreComparedWithPar})"
-        //avgRatingOnCourseValue.text = "This needs a new value"
+        avgRatingOnCourseValue.text = if(avgRating == 0 || bestScore == null) "Gjennomsnitt: -"  else "Gjennomsnitt: ${avgScore} (${avgScoreComparedWithPar})"
 
         // Course information
         parRatingTextView.text = if (courseRating != null) "Rating: ${String.format("%.1f",courseRating)}" else "Rating: -"

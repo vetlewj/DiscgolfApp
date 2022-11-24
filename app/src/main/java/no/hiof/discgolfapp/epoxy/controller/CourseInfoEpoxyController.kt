@@ -60,7 +60,8 @@ class CourseInfoEpoxyController : EpoxyController() {
                     sumPar = course.par,
                     courseRating = course.rating,
                     numberOfHoles = course.numberOfHoles,
-                    distance = course.distance
+                    distance = course.distance,
+                    avgRating = 0
                 ).id("stats ${id}").addTo(this)
 
                 // holes
@@ -87,7 +88,8 @@ class CourseInfoEpoxyController : EpoxyController() {
                 sumPar = courseResponse?.par,
                 courseRating = courseResponse?.rating,
                 numberOfHoles = courseResponse?.numberOfHoles,
-                distance = courseResponse?.distance
+                distance = courseResponse?.distance,
+                avgRating = 0
             ).id("stats").addTo(this)
 
             //holes
