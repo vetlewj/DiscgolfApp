@@ -215,7 +215,24 @@
     <fragment
         android:id="@+id/discGridFragment"
         android:name="no.hiof.discgolfapp.screens.discs.DiscGridFragment"
-        android:label="DiscGridFragment" />
+        android:label="DiscGridFragment"
+        tools:layout="@layout/fragment_disc_grid"/>
+        <argument
+            android:name="nameArray"
+            app:argType="string[]" />
+        <argument
+            android:name="speedArray"
+            app:argType="integer[]" />
+        <argument
+            android:name="turnArray"
+            app:argType="integer[]" />
+        <argument
+            android:name="fadeArray"
+            app:argType="integer[]" />
+        <argument
+            android:name="colorArray"
+            app:argType="string[]" />
+    </fragment>
     <fragment
         android:id="@+id/unfinishedScorecardsFragment"
         android:name="no.hiof.discgolfapp.screens.play.continuescorecards.UnfinishedScorecardsFragment"
