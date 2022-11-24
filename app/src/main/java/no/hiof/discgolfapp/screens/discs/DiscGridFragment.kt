@@ -36,7 +36,10 @@ class DiscGridFragment : Fragment()  {
         super.onViewCreated(view, savedInstanceState)
 
 
-        var gridHeightNumber = 15
+        var max = args.speedArray.max()
+        Log.d("Max", "max: $max")
+
+        var gridHeightNumber = max   //Max disc speed = 15
         var gridWidthNumber = 12
 
 
@@ -152,7 +155,7 @@ class DiscGridFragment : Fragment()  {
             val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
             val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
 
-            canvas.drawCircle(stabilityValue, speedValue,15f, discColor)
+            canvas.drawCircle(stabilityValue-6, speedValue+4,15f, discColor)
             canvas.drawText("($name)", stabilityValue+10, speedValue+29, discText)
         }
 
