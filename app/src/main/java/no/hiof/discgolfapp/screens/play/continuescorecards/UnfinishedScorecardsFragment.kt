@@ -78,4 +78,8 @@ class UnfinishedScorecardsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.printedScoreCardIds = mutableListOf()
+    }
 }
