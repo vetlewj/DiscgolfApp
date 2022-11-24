@@ -14,6 +14,7 @@ import no.hiof.discgolfapp.model.ScoreCard
 class UnfinishedScorecardsViewModel : ViewModel() {
     private var _scorecards : MutableLiveData<List<ScoreCard>> = MutableLiveData()
     val scoreCards: LiveData<List<ScoreCard>> = _scorecards
+    val printedScoreCardIds = mutableListOf<String>()
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
