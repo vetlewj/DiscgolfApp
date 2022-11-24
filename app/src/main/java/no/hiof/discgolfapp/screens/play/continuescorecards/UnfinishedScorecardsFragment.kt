@@ -10,8 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.marginBottom
+import androidx.core.view.setPadding
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.google.android.material.divider.MaterialDivider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import no.hiof.discgolfapp.R
@@ -43,12 +46,16 @@ class UnfinishedScorecardsFragment : Fragment() {
             }
             for (scorecard in scorecards) {
                 val textView = TextView(requireContext())
+
                 val formattedDate = DateFormat.format("dd.MM.yy", scorecard.date)
                 textView.text = buildString {
                     append(scorecard.course?.name)
                     append(", ")
                     append(formattedDate)
                 }
+                textView.textSize = 18f
+                textView.setPadding(24)
+
                 textView.setOnClickListener { view ->
                     Log.d("UnfinishedScorecards", "Scorecard ${scorecard.id} clicked")
                     val action = scorecard.courseId?.let {
@@ -63,7 +70,12 @@ class UnfinishedScorecardsFragment : Fragment() {
                         Log.w("UnfinishedScorecards", "Failed to navigate to take course")
                     }
                 }
+
+                val divider = MaterialDivider(requireContext())
+                divider.dividerInsetEnd
+                divider.dividerInsetStart
                 binding.unfinishedScoreCardsLinear.addView(textView)
+                binding.unfinishedScoreCardsLinear.addView(divider)
             }
         }
         return binding.root
