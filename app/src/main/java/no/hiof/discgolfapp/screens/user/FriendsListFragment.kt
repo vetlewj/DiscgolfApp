@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -55,7 +56,7 @@ class FriendsListFragment : Fragment() {
                     }
 
                     binding.friendsListRecyclerView.adapter = FriendsListRecyclerAdapter(friends)  {
-                        Toast.makeText(context, "you clicked on a friend", Toast.LENGTH_SHORT ).show()
+                            findNavController().navigate(R.id.action_friendsListFragment_to_friendsProfileFragment)
                     }
                 }
                 .addOnFailureListener { exception ->
