@@ -61,8 +61,9 @@ class DiscGridFragment : Fragment()  {
         val fade = args.fade
         val name = args.name
         val color = args.color.uppercase()
+        var stabilityNumberOffset = 6 //
 
-        val stability = turn + fade
+        val stability = (turn + fade)+stabilityNumberOffset
 
         var gridHeightNumber = 15
         var gridWidthNumber = 12
@@ -161,8 +162,9 @@ class DiscGridFragment : Fragment()  {
             }
         }
 
-        val stabilityNumbers = listOf(6, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5)
+        val stabilityNumbers = listOf(6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5)
 
+        //Stability = (Turn+Fade)
         fun drawGridStabilityNumbers(){
             var i = 0
 //            var x = gridWidthNumber
