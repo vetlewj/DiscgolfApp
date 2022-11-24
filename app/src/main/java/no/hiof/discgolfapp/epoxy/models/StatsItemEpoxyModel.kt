@@ -20,12 +20,13 @@ data class StatsItemEpoxyModel(
         val sumPar = course?.par
         val numberOfHoles = course?.numberOfHoles
         val distance = course?.distance
-
-        val avgRating = course?.let {
-            if (avgScore != null) {
-                StoredStatisticsViewModel().getRatingForRound(avgScore, it)
+        var avgRating = 0
+        if (course != null) {
+            if(avgScore != null) {
+                avgRating = StoredStatisticsViewModel().getRatingForRound(avgScore, course)
             }
         }
+
 
         val bestScoreComparedWithPar: Int? = bestScore?.minus(sumPar!!)
         val avgScoreComparedWithPar: Int? = avgScore?.minus(sumPar!!)
@@ -35,7 +36,8 @@ data class StatsItemEpoxyModel(
         bestRoundInfoTextView.text = if(bestScore == 0 || bestScore == null) "Beste runde: -" else "Beste runde: ${bestScore} (${bestScoreComparedWithPar})"
         lastRoundInfoTextView.text = if(avgScore == 0 || bestScore == null) "Forrige runde: -"    else "Forrige runde: ${lastScore} (${lastScoreComparedWithPar})"
         averageScoreInfoTextView.text = if(lastScore == 0 || bestScore == null) "Gjennomsnitt: -"  else "Gjennomsnitt: ${avgScore} (${avgScoreComparedWithPar})"
-        //avgRatingOnCourseValue.text = if(avgRating == 0 || bestScore == null) "Gjennomsnitt rating: -"  else "Gjennomsnitt rating: ${avgScore} (${avgScoreComparedWithPar})"
+        avgRatingOnCourseValue.text = if(avgRating == 0) "Gjennomsnitt rating: -"  else "Gjennomsnitt rating: ${avgScore} (${avgScoreComparedWithPar})"
+
 
         // Course information
         parRatingTextView.text = if (courseRating != null) "Rating: ${String.format("%.1f",courseRating)}" else "Rating: -"
