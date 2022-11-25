@@ -100,18 +100,8 @@ class CourseInfoEpoxyController : EpoxyController() {
 
         }
 
-    var listOfCoursesWithSameParentID: ArrayList<Course>? = null
-        set(value) {
-            field = value
-            checkIfLoadingIsDone(field)
-        }
 
-    var courseResponse: Course? = null
-        set(value) {
-            field = value
-            checkIfLoadingIsDone(field)
-        }
-
+    // for both
     var weatherResponse: Weather? = null
         set(value) {
             field = value
@@ -119,6 +109,11 @@ class CourseInfoEpoxyController : EpoxyController() {
         }
 
     // For type 1
+    var listOfCoursesWithSameParentID: ArrayList<Course>? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
     var bestScoreMap: MutableMap<Int, Int>? = null
         set(value) {
             field = value
@@ -137,6 +132,12 @@ class CourseInfoEpoxyController : EpoxyController() {
 
 
     // For type2
+    var courseResponse: Course? = null
+        set(value) {
+            field = value
+            checkIfLoadingIsDone(field)
+        }
+
     var avgScore: Int? = null
         set(value) {
             field = value

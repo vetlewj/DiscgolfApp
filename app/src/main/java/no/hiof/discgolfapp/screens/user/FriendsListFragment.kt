@@ -48,6 +48,9 @@ class FriendsListFragment : Fragment() {
             db.collection("users").document(currentUser.uid).collection("friends")
                 .get()
                 .addOnSuccessListener { documents ->
+                    if(documents.isEmpty) {
+                        Toast.makeText(view.context, "Du har ingen venner", Toast.LENGTH_LONG).show()
+                    }
                     val friends: ArrayList<Friend>  = ArrayList()
                     for (document in documents) {
                         Log.d("GetFriendRequests", "${document.id} => ${document.data}")

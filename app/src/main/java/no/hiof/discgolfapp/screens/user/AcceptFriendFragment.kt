@@ -46,6 +46,10 @@ class AcceptFriendFragment : Fragment() {
             .whereEqualTo("receiverUid","${currentUser?.uid}" )
             .get()
             .addOnSuccessListener { documents ->
+                if(documents.isEmpty) {
+                    Toast.makeText(view.context, "Du har ingen venneforespørsler", Toast.LENGTH_LONG).show()
+                }
+
                 val friendRequest: ArrayList<FriendRequest>  = ArrayList()
                 for (document in documents) {
                     Log.d("GetFriendRequests", "${document.id} => ${document.data}")
@@ -56,7 +60,7 @@ class AcceptFriendFragment : Fragment() {
                 binding.acceptFriendsRecyclerView.adapter = AcceptFriendRecyclerAdapter(
                     friendRequest
                 ) {
-                    Toast.makeText(view.context, "You have clicked on a user", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view.context, "You have clicked on a user, navigation to user profile", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { exception ->
