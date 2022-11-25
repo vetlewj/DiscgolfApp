@@ -134,6 +134,7 @@
     <string name="could_not_find_unfinished_scorecards">Fant ingen ikke-fullførte poengkort</string>
     <string name="scorecards">Poengkort</string>
     <string name="friend_profile_name">Geir Arne Arnesen</string>
+    <string name="switch_to_map_text" >Kart</string>
 
 
 </resources>
