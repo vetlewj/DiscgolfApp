@@ -32,7 +32,7 @@ class CoursesOverviewListFragment : Fragment() {
         ViewModelProvider(this).get(SharedViewModel::class.java)
     }
 
-    // kopiert fra dokumentasjonen i firebase
+    // kopiert fra dokumentasjonen i firebase: https://firebase.google.com/docs/cloud-messaging/android/client
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -101,7 +101,7 @@ class CoursesOverviewListFragment : Fragment() {
 
     }
 
-    // Hentet fra dokumentasjonen
+    // Hentet fra dokumentasjonen: https://firebase.google.com/docs/cloud-messaging/android/client
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

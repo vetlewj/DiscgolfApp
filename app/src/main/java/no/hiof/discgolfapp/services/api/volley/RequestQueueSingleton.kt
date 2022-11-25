@@ -1,10 +1,14 @@
-package no.hiof.discgolfapp.helper.data
+package no.hiof.discgolfapp.services.api.volley
 
 import android.content.Context
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
+
+// This is no longer in use, we switched to Retrofit instead
+// This code is from the Volley documentation for making a RequestQueueSingleton
+// https://google.github.io/volley/requestqueue.html
 class RequestQueueSingleton constructor(context: Context) {
     companion object {
         @Volatile

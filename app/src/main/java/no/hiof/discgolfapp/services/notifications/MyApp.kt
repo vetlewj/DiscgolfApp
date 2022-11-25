@@ -7,7 +7,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 
-
+// Har benyttet lik fremgang som i denne videon: https://www.youtube.com/watch?v=bHlLYhSrXvc&t=752s&ab_channel=PhilippLackner
 class MyApp : Application() {
 
     override fun onCreate() {
