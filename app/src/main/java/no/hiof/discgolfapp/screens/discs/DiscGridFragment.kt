@@ -79,10 +79,17 @@ class DiscGridFragment : Fragment()  {
         discText.textSize = 25F
         discText.color = Color.BLACK
 
+        val discOuterColor = Paint()
+        discOuterColor.color = Color.BLACK
 
-        fun discColor (color: String): Paint {
+
+        fun discColor (colors: String): Paint {
+            var color = colors
             color.lowercase()
             Log.d("Color String", "color: $color")
+            if (color == ""){
+                color = "lightgray"
+            }
             val colorDisc = Paint()
             try {
                 colorDisc.color = Color.parseColor(color.lowercase())
@@ -157,7 +164,8 @@ class DiscGridFragment : Fragment()  {
             val speedValue = (top/2) +((gridHeight / gridHeightNumber) * (gridHeightNumber+1-speed))
             val stabilityValue = (left/2) + ((gridWidth / gridWidthNumber) * (gridWidthNumber+1-stability))
 
-            canvas.drawCircle(stabilityValue-6, speedValue+4,15f, discColor(color))
+            canvas.drawCircle(stabilityValue-6, speedValue+4,15f, discOuterColor)
+            canvas.drawCircle(stabilityValue-6, speedValue+4,12f, discColor(color))
             canvas.drawText("($name)", stabilityValue+10, speedValue+29, discText)
         }
 
