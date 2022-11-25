@@ -47,6 +47,10 @@ class AddFriendsFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
 
+                if(documents.isEmpty) {
+                    Toast.makeText(view.context, "Det er ingen andre opprettede brukere som du kan legge til", Toast.LENGTH_LONG).show()
+                }
+
                 val users: ArrayList<User>  = ArrayList()
                 for (document in documents) {
                     Log.d("GetUsers", "${document.id} => ${document.data}")

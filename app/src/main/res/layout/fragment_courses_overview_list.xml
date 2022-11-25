@@ -22,15 +22,17 @@
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/coursesOverviewListToMapSwitch"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:minHeight="32dp"
-        android:text="@string/map_switch"
+        android:paddingBottom="4dp"
+        android:text="@string/switch_to_map_text"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/courseRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,4 +1,4 @@
-package no.hiof.discgolfapp.helper.data
+package no.hiof.discgolfapp.services.api.volley
 
 import android.content.Context
 import com.android.volley.Request
@@ -6,6 +6,8 @@ import com.android.volley.toolbox.JsonObjectRequest
 import no.hiof.discgolfapp.model.Course
 import org.json.JSONArray
 import org.json.JSONException
+
+// This is no longer in use, we switched to Retrofit instead
 
 class CourseDataService(var context: Context) {
     companion object {

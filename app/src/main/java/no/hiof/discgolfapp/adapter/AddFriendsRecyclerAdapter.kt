@@ -75,13 +75,14 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
                                                 .addOnSuccessListener { documentReference ->
                                                     Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: ${documentReference.id}")
                                                     addFriendButton.text = watingResponse
-                                                    Toast.makeText(itemView.context, "sent friend request to ${user.name}", Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(itemView.context, "sendt venneforespørsel til ${user.name}", Toast.LENGTH_SHORT).show()
                                                 }
                                                 .addOnFailureListener { e ->
                                                     Log.w(ContentValues.TAG, "Error adding document", e)
                                                 }
                                         } else {
                                             addFriendButton.text = watingResponse
+                                            Toast.makeText(itemView.context, "venter på svar fra ${user.name}", Toast.LENGTH_SHORT).show()
                                         }
                                     }
                             } catch (_: java.lang.NullPointerException) {
@@ -90,6 +91,7 @@ class AddFriendsRecyclerAdapter(private val users: List<User>, private val click
                         }
                     } else {
                         addFriendButton.text = watingResponse
+                        Toast.makeText(itemView.context, "venter på svar fra ${user.name}", Toast.LENGTH_SHORT).show()
                     }
                 }
 

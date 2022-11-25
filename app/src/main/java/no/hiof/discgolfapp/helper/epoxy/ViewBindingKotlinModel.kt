@@ -20,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap
  *    public static *** bind(android.view.View);
  * }
  */
+// Hentet fra: https://github.com/airbnb/epoxy/blob/master/kotlinsample/src/main/java/com/airbnb/epoxy/kotlinsample/helpers/ViewBindingKotlinModel.kt
 abstract class ViewBindingKotlinModel<T : ViewBinding>(
     @LayoutRes private val layoutRes: Int
 ) : EpoxyModel<View>() {
