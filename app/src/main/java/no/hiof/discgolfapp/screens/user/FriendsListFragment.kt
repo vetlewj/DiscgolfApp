@@ -60,6 +60,7 @@ class FriendsListFragment : Fragment() {
 
                     binding.friendsListRecyclerView.adapter = FriendsListRecyclerAdapter(friends)  {
                             findNavController().navigate(R.id.action_friendsListFragment_to_friendsProfileFragment)
+                        Toast.makeText(view.context, "Du navigerer nå til brukerprofil", Toast.LENGTH_LONG).show()
                     }
                 }
                 .addOnFailureListener { exception ->

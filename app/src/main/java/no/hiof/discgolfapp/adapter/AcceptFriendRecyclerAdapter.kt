@@ -45,6 +45,7 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
             userName.text = friendRequest.name
             val currentuUser = Firebase.auth.currentUser
             val db = Firebase.firestore
+            var accepted = false
 
             declineFriendButton.setOnClickListener {
                 //delete request
@@ -60,6 +61,7 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
                                 .delete()
                                 .addOnSuccessListener { documentReference ->
                                     Log.d("DeleteRequest", "DocumentSnapshot added with ID: ${documentReference}")
+                                    Toast.makeText(itemView.context, "Du har nå avslått venneforespørsel fra ${friendRequest.name}", Toast.LENGTH_LONG).show()
                                 }
                                 .addOnFailureListener { e ->
                                     Log.w(ContentValues.TAG, "Error adding document", e)
@@ -74,6 +76,7 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
                 // add friends in both friends collection
                 val receivedFriendRequestRef = db.collection("users").document(friendRequest.receiverUid.toString()).collection("friends").document()
                 val senderFriendRequestRef = db.collection("users").document(friendRequest.senderUid.toString()).collection("friends").document()
+
                 try {
 
                     val newFriendReciver = hashMapOf(
@@ -89,13 +92,32 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
                         "profilePicture" to "${currentuUser?.photoUrl}"
                     )
 
-
                     db.runBatch { batch ->
                         batch.set(receivedFriendRequestRef, newFriendReciver )
                         batch.set(senderFriendRequestRef, newFriendSender)
 
                     }.addOnSuccessListener { documentReference ->
                         Log.d("FriendRequestCollection", "DocumentSnapshot added with ID: $documentReference")
+                        Toast.makeText(itemView.context, "Du har nå blitt venn med ${friendRequest.name}", Toast.LENGTH_LONG).show()
+                        db.collection("friend-request")
+                            .whereEqualTo("receiverUid", friendRequest.receiverUid.toString())
+                            .whereEqualTo("senderUid", friendRequest.senderUid.toString())
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                Log.d("GetFriendRequest", "DocumentSnapshot successfully deleted!")
+                                for (document in documents) {
+                                    db.collection("friend-request").document(document.id)
+                                        .delete()
+                                        .addOnSuccessListener { documentReference ->
+                                            Log.d("DeleteRequest", "DocumentSnapshot added with ID: ${documentReference}")
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w(ContentValues.TAG, "Error adding document", e)
+                                        }
+                                }
+
+                            }
+                            .addOnFailureListener { e -> Log.w("DeleteRequest", "Error deleting document", e) }
                     }
                     .addOnFailureListener { e ->
                             Log.w("FriendRequestCollection", "Error adding document", e)
@@ -104,6 +126,7 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
                 } catch (_: java.lang.NullPointerException) {
                     Toast.makeText(itemView.context, "Something went wrong when tring to send request, please try again", Toast.LENGTH_SHORT).show()
                 }
+
             }
 
             itemView.setOnClickListener(clickListener)
