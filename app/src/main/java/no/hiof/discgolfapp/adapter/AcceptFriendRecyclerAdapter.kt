@@ -45,7 +45,7 @@ class AcceptFriendRecyclerAdapter(private val friendRequest: List<FriendRequest>
             userName.text = friendRequest.name
             val currentuUser = Firebase.auth.currentUser
             val db = Firebase.firestore
-            var accepted = false
+
 
             declineFriendButton.setOnClickListener {
                 //delete request
