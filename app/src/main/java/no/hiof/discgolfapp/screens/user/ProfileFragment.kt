@@ -5,15 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import no.hiof.discgolfapp.R
-import no.hiof.discgolfapp.databinding.FragmentAddFriendsBinding
 import no.hiof.discgolfapp.databinding.FragmentProfileBinding
 
 
