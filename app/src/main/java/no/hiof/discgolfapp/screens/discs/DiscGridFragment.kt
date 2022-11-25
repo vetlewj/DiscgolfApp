@@ -92,7 +92,7 @@ class DiscGridFragment : Fragment()  {
             }
             val colorDisc = Paint()
             try {
-                colorDisc.color = Color.parseColor(color.lowercase())
+                colorDisc.color = Color.parseColor(color)
             } catch (e: IllegalArgumentException){
                 Log.e("ParseColor error", "IllegalArgumentException, color= $color not found")
                 colorDisc.color = Color.BLACK

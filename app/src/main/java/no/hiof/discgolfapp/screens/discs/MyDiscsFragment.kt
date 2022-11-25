@@ -42,7 +42,6 @@ class MyDiscsFragment : Fragment() {
 
         val discRecyclerView = view.findViewById<RecyclerView>(R.id.discRecyclerView)
 
-
         firestore.collection("discs")
             .whereEqualTo("playerId", firebaseAuth.currentUser?.uid)
             .get()
@@ -55,8 +54,6 @@ class MyDiscsFragment : Fragment() {
                     discRecyclerView.adapter = discRecyclerAdapter
                     discRecyclerAdapter.submitList(discList)
                     discRecyclerView.layoutManager = GridLayoutManager(context, 1)
-
-
                 }
             }
             .addOnFailureListener{ exception ->
@@ -76,16 +73,7 @@ class MyDiscsFragment : Fragment() {
         }
 
 
-
-
-//        for (i in discList) {
-//            discNameArray.add(discList[1].name)
-//        }
-
-        var array3: Array<String> = arrayOf("Mashroom", "Kitkat", "Oreo", "Lolipop")
-
         gridBtn.setOnClickListener {
-
             var discNameArray: MutableList<String> =  ArrayList()
             var discSpeedArray: MutableList<Int> =  ArrayList()
             var discTurnArray: MutableList<Int> =  ArrayList()
@@ -95,7 +83,6 @@ class MyDiscsFragment : Fragment() {
 
             var i = 0
             while(i < discList.size) {
-//                discNameArray.add(discList[i].name)
                 discList[i].name?.let { it1 -> discNameArray.add(it1) }
                 discList[i].speed?.let { it1 -> discSpeedArray.add(it1) }
                 discList[i].turn?.let { it1 -> discTurnArray.add(it1) }
@@ -113,20 +100,10 @@ class MyDiscsFragment : Fragment() {
                 discColorArray.toTypedArray()
             )
             action.let {
-//                        it.turn = discList[0].turn!!
-//                        it.speed = discList[0].speed!!
-//                        it.name = discList[0].name
-//                        it.fade = discList[0].fade!!
-//                        it.color = discList[0].color.toString()
-
                 Log.d("disc send data", "Sending data to GridDiscFragment")
-
-
             }
             findNavController().navigate(action)
-
         }
-
     }
 
 
